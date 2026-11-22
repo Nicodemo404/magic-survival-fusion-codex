@@ -1,5 +1,5 @@
 // Magic Survival — Fusion Codex (v0.9941) Service Worker
-const CACHE_NAME = 'fusion-codex-v09941-1';
+const CACHE_NAME = 'fusion-codex-v09941-v2';
 
 const APP_SHELL = [
   './',
