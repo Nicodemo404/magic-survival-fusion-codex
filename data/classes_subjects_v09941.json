@@ -1,0 +1,740 @@
+{
+  "meta": {
+    "game": "Magic Survival",
+    "version": "v0.9941",
+    "status": "skeleton_with_verified_core",
+    "verified_count": 2,
+    "total_classes": 25,
+    "total_subjects": 9,
+    "note": "Items marked verified:true are 100% locked from v0.9941 in-game screenshots. Items marked verified:false are ready to be updated directly from in-game screenshots without changing any app code."
+  },
+  "recommendation_rules": {
+    "single_focus_threshold": "If 1 fusion is pinned OR >=2 pinned fusions share the same Main Magic, rank the matching specialist class #1.",
+    "multi_fusion_rule": "If 2–3 pinned fusions have distinct Main Magics, rank Archmage / Archaeologist / Scholar as top universal picks alongside the highest-ranked Main Magic specialist.",
+    "scaling_overlap_bonus": "Boost subject & class score when their functional tags match the pinned build's dominant scaling tags (e.g., cdr_scaling, size_scaling, duration_scaling, crit_scaling)."
+  },
+  "classes": [
+    {
+      "id": "archmage",
+      "name": "Archmage",
+      "archetype": "universal",
+      "elements": [
+        "arcane"
+      ],
+      "functional": [
+        "crowd_clear",
+        "nuke_burst",
+        "cdr_scaling"
+      ],
+      "primary_magic_id": null,
+      "base_bonuses": [
+        "Start Level +3",
+        "Combination Magic Damage increases by 50%"
+      ],
+      "mastery_bonuses": [
+        "Magic Circle Lv +1",
+        "Silent Casting Lv +1",
+        "Increase Combination Magic Damage by 50%",
+        "Decrease All Magic Cooldown by 3% (All Classes)"
+      ],
+      "recommended_when": "Best all-around pick when running 2–3 different Main Magics; accelerates early Lv.25/50/75 spikes and scales every Combination Magic.",
+      "verified": true
+    },
+    {
+      "id": "archaeologist",
+      "name": "Archaeologist",
+      "archetype": "universal",
+      "elements": [
+        "void"
+      ],
+      "functional": [
+        "survival_utility",
+        "crowd_clear",
+        "nuke_burst"
+      ],
+      "primary_magic_id": null,
+      "base_bonuses": [
+        "Extra Treasure Chests / Artifact progression scaling (verify exact v0.9941 numbers)"
+      ],
+      "mastery_bonuses": [
+        "Additional Chest / Artifact Synergy scaling (verify in-game)"
+      ],
+      "recommended_when": "Top late-game meta class for long runs (45m+) where extra Legendary/Special Artifacts and Artifact Synergies outweigh single-spell bonuses.",
+      "verified": false
+    },
+    {
+      "id": "scholar",
+      "name": "Scholar",
+      "archetype": "universal",
+      "elements": [
+        "arcane"
+      ],
+      "functional": [
+        "survival_utility"
+      ],
+      "primary_magic_id": null,
+      "base_bonuses": [
+        "Bonus Magic Choices / Faster Leveling & EXP Gain (verify exact v0.9941 numbers)"
+      ],
+      "mastery_bonuses": [
+        "Additional Mana/EXP acquisition & Magic selection consistency (verify in-game)"
+      ],
+      "recommended_when": "Great for reliably hitting Lv.75/100 and assembling strict multi-fusion recipes with minimal RNG.",
+      "verified": false
+    },
+    {
+      "id": "black_mage",
+      "name": "Black Mage",
+      "archetype": "universal",
+      "elements": [
+        "void"
+      ],
+      "functional": [
+        "crowd_clear",
+        "explosion_aoe"
+      ],
+      "primary_magic_id": null,
+      "base_bonuses": [
+        "Corpse Explosion / Dark Magic execution scaling (verify exact v0.9941 numbers)"
+      ],
+      "mastery_bonuses": [
+        "Corpse Explosion trigger rate & damage bonuses (verify in-game)"
+      ],
+      "recommended_when": "Strong universal crowd-clear amplifier for dense late-game swarms.",
+      "verified": false
+    },
+    {
+      "id": "arcanist",
+      "name": "Arcanist",
+      "archetype": "universal",
+      "elements": [
+        "arcane",
+        "void"
+      ],
+      "functional": [
+        "nuke_burst",
+        "crowd_clear"
+      ],
+      "primary_magic_id": null,
+      "base_bonuses": [
+        "High risk/reward random magic selection with massive global Magic Damage amplification (verify in-game)"
+      ],
+      "mastery_bonuses": [
+        "Additional Magic Damage / Amplify ATK scaling (verify in-game)"
+      ],
+      "recommended_when": "High-ceiling challenge class for experienced players aiming for record runs.",
+      "verified": false
+    },
+    {
+      "id": "dark_wizard",
+      "name": "Dark Wizard",
+      "archetype": "universal",
+      "elements": [
+        "void"
+      ],
+      "functional": [
+        "explosion_aoe",
+        "crowd_clear"
+      ],
+      "primary_magic_id": null,
+      "base_bonuses": [
+        "Enemy death explosion & HP reduction synergy (verify exact v0.9941 numbers)"
+      ],
+      "mastery_bonuses": [
+        "Additional corpse-explosion & dark damage bonuses (verify in-game)"
+      ],
+      "recommended_when": "Pairs well with fast-killing AoE builds to chain-detonate enemy waves.",
+      "verified": false
+    },
+    {
+      "id": "electromancer",
+      "name": "Electromancer",
+      "archetype": "specialist",
+      "elements": [
+        "lightning"
+      ],
+      "functional": [
+        "orbital_aura",
+        "crowd_clear",
+        "size_scaling"
+      ],
+      "primary_magic_id": "electric_zone",
+      "base_bonuses": [
+        "Electric Zone Lv +1",
+        "Every time the character gains 5 levels, Electric Zone Damage 3% is added"
+      ],
+      "mastery_bonuses": [
+        "Electric Zone Lv +1",
+        "Decrease Electric Zone Damage Interval by 20%",
+        "Increase Electric Zone Size by 25%",
+        "Increase Electric Zone Damage by 20% (All Classes)"
+      ],
+      "recommended_when": "Best pick when your Main Magic is Electric Zone (Lightning Calibration, Meisner Effect, Destroyer, Frozen Heart).",
+      "verified": true
+    },
+    {
+      "id": "sorcerer",
+      "name": "Sorcerer",
+      "archetype": "specialist",
+      "elements": [
+        "lightning"
+      ],
+      "functional": [
+        "crowd_clear",
+        "rapid_fire",
+        "nuke_burst"
+      ],
+      "primary_magic_id": "electric_shock",
+      "base_bonuses": [
+        "Electric Shock Lv +1 & Electric Shock Damage/Count scaling (verify exact v0.9941 numbers)"
+      ],
+      "mastery_bonuses": [
+        "Electric Shock Cooldown / Number / Damage upgrades (verify in-game)"
+      ],
+      "recommended_when": "Top specialist for Electric Shock Main fusions (Current Overload, Heart of Lightning, Lightning Breath, Discharge).",
+      "verified": false
+    },
+    {
+      "id": "shaman",
+      "name": "Shaman",
+      "archetype": "specialist",
+      "elements": [
+        "lightning"
+      ],
+      "functional": [
+        "nuke_burst",
+        "explosion_aoe",
+        "cc_freeze_stun"
+      ],
+      "primary_magic_id": "thunderstorm",
+      "base_bonuses": [
+        "Thunderstorm Lv +1 & Thunderstorm Damage/Cooldown scaling (verify exact v0.9941 numbers)"
+      ],
+      "mastery_bonuses": [
+        "Thunderstorm Count / Damage / Cooldown upgrades (verify in-game)"
+      ],
+      "recommended_when": "Best pick for Thunderstorm Main fusions (Astrape, Empyrean Wrath, Lightning Bolts, Orbital Strike).",
+      "verified": false
+    },
+    {
+      "id": "wizard",
+      "name": "Wizard",
+      "archetype": "specialist",
+      "elements": [
+        "arcane"
+      ],
+      "functional": [
+        "rapid_fire",
+        "crowd_clear"
+      ],
+      "primary_magic_id": "magic_bolt",
+      "base_bonuses": [
+        "Magic Bolt Lv +1 & Magic Bolt Damage/Cooldown scaling (verify exact v0.9941 numbers)"
+      ],
+      "mastery_bonuses": [
+        "Magic Bolt Damage / Cooldown / Count upgrades (verify in-game)"
+      ],
+      "recommended_when": "Best pick for Magic Bolt Main fusions (Blaster, Avatar, Pyrotechnics).",
+      "verified": false
+    },
+    {
+      "id": "summoner",
+      "name": "Summoner",
+      "archetype": "specialist",
+      "elements": [
+        "arcane"
+      ],
+      "functional": [
+        "rapid_fire",
+        "cdr_scaling",
+        "nuke_burst"
+      ],
+      "primary_magic_id": "spirit",
+      "base_bonuses": [
+        "Spirit Lv +1 & Spirit Count/Damage/Cooldown scaling (verify exact v0.9941 numbers)"
+      ],
+      "mastery_bonuses": [
+        "Spirit Number / Cooldown / Damage upgrades (verify in-game)"
+      ],
+      "recommended_when": "S-tier specialist for Spirit Main fusions (Telekinetic Sword, Supernova, Mana Spear).",
+      "verified": false
+    },
+    {
+      "id": "pyromancer",
+      "name": "Pyromancer",
+      "archetype": "specialist",
+      "elements": [
+        "fire"
+      ],
+      "functional": [
+        "explosion_aoe",
+        "nuke_burst",
+        "size_scaling"
+      ],
+      "primary_magic_id": "fireball",
+      "base_bonuses": [
+        "Fireball Lv +1 & Fireball Damage/Size/Cooldown scaling (verify exact v0.9941 numbers)"
+      ],
+      "mastery_bonuses": [
+        "Fireball Count / Explosion Size / Damage upgrades (verify in-game)"
+      ],
+      "recommended_when": "Best pick for Fireball Main fusions (Black Death, Ghastly Rampage, Demon Equation).",
+      "verified": false
+    },
+    {
+      "id": "occultist",
+      "name": "Occultist",
+      "archetype": "specialist",
+      "elements": [
+        "arcane"
+      ],
+      "functional": [
+        "beam_laser",
+        "duration_scaling",
+        "nuke_burst"
+      ],
+      "primary_magic_id": "arcane_ray",
+      "base_bonuses": [
+        "Arcane Ray Lv +1 & Arcane Ray Damage/Count/Cooldown scaling (verify exact v0.9941 numbers)"
+      ],
+      "mastery_bonuses": [
+        "Arcane Ray Number / Duration / Damage upgrades (verify in-game)"
+      ],
+      "recommended_when": "Best pick for Arcane Ray Main fusions (Prism Spray, Terra Current, Plasma Ray, Genocide, Energy Bombardment).",
+      "verified": false
+    },
+    {
+      "id": "magician",
+      "name": "Magician",
+      "archetype": "specialist",
+      "elements": [
+        "arcane"
+      ],
+      "functional": [
+        "rapid_fire",
+        "explosion_aoe",
+        "duration_scaling"
+      ],
+      "primary_magic_id": "energy_bolt",
+      "base_bonuses": [
+        "Energy Bolt Lv +1 & Energy Bolt Count/Damage/Duration scaling (verify exact v0.9941 numbers)"
+      ],
+      "mastery_bonuses": [
+        "Energy Bolt Number / Damage / Cooldown upgrades (verify in-game)"
+      ],
+      "recommended_when": "Best pick for Energy Bolt Main fusions (Origin Explosion, Crazed Spray, Reaction).",
+      "verified": false
+    },
+    {
+      "id": "battle_mage",
+      "name": "Battle Mage",
+      "archetype": "specialist",
+      "elements": [
+        "arcane"
+      ],
+      "functional": [
+        "pierce_slash",
+        "nuke_burst",
+        "cdr_scaling"
+      ],
+      "primary_magic_id": "flash_shock",
+      "base_bonuses": [
+        "Flash Shock Lv +1 & Flash Shock Cooldown/Damage scaling (verify exact v0.9941 numbers)"
+      ],
+      "mastery_bonuses": [
+        "Flash Shock Cooldown / Size / Damage upgrades (verify in-game)"
+      ],
+      "recommended_when": "Top pick for Flash Shock Main fusions (Gate, Brandish, Exidium, Frenzy).",
+      "verified": false
+    },
+    {
+      "id": "warlord",
+      "name": "Warlord",
+      "archetype": "specialist",
+      "elements": [
+        "fire"
+      ],
+      "functional": [
+        "crowd_clear",
+        "nuke_burst",
+        "explosion_aoe"
+      ],
+      "primary_magic_id": "incineration",
+      "base_bonuses": [
+        "Incineration Lv +1 & Incineration Damage/Count/Cooldown scaling (verify exact v0.9941 numbers)"
+      ],
+      "mastery_bonuses": [
+        "Incineration Size / Count / Damage upgrades (verify in-game)"
+      ],
+      "recommended_when": "Best pick for Incineration Main fusions (Hellfire, Inferno, Breath of Fire).",
+      "verified": false
+    },
+    {
+      "id": "warlock",
+      "name": "Warlock",
+      "archetype": "specialist",
+      "elements": [
+        "fire"
+      ],
+      "functional": [
+        "nuke_burst",
+        "explosion_aoe",
+        "size_scaling"
+      ],
+      "primary_magic_id": "meteor",
+      "base_bonuses": [
+        "Meteor Lv +1 & Meteor Damage/Cooldown/Size scaling (verify exact v0.9941 numbers)"
+      ],
+      "mastery_bonuses": [
+        "Meteor Cooldown / Size / Damage upgrades (verify in-game)"
+      ],
+      "recommended_when": "Best pick for Meteor Main fusions (War Climate, Flame Storm, Great Impact).",
+      "verified": false
+    },
+    {
+      "id": "astronomer",
+      "name": "Astronomer",
+      "archetype": "specialist",
+      "elements": [
+        "cosmic"
+      ],
+      "functional": [
+        "orbital_aura",
+        "size_scaling",
+        "crit_scaling"
+      ],
+      "primary_magic_id": "satellite",
+      "base_bonuses": [
+        "Satellite Lv +1 & Satellite Number/Size/Damage scaling (verify exact v0.9941 numbers)"
+      ],
+      "mastery_bonuses": [
+        "Satellite Count / Rotation Speed / Damage upgrades (verify in-game)"
+      ],
+      "recommended_when": "Best pick for Satellite Main fusions (Hyperion, Soul Blade, Magnetic Field).",
+      "verified": false
+    },
+    {
+      "id": "druid",
+      "name": "Druid",
+      "archetype": "specialist",
+      "elements": [
+        "storm"
+      ],
+      "functional": [
+        "crowd_clear",
+        "duration_scaling",
+        "count_scaling"
+      ],
+      "primary_magic_id": "cyclone",
+      "base_bonuses": [
+        "Cyclone Lv +1 & Cyclone Count/Duration/Damage scaling (verify exact v0.9941 numbers)"
+      ],
+      "mastery_bonuses": [
+        "Cyclone Number / Cooldown / Damage upgrades (verify in-game)"
+      ],
+      "recommended_when": "Best pick for Cyclone Main fusions (Neutron Generation, Black Hole, Vortex, Ruler of Storms, Super Cyclone).",
+      "verified": false
+    },
+    {
+      "id": "mage_blizzard",
+      "name": "Elementalist",
+      "archetype": "specialist",
+      "elements": [
+        "ice"
+      ],
+      "functional": [
+        "cc_freeze_stun",
+        "nuke_burst",
+        "explosion_aoe"
+      ],
+      "primary_magic_id": "blizzard",
+      "base_bonuses": [
+        "Blizzard Lv +1 & Blizzard Damage/Cooldown scaling (verify exact v0.9941 numbers)"
+      ],
+      "mastery_bonuses": [
+        "Blizzard Count / Cooldown / Damage upgrades (verify in-game)"
+      ],
+      "recommended_when": "Best pick for Blizzard Main fusions (Genesis, Ether Blaze, Winter Storm).",
+      "verified": false
+    },
+    {
+      "id": "cryomancer",
+      "name": "Cryomancer",
+      "archetype": "specialist",
+      "elements": [
+        "ice"
+      ],
+      "functional": [
+        "cc_freeze_stun",
+        "crowd_clear",
+        "size_scaling"
+      ],
+      "primary_magic_id": "frost_nova",
+      "base_bonuses": [
+        "Frost Nova Lv +1 & Frost Nova Cooldown/Size/Damage scaling (verify exact v0.9941 numbers)"
+      ],
+      "mastery_bonuses": [
+        "Frost Nova Cooldown / Freeze / Damage upgrades (verify in-game)"
+      ],
+      "recommended_when": "Best pick for Frost Nova Main fusions (Snowflake Blossom, Great Rift).",
+      "verified": false
+    },
+    {
+      "id": "sea_king",
+      "name": "Invoker / Tsunami Class",
+      "archetype": "specialist",
+      "elements": [
+        "storm",
+        "ice"
+      ],
+      "functional": [
+        "crowd_clear",
+        "nuke_burst"
+      ],
+      "primary_magic_id": "tsunami",
+      "base_bonuses": [
+        "Tsunami Lv +1 & Tsunami Damage/Cooldown scaling (verify exact v0.9941 class name & numbers)"
+      ],
+      "mastery_bonuses": [
+        "Tsunami Number / Cooldown / Damage upgrades (verify in-game)"
+      ],
+      "recommended_when": "Best pick for Tsunami Main fusions (Phoenix, Glacium, Great Flood).",
+      "verified": false
+    },
+    {
+      "id": "alchemist",
+      "name": "Alchemist",
+      "archetype": "specialist",
+      "elements": [
+        "fire"
+      ],
+      "functional": [
+        "crowd_clear",
+        "duration_scaling",
+        "explosion_aoe"
+      ],
+      "primary_magic_id": "lava_zone",
+      "base_bonuses": [
+        "Lava Zone Lv +1 & Lava Zone Size/Duration/Damage scaling (verify exact v0.9941 numbers)"
+      ],
+      "mastery_bonuses": [
+        "Lava Zone Cooldown / Duration / Damage upgrades (verify in-game)"
+      ],
+      "recommended_when": "Best pick for Lava Zone Main fusions (Age of the Sun, Furnace).",
+      "verified": false
+    },
+    {
+      "id": "bishop",
+      "name": "Bishop",
+      "archetype": "specialist",
+      "elements": [
+        "void",
+        "arcane"
+      ],
+      "functional": [
+        "survival_utility",
+        "nuke_burst",
+        "size_scaling"
+      ],
+      "primary_magic_id": "shield",
+      "base_bonuses": [
+        "Shield Lv +1 & Shield Cooldown/Charge/Explosion scaling (verify exact v0.9941 numbers)"
+      ],
+      "mastery_bonuses": [
+        "Shield Cooldown & Defensive/Photon Explosion bonuses (verify in-game)"
+      ],
+      "recommended_when": "Key meta specialist for Shield/Photon Explosion runs and high-survivability builds.",
+      "verified": false
+    },
+    {
+      "id": "arbiter",
+      "name": "Arbiter / Cloaking Class",
+      "archetype": "specialist",
+      "elements": [
+        "void"
+      ],
+      "functional": [
+        "survival_utility",
+        "duration_scaling",
+        "nuke_burst"
+      ],
+      "primary_magic_id": "cloaking",
+      "base_bonuses": [
+        "Cloaking Lv +1 & Cloaking Duration/Cooldown scaling (verify exact v0.9941 class name & numbers)"
+      ],
+      "mastery_bonuses": [
+        "Cloaking Cooldown / Duration upgrades (verify in-game)"
+      ],
+      "recommended_when": "Best pick for Teleport (Cloaking Main) builds and survival-focused late-game setups.",
+      "verified": false
+    }
+  ],
+  "subjects": [
+    {
+      "id": "subject_archmage",
+      "name": "Archmage",
+      "archetype": "universal",
+      "elements": [
+        "arcane"
+      ],
+      "functional": [
+        "cdr_scaling",
+        "crowd_clear",
+        "nuke_burst"
+      ],
+      "synergy_magics": [],
+      "starting_artifact_hint": "Black Cat (Cooldown Reduction) — verify exact v0.9941 artifact",
+      "recommended_when": "Universal top pick for almost any CDR-hungry build (Telekinetic Sword, Brandish, Gate, Black Death).",
+      "verified": false
+    },
+    {
+      "id": "subject_jack_o_lantern",
+      "name": "Jack O'Lantern",
+      "archetype": "universal",
+      "elements": [
+        "void"
+      ],
+      "functional": [
+        "survival_utility",
+        "crowd_clear"
+      ],
+      "synergy_magics": [],
+      "starting_artifact_hint": "Lantern / Pickup & Mana acquisition — verify exact v0.9941 artifact",
+      "recommended_when": "Great for fast early leveling and smooth economy.",
+      "verified": false
+    },
+    {
+      "id": "subject_demon",
+      "name": "Demon",
+      "archetype": "universal",
+      "elements": [
+        "fire",
+        "void"
+      ],
+      "functional": [
+        "nuke_burst",
+        "crit_scaling"
+      ],
+      "synergy_magics": [],
+      "starting_artifact_hint": "ATK / Crit offensive starter — verify exact v0.9941 artifact",
+      "recommended_when": "Strong raw damage & crit scaling (especially Soul Blade or high-multiplier nukes).",
+      "verified": false
+    },
+    {
+      "id": "subject_spirit",
+      "name": "Spirit",
+      "archetype": "specialist",
+      "elements": [
+        "arcane"
+      ],
+      "functional": [
+        "rapid_fire",
+        "cdr_scaling"
+      ],
+      "synergy_magics": [
+        "spirit"
+      ],
+      "starting_artifact_hint": "Firefly / Spirit count starter — verify exact v0.9941 artifact",
+      "recommended_when": "Best subject when running Spirit Main fusions (Telekinetic Sword, Supernova, Mana Spear).",
+      "verified": false
+    },
+    {
+      "id": "subject_wizard",
+      "name": "Wizard",
+      "archetype": "specialist",
+      "elements": [
+        "arcane"
+      ],
+      "functional": [
+        "rapid_fire",
+        "crowd_clear"
+      ],
+      "synergy_magics": [
+        "magic_bolt"
+      ],
+      "starting_artifact_hint": "Magic Bullet / Magic Bolt starter — verify exact v0.9941 artifact",
+      "recommended_when": "Best subject for Magic Bolt Main builds (Blaster, Avatar, Pyrotechnics).",
+      "verified": false
+    },
+    {
+      "id": "subject_pyromancer",
+      "name": "Pyromancer",
+      "archetype": "specialist",
+      "elements": [
+        "fire"
+      ],
+      "functional": [
+        "explosion_aoe",
+        "size_scaling"
+      ],
+      "synergy_magics": [
+        "fireball",
+        "meteor",
+        "incineration",
+        "lava_zone"
+      ],
+      "starting_artifact_hint": "Cauldron / Fire damage starter — verify exact v0.9941 artifact",
+      "recommended_when": "Ideal for Fire-element builds (Black Death, Hellfire, Inferno, Origin Explosion).",
+      "verified": false
+    },
+    {
+      "id": "subject_electromancer",
+      "name": "Electromancer",
+      "archetype": "specialist",
+      "elements": [
+        "lightning"
+      ],
+      "functional": [
+        "crowd_clear",
+        "orbital_aura"
+      ],
+      "synergy_magics": [
+        "electric_shock",
+        "electric_zone",
+        "thunderstorm"
+      ],
+      "starting_artifact_hint": "Battery / Electric damage starter — verify exact v0.9941 artifact",
+      "recommended_when": "Ideal for Lightning-element builds (Current Overload, Heart of Lightning, Astrape, Lightning Calibration).",
+      "verified": false
+    },
+    {
+      "id": "subject_cryomancer",
+      "name": "Cryomancer",
+      "archetype": "specialist",
+      "elements": [
+        "ice"
+      ],
+      "functional": [
+        "cc_freeze_stun",
+        "crowd_clear"
+      ],
+      "synergy_magics": [
+        "frost_nova",
+        "blizzard",
+        "tsunami"
+      ],
+      "starting_artifact_hint": "Snowman / Ice & Freeze starter — verify exact v0.9941 artifact",
+      "recommended_when": "Ideal for Ice/Freeze builds (Snowflake Blossom, Glacium, Genesis, Great Rift).",
+      "verified": false
+    },
+    {
+      "id": "subject_astronomer",
+      "name": "Astronomer",
+      "archetype": "specialist",
+      "elements": [
+        "cosmic"
+      ],
+      "functional": [
+        "orbital_aura",
+        "size_scaling"
+      ],
+      "synergy_magics": [
+        "satellite",
+        "arcane_ray"
+      ],
+      "starting_artifact_hint": "Core Energy / Satellite starter — verify exact v0.9941 artifact",
+      "recommended_when": "Ideal for Satellite & Orbital builds (Hyperion, Soul Blade, Plasma Ray).",
+      "verified": false
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "name": "Magic Survival — Fusion Codex",
+  "short_name": "Fusion Codex",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#07090d",
+  "theme_color": "#07090d",
+  "description": "Offline-First Fusion Codex & 3-Slot Build Planner for Magic Survival v0.9941.",
+  "orientation": "portrait",
+  "categories": ["games", "utilities"],
+  "icons": [
+    {
+      "src": "./assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./assets/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

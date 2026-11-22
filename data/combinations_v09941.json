@@ -1,0 +1,2258 @@
+{
+  "meta": {
+    "app_name": "Magic Survival — Fusion Codex",
+    "game_version": "v0.9941",
+    "total_combinations": 59,
+    "terminology": {
+      "combination": {
+        "in_game": "Magic Combination",
+        "community": "Fusion / Combo"
+      },
+      "attribute": {
+        "in_game": "Attribute",
+        "community": "Trait / Lv.7 Upgrade"
+      },
+      "main": {
+        "in_game": "Main Magic",
+        "community": "Primary / Base (Green — Artifact Scaled)"
+      },
+      "material": {
+        "in_game": "Material Magic",
+        "community": "Sacrifice / Secondary (Red — Consumed)"
+      }
+    },
+    "combination_unlock_levels": [
+      25,
+      50,
+      75
+    ],
+    "categories": {
+      "aoe": "AoE & Crowd Clear",
+      "nuke": "Nuke & Burst Cooldown"
+    },
+    "planned_modules": [
+      "artifacts_v2",
+      "magic_circle_and_dem",
+      "class_subject_synergy"
+    ]
+  },
+  "base_magics": [
+    {
+      "id": "magic_bolt",
+      "name": "Magic Bolt",
+      "type": "offensive",
+      "max_level": 7,
+      "attribute_tiers": [
+        {
+          "level": 4,
+          "attributes": [
+            "Magic Arrow",
+            "Split",
+            "Fireworks"
+          ]
+        },
+        {
+          "level": 7,
+          "attributes": [
+            "Doppelganger",
+            "Fire at Will",
+            "Continuous Cast"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "spirit",
+      "name": "Spirit",
+      "type": "offensive",
+      "max_level": 7,
+      "attribute_tiers": [
+        {
+          "level": 7,
+          "attributes": [
+            "Magic Missile",
+            "Familiar",
+            "Magic Blade"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fireball",
+      "name": "Fireball",
+      "type": "offensive",
+      "max_level": 7,
+      "attribute_tiers": [
+        {
+          "level": 7,
+          "attributes": [
+            "Toxic Gas",
+            "Big Bang",
+            "Constellation"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "energy_bolt",
+      "name": "Energy Bolt",
+      "type": "offensive",
+      "max_level": 7,
+      "attribute_tiers": [
+        {
+          "level": 7,
+          "attributes": [
+            "Flare",
+            "Charged Particle",
+            "Spark"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "electric_shock",
+      "name": "Electric Shock",
+      "type": "offensive",
+      "max_level": 7,
+      "attribute_tiers": [
+        {
+          "level": 7,
+          "attributes": [
+            "Chain Lightning",
+            "Superconductivity",
+            "High Output"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "electric_zone",
+      "name": "Electric Zone",
+      "type": "offensive",
+      "max_level": 7,
+      "attribute_tiers": [
+        {
+          "level": 7,
+          "attributes": [
+            "Electricity Blast",
+            "Fire Aura",
+            "EMP"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "thunderstorm",
+      "name": "Thunderstorm",
+      "type": "offensive",
+      "max_level": 7,
+      "attribute_tiers": [
+        {
+          "level": 7,
+          "attributes": [
+            "Judgment",
+            "Lightning Explosion",
+            "Thunderclap"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meteor",
+      "name": "Meteor",
+      "type": "offensive",
+      "max_level": 7,
+      "attribute_tiers": [
+        {
+          "level": 7,
+          "attributes": [
+            "Asteroid",
+            "Meteor Shower",
+            "Volcanic Eruption"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "satellite",
+      "name": "Satellite",
+      "type": "offensive",
+      "max_level": 7,
+      "attribute_tiers": [
+        {
+          "level": 7,
+          "attributes": [
+            "Will o' the Wisp",
+            "Nuclear Fusion",
+            "Anti-Gravity"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "arcane_ray",
+      "name": "Arcane Ray",
+      "type": "offensive",
+      "max_level": 7,
+      "attribute_tiers": [
+        {
+          "level": 7,
+          "attributes": [
+            "Electromagnetic Burst",
+            "Reflect",
+            "Disintegration Ray"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "flash_shock",
+      "name": "Flash Shock",
+      "type": "offensive",
+      "max_level": 7,
+      "attribute_tiers": [
+        {
+          "level": 7,
+          "attributes": [
+            "Ragnarok",
+            "Wipeout",
+            "Satan's Nails"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "incineration",
+      "name": "Incineration",
+      "type": "offensive",
+      "max_level": 7,
+      "attribute_tiers": [
+        {
+          "level": 7,
+          "attributes": [
+            "Flamestrike",
+            "Cerberus Flame",
+            "Pyromaniac"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "blizzard",
+      "name": "Blizzard",
+      "type": "offensive",
+      "max_level": 7,
+      "attribute_tiers": [
+        {
+          "level": 7,
+          "attributes": [
+            "Sub-Zero",
+            "Shooting Star",
+            "Conflagration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "frost_nova",
+      "name": "Frost Nova",
+      "type": "offensive",
+      "max_level": 7,
+      "attribute_tiers": [
+        {
+          "level": 7,
+          "attributes": [
+            "Absolute Zero",
+            "Ice Age",
+            "Earthquake"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tsunami",
+      "name": "Tsunami",
+      "type": "offensive",
+      "max_level": 7,
+      "attribute_tiers": [
+        {
+          "level": 7,
+          "attributes": [
+            "Pole",
+            "Siren's Song",
+            "Great Eruption"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cyclone",
+      "name": "Cyclone",
+      "type": "offensive",
+      "max_level": 7,
+      "attribute_tiers": [
+        {
+          "level": 7,
+          "attributes": [
+            "Void",
+            "Extreme Weather",
+            "Electric Orb"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lava_zone",
+      "name": "Lava Zone",
+      "type": "offensive",
+      "max_level": 7,
+      "attribute_tiers": [
+        {
+          "level": 7,
+          "attributes": [
+            "Melt",
+            "Crater",
+            "Magma Eruption"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "shield",
+      "name": "Shield",
+      "type": "utility",
+      "max_level": 5,
+      "attribute_tiers": [
+        {
+          "level": 5,
+          "attributes": [
+            "Barrier",
+            "Destruction Field",
+            "Reconstruct"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cloaking",
+      "name": "Cloaking",
+      "type": "utility",
+      "max_level": 5,
+      "attribute_tiers": [
+        {
+          "level": 5,
+          "attributes": [
+            "Mirage",
+            "Soul Harvest",
+            "Space Warp"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "armageddon",
+      "name": "Armageddon",
+      "type": "utility",
+      "max_level": 5,
+      "attribute_tiers": [
+        {
+          "level": 5,
+          "attributes": [
+            "Apocalypse",
+            "Rapture",
+            "Eschatology"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "arcane_effuse",
+      "name": "Arcane Effuse",
+      "type": "passive",
+      "max_level": 3,
+      "attribute_tiers": [
+        {
+          "level": 3,
+          "attributes": [
+            "Max Level"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "concentration",
+      "name": "Concentration",
+      "type": "passive",
+      "max_level": 3,
+      "attribute_tiers": [
+        {
+          "level": 3,
+          "attributes": [
+            "Max Level"
+          ]
+        }
+      ]
+    }
+  ],
+  "combinations": [
+    {
+      "id": "telekinetic_sword",
+      "name": "Telekinetic Sword",
+      "category": "aoe",
+      "rank": 1,
+      "tier": "S",
+      "main": {
+        "magic_id": "spirit",
+        "attribute": "Magic Blade",
+        "level": 7
+      },
+      "material": {
+        "magic_id": "electric_shock",
+        "attribute": "Chain Lightning",
+        "level": 7
+      },
+      "mechanics": [
+        "Spirit projectiles cut through enemies faster and become longer.",
+        "For every 0.15 seconds reduction in Spirit cooldown, Damage Multiplier increases by 1.",
+        "For every 0.15 seconds reduction in Spirit cooldown, Attack Count increases by 1."
+      ],
+      "buffs": [
+        "Increase Spirit Damage by 3X"
+      ],
+      "penalties": [],
+      "source_file": "Screenshot_2026-11-22-18-54-55-032_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/telekinetic_sword.webp",
+      "card_path": "./assets/cards/telekinetic_sword.webp",
+      "raw_path": "./assets/cards/telekinetic_sword.webp"
+    },
+    {
+      "id": "blaster",
+      "name": "Blaster",
+      "category": "aoe",
+      "rank": 2,
+      "tier": "S",
+      "main": {
+        "magic_id": "magic_bolt",
+        "attribute": "Magic Arrow",
+        "level": 4
+      },
+      "material": {
+        "magic_id": "flash_shock",
+        "attribute": "Wipeout",
+        "level": 7
+      },
+      "mechanics": [
+        "The 6th Magic Bolt fired has 7X power."
+      ],
+      "buffs": [
+        "Increase Magic Bolt Damage by 5X",
+        "Magic Bolt Size increases by 50%"
+      ],
+      "penalties": [],
+      "source_file": "Screenshot_2026-11-22-18-56-22-162_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/blaster.webp",
+      "card_path": "./assets/cards/blaster.webp",
+      "raw_path": "./assets/cards/blaster.webp"
+    },
+    {
+      "id": "current_overload",
+      "name": "Current Overload",
+      "category": "aoe",
+      "rank": 3,
+      "tier": "S",
+      "main": {
+        "magic_id": "electric_shock",
+        "attribute": "Chain Lightning",
+        "level": 7
+      },
+      "material": {
+        "magic_id": "spirit",
+        "attribute": "Familiar",
+        "level": 7
+      },
+      "mechanics": [
+        "Electric Shocks no longer chain, but are created 3 to 7 times in a row.",
+        "Electric Shock has longer range."
+      ],
+      "buffs": [
+        "Increase Electric Shock Damage by 8X"
+      ],
+      "penalties": [],
+      "source_file": "Screenshot_2026-11-22-18-55-28-858_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/current_overload.webp",
+      "card_path": "./assets/cards/current_overload.webp",
+      "raw_path": "./assets/cards/current_overload.webp"
+    },
+    {
+      "id": "prism_spray",
+      "name": "Prism Spray",
+      "category": "aoe",
+      "rank": 4,
+      "tier": "S",
+      "main": {
+        "magic_id": "arcane_ray",
+        "attribute": "Reflect",
+        "level": 7
+      },
+      "material": {
+        "magic_id": "magic_bolt",
+        "attribute": "Fire at Will",
+        "level": 7
+      },
+      "mechanics": [
+        "Instead of creating Arcane Rays on the opposite side, they are created at the same time in random directions 5 times in a row.",
+        "The Arcane Ray's Duration is converted into its Damage."
+      ],
+      "buffs": [
+        "Increase Arcane Ray Damage by 7X",
+        "Decrease Arcane Ray Cooldown by 25%"
+      ],
+      "penalties": [],
+      "source_file": "Screenshot_2026-11-22-18-55-39-541_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/prism_spray.webp",
+      "card_path": "./assets/cards/prism_spray.webp",
+      "raw_path": "./assets/cards/prism_spray.webp"
+    },
+    {
+      "id": "terra_current",
+      "name": "Terra Current",
+      "category": "aoe",
+      "rank": 5,
+      "tier": "S",
+      "main": {
+        "magic_id": "arcane_ray",
+        "attribute": "Electromagnetic Burst",
+        "level": 7
+      },
+      "material": {
+        "magic_id": "electric_shock",
+        "attribute": "Superconductivity",
+        "level": 7
+      },
+      "mechanics": [
+        "Arcane Rays can attack targets in a wider range.",
+        "Arcane Rays switch directions every 0.5 seconds.",
+        "Arcane Ray gains 1X Damage Multiplier for every 1 sec of duration."
+      ],
+      "buffs": [
+        "Increase Arcane Ray Damage by 4X",
+        "Decrease Arcane Ray Cooldown by 50%"
+      ],
+      "penalties": [],
+      "source_file": "Screenshot_2026-11-22-18-54-57-181_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/terra_current.webp",
+      "card_path": "./assets/cards/terra_current.webp",
+      "raw_path": "./assets/cards/terra_current.webp"
+    },
+    {
+      "id": "avatar",
+      "name": "Avatar",
+      "category": "aoe",
+      "rank": 6,
+      "tier": "S",
+      "main": {
+        "magic_id": "magic_bolt",
+        "attribute": "Doppelganger",
+        "level": 7
+      },
+      "material": {
+        "magic_id": "spirit",
+        "attribute": "Magic Missile",
+        "level": 7
+      },
+      "mechanics": [
+        "Summon 3 additional Mirages that fire Magic Bolts.",
+        "Mirages only fire 1 Magic Bolt at a time.",
+        "Each Magic Bolt increases Damage by 33%."
+      ],
+      "buffs": [
+        "Increase Magic Bolt Damage by 9.99X",
+        "Decrease Magic Bolt Cooldown by 33%"
+      ],
+      "penalties": [],
+      "source_file": "Screenshot_2026-11-22-18-55-48-260_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/avatar.webp",
+      "card_path": "./assets/cards/avatar.webp",
+      "raw_path": "./assets/cards/avatar.webp"
+    },
+    {
+      "id": "brandish",
+      "name": "Brandish",
+      "category": "aoe",
+      "rank": 7,
+      "tier": "S",
+      "main": {
+        "magic_id": "flash_shock",
+        "attribute": "Wipeout",
+        "level": 7
+      },
+      "material": {
+        "magic_id": "spirit",
+        "attribute": "Magic Blade",
+        "level": 7
+      },
+      "mechanics": [
+        "Flash Shock generates consecutively 7 times in all directions; for each cooldown reduction from 5 seconds to 0.5 seconds, Count increases by 1.",
+        "Flash Shock deals damage only at the Core."
+      ],
+      "buffs": [
+        "Decrease Flash Shock Cooldown by 50%"
+      ],
+      "penalties": [],
+      "source_file": "Screenshot_2026-11-22-18-56-14-771_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/brandish.webp",
+      "card_path": "./assets/cards/brandish.webp",
+      "raw_path": "./assets/cards/brandish.webp"
+    },
+    {
+      "id": "pyrotechnics",
+      "name": "Pyrotechnics",
+      "category": "aoe",
+      "rank": 8,
+      "tier": "A",
+      "main": {
+        "magic_id": "magic_bolt",
+        "attribute": "Fireworks",
+        "level": 4
+      },
+      "material": {
+        "magic_id": "energy_bolt",
+        "attribute": "Flare",
+        "level": 7
+      },
+      "mechanics": [
+        "Magic Bolt explodes at random locations.",
+        "Magic Bolt explosions expand, dealing 1-9X power."
+      ],
+      "buffs": [
+        "Increase Magic Bolt Damage by 5X",
+        "Magic Bolt Size increases by 50%"
+      ],
+      "penalties": [],
+      "source_file": "Screenshot_2026-11-22-18-56-02-460_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/pyrotechnics.webp",
+      "card_path": "./assets/cards/pyrotechnics.webp",
+      "raw_path": "./assets/cards/pyrotechnics.webp"
+    },
+    {
+      "id": "snowflake_blossom",
+      "name": "Snowflake Blossom",
+      "category": "aoe",
+      "rank": 9,
+      "tier": "A",
+      "main": {
+        "magic_id": "frost_nova",
+        "attribute": "Ice Age",
+        "level": 7
+      },
+      "material": {
+        "magic_id": "tsunami",
+        "attribute": "Pole",
+        "level": 7
+      },
+      "mechanics": [
+        "Frost Nova explodes consecutively 24 times near enemies, reducing Damage and Size by 2% per explosion."
+      ],
+      "buffs": [
+        "Increase Frost Nova Damage by 24X",
+        "Decrease Frost Nova Cooldown by 30%"
+      ],
+      "penalties": [],
+      "source_file": "Screenshot_2026-11-22-18-55-33-490_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/snowflake_blossom.webp",
+      "card_path": "./assets/cards/snowflake_blossom.webp",
+      "raw_path": "./assets/cards/snowflake_blossom.webp"
+    },
+    {
+      "id": "phoenix",
+      "name": "Phoenix",
+      "category": "aoe",
+      "rank": 10,
+      "tier": "A",
+      "main": {
+        "magic_id": "tsunami",
+        "attribute": "Great Eruption",
+        "level": 7
+      },
+      "material": {
+        "magic_id": "blizzard",
+        "attribute": "Conflagration",
+        "level": 7
+      },
+      "mechanics": [
+        "Tsunami is generated behind the character.",
+        "Tsunami leaves behind Flames along its path.",
+        "Revival count increases by 1."
+      ],
+      "buffs": [
+        "Increase Tsunami Damage by 24X",
+        "Decrease Tsunami Cooldown by 30%"
+      ],
+      "penalties": [
+        "Decrease the number of Tsunamis by 50%"
+      ],
+      "source_file": "Screenshot_2026-11-22-18-56-12-392_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/phoenix.webp",
+      "card_path": "./assets/cards/phoenix.webp",
+      "raw_path": "./assets/cards/phoenix.webp"
+    },
+    {
+      "id": "heart_of_lightning",
+      "name": "Heart of Lightning",
+      "category": "aoe",
+      "rank": 11,
+      "tier": "A",
+      "main": {
+        "magic_id": "electric_shock",
+        "attribute": "Chain Lightning",
+        "level": 7
+      },
+      "material": {
+        "magic_id": "energy_bolt",
+        "attribute": "Charged Particle",
+        "level": 7
+      },
+      "mechanics": [
+        "Every time Electric Shock is chained, the projectile splits in 2 and their Damage and Size is decreased by 20%.",
+        "Electric Shock is chained at a higher speed."
+      ],
+      "buffs": [
+        "Increase Electric Shock Damage by 8X"
+      ],
+      "penalties": [],
+      "source_file": "Screenshot_2026-11-22-18-55-50-282_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/heart_of_lightning.webp",
+      "card_path": "./assets/cards/heart_of_lightning.webp",
+      "raw_path": "./assets/cards/heart_of_lightning.webp"
+    },
+    {
+      "id": "exidium",
+      "name": "Exidium",
+      "category": "aoe",
+      "rank": 12,
+      "tier": "A",
+      "main": {
+        "magic_id": "flash_shock",
+        "attribute": "Wipeout",
+        "level": 7
+      },
+      "material": {
+        "magic_id": "armageddon",
+        "attribute": "Rapture",
+        "level": 5
+      },
+      "mechanics": [
+        "Flash Shock core size increases."
+      ],
+      "buffs": [
+        "Increase Flash Shock Damage by 7X",
+        "Increase Flash Shock Size by 100%",
+        "Decrease Flash Shock Cooldown by 50%"
+      ],
+      "penalties": [],
+      "source_file": "Screenshot_2026-11-22-18-56-29-173_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/exidium.webp",
+      "card_path": "./assets/cards/exidium.webp",
+      "raw_path": "./assets/cards/exidium.webp"
+    },
+    {
+      "id": "plasma_ray",
+      "name": "Plasma Ray",
+      "category": "aoe",
+      "rank": 13,
+      "tier": "A",
+      "main": {
+        "magic_id": "arcane_ray",
+        "attribute": "Disintegration Ray",
+        "level": 7
+      },
+      "material": {
+        "magic_id": "satellite",
+        "attribute": "Nuclear Fusion",
+        "level": 7
+      },
+      "mechanics": [
+        "Arcane Ray is fixed at 4 and becomes permanent; for each 1-second reduction from 4 seconds cooldown, 1 Ray is added.",
+        "Arcane Ray Size and Duration are converted into Damage.",
+        "Arcane Ray deals damage every 0.25 seconds.",
+        "Arcane Ray Damage Multiplier increases by 1 per count."
+      ],
+      "buffs": [],
+      "penalties": [],
+      "source_file": "Screenshot_2026-11-22-18-55-19-716_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/plasma_ray.webp",
+      "card_path": "./assets/cards/plasma_ray.webp",
+      "raw_path": "./assets/cards/plasma_ray.webp"
+    },
+    {
+      "id": "lightning_breath",
+      "name": "Lightning Breath",
+      "category": "aoe",
+      "rank": 14,
+      "tier": "A",
+      "main": {
+        "magic_id": "electric_shock",
+        "attribute": "Superconductivity",
+        "level": 7
+      },
+      "material": {
+        "magic_id": "incineration",
+        "attribute": "Flamestrike",
+        "level": 7
+      },
+      "mechanics": [
+        "Electric Shocks are generated in front of the character by 3."
+      ],
+      "buffs": [
+        "Increase Electric Shock Damage by 7X",
+        "Electric Shock number increased by 2X"
+      ],
+      "penalties": [
+        "Increase Electric Shock Cooldown by 50%"
+      ],
+      "source_file": "Screenshot_2026-11-22-18-56-10-880_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/lightning_breath.webp",
+      "card_path": "./assets/cards/lightning_breath.webp",
+      "raw_path": "./assets/cards/lightning_breath.webp"
+    },
+    {
+      "id": "hyperion",
+      "name": "Hyperion",
+      "category": "aoe",
+      "rank": 15,
+      "tier": "A",
+      "main": {
+        "magic_id": "satellite",
+        "attribute": "Nuclear Fusion",
+        "level": 7
+      },
+      "material": {
+        "magic_id": "meteor",
+        "attribute": "Asteroid",
+        "level": 7
+      },
+      "mechanics": [
+        "An integrated Satellite is additionally generated on the opposite side; its Damage is 20% lower but causes Freeze on the first hit.",
+        "Damage increases proportionally to Satellite size."
+      ],
+      "buffs": [
+        "Increase Satellite Damage Multiplier by 50%",
+        "Increase Satellite Rotation Speed by 50%"
+      ],
+      "penalties": [],
+      "source_file": "Screenshot_2026-11-22-18-55-43-465_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/hyperion.webp",
+      "card_path": "./assets/cards/hyperion.webp",
+      "raw_path": "./assets/cards/hyperion.webp"
+    },
+    {
+      "id": "soul_blade",
+      "name": "Soul Blade",
+      "category": "aoe",
+      "rank": 16,
+      "tier": "A",
+      "main": {
+        "magic_id": "satellite",
+        "attribute": "Will o' the Wisp",
+        "level": 7
+      },
+      "material": {
+        "magic_id": "spirit",
+        "attribute": "Magic Blade",
+        "level": 7
+      },
+      "mechanics": [
+        "Satellite transforms into a blade and rotates much faster.",
+        "Damage Multiplier and Rotation Speed increase in proportion to Satellite Critical Rate."
+      ],
+      "buffs": [
+        "Increase Satellite Damage by 5X"
+      ],
+      "penalties": [],
+      "source_file": "Screenshot_2026-11-22-18-56-32-839_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/soul_blade.webp",
+      "card_path": "./assets/cards/soul_blade.webp",
+      "raw_path": "./assets/cards/soul_blade.webp"
+    },
+    {
+      "id": "ghastly_rampage",
+      "name": "Ghastly Rampage",
+      "category": "aoe",
+      "rank": 17,
+      "tier": "A",
+      "main": {
+        "magic_id": "fireball",
+        "attribute": "Constellation",
+        "level": 7
+      },
+      "material": {
+        "magic_id": "satellite",
+        "attribute": "Will o' the Wisp",
+        "level": 7
+      },
+      "mechanics": [
+        "Fireball pierces all enemies and moves randomly.",
+        "Fireball explodes with 3X power only when it disappears.",
+        "Fireball Damage increases proportionally to its duration.",
+        "Fireball Pierce value 1 increases Damage Multiplier by 3."
+      ],
+      "buffs": [
+        "Increase Fireball Damage by 4X",
+        "Decrease Fireball Cooldown by 33%"
+      ],
+      "penalties": [],
+      "source_file": "Screenshot_2026-11-22-18-55-04-124_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/ghastly_rampage.webp",
+      "card_path": "./assets/cards/ghastly_rampage.webp",
+      "raw_path": "./assets/cards/ghastly_rampage.webp"
+    },
+    {
+      "id": "crazed_spray",
+      "name": "Crazed Spray",
+      "category": "aoe",
+      "rank": 18,
+      "tier": "B",
+      "main": {
+        "magic_id": "energy_bolt",
+        "attribute": "Charged Particle",
+        "level": 7
+      },
+      "material": {
+        "magic_id": "spirit",
+        "attribute": "Familiar",
+        "level": 7
+      },
+      "mechanics": [
+        "Energy Bolts split into 4 and fire in all directions.",
+        "Energy Bolt projectiles continue moving forwards."
+      ],
+      "buffs": [
+        "Increase Energy Bolt Damage by 10X",
+        "Increase the number of Energy Bolts by 3X",
+        "Increase Energy Bolt Duration by 30%"
+      ],
+      "penalties": [],
+      "source_file": "Screenshot_2026-11-22-18-54-50-675_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/crazed_spray.webp",
+      "card_path": "./assets/cards/crazed_spray.webp",
+      "raw_path": "./assets/cards/crazed_spray.webp"
+    },
+    {
+      "id": "frenzy",
+      "name": "Frenzy",
+      "category": "aoe",
+      "rank": 19,
+      "tier": "B",
+      "main": {
+        "magic_id": "flash_shock",
+        "attribute": "Satan's Nails",
+        "level": 7
+      },
+      "material": {
+        "magic_id": "magic_bolt",
+        "attribute": "Fire at Will",
+        "level": 7
+      },
+      "mechanics": [
+        "Flash Shock generates faster and farther.",
+        "Casting Count Stacks start at 3 and reset at 7; for each cooldown reduction from 5 seconds to 0.5 seconds, Casting Count Stack increases by 1."
+      ],
+      "buffs": [
+        "Increase Flash Shock Damage by 7X",
+        "Decrease Flash Shock Cooldown by 50%"
+      ],
+      "penalties": [],
+      "source_file": "Screenshot_2026-11-22-18-54-47-738_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/frenzy.webp",
+      "card_path": "./assets/cards/frenzy.webp",
+      "raw_path": "./assets/cards/frenzy.webp"
+    },
+    {
+      "id": "neutron_generation",
+      "name": "Neutron Generation",
+      "category": "aoe",
+      "rank": 20,
+      "tier": "B",
+      "main": {
+        "magic_id": "cyclone",
+        "attribute": "Electric Orb",
+        "level": 7
+      },
+      "material": {
+        "magic_id": "satellite",
+        "attribute": "Nuclear Fusion",
+        "level": 7
+      },
+      "mechanics": [
+        "All Cyclones are combined into one.",
+        "Cyclones no longer fire projectiles, but rapidly expand and their speed decreases gradually.",
+        "Each Cyclone increases the Size of the new Cyclone by 25%."
+      ],
+      "buffs": [
+        "Increase Cyclone Damage by 10X"
+      ],
+      "penalties": [],
+      "source_file": "Screenshot_2026-11-22-18-55-15-559_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/neutron_generation.webp",
+      "card_path": "./assets/cards/neutron_generation.webp",
+      "raw_path": "./assets/cards/neutron_generation.webp"
+    },
+    {
+      "id": "black_hole",
+      "name": "Black Hole",
+      "category": "aoe",
+      "rank": 21,
+      "tier": "B",
+      "main": {
+        "magic_id": "cyclone",
+        "attribute": "Void",
+        "level": 7
+      },
+      "material": {
+        "magic_id": "satellite",
+        "attribute": "Nuclear Fusion",
+        "level": 7
+      },
+      "mechanics": [
+        "Cyclone is unified into one.",
+        "Enemies hit by Cyclone become Staggered.",
+        "Cyclone cooldown starts after its duration ends.",
+        "Cyclone Duration Increase is converted into Damage 3X.",
+        "Cyclone Count increases Damage Multiplier by 3."
+      ],
+      "buffs": [
+        "Increase Cyclone Damage by 8X"
+      ],
+      "penalties": [],
+      "source_file": "Screenshot_2026-11-22-18-56-16-416_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/black_hole.webp",
+      "card_path": "./assets/cards/black_hole.webp",
+      "raw_path": "./assets/cards/black_hole.webp"
+    },
+    {
+      "id": "inferno",
+      "name": "Inferno",
+      "category": "aoe",
+      "rank": 22,
+      "tier": "B",
+      "main": {
+        "magic_id": "incineration",
+        "attribute": "Flamestrike",
+        "level": 7
+      },
+      "material": {
+        "magic_id": "lava_zone",
+        "attribute": "Melt",
+        "level": 7
+      },
+      "mechanics": [
+        "Incineration generates faster and increases Max Multiplier (Max Multiplier: Damage X30, Size X2)."
+      ],
+      "buffs": [
+        "Decrease Incineration Cooldown by 25%"
+      ],
+      "penalties": [],
+      "source_file": "Screenshot_2026-11-22-18-55-24-619_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/inferno.webp",
+      "card_path": "./assets/cards/inferno.webp",
+      "raw_path": "./assets/cards/inferno.webp"
+    },
+    {
+      "id": "age_of_the_sun",
+      "name": "Age of the Sun",
+      "category": "aoe",
+      "rank": 23,
+      "tier": "B",
+      "main": {
+        "magic_id": "lava_zone",
+        "attribute": "Crater",
+        "level": 7
+      },
+      "material": {
+        "magic_id": "satellite",
+        "attribute": "Nuclear Fusion",
+        "level": 7
+      },
+      "mechanics": [
+        "Lava Zones are simultaneously generated in all directions and move outward.",
+        "Convert Lava Zone duration per 1s into Damage Multiplier x3."
+      ],
+      "buffs": [
+        "Increase Lava Zone Damage by 15X",
+        "Decrease Lava Zone Cooldown by 30%"
+      ],
+      "penalties": [],
+      "source_file": "Screenshot_2026-11-22-18-56-24-986_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/age_of_the_sun.webp",
+      "card_path": "./assets/cards/age_of_the_sun.webp",
+      "raw_path": "./assets/cards/age_of_the_sun.webp"
+    },
+    {
+      "id": "furnace",
+      "name": "Furnace",
+      "category": "aoe",
+      "rank": 24,
+      "tier": "B",
+      "main": {
+        "magic_id": "lava_zone",
+        "attribute": "Magma Eruption",
+        "level": 7
+      },
+      "material": {
+        "magic_id": "meteor",
+        "attribute": "Volcanic Eruption",
+        "level": 7
+      },
+      "mechanics": [
+        "Lava Zones gradually expand.",
+        "Damage increases in relation to Lava Zone's duration."
+      ],
+      "buffs": [
+        "Increase Lava Zone Damage by 10X",
+        "Increase Lava Zone Duration by 30%",
+        "Decrease Lava Zone Cooldown by 30%"
+      ],
+      "penalties": [],
+      "source_file": "Screenshot_2026-11-22-18-55-27-470_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/furnace.webp",
+      "card_path": "./assets/cards/furnace.webp",
+      "raw_path": "./assets/cards/furnace.webp"
+    },
+    {
+      "id": "breath_of_fire",
+      "name": "Breath of Fire",
+      "category": "aoe",
+      "rank": 25,
+      "tier": "B",
+      "main": {
+        "magic_id": "incineration",
+        "attribute": "Cerberus Flame",
+        "level": 7
+      },
+      "material": {
+        "magic_id": "arcane_ray",
+        "attribute": "Reflect",
+        "level": 7
+      },
+      "mechanics": [
+        "Incineration no longer fires sideways from the character, but to five directions outwards from the character.",
+        "Incinerations are created with longer range and at a faster speed."
+      ],
+      "buffs": [
+        "Increase Incineration Damage by 6X",
+        "Increase the number of Incinerations by 30%"
+      ],
+      "penalties": [],
+      "source_file": "Screenshot_2026-11-22-18-55-11-061_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/breath_of_fire.webp",
+      "card_path": "./assets/cards/breath_of_fire.webp",
+      "raw_path": "./assets/cards/breath_of_fire.webp"
+    },
+    {
+      "id": "vortex",
+      "name": "Vortex",
+      "category": "aoe",
+      "rank": 26,
+      "tier": "B",
+      "main": {
+        "magic_id": "cyclone",
+        "attribute": "Void",
+        "level": 7
+      },
+      "material": {
+        "magic_id": "satellite",
+        "attribute": "Anti-Gravity",
+        "level": 7
+      },
+      "mechanics": [
+        "Cyclones are created nearby the character and rotate.",
+        "Cyclones gradually shrink in size."
+      ],
+      "buffs": [
+        "Increase Cyclone Damage by 9X",
+        "Increase Cyclone Duration by 9X",
+        "Decrease Cyclone Cooldown by 50%"
+      ],
+      "penalties": [],
+      "source_file": "Screenshot_2026-11-22-18-55-09-562_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/vortex.webp",
+      "card_path": "./assets/cards/vortex.webp",
+      "raw_path": "./assets/cards/vortex.webp"
+    },
+    {
+      "id": "ether_blaze",
+      "name": "Ether Blaze",
+      "category": "aoe",
+      "rank": 27,
+      "tier": "B",
+      "main": {
+        "magic_id": "blizzard",
+        "attribute": "Conflagration",
+        "level": 7
+      },
+      "material": {
+        "magic_id": "incineration",
+        "attribute": "Flamestrike",
+        "level": 7
+      },
+      "mechanics": [
+        "Each Blizzard explosion splits into 2."
+      ],
+      "buffs": [
+        "Increase Blizzard Damage by 8X",
+        "Increase Blizzard Size by 20%",
+        "Decrease Blizzard Interval by 30%"
+      ],
+      "penalties": [],
+      "source_file": "Screenshot_2026-11-22-18-55-12-445_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/ether_blaze.webp",
+      "card_path": "./assets/cards/ether_blaze.webp",
+      "raw_path": "./assets/cards/ether_blaze.webp"
+    },
+    {
+      "id": "ruler_of_storms",
+      "name": "Ruler of Storms",
+      "category": "aoe",
+      "rank": 28,
+      "tier": "B",
+      "main": {
+        "magic_id": "cyclone",
+        "attribute": "Extreme Weather",
+        "level": 7
+      },
+      "material": {
+        "magic_id": "magic_bolt",
+        "attribute": "Fire at Will",
+        "level": 7
+      },
+      "mechanics": [
+        "3 Cyclones are created in a row in multiple directions.",
+        "The Cyclones' Movement Speed increases and then decreases gradually."
+      ],
+      "buffs": [
+        "Increase Cyclone Damage by 10X",
+        "Increase Cyclone Size by 20%"
+      ],
+      "penalties": [
+        "Decrease Cyclone Duration by 50%"
+      ],
+      "source_file": "Screenshot_2026-11-22-18-55-35-095_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/ruler_of_storms.webp",
+      "card_path": "./assets/cards/ruler_of_storms.webp",
+      "raw_path": "./assets/cards/ruler_of_storms.webp"
+    },
+    {
+      "id": "flame_storm",
+      "name": "Flame Storm",
+      "category": "aoe",
+      "rank": 29,
+      "tier": "B",
+      "main": {
+        "magic_id": "meteor",
+        "attribute": "Volcanic Eruption",
+        "level": 7
+      },
+      "material": {
+        "magic_id": "incineration",
+        "attribute": "Cerberus Flame",
+        "level": 7
+      },
+      "mechanics": [
+        "Meteor Craters no longer deal damage.",
+        "Meteors are generated in a line from the character in five directions, and their size changes; at each of 33%, 66%, and 99%, increase Direction Count by 1 and Damage Multiplier by 5."
+      ],
+      "buffs": [
+        "Increase Meteor Damage by 10X"
+      ],
+      "penalties": [],
+      "source_file": "Screenshot_2026-11-22-18-56-01-016_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/flame_storm.webp",
+      "card_path": "./assets/cards/flame_storm.webp",
+      "raw_path": "./assets/cards/flame_storm.webp"
+    },
+    {
+      "id": "great_flood",
+      "name": "Great Flood",
+      "category": "aoe",
+      "rank": 30,
+      "tier": "C",
+      "main": {
+        "magic_id": "tsunami",
+        "attribute": "Siren's Song",
+        "level": 7
+      },
+      "material": {
+        "magic_id": "cyclone",
+        "attribute": "Extreme Weather",
+        "level": 7
+      },
+      "mechanics": [
+        "2 additional Tsunamis are created on each side of the Tsunami.",
+        "Tsunamis are always created at the back of the character."
+      ],
+      "buffs": [
+        "Increase Tsunami Damage by 8X"
+      ],
+      "penalties": [
+        "Increase Tsunami Cooldown by 50%"
+      ],
+      "source_file": "Screenshot_2026-11-22-18-55-30-230_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/great_flood.webp",
+      "card_path": "./assets/cards/great_flood.webp",
+      "raw_path": "./assets/cards/great_flood.webp"
+    },
+    {
+      "id": "winter_storm",
+      "name": "Winter Storm",
+      "category": "aoe",
+      "rank": 31,
+      "tier": "C",
+      "main": {
+        "magic_id": "blizzard",
+        "attribute": "Sub-Zero",
+        "level": 7
+      },
+      "material": {
+        "magic_id": "fireball",
+        "attribute": "Toxic Gas",
+        "level": 7
+      },
+      "mechanics": [
+        "Blizzard explosions expand."
+      ],
+      "buffs": [
+        "Increase Blizzard Damage by 8X",
+        "Increase Blizzard Size by 25%"
+      ],
+      "penalties": [
+        "Decrease the number of Blizzards by 25%"
+      ],
+      "source_file": "Screenshot_2026-11-22-18-55-16-943_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/winter_storm.webp",
+      "card_path": "./assets/cards/winter_storm.webp",
+      "raw_path": "./assets/cards/winter_storm.webp"
+    },
+    {
+      "id": "super_cyclone",
+      "name": "Super Cyclone",
+      "category": "aoe",
+      "rank": 32,
+      "tier": "C",
+      "main": {
+        "magic_id": "cyclone",
+        "attribute": "Extreme Weather",
+        "level": 7
+      },
+      "material": {
+        "magic_id": "electric_zone",
+        "attribute": "Fire Aura",
+        "level": 7
+      },
+      "mechanics": [
+        "All Cyclones are combined into one.",
+        "Cyclones persist and follow the character.",
+        "Damage Multiplier increases in relation to how long Cyclones persist.",
+        "Cooldown starts when Cyclone's duration is over.",
+        "Each Cyclone increases the Size of the new Cyclone by 20%."
+      ],
+      "buffs": [
+        "Increase Cyclone Duration by 100%"
+      ],
+      "penalties": [
+        "Increase Cyclone Cooldown by 100%"
+      ],
+      "source_file": "Screenshot_2026-11-22-18-55-58-118_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/super_cyclone.webp",
+      "card_path": "./assets/cards/super_cyclone.webp",
+      "raw_path": "./assets/cards/super_cyclone.webp"
+    },
+    {
+      "id": "lightning_calibration",
+      "name": "Lightning Calibration",
+      "category": "aoe",
+      "rank": 33,
+      "tier": "C",
+      "main": {
+        "magic_id": "electric_zone",
+        "attribute": "Electricity Blast",
+        "level": 7
+      },
+      "material": {
+        "magic_id": "satellite",
+        "attribute": "Will o' the Wisp",
+        "level": 7
+      },
+      "mechanics": [
+        "Electric Zones rotate around the character as multiple projectiles.",
+        "Electric Zones no longer have a Damage Interval but have increased Rotation Speed."
+      ],
+      "buffs": [
+        "Increase Electric Zone Damage by 10X",
+        "Increase Electric Zone Size by 30%"
+      ],
+      "penalties": [],
+      "source_file": "Screenshot_2026-11-22-18-55-26-101_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/lightning_calibration.webp",
+      "card_path": "./assets/cards/lightning_calibration.webp",
+      "raw_path": "./assets/cards/lightning_calibration.webp"
+    },
+    {
+      "id": "magnetic_field",
+      "name": "Magnetic Field",
+      "category": "aoe",
+      "rank": 34,
+      "tier": "C",
+      "main": {
+        "magic_id": "satellite",
+        "attribute": "Anti-Gravity",
+        "level": 7
+      },
+      "material": {
+        "magic_id": "electric_zone",
+        "attribute": "Electricity Blast",
+        "level": 7
+      },
+      "mechanics": [
+        "The Rotation Speed bonus of Anti-Gravity is fixed to 2X."
+      ],
+      "buffs": [
+        "Increase Satellite Damage by 7X",
+        "Increase Satellite Size by 100%"
+      ],
+      "penalties": [],
+      "source_file": "Screenshot_2026-11-22-18-56-06-897_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/magnetic_field.webp",
+      "card_path": "./assets/cards/magnetic_field.webp",
+      "raw_path": "./assets/cards/magnetic_field.webp"
+    },
+    {
+      "id": "meisner_effect",
+      "name": "Meisner Effect",
+      "category": "aoe",
+      "rank": 35,
+      "tier": "C",
+      "main": {
+        "magic_id": "electric_zone",
+        "attribute": "EMP",
+        "level": 7
+      },
+      "material": {
+        "magic_id": "electric_shock",
+        "attribute": "Superconductivity",
+        "level": 7
+      },
+      "mechanics": [
+        "When EMP stuns a target, knock it back and deal 10X additional damage."
+      ],
+      "buffs": [
+        "Increase Electric Zone Damage by 6X",
+        "Increase Electric Zone Size by 100%",
+        "Amplify ATK by 25%"
+      ],
+      "penalties": [],
+      "source_file": "Screenshot_2026-11-22-18-55-55-079_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/meisner_effect.webp",
+      "card_path": "./assets/cards/meisner_effect.webp",
+      "raw_path": "./assets/cards/meisner_effect.webp"
+    },
+    {
+      "id": "gate",
+      "name": "Gate",
+      "category": "nuke",
+      "rank": 1,
+      "tier": "S",
+      "main": {
+        "magic_id": "flash_shock",
+        "attribute": "Ragnarok",
+        "level": 7
+      },
+      "material": {
+        "magic_id": "spirit",
+        "attribute": "Magic Missile",
+        "level": 7
+      },
+      "mechanics": [
+        "Flash Shock Size Increase is converted into Damage."
+      ],
+      "buffs": [
+        "Increase Flash Shock Damage by 12X",
+        "Increase the number of Flash Shocks by 6X",
+        "Decrease Flash Shock Cooldown by 50%"
+      ],
+      "penalties": [],
+      "source_file": "Screenshot_2026-11-22-18-56-05-333_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/gate.webp",
+      "card_path": "./assets/cards/gate.webp",
+      "raw_path": "./assets/cards/gate.webp"
+    },
+    {
+      "id": "supernova",
+      "name": "Supernova",
+      "category": "nuke",
+      "rank": 2,
+      "tier": "S",
+      "main": {
+        "magic_id": "spirit",
+        "attribute": "Familiar",
+        "level": 7
+      },
+      "material": {
+        "magic_id": "energy_bolt",
+        "attribute": "Flare",
+        "level": 7
+      },
+      "mechanics": [
+        "Fires Spirit projectiles at once."
+      ],
+      "buffs": [
+        "Increase Spirit Damage by 24X",
+        "Increase Spirit Size by 100%"
+      ],
+      "penalties": [
+        "Spirit launch count decreased by 75%",
+        "Increase Spirit Cooldown by 2X"
+      ],
+      "source_file": "Screenshot_2026-11-22-18-56-20-704_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/supernova.webp",
+      "card_path": "./assets/cards/supernova.webp",
+      "raw_path": "./assets/cards/supernova.webp"
+    },
+    {
+      "id": "genesis",
+      "name": "Genesis",
+      "category": "nuke",
+      "rank": 3,
+      "tier": "S",
+      "main": {
+        "magic_id": "blizzard",
+        "attribute": "Shooting Star",
+        "level": 7
+      },
+      "material": {
+        "magic_id": "fireball",
+        "attribute": "Constellation",
+        "level": 7
+      },
+      "mechanics": [
+        "Blizzard Cooldown becomes faster in proportion to the number, and the Generation Interval becomes equal to the Cooldown."
+      ],
+      "buffs": [
+        "Increase Blizzard Damage by 30X",
+        "Decrease Blizzard Cooldown by 30%"
+      ],
+      "penalties": [],
+      "source_file": "Screenshot_2026-11-22-18-56-17-848_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/genesis.webp",
+      "card_path": "./assets/cards/genesis.webp",
+      "raw_path": "./assets/cards/genesis.webp"
+    },
+    {
+      "id": "black_death",
+      "name": "Black Death",
+      "category": "nuke",
+      "rank": 4,
+      "tier": "S",
+      "main": {
+        "magic_id": "fireball",
+        "attribute": "Toxic Gas",
+        "level": 7
+      },
+      "material": {
+        "magic_id": "magic_bolt",
+        "attribute": "Fire at Will",
+        "level": 7
+      },
+      "mechanics": [
+        "Fireballs instantly explode at random locations, dealing damage 4 times.",
+        "Damage increases proportionally to Fireball size.",
+        "Convert Fireball Piercing to 50% of Count."
+      ],
+      "buffs": [
+        "Increase Fireball Damage by 20X",
+        "Increase Fireball Size by 100%"
+      ],
+      "penalties": [
+        "Increase Fireball Cooldown by 2X"
+      ],
+      "source_file": "Screenshot_2026-11-22-18-56-08-376_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/black_death.webp",
+      "card_path": "./assets/cards/black_death.webp",
+      "raw_path": "./assets/cards/black_death.webp"
+    },
+    {
+      "id": "glacium",
+      "name": "Glacium",
+      "category": "nuke",
+      "rank": 5,
+      "tier": "S",
+      "main": {
+        "magic_id": "tsunami",
+        "attribute": "Pole",
+        "level": 7
+      },
+      "material": {
+        "magic_id": "frost_nova",
+        "attribute": "Ice Age",
+        "level": 7
+      },
+      "mechanics": [
+        "Tsunami spreads outward in all directions from the character."
+      ],
+      "buffs": [
+        "Increase Tsunami Damage by 30X",
+        "Increase the number of Tsunamis by 25%"
+      ],
+      "penalties": [
+        "Increase Tsunami Cooldown by 25%"
+      ],
+      "source_file": "Screenshot_2026-11-22-18-56-30-495_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/glacium.webp",
+      "card_path": "./assets/cards/glacium.webp",
+      "raw_path": "./assets/cards/glacium.webp"
+    },
+    {
+      "id": "genocide",
+      "name": "Genocide",
+      "category": "nuke",
+      "rank": 6,
+      "tier": "S",
+      "main": {
+        "magic_id": "arcane_ray",
+        "attribute": "Disintegration Ray",
+        "level": 7
+      },
+      "material": {
+        "magic_id": "spirit",
+        "attribute": "Familiar",
+        "level": 7
+      },
+      "mechanics": [
+        "Arcane Rays are unified into one and spin faster.",
+        "Arcane Ray Size Increase is converted into Damage.",
+        "Arcane Ray Count increases Damage Multiplier by 4 each."
+      ],
+      "buffs": [],
+      "penalties": [
+        "Decrease Arcane Ray Duration by 33%",
+        "Increase Arcane Ray Cooldown by 33%"
+      ],
+      "source_file": "Screenshot_2026-11-22-18-56-27-803_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/genocide.webp",
+      "card_path": "./assets/cards/genocide.webp",
+      "raw_path": "./assets/cards/genocide.webp"
+    },
+    {
+      "id": "origin_explosion",
+      "name": "Origin Explosion",
+      "category": "nuke",
+      "rank": 7,
+      "tier": "A",
+      "main": {
+        "magic_id": "energy_bolt",
+        "attribute": "Flare",
+        "level": 7
+      },
+      "material": {
+        "magic_id": "fireball",
+        "attribute": "Constellation",
+        "level": 7
+      },
+      "mechanics": [
+        "Energy Bolts immediately explode after spreading in all directions.",
+        "Damage and Quantity of Energy Bolts increase based on their duration."
+      ],
+      "buffs": [
+        "Increase Energy Bolt Damage by 12X",
+        "Increase Energy Bolt Explosion Size by 50%"
+      ],
+      "penalties": [
+        "Increase Energy Bolt Cooldown by 75%"
+      ],
+      "source_file": "Screenshot_2026-11-22-18-55-36-679_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/origin_explosion.webp",
+      "card_path": "./assets/cards/origin_explosion.webp",
+      "raw_path": "./assets/cards/origin_explosion.webp"
+    },
+    {
+      "id": "hellfire",
+      "name": "Hellfire",
+      "category": "nuke",
+      "rank": 8,
+      "tier": "A",
+      "main": {
+        "magic_id": "incineration",
+        "attribute": "Pyromaniac",
+        "level": 7
+      },
+      "material": {
+        "magic_id": "blizzard",
+        "attribute": "Conflagration",
+        "level": 7
+      },
+      "mechanics": [
+        "Incineration generates 2X.",
+        "Incineration Flames explode consecutively 2-3 times."
+      ],
+      "buffs": [
+        "Increase Incineration Damage by 12X",
+        "Increase Incineration Size by 100%"
+      ],
+      "penalties": [
+        "Increase Incineration Cooldown by 50%"
+      ],
+      "source_file": "Screenshot_2026-11-22-18-56-23-598_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/hellfire.webp",
+      "card_path": "./assets/cards/hellfire.webp",
+      "raw_path": "./assets/cards/hellfire.webp"
+    },
+    {
+      "id": "discharge",
+      "name": "Discharge",
+      "category": "nuke",
+      "rank": 9,
+      "tier": "A",
+      "main": {
+        "magic_id": "electric_shock",
+        "attribute": "High Output",
+        "level": 7
+      },
+      "material": {
+        "magic_id": "thunderstorm",
+        "attribute": "Lightning Explosion",
+        "level": 7
+      },
+      "mechanics": [
+        "When Electric Shock explodes, its size increases and it releases Projectiles."
+      ],
+      "buffs": [
+        "Increase Electric Shock Damage by 12X"
+      ],
+      "penalties": [
+        "Increase Electric Shock Cooldown by 33%"
+      ],
+      "source_file": "Screenshot_2026-11-22-18-56-34-541_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/discharge.webp",
+      "card_path": "./assets/cards/discharge.webp",
+      "raw_path": "./assets/cards/discharge.webp"
+    },
+    {
+      "id": "astrape",
+      "name": "Astrape",
+      "category": "nuke",
+      "rank": 10,
+      "tier": "A",
+      "main": {
+        "magic_id": "thunderstorm",
+        "attribute": "Judgment",
+        "level": 7
+      },
+      "material": {
+        "magic_id": "meteor",
+        "attribute": "Asteroid",
+        "level": 7
+      },
+      "mechanics": [
+        "When a Thunderstorm explodes, it releases a shock wave around the area, dealing half damage to nearby enemies and stunning them."
+      ],
+      "buffs": [
+        "Increase Thunderstorm Damage by 7X",
+        "Increase Thunderstorm Size by 25%"
+      ],
+      "penalties": [
+        "Increase Thunderstorm Cooldown by 25%"
+      ],
+      "source_file": "Screenshot_2026-11-22-18-56-19-255_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/astrape.webp",
+      "card_path": "./assets/cards/astrape.webp",
+      "raw_path": "./assets/cards/astrape.webp"
+    },
+    {
+      "id": "empyrean_wrath",
+      "name": "Empyrean Wrath",
+      "category": "nuke",
+      "rank": 11,
+      "tier": "A",
+      "main": {
+        "magic_id": "thunderstorm",
+        "attribute": "Lightning Explosion",
+        "level": 7
+      },
+      "material": {
+        "magic_id": "meteor",
+        "attribute": "Meteor Shower",
+        "level": 7
+      },
+      "mechanics": [
+        "The Thunderstorm's explosion covers a wider range but does not expand."
+      ],
+      "buffs": [
+        "Increase Thunderstorm Damage by 5X",
+        "Increase the number of Thunderstorms by 3X"
+      ],
+      "penalties": [],
+      "source_file": "Screenshot_2026-11-22-18-54-53-375_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/empyrean_wrath.webp",
+      "card_path": "./assets/cards/empyrean_wrath.webp",
+      "raw_path": "./assets/cards/empyrean_wrath.webp"
+    },
+    {
+      "id": "lightning_bolts",
+      "name": "Lightning Bolts",
+      "category": "nuke",
+      "rank": 12,
+      "tier": "A",
+      "main": {
+        "magic_id": "thunderstorm",
+        "attribute": "Thunderclap",
+        "level": 7
+      },
+      "material": {
+        "magic_id": "electric_shock",
+        "attribute": "Chain Lightning",
+        "level": 7
+      },
+      "mechanics": [
+        "5 Thunderstorms are created in a row at random locations.",
+        "Each Thunderstorm increases the new Thunderstorm's Creation Radius and Number by 30%."
+      ],
+      "buffs": [
+        "Increase Thunderstorm Damage by 12X"
+      ],
+      "penalties": [],
+      "source_file": "Screenshot_2026-11-22-18-55-21-554_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/lightning_bolts.webp",
+      "card_path": "./assets/cards/lightning_bolts.webp",
+      "raw_path": "./assets/cards/lightning_bolts.webp"
+    },
+    {
+      "id": "war_climate",
+      "name": "War Climate",
+      "category": "nuke",
+      "rank": 13,
+      "tier": "A",
+      "main": {
+        "magic_id": "meteor",
+        "attribute": "Meteor Shower",
+        "level": 7
+      },
+      "material": {
+        "magic_id": "blizzard",
+        "attribute": "Shooting Star",
+        "level": 7
+      },
+      "mechanics": [
+        "Meteor Cooldown becomes faster depending on the number of Meteors, and they are also created over the same interval as its Cooldown.",
+        "Meteor Cooldown is also decreased by 0 to 80% for each Meteor."
+      ],
+      "buffs": [
+        "Increase Meteor Damage by 6X"
+      ],
+      "penalties": [],
+      "source_file": "Screenshot_2026-11-22-18-54-58-553_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/war_climate.webp",
+      "card_path": "./assets/cards/war_climate.webp",
+      "raw_path": "./assets/cards/war_climate.webp"
+    },
+    {
+      "id": "energy_bombardment",
+      "name": "Energy Bombardment",
+      "category": "nuke",
+      "rank": 14,
+      "tier": "B",
+      "main": {
+        "magic_id": "arcane_ray",
+        "attribute": "Disintegration Ray",
+        "level": 7
+      },
+      "material": {
+        "magic_id": "flash_shock",
+        "attribute": "Ragnarok",
+        "level": 7
+      },
+      "mechanics": [
+        "Multiple Arcane Rays are created in random directions at once.",
+        "Arcane Rays do not rotate anymore."
+      ],
+      "buffs": [
+        "Increase Arcane Ray Damage by 20%",
+        "Increase Arcane Ray Size by 5X"
+      ],
+      "penalties": [
+        "Decrease Arcane Ray Duration by 75%"
+      ],
+      "source_file": "Screenshot_2026-11-22-18-55-56-675_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/energy_bombardment.webp",
+      "card_path": "./assets/cards/energy_bombardment.webp",
+      "raw_path": "./assets/cards/energy_bombardment.webp"
+    },
+    {
+      "id": "great_impact",
+      "name": "Great Impact",
+      "category": "nuke",
+      "rank": 15,
+      "tier": "B",
+      "main": {
+        "magic_id": "meteor",
+        "attribute": "Asteroid",
+        "level": 7
+      },
+      "material": {
+        "magic_id": "blizzard",
+        "attribute": "Shooting Star",
+        "level": 7
+      },
+      "mechanics": [
+        "Meteor is generated consecutively 3 times, and the first Meteor's Power is increased by 50%."
+      ],
+      "buffs": [
+        "Increase Meteor Damage by 12X",
+        "Decrease Meteor Cooldown by 30%"
+      ],
+      "penalties": [
+        "Decrease Meteor Size by 30%"
+      ],
+      "source_file": "Screenshot_2026-11-22-18-55-51-982_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/great_impact.webp",
+      "card_path": "./assets/cards/great_impact.webp",
+      "raw_path": "./assets/cards/great_impact.webp"
+    },
+    {
+      "id": "mana_spear",
+      "name": "Mana Spear",
+      "category": "nuke",
+      "rank": 16,
+      "tier": "B",
+      "main": {
+        "magic_id": "spirit",
+        "attribute": "Magic Missile",
+        "level": 7
+      },
+      "material": {
+        "magic_id": "flash_shock",
+        "attribute": "Wipeout",
+        "level": 7
+      },
+      "mechanics": [
+        "The Spirit now uses its default Cooldown and Launch Interval.",
+        "Spirit Projectile Speed and Range is increased dramatically."
+      ],
+      "buffs": [
+        "Increase Spirit Damage by 10X",
+        "Increase Spirit Size by 200%"
+      ],
+      "penalties": [
+        "Increase Spirit Cooldown by 2X"
+      ],
+      "source_file": "Screenshot_2026-11-22-18-56-03-888_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/mana_spear.webp",
+      "card_path": "./assets/cards/mana_spear.webp",
+      "raw_path": "./assets/cards/mana_spear.webp"
+    },
+    {
+      "id": "demon_equation",
+      "name": "Demon Equation",
+      "category": "nuke",
+      "rank": 17,
+      "tier": "B",
+      "main": {
+        "magic_id": "fireball",
+        "attribute": "Big Bang",
+        "level": 7
+      },
+      "material": {
+        "magic_id": "energy_bolt",
+        "attribute": "Flare",
+        "level": 7
+      },
+      "mechanics": [
+        "Fireballs are launched at the same time in multiple directions and the attribute effect Big Bang will no longer be active."
+      ],
+      "buffs": [
+        "Increase Fireball Damage by 6.66X",
+        "Increase Fireball Penetration by 2",
+        "Increase the number of Fireballs by 4X"
+      ],
+      "penalties": [
+        "Increase Fireball Cooldown by 3.3X"
+      ],
+      "source_file": "Screenshot_2026-11-22-18-54-59-925_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/demon_equation.webp",
+      "card_path": "./assets/cards/demon_equation.webp",
+      "raw_path": "./assets/cards/demon_equation.webp"
+    },
+    {
+      "id": "great_rift",
+      "name": "Great Rift",
+      "category": "nuke",
+      "rank": 18,
+      "tier": "B",
+      "main": {
+        "magic_id": "frost_nova",
+        "attribute": "Earthquake",
+        "level": 7
+      },
+      "material": {
+        "magic_id": "meteor",
+        "attribute": "Volcanic Eruption",
+        "level": 7
+      },
+      "mechanics": [
+        "Enemies hit by Frost Nova are all Knocked Back.",
+        "Frost Nova Damage increases proportionally to its Size."
+      ],
+      "buffs": [
+        "Increase Frost Nova Damage by 10X",
+        "Increase Frost Nova Size by 50%"
+      ],
+      "penalties": [
+        "Increase Frost Nova Cooldown by 50%"
+      ],
+      "source_file": "Screenshot_2026-11-22-18-55-41-763_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/great_rift.webp",
+      "card_path": "./assets/cards/great_rift.webp",
+      "raw_path": "./assets/cards/great_rift.webp"
+    },
+    {
+      "id": "orbital_strike",
+      "name": "Orbital Strike",
+      "category": "nuke",
+      "rank": 19,
+      "tier": "B",
+      "main": {
+        "magic_id": "thunderstorm",
+        "attribute": "Lightning Explosion",
+        "level": 7
+      },
+      "material": {
+        "magic_id": "blizzard",
+        "attribute": "Shooting Star",
+        "level": 7
+      },
+      "mechanics": [
+        "Thunderstorms are quickly generated near a set location."
+      ],
+      "buffs": [
+        "Increase Thunderstorm Damage by 9X",
+        "Increase Thunderstorm Size by 30%"
+      ],
+      "penalties": [
+        "Increase Thunderstorm Cooldown by 30%"
+      ],
+      "source_file": "Screenshot_2026-11-22-18-55-13-976_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/orbital_strike.webp",
+      "card_path": "./assets/cards/orbital_strike.webp",
+      "raw_path": "./assets/cards/orbital_strike.webp"
+    },
+    {
+      "id": "destroyer",
+      "name": "Destroyer",
+      "category": "nuke",
+      "rank": 20,
+      "tier": "B",
+      "main": {
+        "magic_id": "electric_zone",
+        "attribute": "Electricity Blast",
+        "level": 7
+      },
+      "material": {
+        "magic_id": "shield",
+        "attribute": "Destruction Field",
+        "level": 5
+      },
+      "mechanics": [
+        "Electric Zone is given a Cooldown of 5 seconds.",
+        "Electric Zone is given a Duration of 3 seconds."
+      ],
+      "buffs": [
+        "Increase Electric Zone Damage by 99X",
+        "Increase Electric Zone Size by 99%"
+      ],
+      "penalties": [
+        "Decrease HP Regen per sec. by 0.1%"
+      ],
+      "source_file": "Screenshot_2026-11-22-18-56-26-372_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/destroyer.webp",
+      "card_path": "./assets/cards/destroyer.webp",
+      "raw_path": "./assets/cards/destroyer.webp"
+    },
+    {
+      "id": "frozen_heart",
+      "name": "Frozen Heart",
+      "category": "nuke",
+      "rank": 21,
+      "tier": "C",
+      "main": {
+        "magic_id": "electric_zone",
+        "attribute": "Fire Aura",
+        "level": 7
+      },
+      "material": {
+        "magic_id": "frost_nova",
+        "attribute": "Ice Age",
+        "level": 7
+      },
+      "mechanics": [
+        "Electric Zone briefly Freezes enemies.",
+        "Each activation of Electric Zone increases Damage and Size multiplier by 1 and resets at 4 activations."
+      ],
+      "buffs": [
+        "Increase Electric Zone Damage by 20X"
+      ],
+      "penalties": [],
+      "source_file": "Screenshot_2026-11-22-18-55-53-573_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/frozen_heart.webp",
+      "card_path": "./assets/cards/frozen_heart.webp",
+      "raw_path": "./assets/cards/frozen_heart.webp"
+    },
+    {
+      "id": "reaction",
+      "name": "Reaction",
+      "category": "nuke",
+      "rank": 22,
+      "tier": "C",
+      "main": {
+        "magic_id": "energy_bolt",
+        "attribute": "Spark",
+        "level": 7
+      },
+      "material": {
+        "magic_id": "shield",
+        "attribute": "Destruction Field",
+        "level": 5
+      },
+      "mechanics": [
+        "Energy Bolts are generated in all directions.",
+        "Energy Bolts explode at intervals of 0.5 seconds, and each explosion increases their power by 20%."
+      ],
+      "buffs": [
+        "Increase Energy Bolt Damage by 9X"
+      ],
+      "penalties": [
+        "Decrease the number of Energy Bolts by 50%"
+      ],
+      "source_file": "Screenshot_2026-11-22-18-55-05-405_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/reaction.webp",
+      "card_path": "./assets/cards/reaction.webp",
+      "raw_path": "./assets/cards/reaction.webp"
+    },
+    {
+      "id": "photon_explosion",
+      "name": "Photon Explosion",
+      "category": "nuke",
+      "rank": 23,
+      "tier": "C",
+      "main": {
+        "magic_id": "shield",
+        "attribute": "Destruction Field",
+        "level": 5
+      },
+      "material": {
+        "magic_id": "arcane_effuse",
+        "attribute": "Max Level",
+        "level": 3
+      },
+      "mechanics": [
+        "The Shield explodes instead of charging up.",
+        "Damage and Size of Shields increase by 33% per Shield.",
+        "Damage increases in relation to All Magic Size Increase."
+      ],
+      "buffs": [
+        "Decrease Shield Cooldown by 70%"
+      ],
+      "penalties": [],
+      "source_file": "Screenshot_2026-11-22-18-55-23-026_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/photon_explosion.webp",
+      "card_path": "./assets/cards/photon_explosion.webp",
+      "raw_path": "./assets/cards/photon_explosion.webp"
+    },
+    {
+      "id": "teleport",
+      "name": "Teleport",
+      "category": "nuke",
+      "rank": 24,
+      "tier": "C",
+      "main": {
+        "magic_id": "cloaking",
+        "attribute": "Space Warp",
+        "level": 5
+      },
+      "material": {
+        "magic_id": "concentration",
+        "attribute": "Max Level",
+        "level": 3
+      },
+      "mechanics": [
+        "Cast Cloaking 7 times in succession to teleport randomly and return to the original position at the end.",
+        "Cast Count and Damage Multiplier of Cloaking increase based on its duration."
+      ],
+      "buffs": [
+        "Increase Cloaking Damage by 3X",
+        "Reduce Cloaking cooldown by 70%"
+      ],
+      "penalties": [],
+      "source_file": "Screenshot_2026-11-22-18-55-59-503_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/teleport.webp",
+      "card_path": "./assets/cards/teleport.webp",
+      "raw_path": "./assets/cards/teleport.webp"
+    }
+  ]
+}

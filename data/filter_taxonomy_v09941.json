@@ -1,0 +1,824 @@
+{
+  "meta": {
+    "game": "Magic Survival",
+    "version": "v0.9941",
+    "purpose": "Elemental & Functional filter taxonomy mapped across all 22 base magics and 59 verified combinations."
+  },
+  "elements": [
+    {
+      "id": "lightning",
+      "label": "Lightning / Electric",
+      "color": "#38bdf8",
+      "icon": "⚡",
+      "description": "Electric Shock, Thunderstorm, Electric Zone and chain/shock fusions"
+    },
+    {
+      "id": "fire",
+      "label": "Fire / Magma",
+      "color": "#fb923c",
+      "icon": "🔥",
+      "description": "Fireball, Incineration, Meteor, Lava Zone and explosive flame fusions"
+    },
+    {
+      "id": "ice",
+      "label": "Ice / Frost",
+      "color": "#67e8f9",
+      "icon": "❄️",
+      "description": "Frost Nova, Blizzard, freeze and chill fusions"
+    },
+    {
+      "id": "arcane",
+      "label": "Arcane / Energy",
+      "color": "#c084fc",
+      "icon": "✦",
+      "description": "Magic Bolt, Spirit, Energy Bolt, Arcane Ray, Flash Shock"
+    },
+    {
+      "id": "storm",
+      "label": "Storm / Water",
+      "color": "#60a5fa",
+      "icon": "🌀",
+      "description": "Cyclone, Tsunami and wave/vortex fusions"
+    },
+    {
+      "id": "cosmic",
+      "label": "Cosmic / Orbital",
+      "color": "#facc15",
+      "icon": "🪐",
+      "description": "Satellite, gravity, solar and planetary orbit fusions"
+    },
+    {
+      "id": "void",
+      "label": "Dark / Utility",
+      "color": "#f43f5e",
+      "icon": "◈",
+      "description": "Cloaking, Armageddon, Shield, Black Hole and dark burst fusions"
+    }
+  ],
+  "functional_filters": [
+    {
+      "id": "crowd_clear",
+      "group": "role",
+      "label": "Crowd Clear",
+      "description": "Sustained multi-target wave clearing"
+    },
+    {
+      "id": "nuke_burst",
+      "group": "role",
+      "label": "Nuke / Burst",
+      "description": "Heavy cooldown-based impact damage"
+    },
+    {
+      "id": "cc_freeze_stun",
+      "group": "role",
+      "label": "CC (Freeze / Stun / KB)",
+      "description": "Freezes, stuns, staggers, or knocks enemies back"
+    },
+    {
+      "id": "orbital_aura",
+      "group": "role",
+      "label": "Aura / Orbital",
+      "description": "Rotates around or surrounds the character"
+    },
+    {
+      "id": "rapid_fire",
+      "group": "role",
+      "label": "Rapid Fire",
+      "description": "High-frequency continuous projectile output"
+    },
+    {
+      "id": "explosion_aoe",
+      "group": "role",
+      "label": "Explosive AoE",
+      "description": "Repeated area explosions across the screen"
+    },
+    {
+      "id": "beam_laser",
+      "group": "role",
+      "label": "Beam / Laser",
+      "description": "Sweeping or continuous energy rays"
+    },
+    {
+      "id": "pierce_slash",
+      "group": "role",
+      "label": "Slash / Pierce",
+      "description": "High-speed cutting or piercing attacks"
+    },
+    {
+      "id": "survival_utility",
+      "group": "role",
+      "label": "Survival / Utility",
+      "description": "Revival, ATK amplify, teleport or shield synergy"
+    },
+    {
+      "id": "cdr_scaling",
+      "group": "scaling",
+      "label": "CDR Scaling",
+      "description": "Mechanics directly scale count or multiplier from Cooldown Reduction"
+    },
+    {
+      "id": "size_scaling",
+      "group": "scaling",
+      "label": "Size Scaling",
+      "description": "Magic Size converts directly into Damage or extra hits"
+    },
+    {
+      "id": "duration_scaling",
+      "group": "scaling",
+      "label": "Duration Scaling",
+      "description": "Magic Duration converts directly into Damage or cast count"
+    },
+    {
+      "id": "count_scaling",
+      "group": "scaling",
+      "label": "Count Scaling",
+      "description": "Extra projectile count increases damage multiplier or speed"
+    },
+    {
+      "id": "crit_scaling",
+      "group": "scaling",
+      "label": "Crit Scaling",
+      "description": "Scales directly with Critical Strike Rate"
+    }
+  ],
+  "base_magic_elements": {
+    "magic_bolt": [
+      "arcane"
+    ],
+    "spirit": [
+      "arcane"
+    ],
+    "fireball": [
+      "fire"
+    ],
+    "energy_bolt": [
+      "arcane"
+    ],
+    "electric_shock": [
+      "lightning"
+    ],
+    "electric_zone": [
+      "lightning"
+    ],
+    "thunderstorm": [
+      "lightning"
+    ],
+    "meteor": [
+      "fire"
+    ],
+    "satellite": [
+      "cosmic"
+    ],
+    "arcane_ray": [
+      "arcane"
+    ],
+    "flash_shock": [
+      "arcane"
+    ],
+    "incineration": [
+      "fire"
+    ],
+    "blizzard": [
+      "ice"
+    ],
+    "frost_nova": [
+      "ice"
+    ],
+    "tsunami": [
+      "storm"
+    ],
+    "cyclone": [
+      "storm"
+    ],
+    "lava_zone": [
+      "fire"
+    ],
+    "shield": [
+      "void"
+    ],
+    "cloaking": [
+      "void"
+    ],
+    "armageddon": [
+      "void"
+    ],
+    "arcane_effuse": [
+      "arcane"
+    ],
+    "concentration": [
+      "void"
+    ]
+  },
+  "combination_tags": {
+    "telekinetic_sword": {
+      "elements": [
+        "arcane",
+        "lightning"
+      ],
+      "functional": [
+        "crowd_clear",
+        "rapid_fire",
+        "pierce_slash",
+        "cdr_scaling"
+      ]
+    },
+    "blaster": {
+      "elements": [
+        "arcane"
+      ],
+      "functional": [
+        "crowd_clear",
+        "rapid_fire"
+      ]
+    },
+    "current_overload": {
+      "elements": [
+        "lightning"
+      ],
+      "functional": [
+        "crowd_clear",
+        "rapid_fire"
+      ]
+    },
+    "prism_spray": {
+      "elements": [
+        "arcane"
+      ],
+      "functional": [
+        "crowd_clear",
+        "beam_laser",
+        "duration_scaling"
+      ]
+    },
+    "terra_current": {
+      "elements": [
+        "lightning",
+        "arcane"
+      ],
+      "functional": [
+        "crowd_clear",
+        "beam_laser",
+        "duration_scaling"
+      ]
+    },
+    "avatar": {
+      "elements": [
+        "arcane"
+      ],
+      "functional": [
+        "crowd_clear",
+        "rapid_fire",
+        "count_scaling"
+      ]
+    },
+    "brandish": {
+      "elements": [
+        "arcane"
+      ],
+      "functional": [
+        "crowd_clear",
+        "pierce_slash",
+        "cdr_scaling"
+      ]
+    },
+    "pyrotechnics": {
+      "elements": [
+        "fire",
+        "arcane"
+      ],
+      "functional": [
+        "crowd_clear",
+        "explosion_aoe"
+      ]
+    },
+    "snowflake_blossom": {
+      "elements": [
+        "ice",
+        "storm"
+      ],
+      "functional": [
+        "crowd_clear",
+        "cc_freeze_stun",
+        "explosion_aoe"
+      ]
+    },
+    "phoenix": {
+      "elements": [
+        "fire",
+        "ice",
+        "storm"
+      ],
+      "functional": [
+        "crowd_clear",
+        "explosion_aoe",
+        "survival_utility"
+      ]
+    },
+    "heart_of_lightning": {
+      "elements": [
+        "lightning"
+      ],
+      "functional": [
+        "crowd_clear",
+        "rapid_fire"
+      ]
+    },
+    "exidium": {
+      "elements": [
+        "arcane",
+        "void"
+      ],
+      "functional": [
+        "crowd_clear",
+        "pierce_slash"
+      ]
+    },
+    "plasma_ray": {
+      "elements": [
+        "arcane",
+        "cosmic"
+      ],
+      "functional": [
+        "crowd_clear",
+        "orbital_aura",
+        "beam_laser",
+        "cdr_scaling",
+        "size_scaling",
+        "duration_scaling",
+        "count_scaling"
+      ]
+    },
+    "lightning_breath": {
+      "elements": [
+        "lightning",
+        "fire"
+      ],
+      "functional": [
+        "crowd_clear",
+        "rapid_fire"
+      ]
+    },
+    "hyperion": {
+      "elements": [
+        "cosmic",
+        "fire",
+        "ice"
+      ],
+      "functional": [
+        "crowd_clear",
+        "orbital_aura",
+        "cc_freeze_stun",
+        "size_scaling"
+      ]
+    },
+    "soul_blade": {
+      "elements": [
+        "cosmic",
+        "arcane"
+      ],
+      "functional": [
+        "crowd_clear",
+        "orbital_aura",
+        "pierce_slash",
+        "crit_scaling"
+      ]
+    },
+    "ghastly_rampage": {
+      "elements": [
+        "fire",
+        "cosmic"
+      ],
+      "functional": [
+        "crowd_clear",
+        "pierce_slash",
+        "explosion_aoe",
+        "duration_scaling"
+      ]
+    },
+    "crazed_spray": {
+      "elements": [
+        "arcane"
+      ],
+      "functional": [
+        "crowd_clear",
+        "rapid_fire"
+      ]
+    },
+    "frenzy": {
+      "elements": [
+        "arcane"
+      ],
+      "functional": [
+        "crowd_clear",
+        "pierce_slash",
+        "cdr_scaling"
+      ]
+    },
+    "neutron_generation": {
+      "elements": [
+        "storm",
+        "cosmic"
+      ],
+      "functional": [
+        "crowd_clear",
+        "count_scaling",
+        "size_scaling"
+      ]
+    },
+    "black_hole": {
+      "elements": [
+        "void",
+        "storm",
+        "cosmic"
+      ],
+      "functional": [
+        "crowd_clear",
+        "cc_freeze_stun",
+        "duration_scaling",
+        "count_scaling"
+      ]
+    },
+    "inferno": {
+      "elements": [
+        "fire"
+      ],
+      "functional": [
+        "crowd_clear",
+        "explosion_aoe"
+      ]
+    },
+    "age_of_the_sun": {
+      "elements": [
+        "fire",
+        "cosmic"
+      ],
+      "functional": [
+        "crowd_clear",
+        "explosion_aoe",
+        "duration_scaling"
+      ]
+    },
+    "furnace": {
+      "elements": [
+        "fire"
+      ],
+      "functional": [
+        "crowd_clear",
+        "explosion_aoe",
+        "duration_scaling"
+      ]
+    },
+    "breath_of_fire": {
+      "elements": [
+        "fire"
+      ],
+      "functional": [
+        "crowd_clear",
+        "rapid_fire"
+      ]
+    },
+    "vortex": {
+      "elements": [
+        "storm",
+        "cosmic"
+      ],
+      "functional": [
+        "crowd_clear",
+        "orbital_aura"
+      ]
+    },
+    "ether_blaze": {
+      "elements": [
+        "fire",
+        "ice"
+      ],
+      "functional": [
+        "crowd_clear",
+        "explosion_aoe"
+      ]
+    },
+    "ruler_of_storms": {
+      "elements": [
+        "storm"
+      ],
+      "functional": [
+        "crowd_clear",
+        "rapid_fire"
+      ]
+    },
+    "flame_storm": {
+      "elements": [
+        "fire"
+      ],
+      "functional": [
+        "crowd_clear",
+        "explosion_aoe",
+        "size_scaling"
+      ]
+    },
+    "great_flood": {
+      "elements": [
+        "storm"
+      ],
+      "functional": [
+        "crowd_clear"
+      ]
+    },
+    "winter_storm": {
+      "elements": [
+        "ice"
+      ],
+      "functional": [
+        "crowd_clear",
+        "cc_freeze_stun",
+        "explosion_aoe"
+      ]
+    },
+    "super_cyclone": {
+      "elements": [
+        "storm",
+        "lightning"
+      ],
+      "functional": [
+        "crowd_clear",
+        "orbital_aura",
+        "duration_scaling",
+        "count_scaling"
+      ]
+    },
+    "lightning_calibration": {
+      "elements": [
+        "lightning",
+        "cosmic"
+      ],
+      "functional": [
+        "crowd_clear",
+        "orbital_aura"
+      ]
+    },
+    "magnetic_field": {
+      "elements": [
+        "cosmic",
+        "lightning"
+      ],
+      "functional": [
+        "crowd_clear",
+        "orbital_aura"
+      ]
+    },
+    "meisner_effect": {
+      "elements": [
+        "lightning"
+      ],
+      "functional": [
+        "crowd_clear",
+        "orbital_aura",
+        "cc_freeze_stun",
+        "survival_utility"
+      ]
+    },
+    "gate": {
+      "elements": [
+        "arcane"
+      ],
+      "functional": [
+        "nuke_burst",
+        "pierce_slash",
+        "size_scaling"
+      ]
+    },
+    "supernova": {
+      "elements": [
+        "arcane",
+        "cosmic"
+      ],
+      "functional": [
+        "nuke_burst",
+        "explosion_aoe"
+      ]
+    },
+    "genesis": {
+      "elements": [
+        "ice",
+        "cosmic"
+      ],
+      "functional": [
+        "nuke_burst",
+        "explosion_aoe",
+        "count_scaling"
+      ]
+    },
+    "black_death": {
+      "elements": [
+        "fire",
+        "void"
+      ],
+      "functional": [
+        "nuke_burst",
+        "explosion_aoe",
+        "size_scaling"
+      ]
+    },
+    "glacium": {
+      "elements": [
+        "ice",
+        "storm"
+      ],
+      "functional": [
+        "nuke_burst",
+        "cc_freeze_stun",
+        "crowd_clear"
+      ]
+    },
+    "genocide": {
+      "elements": [
+        "arcane",
+        "void"
+      ],
+      "functional": [
+        "nuke_burst",
+        "beam_laser",
+        "size_scaling",
+        "count_scaling"
+      ]
+    },
+    "origin_explosion": {
+      "elements": [
+        "fire",
+        "arcane"
+      ],
+      "functional": [
+        "nuke_burst",
+        "explosion_aoe",
+        "duration_scaling"
+      ]
+    },
+    "hellfire": {
+      "elements": [
+        "fire"
+      ],
+      "functional": [
+        "nuke_burst",
+        "explosion_aoe"
+      ]
+    },
+    "discharge": {
+      "elements": [
+        "lightning"
+      ],
+      "functional": [
+        "nuke_burst",
+        "explosion_aoe"
+      ]
+    },
+    "astrape": {
+      "elements": [
+        "lightning"
+      ],
+      "functional": [
+        "nuke_burst",
+        "cc_freeze_stun",
+        "explosion_aoe"
+      ]
+    },
+    "empyrean_wrath": {
+      "elements": [
+        "lightning"
+      ],
+      "functional": [
+        "nuke_burst",
+        "explosion_aoe"
+      ]
+    },
+    "lightning_bolts": {
+      "elements": [
+        "lightning"
+      ],
+      "functional": [
+        "nuke_burst",
+        "explosion_aoe"
+      ]
+    },
+    "war_climate": {
+      "elements": [
+        "fire",
+        "ice"
+      ],
+      "functional": [
+        "nuke_burst",
+        "explosion_aoe",
+        "count_scaling"
+      ]
+    },
+    "energy_bombardment": {
+      "elements": [
+        "arcane"
+      ],
+      "functional": [
+        "nuke_burst",
+        "beam_laser"
+      ]
+    },
+    "great_impact": {
+      "elements": [
+        "fire"
+      ],
+      "functional": [
+        "nuke_burst",
+        "explosion_aoe"
+      ]
+    },
+    "mana_spear": {
+      "elements": [
+        "arcane"
+      ],
+      "functional": [
+        "nuke_burst",
+        "pierce_slash"
+      ]
+    },
+    "demon_equation": {
+      "elements": [
+        "fire",
+        "void"
+      ],
+      "functional": [
+        "nuke_burst",
+        "explosion_aoe"
+      ]
+    },
+    "great_rift": {
+      "elements": [
+        "ice",
+        "fire"
+      ],
+      "functional": [
+        "nuke_burst",
+        "cc_freeze_stun",
+        "size_scaling"
+      ]
+    },
+    "orbital_strike": {
+      "elements": [
+        "lightning"
+      ],
+      "functional": [
+        "nuke_burst",
+        "explosion_aoe"
+      ]
+    },
+    "destroyer": {
+      "elements": [
+        "lightning",
+        "void"
+      ],
+      "functional": [
+        "nuke_burst",
+        "orbital_aura"
+      ]
+    },
+    "frozen_heart": {
+      "elements": [
+        "ice",
+        "lightning"
+      ],
+      "functional": [
+        "nuke_burst",
+        "orbital_aura",
+        "cc_freeze_stun"
+      ]
+    },
+    "reaction": {
+      "elements": [
+        "arcane",
+        "void"
+      ],
+      "functional": [
+        "nuke_burst",
+        "explosion_aoe"
+      ]
+    },
+    "photon_explosion": {
+      "elements": [
+        "arcane",
+        "void"
+      ],
+      "functional": [
+        "nuke_burst",
+        "explosion_aoe",
+        "size_scaling",
+        "survival_utility"
+      ]
+    },
+    "teleport": {
+      "elements": [
+        "void"
+      ],
+      "functional": [
+        "nuke_burst",
+        "duration_scaling",
+        "survival_utility"
+      ]
+    }
+  }
+}
