@@ -12,42 +12,34 @@
     PINNED: 'ms_codex_v1_pinned',
     CHECKLIST: 'ms_codex_v1_checklist',
     IOS_DISMISSED: 'ms_codex_v1_ios_dismissed',
-    INSTALL_DISMISSED: 'ms_codex_v1_install_dismissed'
+    INSTALL_DISMISSED: 'ms_codex_v1_install_dismissed',
+    INSTALLED: 'ms_codex_v1_installed'
   };
 
   const CACHE_PREFIX = 'ms-codex-';
-  const CURRENT_CACHE_NAME = 'ms-codex-v09941-v4';
+  const CURRENT_CACHE_NAME = 'ms-codex-v09941-v5';
 
-  // --- Minimalist White Chalk-Ink SVG Icons (ZERO Emojis) ---
+  // --- Minimalist Chalk-Ink SVG Icons with Explicit Dimensions (ZERO Emojis) ---
   const ICONS = {
-    heptagram: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
-    all: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg>',
-    lightning: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>',
-    fire: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c-1.5 3-4 5-4 9 0 3.3 2.7 6 6 6s6-2.7 6-6c0-2-1-4-2-5-.5 2-2 3-3 3-1 0-2-.5-2-1.5 0-1.5 1-3.5 2-4.5-1.5.5-2.5 1.5-3 3z"/></svg>',
-    ice: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20M5 5l14 14M19 5L5 19"/></svg>',
-    arcane: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.5 7.5L22 12l-7.5 2.5L12 22l-2.5-7.5L2 12l7.5-2.5L12 2z"/></svg>',
-    storm: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/></svg>',
-    cosmic: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M3.5 15.5C5 18 8 20 12 20s8.5-3 8.5-8c0-3.5-2-6.5-5.5-8"/></svg>',
-    void: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 12l10 10 10-10L12 2z"/><circle cx="12" cy="12" r="3"/></svg>',
-    combinator: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="12" r="5"/><circle cx="17" cy="12" r="5"/></svg>',
-    planner: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',
-    codex: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>',
-    swap: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16V4M7 4L3 8M7 4L11 8M17 8V20M17 20L21 16M17 20L13 16"/></svg>',
-    reset: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 2v6h6M21.5 22v-6h-6"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L2.5 8m18.99 8a9 9 0 0 1-14.85 3.36L21.5 16"/></svg>',
-    close: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>',
-    search: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>',
-    filter: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>',
-    pin: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>',
-    check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>',
-    copy: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
-    share: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>',
-    chevronDown: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>',
-    chevronUp: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>',
-    zoom: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>',
-    warning: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
-    download: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>',
-    refresh: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>',
-    device: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>'
+    heptagram: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10.5" stroke-width="1.2" opacity="0.6"/><path d="M 12 2.5 L 16.12 20.56 L 4.57 6.08 L 21.26 14.11 L 2.74 14.11 L 19.43 6.08 L 7.88 20.56 Z"/></svg>',
+    all: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg>',
+    lightning: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>',
+    fire: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c-1.5 3-4 5-4 9 0 3.3 2.7 6 6 6s6-2.7 6-6c0-2-1-4-2-5-.5 2-2 3-3 3-1 0-2-.5-2-1.5 0-1.5 1-3.5 2-4.5-1.5.5-2.5 1.5-3 3z"/></svg>',
+    ice: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20M5 5l14 14M19 5L5 19"/></svg>',
+    arcane: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.5 7.5L22 12l-7.5 2.5L12 22l-2.5-7.5L2 12l7.5-2.5L12 2z"/></svg>',
+    storm: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/></svg>',
+    cosmic: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M3.5 15.5C5 18 8 20 12 20s8.5-3 8.5-8c0-3.5-2-6.5-5.5-8"/></svg>',
+    void: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 12l10 10 10-10L12 2z"/><circle cx="12" cy="12" r="3"/></svg>',
+    pin: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>',
+    check: '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>',
+    copy: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
+    share: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>',
+    chevronDown: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>',
+    chevronUp: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>',
+    zoom: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>',
+    warning: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
+    close: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>',
+    appBadge: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>'
   };
 
   // --- Strict HTML Escaping ---
@@ -61,6 +53,42 @@
       .replace(/'/g, '&#039;');
   }
 
+  // --- High-Value In-Game Mechanic Highlighting ---
+  function highlightMechanicText(text) {
+    const escaped = escapeHtml(text);
+    // Matches multipliers/numbers (+50%, 12X, 0.15s, 24 times, 1-9X, 3~7 times, 7×)
+    // and core game terms (Damage Multiplier, Cooldown, Duration, Size, Attack Count, etc.)
+    const pattern = /(\b\d+(?:\.\d+)?(?:~\d+(?:\.\d+)?)?(?:%|s|X|x|×)?(?:\s*times)?\b|\b[+-]?\d+(?:\.\d+)?%?\b|\b(?:Damage Multiplier|Attack Count|Rotation Speed|Critical Rate|Critical Strike|Knocked Back|Damage|Cooldown|Duration|Size|Freeze|Freezes|Stun|Stuns|Staggered|Revival|Pierce|Projectiles|Satellite|Spread)\b)/gi;
+
+    return escaped.replace(pattern, (match) => {
+      // Don't wrap single isolated digits like "every 6th hit" or bare small numbers without context
+      if (/^\d+$/.test(match) && parseInt(match, 10) < 10) {
+        return match;
+      }
+      return `<span class="mech-hl">${match}</span>`;
+    });
+  }
+
+  // --- Standalone / PWA Mode Detection (Comprehensive) ---
+  function isStandaloneApp() {
+    return Boolean(
+      (window.matchMedia && (
+        window.matchMedia('(display-mode: standalone)').matches ||
+        window.matchMedia('(display-mode: fullscreen)').matches ||
+        window.matchMedia('(display-mode: minimal-ui)').matches
+      )) ||
+      window.navigator.standalone === true ||
+      (document.referrer && document.referrer.startsWith('android-app://')) ||
+      localStorage.getItem(STORAGE_KEYS.INSTALLED) === '1'
+    );
+  }
+
+  function shouldShowInstallBanner() {
+    if (isStandaloneApp()) return false;
+    if (localStorage.getItem(STORAGE_KEYS.INSTALL_DISMISSED) === '1') return false;
+    return true;
+  }
+
   // --- Global Application State ---
   const state = {
     db: null,
@@ -71,6 +99,7 @@
     elementMap: new Map(),
 
     activeTab: 'combinator',
+    filtersDrawerOpen: false,
 
     pinned: [], // array of up to 3 combo IDs
     checklist: {}, // { "magicId:attribute": true }
@@ -102,8 +131,7 @@
 
     let iconSvg = ICONS.heptagram;
     if (type === 'success') iconSvg = ICONS.check;
-    else if (type === 'warning') iconSvg = ICONS.warning;
-    else if (type === 'error') iconSvg = ICONS.warning;
+    else if (type === 'warning' || type === 'error') iconSvg = ICONS.warning;
 
     toast.innerHTML = `${iconSvg}<span>${escapeHtml(message)}</span>`;
     container.appendChild(toast);
@@ -118,7 +146,7 @@
     }, 2800);
   }
 
-  // --- Pinned Builds & Persistence ---
+  // --- Pinned State & Persistence ---
   function loadPersistedState() {
     try {
       const stored = localStorage.getItem(STORAGE_KEYS.PINNED);
@@ -141,7 +169,7 @@
       console.warn('Failed to parse checklist', e);
     }
 
-    // URL Hash override: #build=id1,id2,id3 takes precedence on page load
+    // URL Hash override: #build=id1,id2,id3 takes precedence on load
     const hash = window.location.hash;
     if (hash && hash.startsWith('#build=')) {
       const ids = hash.replace('#build=', '').split(',').map(s => s.trim());
@@ -266,7 +294,7 @@
     let topClass = null;
     let topClassReason = '';
 
-    // Check if single focus (e.g. 1 fusion pinned OR >=2 pinned fusions share the same Main Magic)
+    // Check if single focus (>=2 pinned fusions share same Main Magic, or 1 fusion pinned)
     let focusedMainMagic = null;
     for (const mid in mainMagicCounts) {
       if (mainMagicCounts[mid] >= 2) {
@@ -279,7 +307,6 @@
     }
 
     if (focusedMainMagic) {
-      // Find specialist class
       const spec = classes.find(c => c.primary_magic_id === focusedMainMagic);
       if (spec) {
         topClass = spec;
@@ -300,7 +327,6 @@
       }
     }
 
-    // Recommend Subject: Find matching subject or default to Archmage subject
     let topSubject = null;
     if (focusedMainMagic) {
       topSubject = subjects.find(s => s.synergy_magics && s.synergy_magics.includes(focusedMainMagic));
@@ -316,18 +342,32 @@
     };
   }
 
-  // --- Rendering UI: Header Dock ---
+  // --- Rendering UI: Bottom Navigation Badge & Slim Floating Dock ---
   function updateDock() {
+    const dockEl = document.getElementById('floating-dock');
     const slotsContainer = document.getElementById('dock-slots');
     const badge = document.getElementById('dock-count-badge');
     const navBadge = document.getElementById('nav-planner-badge');
-    if (!slotsContainer) return;
 
-    if (badge) badge.textContent = `${state.pinned.length}/3`;
+    const pinnedCount = state.pinned.length;
+
+    // 1. Update Planner Nav Pill Badge (0/3 to 3/3)
     if (navBadge) {
-      navBadge.textContent = state.pinned.length;
-      navBadge.style.display = state.pinned.length > 0 ? 'inline-block' : 'none';
+      navBadge.textContent = `${pinnedCount}/3`;
+      navBadge.style.display = pinnedCount > 0 ? 'inline-block' : 'none';
     }
+
+    // 2. Floating Dock: ONLY rendered when state.pinned.length > 0
+    if (!dockEl || !slotsContainer) return;
+
+    if (pinnedCount === 0) {
+      dockEl.style.display = 'none';
+      slotsContainer.innerHTML = '';
+      return;
+    }
+
+    dockEl.style.display = 'flex';
+    if (badge) badge.textContent = `${pinnedCount}/3`;
 
     const levels = [25, 50, 75];
     const conflicts = getConflictsInPinned();
@@ -340,17 +380,17 @@
         const name = c ? c.name : cid;
         return `<div class="dock-slot filled ${hasConflict ? 'has-conflict' : ''}" data-slot="${i}" title="${escapeHtml(name)}">Lv.${levels[i]}: ${escapeHtml(name)}</div>`;
       } else {
-        return `<div class="dock-slot empty" data-slot="${i}">Slot ${i + 1} (Lv.${levels[i]})</div>`;
+        return `<div class="dock-slot empty" data-slot="${i}">Slot ${i + 1}</div>`;
       }
     }).join('');
 
-    // Clicking a dock slot switches to the Build Planner tab
+    // Clicking dock slot opens Build Planner tab
     slotsContainer.querySelectorAll('.dock-slot').forEach(el => {
       el.addEventListener('click', () => switchTab('planner'));
     });
   }
 
-  // --- Rendering UI: Tab Switching ---
+  // --- Tab Switching ---
   function switchTab(tabId) {
     state.activeTab = tabId;
     document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
@@ -367,10 +407,11 @@
       renderPlanner();
     } else if (tabId === 'codex') {
       checkCacheStatus();
+      updateCodexInstallCard();
     }
   }
 
-  // --- Rendering UI: Combinator Controls & Attribute Chips ---
+  // --- Combinator Controls & Attribute Chips ---
   function populateMagicDropdowns() {
     const sel1 = document.getElementById('select-magic-1');
     const sel2 = document.getElementById('select-magic-2');
@@ -408,18 +449,13 @@
     container.style.display = 'block';
     let html = '';
 
-    if (m1) {
-      html += renderMagicAttrRows(m1, 1, state.filters.slot1Attr);
-    }
-    if (m2) {
-      html += renderMagicAttrRows(m2, 2, state.filters.slot2Attr);
-    }
+    if (m1) html += renderMagicAttrRows(m1, 1, state.filters.slot1Attr);
+    if (m2) html += renderMagicAttrRows(m2, 2, state.filters.slot2Attr);
 
     container.innerHTML = html;
 
-    // Attach click listeners to chips
     container.querySelectorAll('.attr-chip').forEach(btn => {
-      btn.addEventListener('click', (e) => {
+      btn.addEventListener('click', () => {
         const slot = parseInt(btn.dataset.slot, 10);
         const attrVal = btn.dataset.attr;
         if (slot === 1) {
@@ -438,15 +474,14 @@
     out += `<div class="attr-tier-label">${escapeHtml(magic.name)} (Slot ${slotNum}):</div>`;
 
     if (magic.id === 'magic_bolt') {
-      // Specialized Magic Bolt UI: ONE 'Any' chip at top, followed by Lv.4 and Lv.7 rows
+      // Magic Bolt: ONE 'Any' chip at top, followed by Lv.4 and Lv.7 rows
       out += `<div class="attr-chips-list" style="margin-bottom:6px;">`;
       out += `<button type="button" class="attr-chip ${selectedAttr === '' ? 'active' : ''}" data-slot="${slotNum}" data-attr="">Any Trait</button>`;
       out += `</div>`;
 
-      // Lv.4 row
       const lv4Tier = magic.attribute_tiers.find(t => t.level === 4);
       if (lv4Tier) {
-        out += `<div class="attr-tier-label" style="font-size:0.65rem;color:var(--cyan);">Lv.4 Trait:</div>`;
+        out += `<div class="attr-tier-label" style="font-size:0.65rem;color:var(--text-heading);">Lv.4 Trait:</div>`;
         out += `<div class="attr-chips-list" style="margin-bottom:6px;">`;
         for (const attr of lv4Tier.attributes) {
           const isActive = selectedAttr === attr;
@@ -455,10 +490,9 @@
         out += `</div>`;
       }
 
-      // Lv.7 row
       const lv7Tier = magic.attribute_tiers.find(t => t.level === 7);
       if (lv7Tier) {
-        out += `<div class="attr-tier-label" style="font-size:0.65rem;color:var(--cyan);">Lv.7 Trait:</div>`;
+        out += `<div class="attr-tier-label" style="font-size:0.65rem;color:var(--text-heading);">Lv.7 Trait:</div>`;
         out += `<div class="attr-chips-list">`;
         for (const attr of lv7Tier.attributes) {
           const isActive = selectedAttr === attr;
@@ -467,7 +501,6 @@
         out += `</div>`;
       }
     } else if (magic.attribute_tiers && magic.attribute_tiers.length > 0) {
-      // Standard magic attributes
       out += `<div class="attr-chips-list">`;
       out += `<button type="button" class="attr-chip ${selectedAttr === '' ? 'active' : ''}" data-slot="${slotNum}" data-attr="">Any Trait</button>`;
       for (const tier of magic.attribute_tiers) {
@@ -478,98 +511,115 @@
       }
       out += `</div>`;
     } else {
-      out += `<div style="font-size:0.72rem;color:var(--muted);">Passive Magic (Max Lv.${magic.max_level})</div>`;
+      out += `<div style="font-size:0.72rem;color:var(--text-muted);">Passive Magic (Max Lv.${magic.max_level})</div>`;
     }
 
     out += `</div>`;
     return out;
   }
 
-  // --- Rendering UI: Elemental Filter Row ---
-  function renderElementalFilterRow() {
-    const row = document.getElementById('element-filter-row');
-    if (!row || !state.taxonomy) return;
+  // --- Collapsible 4-Section Filters Drawer ---
+  function renderFiltersDrawer() {
+    const elemGrid = document.getElementById('drawer-elements-grid');
+    const rolesGrid = document.getElementById('drawer-roles-grid');
+    const scalingGrid = document.getElementById('drawer-scaling-grid');
+    const badgeEl = document.getElementById('filter-count-badge');
+    const toggleBtn = document.getElementById('btn-filters-toggle');
+    if (!elemGrid || !rolesGrid || !scalingGrid || !state.taxonomy) return;
 
+    // 1. Elements
     const elements = state.taxonomy.elements || [];
-    let html = `
-      <button type="button" class="element-chip ${state.filters.element === 'all' ? 'active' : ''}" data-element="all">
+    let elemHtml = `
+      <button type="button" class="filter-chip ${state.filters.element === 'all' ? 'active' : ''}" data-drawer-element="all">
         ${ICONS.all}
         <span>All</span>
       </button>
     `;
-
     for (const el of elements) {
-      const iconSvg = ICONS[el.id] || ICONS.heptagram;
+      const iconSvg = ICONS[el.id] || ICONS.all;
       const isActive = state.filters.element === el.id;
-      html += `
-        <button type="button" class="element-chip ${isActive ? 'active' : ''}" data-element="${escapeHtml(el.id)}">
+      elemHtml += `
+        <button type="button" class="filter-chip ${isActive ? 'active' : ''}" data-drawer-element="${escapeHtml(el.id)}">
           ${iconSvg}
           <span>${escapeHtml(el.label.split('/')[0].trim())}</span>
         </button>
       `;
     }
+    elemGrid.innerHTML = elemHtml;
 
-    row.innerHTML = html;
-
-    row.querySelectorAll('.element-chip').forEach(btn => {
+    elemGrid.querySelectorAll('[data-drawer-element]').forEach(btn => {
       btn.addEventListener('click', () => {
-        state.filters.element = btn.dataset.element;
-        renderElementalFilterRow();
+        state.filters.element = btn.dataset.drawerElement;
+        renderFiltersDrawer();
         renderCombinations();
       });
     });
-  }
 
-  // --- Rendering UI: Functional Filters Drawer ---
-  function renderFunctionalFilterDrawer() {
-    const grid = document.getElementById('functional-tags-grid');
-    const drawerBtn = document.getElementById('filter-drawer-btn');
-    const drawerBtnCount = document.getElementById('active-filters-count');
-    if (!grid || !state.taxonomy) return;
+    // 2. Combat Roles & 3. Stat Scaling
+    const allFuncs = state.taxonomy.functional_filters || [];
+    const combatRoleIds = new Set(['crowd_clear', 'nuke_burst', 'cc_freeze_stun', 'orbital_aura', 'rapid_fire', 'explosion_aoe', 'beam_laser', 'pierce_slash', 'survival_utility']);
+    const statScalingIds = new Set(['cdr_scaling', 'size_scaling', 'duration_scaling', 'count_scaling', 'crit_scaling']);
 
-    const funcs = state.taxonomy.functional_filters || [];
-    let html = '';
+    let rolesHtml = '';
+    let scalingHtml = '';
 
-    for (const f of funcs) {
+    for (const f of allFuncs) {
       const isActive = state.filters.functional.has(f.id);
-      html += `
-        <button type="button" class="func-chip ${isActive ? 'active' : ''}" data-func="${escapeHtml(f.id)}" title="${escapeHtml(f.description)}">
-          ${escapeHtml(f.label)}
+      const chipHtml = `
+        <button type="button" class="filter-chip ${isActive ? 'active' : ''}" data-drawer-func="${escapeHtml(f.id)}" title="${escapeHtml(f.description)}">
+          <span>${escapeHtml(f.label)}</span>
         </button>
       `;
-    }
-    grid.innerHTML = html;
-
-    const count = state.filters.functional.size;
-    if (drawerBtnCount) {
-      drawerBtnCount.textContent = count > 0 ? ` (${count})` : '';
-    }
-    if (drawerBtn) {
-      drawerBtn.classList.toggle('has-active', count > 0);
+      if (combatRoleIds.has(f.id)) {
+        rolesHtml += chipHtml;
+      } else if (statScalingIds.has(f.id)) {
+        scalingHtml += chipHtml;
+      }
     }
 
-    grid.querySelectorAll('.func-chip').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const fid = btn.dataset.func;
-        if (state.filters.functional.has(fid)) {
-          state.filters.functional.delete(fid);
-        } else {
-          state.filters.functional.add(fid);
-        }
-        renderFunctionalFilterDrawer();
-        renderCombinations();
-      });
-    });
+    rolesGrid.innerHTML = rolesHtml;
+    scalingGrid.innerHTML = scalingHtml;
+
+    const handleFuncClick = (btn) => {
+      const fid = btn.dataset.drawerFunc;
+      if (state.filters.functional.has(fid)) {
+        state.filters.functional.delete(fid);
+      } else {
+        state.filters.functional.add(fid);
+      }
+      renderFiltersDrawer();
+      renderCombinations();
+    };
+
+    rolesGrid.querySelectorAll('[data-drawer-func]').forEach(btn => btn.addEventListener('click', () => handleFuncClick(btn)));
+    scalingGrid.querySelectorAll('[data-drawer-func]').forEach(btn => btn.addEventListener('click', () => handleFuncClick(btn)));
+
+    // Update active filters badge & styling on the toggle button
+    let activeFilterCount = state.filters.functional.size;
+    if (state.filters.element !== 'all') activeFilterCount += 1;
+    if (state.filters.hideConflicts) activeFilterCount += 1;
+
+    if (badgeEl) {
+      if (activeFilterCount > 0) {
+        badgeEl.textContent = activeFilterCount;
+        badgeEl.style.display = 'inline-block';
+      } else {
+        badgeEl.style.display = 'none';
+      }
+    }
+    if (toggleBtn) {
+      toggleBtn.classList.toggle('has-active', activeFilterCount > 0);
+    }
   }
 
-  // --- Combinations Filtering Logic ---
+  // --- Combinations Filtering & Deep Search Engine ---
   function getFilteredCombinations() {
     if (!state.db) return [];
     const combos = state.db.combinations || [];
     const taxonomyTags = state.taxonomy ? state.taxonomy.combination_tags || {} : {};
 
     return combos.filter(combo => {
-      // 1. Partner filter mode (from detail inspector "Find Compatible Partners")
+      // 1. Partner filter mode
       if (state.filters.partnerFor) {
         const target = state.comboMap.get(state.filters.partnerFor);
         if (target) {
@@ -581,10 +631,8 @@
       }
 
       // 2. Hide build conflicts toggle
-      if (state.filters.hideConflicts) {
-        if (doesComboConflictWithPinned(combo)) {
-          return false;
-        }
+      if (state.filters.hideConflicts && doesComboConflictWithPinned(combo)) {
+        return false;
       }
 
       // 3. Category filter
@@ -597,12 +645,10 @@
       const s2 = state.filters.slot2;
 
       if (s1 && s2) {
-        // Must contain both magics (order independent)
         const matchForward = (combo.main.magic_id === s1 && combo.material.magic_id === s2);
         const matchReverse = (combo.main.magic_id === s2 && combo.material.magic_id === s1);
         if (!matchForward && !matchReverse) return false;
 
-        // Attribute matching
         if (matchForward) {
           if (state.filters.slot1Attr && combo.main.attribute !== state.filters.slot1Attr) return false;
           if (state.filters.slot2Attr && combo.material.attribute !== state.filters.slot2Attr) return false;
@@ -611,7 +657,6 @@
           if (state.filters.slot2Attr && combo.main.attribute !== state.filters.slot2Attr) return false;
         }
       } else if (s1) {
-        // Slot 1 alone
         const isMain = combo.main.magic_id === s1;
         const isMat = combo.material.magic_id === s1;
         if (!isMain && !isMat) return false;
@@ -621,7 +666,6 @@
           if (isMat && combo.material.attribute !== state.filters.slot1Attr) return false;
         }
       } else if (s2) {
-        // Slot 2 alone
         const isMain = combo.main.magic_id === s2;
         const isMat = combo.material.magic_id === s2;
         if (!isMain && !isMat) return false;
@@ -649,12 +693,13 @@
         }
       }
 
-      // 7. Search query filter
+      // 7. Deep Search: matches combination name, base magics, attributes, mechanics, buffs, penalties
       if (state.filters.search) {
         const q = state.filters.search.toLowerCase().trim();
         const mainName = state.magicMap.get(combo.main.magic_id)?.name || combo.main.magic_id;
         const matName = state.magicMap.get(combo.material.magic_id)?.name || combo.material.magic_id;
-        const searchCorpus = [
+
+        const deepCorpus = [
           combo.name,
           combo.category,
           combo.tier,
@@ -662,22 +707,37 @@
           combo.main.attribute,
           matName,
           combo.material.attribute,
-          ...(combo.mechanics || [])
+          ...(combo.mechanics || []),
+          ...(combo.buffs || []),
+          ...(combo.penalties || [])
         ].join(' ').toLowerCase();
 
-        if (!searchCorpus.includes(q)) return false;
+        if (!deepCorpus.includes(q)) return false;
       }
 
       return true;
     });
   }
 
-  // --- Rendering UI: Combinations Cards List ---
+  // --- Rendering Combinations Cards ---
   function renderCombinations() {
     const listEl = document.getElementById('combos-list');
     const countEl = document.getElementById('filtered-count');
     const partnerBar = document.getElementById('partner-filter-bar');
+    const clearBtn = document.getElementById('btn-clear-active-filters');
     if (!listEl) return;
+
+    // Check if any filter is active to show quick "Clear Filters"
+    const hasActiveFilters = Boolean(
+      state.filters.slot1 || state.filters.slot2 ||
+      state.filters.element !== 'all' || state.filters.functional.size > 0 ||
+      state.filters.category !== 'all' || state.filters.search ||
+      state.filters.hideConflicts || state.filters.partnerFor
+    );
+
+    if (clearBtn) {
+      clearBtn.style.display = hasActiveFilters ? 'inline-block' : 'none';
+    }
 
     // Partner mode bar
     if (partnerBar) {
@@ -688,32 +748,28 @@
           <span>Showing compatible partners for <strong>${partnerCombo ? escapeHtml(partnerCombo.name) : ''}</strong> (0 shared magics)</span>
           <button type="button" class="btn-close-sm" id="btn-clear-partner" title="Clear partner filter">${ICONS.close}</button>
         `;
-        const clearBtn = document.getElementById('btn-clear-partner');
-        if (clearBtn) {
-          clearBtn.addEventListener('click', () => {
-            state.filters.partnerFor = '';
-            renderCombinations();
-          });
-        }
+        document.getElementById('btn-clear-partner')?.addEventListener('click', () => {
+          state.filters.partnerFor = '';
+          renderCombinations();
+        });
       } else {
         partnerBar.style.display = 'none';
       }
     }
 
     const filtered = getFilteredCombinations();
-    if (countEl) countEl.textContent = `${filtered.length}/59 Combinations`;
+    if (countEl) countEl.textContent = `${filtered.length} Combinations`;
 
     if (filtered.length === 0) {
       listEl.innerHTML = `
         <div class="empty-results">
           <p>No combinations match the current filters.</p>
           <button type="button" class="btn-action primary" id="btn-empty-reset" style="margin:0 auto;display:inline-flex;">
-            ${ICONS.reset} Reset All Filters
+            Reset All Filters
           </button>
         </div>
       `;
-      const btn = document.getElementById('btn-empty-reset');
-      if (btn) btn.addEventListener('click', resetAllFilters);
+      document.getElementById('btn-empty-reset')?.addEventListener('click', resetAllFilters);
       return;
     }
 
@@ -764,10 +820,8 @@
       `;
     }).join('');
 
-    // Attach card click handlers (inspect) and pin click handlers
     listEl.querySelectorAll('.combo-card').forEach(card => {
       card.addEventListener('click', (e) => {
-        // If clicking pin button, don't open modal
         const pinBtn = e.target.closest('.btn-pin');
         if (pinBtn) {
           e.stopPropagation();
@@ -792,7 +846,6 @@
     state.filters.partnerFor = '';
     state.filters.hideConflicts = false;
 
-    // Reset UI elements
     const s1 = document.getElementById('select-magic-1');
     const s2 = document.getElementById('select-magic-2');
     const searchInput = document.getElementById('search-input');
@@ -807,8 +860,7 @@
       p.classList.toggle('active', p.dataset.cat === 'all');
     });
 
-    renderElementalFilterRow();
-    renderFunctionalFilterDrawer();
+    renderFiltersDrawer();
     renderAttributeChips();
     renderCombinations();
 
@@ -886,7 +938,7 @@
     // 3. Deduplicated Artifact Priority List
     if (artPriorityList) {
       if (state.pinned.length === 0) {
-        artPriorityList.innerHTML = '<span style="font-size:0.75rem;color:var(--dim)">Pin fusions above to identify your Main Magic artifacts.</span>';
+        artPriorityList.innerHTML = '<span style="font-size:0.75rem;color:var(--text-dim)">Pin fusions above to identify your Main Magic artifacts.</span>';
       } else {
         const uniqueMainMagics = new Set();
         for (const cid of state.pinned) {
@@ -906,7 +958,7 @@
     if (recContainer) {
       const recs = getRecommendations();
       if (!recs || state.pinned.length === 0) {
-        recContainer.innerHTML = '<span style="font-size:0.75rem;color:var(--dim)">Pin at least one fusion to see optimal Class & Subject synergies.</span>';
+        recContainer.innerHTML = '<span style="font-size:0.75rem;color:var(--text-dim)">Pin at least one fusion to see optimal Class & Subject synergies.</span>';
       } else {
         recContainer.innerHTML = `
           <div class="recommendation-box">
@@ -930,62 +982,74 @@
       }
     }
 
-    // 5. In-Run 6-Magic Leveling Checklist
+    // 5. In-Run Leveling Checklist (Grouped by Base Magic with Conflict Indicators)
     if (checklistContainer) {
       if (state.pinned.length === 0) {
-        checklistContainer.innerHTML = '<span style="font-size:0.75rem;color:var(--dim)">No magics to track. Pin fusions above to generate your in-run checklist.</span>';
+        checklistContainer.innerHTML = '<span style="font-size:0.75rem;color:var(--text-dim)">No magics to track. Pin fusions above to generate your in-run checklist.</span>';
       } else {
-        const checkItems = [];
-        const seenKeys = new Set();
+        // Group requirements by magic_id
+        const magicGroups = {};
 
         for (const cid of state.pinned) {
           const c = state.comboMap.get(cid);
           if (!c) continue;
 
-          // Main magic requirement
-          const mainKey = `${c.main.magic_id}:${c.main.attribute}:${c.main.level}`;
-          if (!seenKeys.has(mainKey)) {
-            seenKeys.add(mainKey);
-            const m = state.magicMap.get(c.main.magic_id);
-            checkItems.push({
-              key: mainKey,
-              role: 'Main',
-              magicName: m ? m.name : c.main.magic_id,
-              attr: c.main.attribute,
-              level: c.main.level
-            });
-          }
+          // Main magic
+          const mId = c.main.magic_id;
+          if (!magicGroups[mId]) magicGroups[mId] = [];
+          magicGroups[mId].push({
+            comboName: c.name,
+            role: 'Main',
+            attr: c.main.attribute,
+            level: c.main.level,
+            key: `${mId}:${c.main.attribute}:${c.main.level}`
+          });
 
-          // Material magic requirement
-          const matKey = `${c.material.magic_id}:${c.material.attribute}:${c.material.level}`;
-          if (!seenKeys.has(matKey)) {
-            seenKeys.add(matKey);
-            const m = state.magicMap.get(c.material.magic_id);
-            checkItems.push({
-              key: matKey,
-              role: 'Material',
-              magicName: m ? m.name : c.material.magic_id,
-              attr: c.material.attribute,
-              level: c.material.level
-            });
-          }
+          // Material magic
+          const matId = c.material.magic_id;
+          if (!magicGroups[matId]) magicGroups[matId] = [];
+          magicGroups[matId].push({
+            comboName: c.name,
+            role: 'Material',
+            attr: c.material.attribute,
+            level: c.material.level,
+            key: `${matId}:${c.material.attribute}:${c.material.level}`
+          });
         }
 
-        checklistContainer.innerHTML = checkItems.map(item => {
-          const isChecked = !!state.checklist[item.key];
-          const roleColor = item.role === 'Main' ? 'var(--main-green)' : 'var(--mat-crimson)';
-          return `
-            <div class="checklist-item ${isChecked ? 'checked' : ''}" data-check-key="${escapeHtml(item.key)}">
-              <div class="check-box">${isChecked ? ICONS.check : ''}</div>
-              <div class="check-info">
-                <span class="check-magic-name">${escapeHtml(item.magicName)}</span>
-                <span class="check-attr-desc" style="color:${roleColor}">
-                  ${item.role}: ${escapeHtml(item.attr)} (Lv.${item.level})
-                </span>
+        let groupsHtml = '';
+        for (const mId in magicGroups) {
+          const reqs = magicGroups[mId];
+          const magicObj = state.magicMap.get(mId);
+          const magicName = magicObj ? magicObj.name : mId;
+          const isConflict = reqs.length > 1;
+
+          groupsHtml += `
+            <div class="magic-checklist-group ${isConflict ? 'has-conflict' : ''}">
+              <div class="magic-group-header">
+                <span class="magic-group-name">${escapeHtml(magicName)}</span>
+                ${isConflict ? '<span class="conflict-badge">Conflict</span>' : ''}
+              </div>
+              <div class="group-checklist-items">
+                ${reqs.map(req => {
+                  const isChecked = Boolean(state.checklist[req.key]);
+                  const roleClass = req.role === 'Main' ? 'main' : 'material';
+                  return `
+                    <div class="checklist-item ${isChecked ? 'checked' : ''}" data-check-key="${escapeHtml(req.key)}">
+                      <div class="check-box">${isChecked ? ICONS.check : ''}</div>
+                      <div class="check-info">
+                        <span class="check-attr-desc">${escapeHtml(req.attr)} (Lv.${req.level})</span>
+                        <span class="check-role-pill ${roleClass}">${req.role} · ${escapeHtml(req.comboName)}</span>
+                      </div>
+                    </div>
+                  `;
+                }).join('')}
               </div>
             </div>
           `;
-        }).join('');
+        }
+
+        checklistContainer.innerHTML = groupsHtml;
 
         checklistContainer.querySelectorAll('.checklist-item').forEach(el => {
           el.addEventListener('click', () => {
@@ -999,7 +1063,7 @@
     }
   }
 
-  // --- Reddit Markdown Exporter ---
+  // --- Rich Reddit Markdown Exporter ---
   function exportRedditMarkdown() {
     if (state.pinned.length === 0) {
       showToast('Please pin at least one combination before exporting.', 'warning');
@@ -1008,7 +1072,13 @@
 
     const levels = [25, 50, 75];
     const recs = getRecommendations();
-    const classCallout = recs && recs.topClass ? `**Recommended Class:** ${recs.topClass.name} (${recs.topClass.archetype})\n` : '';
+
+    const uniqueMainMagics = new Set();
+    for (const cid of state.pinned) {
+      const c = state.comboMap.get(cid);
+      if (c) uniqueMainMagics.add(state.magicMap.get(c.main.magic_id)?.name || c.main.magic_id);
+    }
+    const artifactList = Array.from(uniqueMainMagics).join(', ');
 
     const rows = state.pinned.map((id, i) => {
       const c = state.comboMap.get(id);
@@ -1017,7 +1087,20 @@
       return `| Lv.${levels[i]} | **${c.name}** | Tier ${c.tier} | ${mainM} — ${c.main.attribute} (Lv.${c.main.level}) | ${matM} — ${c.material.attribute} (Lv.${c.material.level}) |`;
     }).join('\n');
 
-    const md = `### Magic Survival (v0.9941) Build\n\n${classCallout}\n| Slot | Combination | Tier | Main Magic (Artifact Scaled) | Material Magic (Consumed) |\n| :--- | :--- | :---: | :--- | :--- |\n${rows}\n\n*Created with Magic Survival Fusion Codex — r/magic_survival*`;
+    let md = `### Magic Survival (v0.9941) Build\n\n`;
+    if (recs) {
+      if (recs.topClass) {
+        md += `**Recommended Class:** ${recs.topClass.name} (${recs.topClass.archetype}) — ${recs.topClassReason}\n`;
+      }
+      if (recs.topSubject) {
+        md += `**Recommended Subject:** ${recs.topSubject.name} — ${recs.topSubject.recommended_when}\n`;
+      }
+    }
+    md += `**Artifact Priority (Main Magics):** ${artifactList} *(Only Main Magics scale with artifacts)*\n\n`;
+    md += `| Slot | Combination | Tier | Main Magic (Artifact Scaled) | Material Magic (Consumed) |\n`;
+    md += `| :--- | :--- | :---: | :--- | :--- |\n`;
+    md += `${rows}\n\n`;
+    md += `*Created with Magic Survival Fusion Codex — r/magic_survival*`;
 
     navigator.clipboard.writeText(md)
       .then(() => showToast('Copied Reddit Markdown Table to clipboard!', 'success'))
@@ -1032,7 +1115,6 @@
       .catch(() => showToast('Clipboard write failed. Please check permissions.', 'error'));
   }
 
-  // --- Reset Checklist ---
   function resetChecklist() {
     state.checklist = {};
     saveChecklistState();
@@ -1086,7 +1168,7 @@
 
       <div class="modal-mechanics-box">
         <div class="modal-mechanics-title">In-Game Mechanics</div>
-        ${(combo.mechanics || []).map(m => `<div class="mechanics-text">• ${escapeHtml(m)}</div>`).join('')}
+        ${(combo.mechanics || []).map(m => `<div class="mechanics-text">• ${highlightMechanicText(m)}</div>`).join('')}
       </div>
 
       ${combo.buffs && combo.buffs.length > 0 ? `
@@ -1098,7 +1180,7 @@
 
       ${combo.penalties && combo.penalties.length > 0 ? `
         <div class="modal-penalties-box">
-          <div style="font-family:var(--font-mono);font-size:0.7rem;color:var(--penalty-red);margin-bottom:4px;">PENALTY STATS:</div>
+          <div style="font-family:var(--font-mono);font-size:0.7rem;color:var(--mat-crimson);margin-bottom:4px;">PENALTY STATS:</div>
           ${combo.penalties.map(p => `<div class="modal-penalty-item">▼ ${escapeHtml(p)}</div>`).join('')}
         </div>
       ` : ''}
@@ -1109,7 +1191,7 @@
 
       <div class="modal-actions-grid">
         <button type="button" class="btn-action" id="btn-modal-partner">
-          ${ICONS.search} <span>Find Compatible</span>
+          ${ICONS.heptagram} <span>Find Compatible</span>
         </button>
         <button type="button" class="btn-action ${isPinned ? 'primary' : ''}" id="btn-modal-pin">
           ${ICONS.pin} <span>${isPinned ? 'Unpin Fusion' : 'Pin Fusion'}</span>
@@ -1119,7 +1201,6 @@
 
     modal.classList.add('open');
 
-    // Attach modal buttons
     document.getElementById('btn-open-lightbox')?.addEventListener('click', () => {
       openLightbox(`./assets/cards/${combo.id}.webp`);
     });
@@ -1134,7 +1215,7 @@
 
     document.getElementById('btn-modal-pin')?.addEventListener('click', () => {
       togglePin(combo.id);
-      openInspectorModal(combo.id); // Re-render modal button state
+      openInspectorModal(combo.id);
     });
   }
 
@@ -1144,7 +1225,6 @@
     state.activeModalCombo = null;
   }
 
-  // --- Lightbox Modal ---
   function openLightbox(imgSrc) {
     const lb = document.getElementById('lightbox-modal');
     const img = document.getElementById('lightbox-image');
@@ -1159,7 +1239,7 @@
     if (lb) lb.classList.remove('open');
   }
 
-  // --- Codex Tab: Dynamic Cache Management ---
+  // --- Codex Tab: Cache & Network Status ---
   async function checkCacheStatus() {
     const cacheStatusEl = document.getElementById('offline-cache-status');
     const cacheCountEl = document.getElementById('cached-count-val');
@@ -1193,13 +1273,41 @@
     }
   }
 
+  function updateOnlineIndicator() {
+    const dot = document.getElementById('online-dot');
+    const text = document.getElementById('online-text');
+    if (!dot || !text) return;
+
+    if (navigator.onLine) {
+      dot.classList.remove('offline');
+      text.textContent = 'Online';
+    } else {
+      dot.classList.add('offline');
+      text.textContent = 'Offline';
+    }
+  }
+
+  function updateCodexInstallCard() {
+    const panel = document.getElementById('install-guide-panel');
+    if (!panel) return;
+
+    if (isStandaloneApp()) {
+      panel.innerHTML = `
+        <div class="installed-badge-card">
+          ${ICONS.appBadge}
+          <span>Installed · Running in App Mode</span>
+        </div>
+      `;
+    }
+  }
+
   async function refreshOfflineCache() {
     if (!('caches' in window)) {
       showToast('Cache API not supported in this browser.', 'error');
       return;
     }
 
-    showToast('Clearing stale cache and fetching latest assets...', 'info');
+    showToast('Refreshing cache with latest assets...', 'info');
 
     try {
       const keys = await caches.keys();
@@ -1211,15 +1319,11 @@
 
       if ('serviceWorker' in navigator) {
         const reg = await navigator.serviceWorker.getRegistration();
-        if (reg) {
-          await reg.update();
-        }
+        if (reg) await reg.update();
       }
 
       showToast('Cache refreshed! Reloading...', 'success');
-      setTimeout(() => {
-        window.location.reload();
-      }, 700);
+      setTimeout(() => window.location.reload(), 600);
     } catch (e) {
       showToast('Failed to refresh cache: ' + e.message, 'error');
     }
@@ -1235,7 +1339,7 @@
     showToast('combinations_v09941.json downloaded.', 'success');
   }
 
-  // --- Codex Tab: Classes & Subjects Directory ---
+  // --- Codex Tab: Classes Directory ---
   let selectedClassElement = 'all';
 
   function renderClassesDirectory() {
@@ -1253,13 +1357,13 @@
     ];
 
     filterRow.innerHTML = elements.map(el => `
-      <button type="button" class="element-chip ${selectedClassElement === el.id ? 'active' : ''}" data-class-el="${el.id}">
+      <button type="button" class="filter-chip ${selectedClassElement === el.id ? 'active' : ''}" data-class-el="${el.id}">
         ${ICONS[el.id] || ICONS.all}
         <span>${el.label}</span>
       </button>
     `).join('');
 
-    filterRow.querySelectorAll('.element-chip').forEach(btn => {
+    filterRow.querySelectorAll('.filter-chip').forEach(btn => {
       btn.addEventListener('click', () => {
         selectedClassElement = btn.dataset.classEl;
         renderClassesDirectory();
@@ -1272,28 +1376,25 @@
       return c.elements && c.elements.includes(selectedClassElement);
     });
 
-    listGrid.innerHTML = filtered.map(c => {
-      const primaryMagic = c.primary_magic_id ? state.magicMap.get(c.primary_magic_id) : null;
-      return `
-        <div class="class-card">
-          <div class="class-card-top">
-            <span class="class-name">${escapeHtml(c.name)}</span>
-            <div style="display:flex;align-items:center;gap:6px;">
-              <span class="rec-badge">${escapeHtml(c.archetype.toUpperCase())}</span>
-              ${c.primary_magic_id ? `
-                <button type="button" class="btn-view-fusions" data-magic="${escapeHtml(c.primary_magic_id)}">
-                  View Fusions
-                </button>
-              ` : ''}
-            </div>
-          </div>
-          <div class="class-desc">${escapeHtml(c.recommended_when)}</div>
-          <div style="font-family:var(--font-mono);font-size:0.7rem;color:var(--muted);">
-            Mastery: ${(c.mastery_bonuses || []).map(escapeHtml).join(' · ')}
+    listGrid.innerHTML = filtered.map(c => `
+      <div class="class-card">
+        <div class="class-card-top">
+          <span class="class-name">${escapeHtml(c.name)}</span>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <span class="rec-badge">${escapeHtml(c.archetype.toUpperCase())}</span>
+            ${c.primary_magic_id ? `
+              <button type="button" class="btn-view-fusions" data-magic="${escapeHtml(c.primary_magic_id)}">
+                View Fusions
+              </button>
+            ` : ''}
           </div>
         </div>
-      `;
-    }).join('');
+        <div class="class-desc">${escapeHtml(c.recommended_when)}</div>
+        <div style="font-family:var(--font-mono);font-size:0.7rem;color:var(--text-muted);">
+          Mastery: ${(c.mastery_bonuses || []).map(escapeHtml).join(' · ')}
+        </div>
+      </div>
+    `).join('');
 
     listGrid.querySelectorAll('.btn-view-fusions').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -1313,9 +1414,7 @@
   function setupEventListeners() {
     // Navigation Tabs
     document.querySelectorAll('.nav-tab').forEach(tab => {
-      tab.addEventListener('click', () => {
-        switchTab(tab.dataset.tab);
-      });
+      tab.addEventListener('click', () => switchTab(tab.dataset.tab));
     });
 
     // Dual-Slot Selects
@@ -1340,57 +1439,52 @@
       });
     }
 
-    // Swap Button
-    const swapBtn = document.getElementById('btn-swap-slots');
-    if (swapBtn) {
-      swapBtn.addEventListener('click', () => {
-        const tempMagic = state.filters.slot1;
-        const tempAttr = state.filters.slot1Attr;
+    // Heptagram Swap Button
+    document.getElementById('btn-swap-slots')?.addEventListener('click', () => {
+      const tempMagic = state.filters.slot1;
+      const tempAttr = state.filters.slot1Attr;
 
-        state.filters.slot1 = state.filters.slot2;
-        state.filters.slot1Attr = state.filters.slot2Attr;
+      state.filters.slot1 = state.filters.slot2;
+      state.filters.slot1Attr = state.filters.slot2Attr;
 
-        state.filters.slot2 = tempMagic;
-        state.filters.slot2Attr = tempAttr;
+      state.filters.slot2 = tempMagic;
+      state.filters.slot2Attr = tempAttr;
 
-        if (s1) s1.value = state.filters.slot1;
-        if (s2) s2.value = state.filters.slot2;
+      if (s1) s1.value = state.filters.slot1;
+      if (s2) s2.value = state.filters.slot2;
 
-        renderAttributeChips();
-        renderCombinations();
-      });
-    }
+      renderAttributeChips();
+      renderCombinations();
+    });
 
-    // Reset Filters Button
-    const resetBtn = document.getElementById('btn-reset-combinator');
-    if (resetBtn) {
-      resetBtn.addEventListener('click', resetAllFilters);
-    }
+    // Reset Buttons
+    document.getElementById('btn-reset-combinator')?.addEventListener('click', resetAllFilters);
+    document.getElementById('btn-clear-active-filters')?.addEventListener('click', resetAllFilters);
 
-    // Functional Filter Drawer Toggle
-    const drawerBtn = document.getElementById('filter-drawer-btn');
-    const drawerContent = document.getElementById('filter-drawer-content');
-    if (drawerBtn && drawerContent) {
-      drawerBtn.addEventListener('click', () => {
-        drawerContent.classList.toggle('open');
-        const isNowOpen = drawerContent.classList.contains('open');
-        const iconSpan = drawerBtn.querySelector('.drawer-chevron');
-        if (iconSpan) {
-          iconSpan.innerHTML = isNowOpen ? ICONS.chevronUp : ICONS.chevronDown;
+    // Filters Drawer Toggle
+    const toggleBtn = document.getElementById('btn-filters-toggle');
+    const drawer = document.getElementById('filters-drawer');
+    const chevron = document.getElementById('filters-chevron');
+
+    if (toggleBtn && drawer) {
+      toggleBtn.addEventListener('click', () => {
+        state.filtersDrawerOpen = !state.filtersDrawerOpen;
+        drawer.style.display = state.filtersDrawerOpen ? 'flex' : 'none';
+        if (chevron) {
+          chevron.innerHTML = state.filtersDrawerOpen
+            ? '<polyline points="18 15 12 9 6 15"></polyline>'
+            : '<polyline points="6 9 12 15 18 9"></polyline>';
         }
       });
     }
 
-    // Search Input
-    const searchInput = document.getElementById('search-input');
-    if (searchInput) {
-      searchInput.addEventListener('input', () => {
-        state.filters.search = searchInput.value;
-        renderCombinations();
-      });
-    }
+    // Search Input (Deep Search)
+    document.getElementById('search-input')?.addEventListener('input', (e) => {
+      state.filters.search = e.target.value;
+      renderCombinations();
+    });
 
-    // Category Pills
+    // Category Segmented Control
     document.querySelectorAll('.cat-pill').forEach(pill => {
       pill.addEventListener('click', () => {
         document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
@@ -1400,14 +1494,12 @@
       });
     });
 
-    // Dark Custom Toggle: Hide Build Conflicts
-    const conflictToggle = document.getElementById('toggle-conflicts');
-    if (conflictToggle) {
-      conflictToggle.addEventListener('change', () => {
-        state.filters.hideConflicts = conflictToggle.checked;
-        renderCombinations();
-      });
-    }
+    // Conflict Toggle
+    document.getElementById('toggle-conflicts')?.addEventListener('change', (e) => {
+      state.filters.hideConflicts = e.target.checked;
+      renderFiltersDrawer();
+      renderCombinations();
+    });
 
     // Build Planner Actions
     document.getElementById('btn-copy-reddit')?.addEventListener('click', exportRedditMarkdown);
@@ -1418,19 +1510,17 @@
     document.getElementById('btn-refresh-cache')?.addEventListener('click', refreshOfflineCache);
     document.getElementById('btn-download-json')?.addEventListener('click', downloadDatabaseJson);
 
-    // Modal Close
+    // Modals Close
     document.getElementById('modal-close-btn')?.addEventListener('click', closeInspectorModal);
     document.getElementById('detail-modal')?.addEventListener('click', (e) => {
       if (e.target.id === 'detail-modal') closeInspectorModal();
     });
 
-    // Lightbox Close
     document.getElementById('lightbox-close-btn')?.addEventListener('click', closeLightbox);
     document.getElementById('lightbox-modal')?.addEventListener('click', (e) => {
       if (e.target.id === 'lightbox-modal') closeLightbox();
     });
 
-    // Keyboard ESC to close modals
     window.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         closeLightbox();
@@ -1438,14 +1528,29 @@
       }
     });
 
-    // Handle Native PWA Install Prompt
+    // Online / Offline Listeners
+    window.addEventListener('online', updateOnlineIndicator);
+    window.addEventListener('offline', updateOnlineIndicator);
+
+    // PWA Install Handling
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       state.deferredInstallPrompt = e;
       const banner = document.getElementById('install-banner');
-      if (banner && !localStorage.getItem(STORAGE_KEYS.INSTALL_DISMISSED)) {
+      if (banner && shouldShowInstallBanner()) {
         banner.style.display = 'flex';
+        banner.classList.remove('hidden');
       }
+    });
+
+    window.addEventListener('appinstalled', () => {
+      try {
+        localStorage.setItem(STORAGE_KEYS.INSTALLED, '1');
+      } catch (err) {}
+      const banner = document.getElementById('install-banner');
+      if (banner) banner.style.display = 'none';
+      updateCodexInstallCard();
+      showToast('Fusion Codex successfully installed!', 'success');
     });
 
     document.getElementById('btn-install-banner')?.addEventListener('click', async () => {
@@ -1453,12 +1558,17 @@
         state.deferredInstallPrompt.prompt();
         const choice = await state.deferredInstallPrompt.userChoice;
         if (choice.outcome === 'accepted') {
+          try {
+            localStorage.setItem(STORAGE_KEYS.INSTALLED, '1');
+          } catch (err) {}
           showToast('Thank you for installing Fusion Codex!', 'success');
         }
         state.deferredInstallPrompt = null;
-        document.getElementById('install-banner').style.display = 'none';
+        const banner = document.getElementById('install-banner');
+        if (banner) banner.style.display = 'none';
+        updateCodexInstallCard();
       } else {
-        showToast('To install, open your browser menu and tap "Add to Home screen"', 'info');
+        showToast('To install, open browser menu and select "Add to Home screen"', 'info');
       }
     });
 
@@ -1484,7 +1594,7 @@
       state.taxonomy = await taxRes.json();
       state.classesData = await classesRes.json();
 
-      // Build Fast Lookup Maps
+      // Fast Lookup Maps
       for (const c of state.db.combinations) {
         state.comboMap.set(c.id, c);
       }
@@ -1500,27 +1610,28 @@
 
       // Populate UI
       populateMagicDropdowns();
-      renderElementalFilterRow();
-      renderFunctionalFilterDrawer();
+      renderFiltersDrawer();
       renderCombinations();
       updateDock();
       renderPlanner();
       renderClassesDirectory();
       checkCacheStatus();
+      updateOnlineIndicator();
+      updateCodexInstallCard();
 
-      console.log('Magic Survival Fusion Codex initialized successfully with 59 verified combinations.');
+      console.log('Magic Survival Fusion Codex v0.9941 initialized.');
     } catch (err) {
       console.error('Initialization error:', err);
       showToast('Error loading database files. Please refresh.', 'error');
     }
   }
 
-  // Register Service Worker with strict isolation
+  // Register Service Worker
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       navigator.serviceWorker.register('./sw.js', { scope: './' })
         .then(reg => {
-          console.log('Fusion Codex Service Worker registered with scope:', reg.scope);
+          console.log('Service Worker registered with scope:', reg.scope);
           checkCacheStatus();
         })
         .catch(err => {
@@ -1529,7 +1640,6 @@
     });
   }
 
-  // Start application on DOM ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
