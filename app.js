@@ -50,23 +50,43 @@
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;')
       .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#039;');
+      .replace(/'/g, '&#39;');
   }
 
   // --- High-Value In-Game Mechanic Highlighting ---
-  function highlightMechanicText(text) {
-    const escaped = escapeHtml(text);
+  function highlightMechanicText(rawText) {
+    if (typeof rawText !== 'string' || !rawText) return '';
     // Matches multipliers/numbers (+50%, 12X, 0.15s, 24 times, 1-9X, 3~7 times, 7×)
     // and core game terms (Damage Multiplier, Cooldown, Duration, Size, Attack Count, etc.)
     const pattern = /(\b\d+(?:\.\d+)?(?:~\d+(?:\.\d+)?)?(?:%|s|X|x|×)?(?:\s*times)?\b|\b[+-]?\d+(?:\.\d+)?%?\b|\b(?:Damage Multiplier|Attack Count|Rotation Speed|Critical Rate|Critical Strike|Knocked Back|Damage|Cooldown|Duration|Size|Freeze|Freezes|Stun|Stuns|Staggered|Revival|Pierce|Projectiles|Satellite|Spread)\b)/gi;
 
-    return escaped.replace(pattern, (match) => {
-      // Don't wrap single isolated digits like "every 6th hit" or bare small numbers without context
-      if (/^\d+$/.test(match) && parseInt(match, 10) < 10) {
-        return match;
+    let lastIndex = 0;
+    let out = '';
+    let match;
+
+    while ((match = pattern.exec(rawText)) !== null) {
+      const matchIndex = match.index;
+      const matchText = match[0];
+
+      if (matchIndex > lastIndex) {
+        out += escapeHtml(rawText.slice(lastIndex, matchIndex));
       }
-      return `<span class="mech-hl">${match}</span>`;
-    });
+
+      // Don't wrap single isolated digits like "every 6th hit" or bare small numbers without context (< 10)
+      if (/^\d+$/.test(matchText) && parseInt(matchText, 10) < 10) {
+        out += escapeHtml(matchText);
+      } else {
+        out += `<span class="mech-hl">${escapeHtml(matchText)}</span>`;
+      }
+
+      lastIndex = pattern.lastIndex;
+    }
+
+    if (lastIndex < rawText.length) {
+      out += escapeHtml(rawText.slice(lastIndex));
+    }
+
+    return out;
   }
 
   // --- Standalone / PWA Mode Detection (Comprehensive) ---
@@ -795,7 +815,7 @@
             <div class="card-header-line">
               <span class="card-title">${escapeHtml(combo.name)}</span>
               <div class="card-badges">
-                <span class="tier-badge ${tierClass}">T${escapeHtml(combo.tier)}</span>
+                <span class="tier-badge ${tierClass}">Tier ${escapeHtml(combo.tier)}</span>
                 <span class="cat-tag ${catClass}">${catLabel}</span>
               </div>
             </div>
@@ -902,7 +922,11 @@
       } else {
         return `
           <div class="planner-slot-card empty" data-slot-index="${i}">
-            <span>+ Slot ${i + 1} (Unlocks at Lv.${levels[i]}) — Pin a fusion from Combinator</span>
+            <div class="slot-level-badge">Lv.${levels[i]}</div>
+            <div class="planner-empty-text">
+              <span class="planner-empty-plus">+</span>
+              <span>Slot ${i + 1} (Lv.${levels[i]}) — Tap to pick a fusion</span>
+            </div>
           </div>
         `;
       }
@@ -912,6 +936,13 @@
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
         togglePin(btn.dataset.unpin);
+      });
+    });
+
+    slotsGrid.querySelectorAll('.planner-slot-card.empty').forEach(card => {
+      card.addEventListener('click', () => {
+        switchTab('combinator');
+        showToast('Select a fusion to pin to your build.', 'info');
       });
     });
 
@@ -1061,6 +1092,19 @@
         });
       }
     }
+
+    // 6. Disable Export/Share buttons when no pinned fusions
+    const btnReddit = document.getElementById('btn-copy-reddit');
+    const btnShare = document.getElementById('btn-share-url');
+    const hasPinned = state.pinned.length > 0;
+    if (btnReddit) {
+      btnReddit.classList.toggle('disabled', !hasPinned);
+      btnReddit.disabled = !hasPinned;
+    }
+    if (btnShare) {
+      btnShare.classList.toggle('disabled', !hasPinned);
+      btnShare.disabled = !hasPinned;
+    }
   }
 
   // --- Rich Reddit Markdown Exporter ---
@@ -1139,30 +1183,52 @@
 
     const isPinned = state.pinned.includes(combo.id);
 
-    content.innerHTML = `
-      <div class="modal-image-preview">
-        <img src="./assets/cards/${escapeHtml(combo.id)}.webp" alt="${escapeHtml(combo.name)}" />
-        <button type="button" class="btn-lightbox-trigger" id="btn-open-lightbox">
-          ${ICONS.zoom} <span>Fullscreen Card</span>
-        </button>
-      </div>
+    const taxTags = (state.taxonomy && state.taxonomy.combination_tags) ? (state.taxonomy.combination_tags[combo.id] || {}) : {};
+    const comboElements = (taxTags.elements || []).map(eid => {
+      const el = state.elementMap.get(eid);
+      return { id: eid, label: el ? el.label.split('/')[0].trim() : eid };
+    });
+    const comboScalings = (taxTags.functional || [])
+      .filter(fid => fid.endsWith('_scaling'))
+      .map(fid => {
+        const fObj = (state.taxonomy.functional_filters || []).find(item => item.id === fid);
+        return { id: fid, label: fObj ? fObj.label : fid };
+      });
 
-      <div class="modal-title-row">
-        <div class="modal-title">${escapeHtml(combo.name)}</div>
-        <div class="card-badges">
-          <span class="tier-badge tier-${combo.tier.toLowerCase()}">TIER ${escapeHtml(combo.tier)}</span>
-          <span class="cat-tag ${combo.category.toLowerCase()}">${combo.category === 'aoe' ? 'AoE' : 'Nuke'}</span>
+    const tagsPillsHtml = [
+      ...comboElements.map(el => `<span class="modal-tag-pill element">${escapeHtml(el.label)}</span>`),
+      ...comboScalings.map(sc => `<span class="modal-tag-pill scaling">${escapeHtml(sc.label)}</span>`)
+    ].join('');
+
+    content.innerHTML = `
+      <div class="modal-header-card">
+        <div class="modal-thumb-wrap">
+          <img class="modal-thumb-img" src="./assets/thumbs/${escapeHtml(combo.id)}.webp" alt="${escapeHtml(combo.name)}" />
+        </div>
+        <div class="modal-header-info">
+          <div class="modal-title-row">
+            <div class="modal-title">${escapeHtml(combo.name)}</div>
+          </div>
+          <div class="modal-badges-row">
+            <span class="tier-badge tier-${combo.tier.toLowerCase()}">Tier ${escapeHtml(combo.tier)}</span>
+            <span class="cat-tag ${combo.category.toLowerCase()}">${combo.category === 'aoe' ? 'AoE' : 'Nuke'}</span>
+          </div>
+          ${tagsPillsHtml ? `<div class="modal-tags-row">${tagsPillsHtml}</div>` : ''}
         </div>
       </div>
+
+      <button type="button" class="btn-view-card" id="btn-open-lightbox">
+        ${ICONS.zoom} <span>View Original In-Game Card</span>
+      </button>
 
       <div class="modal-recipe-box">
-        <div class="recipe-line main" style="margin-bottom:4px;">
-          <span class="recipe-dot">●</span>
-          <span><strong>Main (Artifact Scaled):</strong> ${escapeHtml(mainName)} — ${escapeHtml(combo.main.attribute)} (Lv.${combo.main.level})</span>
+        <div class="modal-recipe-block main">
+          <div class="modal-recipe-tag">MAIN · ARTIFACT SCALED</div>
+          <div class="modal-recipe-val">${escapeHtml(mainName)} — ${escapeHtml(combo.main.attribute)} (Lv.${combo.main.level})</div>
         </div>
-        <div class="recipe-line material">
-          <span class="recipe-plus">+</span>
-          <span><strong>Material (Consumed):</strong> ${escapeHtml(matName)} — ${escapeHtml(combo.material.attribute)} (Lv.${combo.material.level})</span>
+        <div class="modal-recipe-block material">
+          <div class="modal-recipe-tag">MATERIAL · CONSUMED</div>
+          <div class="modal-recipe-val">${escapeHtml(matName)} — ${escapeHtml(combo.material.attribute)} (Lv.${combo.material.level})</div>
         </div>
       </div>
 
@@ -1186,7 +1252,7 @@
       ` : ''}
 
       <div class="modal-scaling-note">
-        <strong>Artifact Scaling Note:</strong> Only artifacts that scale <em>${escapeHtml(mainName)}</em> will boost this fusion. <em>${escapeHtml(matName)}</em> is consumed and its artifacts will not apply.
+        <strong>Artifacts:</strong> Only <em>${escapeHtml(mainName)}</em> artifacts boost this fusion — <em>${escapeHtml(matName)}</em> is consumed.
       </div>
 
       <div class="modal-actions-grid">
@@ -1390,8 +1456,19 @@
           </div>
         </div>
         <div class="class-desc">${escapeHtml(c.recommended_when)}</div>
-        <div style="font-family:var(--font-mono);font-size:0.7rem;color:var(--text-muted);">
-          Mastery: ${(c.mastery_bonuses || []).map(escapeHtml).join(' · ')}
+        <div class="class-bonuses">
+          ${c.base_bonuses && c.base_bonuses.length > 0 ? `
+            <div class="class-bonus-section">
+              <span class="class-bonus-label">Base Bonuses</span>
+              ${c.base_bonuses.map(b => `<div class="class-bonus-line">• ${escapeHtml(b)}</div>`).join('')}
+            </div>
+          ` : ''}
+          ${c.mastery_bonuses && c.mastery_bonuses.length > 0 ? `
+            <div class="class-bonus-section">
+              <span class="class-bonus-label">Mastery Bonuses</span>
+              ${c.mastery_bonuses.map(b => `<div class="class-bonus-line">• ${escapeHtml(b)}</div>`).join('')}
+            </div>
+          ` : ''}
         </div>
       </div>
     `).join('');
@@ -1469,11 +1546,11 @@
     if (toggleBtn && drawer) {
       toggleBtn.addEventListener('click', () => {
         state.filtersDrawerOpen = !state.filtersDrawerOpen;
+        drawer.classList.toggle('hidden', !state.filtersDrawerOpen);
         drawer.style.display = state.filtersDrawerOpen ? 'flex' : 'none';
+        toggleBtn.setAttribute('aria-expanded', String(state.filtersDrawerOpen));
         if (chevron) {
-          chevron.innerHTML = state.filtersDrawerOpen
-            ? '<polyline points="18 15 12 9 6 15"></polyline>'
-            : '<polyline points="6 9 12 15 18 9"></polyline>';
+          chevron.classList.toggle('open', state.filtersDrawerOpen);
         }
       });
     }

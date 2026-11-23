@@ -83,16 +83,12 @@
       <section class="panel" style="margin-top: 2px;">
         <div class="panel-header">
           <h2 class="panel-title">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="10.5" stroke-width="1.2" opacity="0.6"></circle>
-              <path d="M 12 2.5 L 16.12 20.56 L 4.57 6.08 L 21.26 14.11 L 2.74 14.11 L 19.43 6.08 L 7.88 20.56 Z"></path>
-            </svg>
             <span>Smart Combinator</span>
           </h2>
           <button type="button" class="btn-reset-filters" id="btn-reset-combinator">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M2.5 2v6h6M21.5 22v-6h-6"></path>
-              <path d="M20.49 9A9 9 0 0 0 5.64 5.64L2.5 8m18.99 8a9 9 0 0 1-14.85 3.36L21.5 16"></path>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+              <path d="M3 3v5h5"/>
             </svg>
             <span>Reset</span>
           </button>
@@ -156,7 +152,7 @@
             <button type="button" class="cat-pill" data-cat="nuke">Nuke</button>
           </div>
 
-          <button type="button" class="btn-filters-toggle" id="btn-filters-toggle">
+          <button type="button" class="btn-filters-toggle" id="btn-filters-toggle" aria-expanded="false">
             <svg class="icon-sm" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
             </svg>
@@ -169,7 +165,7 @@
         </div>
 
         <!-- Collapsible Filters Drawer (CLOSED by default) -->
-        <div class="filters-drawer" id="filters-drawer" style="display: none;">
+        <div class="filters-drawer hidden" id="filters-drawer" style="display: none;">
           <!-- Section 1: Element -->
           <div class="drawer-section">
             <div class="drawer-section-title">Element</div>
@@ -343,20 +339,13 @@
             <div class="status-val" id="cached-count-val">Checking...</div>
           </div>
         </div>
-        <div style="display:flex;gap:8px;">
-          <button type="button" class="btn-action primary" id="btn-refresh-cache" style="flex:1;">
-            <svg class="icon-sm" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
-            </svg>
-            <span>Refresh Cache</span>
-          </button>
-          <button type="button" class="btn-action" id="btn-download-json" style="flex:1;">
-            <svg class="icon-sm" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line>
-            </svg>
-            <span>Export JSON</span>
-          </button>
-        </div>
+        <button type="button" class="btn-action primary" id="btn-refresh-cache" style="width:100%;">
+          <svg class="icon-sm" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+            <path d="M3 3v5h5"/>
+          </svg>
+          <span>Refresh Cache</span>
+        </button>
       </section>
 
       <!-- How to Install Guide / Installed Badge -->
@@ -424,9 +413,17 @@
           Built for the player community on <a href="https://reddit.com/r/magic_survival" target="_blank" rel="noopener noreferrer" style="color:var(--gold);text-decoration:none;">r/magic_survival</a>.
           All 59 combination mechanics, attribute thresholds, and stats are verified against game version <strong>v0.9941</strong>.
         </p>
-        <p style="font-size:0.75rem;color:var(--text-muted);line-height:1.45;">
+        <p style="font-size:0.75rem;color:var(--text-muted);line-height:1.45;margin-bottom:12px;">
           <strong>Legal Disclaimer:</strong> Unofficial fan-made tool. Magic Survival and all in-game assets belong to <strong>LEME</strong>.
         </p>
+        <div style="border-top:1px solid var(--border);padding-top:10px;">
+          <button type="button" class="export-json-link" id="btn-download-json">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            <span>Export Raw Database (JSON)</span>
+          </button>
+        </div>
       </section>
     </main>
 
@@ -442,8 +439,9 @@
     <nav class="bottom-nav">
       <button type="button" class="nav-tab active" id="nav-combinator" data-tab="combinator">
         <span class="nav-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="7" cy="12" r="5"></circle><circle cx="17" cy="12" r="5"></circle>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10.5" stroke-width="1.2" opacity="0.6"/>
+            <path d="M 12 2.5 L 16.12 20.56 L 4.57 6.08 L 21.26 14.11 L 2.74 14.11 L 19.43 6.08 L 7.88 20.56 Z"/>
           </svg>
         </span>
         <span class="nav-label">Combinator</span>
