@@ -18,13 +18,18 @@ for cid in ids:
 combo_assets_str = "\n".join(combo_assets)
 
 content = f"""// Magic Survival — Fusion Codex (v0.9941) Service Worker
-const CACHE_NAME = 'fusion-codex-v09941-v2';
+const CACHE_PREFIX = 'ms-codex-';
+const CACHE_NAME = 'ms-codex-v09941-v4';
 
 const APP_SHELL = [
   './',
   './index.html',
+  './styles.css',
+  './app.js',
   './manifest.json',
   './data/combinations_v09941.json',
+  './data/filter_taxonomy_v09941.json',
+  './data/classes_subjects_v09941.json',
   './assets/icon-192.png',
   './assets/icon-512.png',
   './assets/icon-maskable-512.png',
@@ -50,7 +55,7 @@ self.addEventListener('activate', (event) => {{
     caches.keys().then((keys) => {{
       return Promise.all(
         keys.map((key) => {{
-          if (key !== CACHE_NAME) {{
+          if ((key.startsWith('ms-codex-') || key.startsWith('fusion-codex-')) && key !== CACHE_NAME) {{
             return caches.delete(key);
           }}
         }})
@@ -60,6 +65,10 @@ self.addEventListener('activate', (event) => {{
 }});
 
 self.addEventListener('fetch', (event) => {{
+  if (event.request.method !== 'GET') {{
+    return;
+  }}
+
   const url = new URL(event.request.url);
 
   // External font CDN caching with graceful fallback
@@ -67,7 +76,9 @@ self.addEventListener('fetch', (event) => {{
     event.respondWith(
       caches.open(CACHE_NAME).then((cache) => {{
         return fetch(event.request).then((response) => {{
-          cache.put(event.request, response.clone());
+          if (response && response.ok) {{
+            cache.put(event.request, response.clone());
+          }}
           return response;
         }}).catch(() => cache.match(event.request));
       }})
@@ -82,7 +93,7 @@ self.addEventListener('fetch', (event) => {{
         return cached;
       }}
       return fetch(event.request).then((response) => {{
-        if (!response || response.status !== 200 || response.type !== 'basic') {{
+        if (!response || !response.ok || (response.type !== 'basic' && response.type !== 'cors')) {{
           return response;
         }}
         const toCache = response.clone();
@@ -106,12 +117,14 @@ self.addEventListener('message', (event) => {{
   if (event.data && event.data.type === 'CHECK_CACHE') {{
     caches.open(CACHE_NAME).then((cache) => {{
       cache.keys().then((keys) => {{
-        event.ports[0].postMessage({{
-          status: 'ok',
-          cacheName: CACHE_NAME,
-          totalCached: keys.length,
-          expected: PRECACHE_URLS.length
-        }});
+        if (event.ports && event.ports[0]) {{
+          event.ports[0].postMessage({{
+            status: 'ok',
+            cacheName: CACHE_NAME,
+            totalCached: keys.length,
+            expected: PRECACHE_URLS.length
+          }});
+        }}
       }});
     }});
   }}
@@ -121,5 +134,4 @@ self.addEventListener('message', (event) => {{
 with open(SW_PATH, "w", encoding="utf-8") as f:
     f.write(content)
 
-total_count = len(combo_assets) + 8
-print(f"Generated sw.js with {total_count} pre-cached resources.")
+print(f"Generated {SW_PATH} successfully with {len(ids)} combinations (118 webp images) + {12} app shell items.")

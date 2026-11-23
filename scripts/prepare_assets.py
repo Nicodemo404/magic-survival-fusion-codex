@@ -1,19 +1,17 @@
 """
-Magic Survival v0.9941 — Asset Pipeline
-Reads X:\\Ai\\Antigravity\\Magic Survival\\Lvl\\ screenshots using data/combinations_v09941.json,
-auto-crops crisp square spell artwork thumbnails into assets/thumbs/<id>.webp,
-exports lightweight optimized full cards into assets/cards/<id>.webp,
-generates self-hosted PWA icons (192, 512, maskable) and the 1200x630 social share banner.
+Magic Survival v0.9941 — Real Asset Pipeline
+Crops spell artwork thumbnails into assets/thumbs/<id>.webp and optimizes full cards into assets/cards/<id>.webp
+directly from 59 real in-game screenshots in ../Lvl/.
+Generates PWA icons and the 1200x630 social share banner in the authentic pitch-black Magic Survival aesthetic.
 
-Usage (from X:\\Ai\\Antigravity\\Magic Survival\\Code):
-    pip install pillow
+Usage:
     python scripts/prepare_assets.py
 """
 import json
 import math
 import os
 from pathlib import Path
-from PIL import Image, ImageDraw, ImageFont, ImageFilter
+from PIL import Image, ImageDraw, ImageFont
 
 CODE_DIR = Path(__file__).resolve().parent.parent
 DB_PATH = CODE_DIR / "data" / "combinations_v09941.json"
@@ -26,9 +24,11 @@ THUMBS_DIR.mkdir(parents=True, exist_ok=True)
 CARDS_DIR.mkdir(parents=True, exist_ok=True)
 
 
-def get_font(size: int, bold: bool = False, mono: bool = False):
+def get_font(size: int, bold: bool = False, mono: bool = False, serif: bool = False):
     font_names = []
-    if mono:
+    if serif:
+        font_names = ["georgiab.ttf" if bold else "georgia.ttf", "timesbd.ttf" if bold else "times.ttf"]
+    elif mono:
         font_names = ["consola.ttf", "cour.ttf", "arial.ttf"]
     elif bold:
         font_names = ["segoeuib.ttf", "arialbd.ttf", "segoeui.ttf", "arial.ttf"]
@@ -99,141 +99,18 @@ def draw_heptagram(draw: ImageDraw.ImageDraw, cx: float, cy: float, R: float, co
     # Vertex gems
     dot_r = max(2, int(R * 0.035))
     for vx, vy in verts:
-        draw.ellipse([vx - dot_r, vy - dot_r, vx + dot_r, vy + dot_r], fill=(255, 255, 255, alpha), outline=(*color, alpha), width=1)
-
-
-def generate_synthesized_card(combo: dict, magics_map: dict) -> Image.Image:
-    """Generates an authentic in-game grimoire card matching Magic Survival style."""
-    w, h = 540, 1200
-    card = Image.new("RGBA", (w, h), (7, 9, 13, 255))
-    draw = ImageDraw.Draw(card)
-
-    # Subtle background vignette & arcane grid
-    draw.rectangle([10, 10, w - 10, h - 10], outline=(30, 41, 59, 200), width=1)
-    draw.rectangle([14, 14, w - 14, h - 14], outline=(15, 23, 42, 255), width=2)
-
-    # Spell art frame in upper center (box size ~ 350x350, centered at cy ~ 390)
-    art_cx, art_cy = w // 2, 385
-    art_box_r = 155
-
-    # Spell theme colors
-    cid = combo["id"]
-    if "fire" in cid or "sun" in cid or "blaster" in cid or "hell" in cid or "genocide" in cid:
-        theme_col = (251, 146, 60) # Amber / Flame
-        sec_col = (239, 68, 68)
-    elif "glacium" in cid or "soul" in cid or "frost" in cid:
-        theme_col = (56, 189, 248) # Ice / Cyan
-        sec_col = (147, 197, 253)
-    elif "discharge" in cid:
-        theme_col = (250, 204, 21) # Electric
-        sec_col = (34, 211, 238)
-    elif "destroyer" in cid:
-        theme_col = (244, 63, 94) # Meteor Red
-        sec_col = (249, 115, 22)
-    else:
-        theme_col = (34, 211, 238)
-        sec_col = (168, 85, 247)
-
-    # Arcane art circle
-    draw.ellipse([art_cx - art_box_r, art_cy - art_box_r, art_cx + art_box_r, art_cy + art_box_r],
-                 fill=(12, 16, 24, 255), outline=(*theme_col, 180), width=2)
-
-    # Inner decorative arcane runes
-    for r in [art_box_r * 0.75, art_box_r * 0.5]:
-        draw.ellipse([art_cx - r, art_cy - r, art_cx + r, art_cy + r],
-                     outline=(*sec_col, 80), width=1)
-
-    # Draw central stylized 7-pointed combination heptagram
-    draw_heptagram(draw, art_cx, art_cy, art_box_r * 0.65, color=theme_col, alpha=230, stroke=2)
-
-    # Header / Title area
-    f_title = get_font(28, bold=True)
-    f_badge = get_font(13, bold=True, mono=True)
-    f_body = get_font(15, bold=False)
-    f_body_bold = get_font(15, bold=True)
-    f_small = get_font(13, bold=False, mono=True)
-
-    # Category & Rank Badge
-    cat_name = "AOE & CROWD CLEAR" if combo["category"] == "aoe" else "NUKE & BURST"
-    badge_col = (34, 211, 238) if combo["category"] == "aoe" else (245, 158, 11)
-    badge_text = f"[{cat_name}]  RANK #{combo['rank']}  ·  TIER {combo['tier']}"
-    draw.text((w // 2, 600), badge_text, fill=badge_col, font=f_badge, anchor="mm")
-
-    # Combo Name
-    draw.text((w // 2, 635), combo["name"].upper(), fill=(255, 255, 255), font=f_title, anchor="mm")
-
-    # Divider
-    draw.line([60, 665, w - 60, 665], fill=(30, 41, 59, 255), width=1)
-
-    # Recipe section
-    main_name = magics_map.get(combo["main"]["magic_id"], combo["main"]["magic_id"])
-    mat_name = magics_map.get(combo["material"]["magic_id"], combo["material"]["magic_id"])
-
-    main_text = f"MAIN (Artifact Scaled): {main_name} — {combo['main']['attribute']} (Lv.{combo['main']['level']})"
-    mat_text = f"MATERIAL (Consumed): {mat_name} — {combo['material']['attribute']} (Lv.{combo['material']['level']})"
-
-    draw.text((40, 685), main_text, fill=(74, 222, 128), font=f_body_bold)
-    draw.text((40, 715), mat_text, fill=(248, 113, 113), font=f_body_bold)
-
-    # Divider
-    draw.line([40, 750, w - 40, 750], fill=(24, 33, 47, 255), width=1)
-
-    # Mechanics & Stats section
-    cur_y = 770
-    draw.text((40, cur_y), "COMBINATION MECHANICS:", fill=(148, 163, 184), font=f_small)
-    cur_y += 24
-
-    for mech in combo["mechanics"]:
-        # Word wrap text at ~55 chars
-        words = mech.split()
-        lines = []
-        cur_line = []
-        for word in words:
-            cur_line.append(word)
-            if len(" ".join(cur_line)) > 52:
-                lines.append(" ".join(cur_line[:-1]))
-                cur_line = [word]
-        if cur_line:
-            lines.append(" ".join(cur_line))
-
-        for idx, line in enumerate(lines):
-            prefix = "• " if idx == 0 else "   "
-            draw.text((40, cur_y), prefix + line, fill=(241, 245, 249), font=f_body)
-            cur_y += 22
-        cur_y += 6
-
-    # Buffs
-    if combo["buffs"]:
-        cur_y += 8
-        draw.text((40, cur_y), "BUFF STATS:", fill=(56, 189, 248), font=f_small)
-        cur_y += 22
-        for buff in combo["buffs"]:
-            draw.text((40, cur_y), f"▲ {buff}", fill=(56, 189, 248), font=f_body_bold)
-            cur_y += 24
-
-    # Penalties
-    if combo["penalties"]:
-        cur_y += 8
-        draw.text((40, cur_y), "PENALTY STATS:", fill=(251, 113, 133), font=f_small)
-        cur_y += 22
-        for pen in combo["penalties"]:
-            draw.text((40, cur_y), f"▼ {pen}", fill=(251, 113, 133), font=f_body_bold)
-            cur_y += 24
-
-    # Artifact note at bottom
-    draw.line([40, 1130, w - 40, 1130], fill=(24, 33, 47, 255), width=1)
-    draw.text((w // 2, 1155), f"Artifact Scaling: Scales with {main_name} artifacts only.", fill=(148, 163, 184), font=f_small, anchor="mm")
-
-    return card.convert("RGB")
+        draw.ellipse([vx - dot_r, vy - dot_r, vx + dot_r, vy + dot_r], fill=(230, 213, 152, alpha), outline=(*color, alpha), width=1)
 
 
 def generate_pwa_icons():
     """Generates 192x192, 512x512, maskable icons and the 1200x630 social share banner."""
     print("Generating PWA icons and OG banner...")
 
-    # 1. 512x512 standard icon
-    im512 = Image.new("RGBA", (512, 512), (7, 9, 13, 255))
+    # 1. 512x512 standard icon (Pitch black #000000)
+    im512 = Image.new("RGBA", (512, 512), (0, 0, 0, 255))
     draw512 = ImageDraw.Draw(im512)
+    # Subtle inner border
+    draw512.rectangle([8, 8, 504, 504], outline=(36, 39, 46, 180), width=1)
     draw_heptagram(draw512, 256, 256, 175, color=(34, 211, 238), alpha=255, stroke=3)
     im512.save(ASSETS_DIR / "icon-512.png", "PNG")
 
@@ -242,53 +119,68 @@ def generate_pwa_icons():
     im192.save(ASSETS_DIR / "icon-192.png", "PNG")
 
     # 3. 512x512 maskable icon (safe zone is central 80%, radius <= 204px)
-    im_mask = Image.new("RGBA", (512, 512), (7, 9, 13, 255))
+    im_mask = Image.new("RGBA", (512, 512), (0, 0, 0, 255))
     draw_mask = ImageDraw.Draw(im_mask)
     draw_heptagram(draw_mask, 256, 256, 140, color=(34, 211, 238), alpha=255, stroke=3)
     im_mask.save(ASSETS_DIR / "icon-maskable-512.png", "PNG")
 
     # 4. 1200x630 Social Share Banner (OpenGraph)
-    og = Image.new("RGBA", (1200, 630), (7, 9, 13, 255))
+    # Authentic pitch-black grimoire aesthetic with dark silhouette spires & cyan mist
+    og = Image.new("RGBA", (1200, 630), (0, 0, 0, 255))
     draw_og = ImageDraw.Draw(og)
 
-    # Subtle background grid & glow
-    for x in range(0, 1200, 60):
-        draw_og.line([x, 0, x, 630], fill=(15, 23, 42, 70), width=1)
-    for y in range(0, 630, 60):
-        draw_og.line([0, y, 1200, y], fill=(15, 23, 42, 70), width=1)
+    # Subtle cyan mist glow on the left / background
+    for r, a in [(320, 10), (250, 18), (180, 28), (120, 40), (70, 60)]:
+        draw_og.ellipse([260 - r, 315 - r, 260 + r, 315 + r], fill=(34, 211, 238, a))
 
-    # Cyan radial glow behind the star
-    star_cx, star_cy = 280, 315
-    for r, a in [(240, 15), (190, 30), (140, 50), (90, 80)]:
-        draw_og.ellipse([star_cx - r, star_cy - r, star_cx + r, star_cy + r], fill=(34, 211, 238, a))
+    # Draw dark silhouette jagged spires at the bottom-left mimicking the title screen
+    spire_points = [
+        (0, 630), (0, 500), (30, 480), (60, 520), (90, 440), (120, 490),
+        (150, 420), (180, 510), (210, 390), (230, 330), (240, 260), (245, 340),
+        (260, 450), (290, 380), (320, 430), (350, 370), (370, 440), (410, 490),
+        (450, 460), (490, 530), (530, 510), (580, 580), (640, 560), (720, 630)
+    ]
+    draw_og.polygon(spire_points, fill=(10, 14, 20, 230))
 
-    draw_heptagram(draw_og, star_cx, star_cy, 185, color=(34, 211, 238), alpha=255, stroke=3)
+    # Arcane heptagram floating over the dark silhouette mist
+    draw_heptagram(draw_og, 260, 315, 175, color=(34, 211, 238), alpha=255, stroke=3)
+
+    # Frame border
+    draw_og.rectangle([12, 12, 1188, 618], outline=(36, 39, 46, 255), width=2)
+    draw_og.rectangle([18, 18, 1182, 612], outline=(16, 18, 22, 255), width=1)
 
     # Typography on right side
-    f_og_title = get_font(52, bold=True)
-    f_og_sub = get_font(24, bold=True, mono=True)
+    f_og_title = get_font(50, bold=True, serif=True)
+    f_og_sub = get_font(22, bold=True, mono=True)
     f_og_body = get_font(18, bold=False)
-    f_og_tag = get_font(14, bold=True, mono=True)
+    f_og_tag = get_font(13, bold=True, mono=True)
 
-    text_x = 540
-    draw_og.text((text_x, 175), "MAGIC SURVIVAL", fill=(255, 255, 255), font=f_og_title)
-    draw_og.text((text_x, 245), "FUSION CODEX · v0.9941", fill=(34, 211, 238), font=f_og_sub)
+    text_x = 510
+
+    # Title in warm parchment bone-gold (#e6d598)
+    draw_og.text((text_x, 145), "MAGIC SURVIVAL", fill=(230, 213, 152), font=f_og_title)
+    draw_og.text((text_x, 218), "FUSION CODEX · v0.9941", fill=(34, 211, 238), font=f_og_sub)
 
     # Badges
     badges = ["59 COMBINATIONS", "ALL TIERS", "SMART COMBINATOR", "3-SLOT PLANNER", "OFFLINE PWA"]
     bx = text_x
-    by = 310
+    by = 280
     for b in badges:
-        bw = len(b) * 10 + 16
-        draw_og.rectangle([bx, by, bx + bw, by + 28], fill=(14, 19, 27, 255), outline=(34, 211, 238, 120), width=1)
-        draw_og.text((bx + bw // 2, by + 14), b, fill=(241, 245, 249), font=f_og_tag, anchor="mm")
+        bw = len(b) * 9 + 18
+        draw_og.rectangle([bx, by, bx + bw, by + 28], fill=(16, 18, 22, 255), outline=(36, 39, 46, 255), width=1)
+        draw_og.text((bx + bw // 2, by + 14), b, fill=(228, 225, 216), font=f_og_tag, anchor="mm")
         bx += bw + 10
         if bx > 1100:
             bx = text_x
             by += 38
 
-    draw_og.text((text_x, 430), "Instant fusion lookup, Lv.4 / Lv.7 attribute filtering, conflict detection,", fill=(148, 163, 184), font=f_og_body)
-    draw_og.text((text_x, 460), "in-game mechanics, buffs, penalties & Reddit export for r/magic_survival.", fill=(148, 163, 184), font=f_og_body)
+    # Feature details
+    draw_og.text((text_x, 380), "Instant fusion lookup, Lv.4 / Lv.7 attribute filtering, conflict detection,", fill=(180, 184, 194), font=f_og_body)
+    draw_og.text((text_x, 412), "in-game mechanics, buffs, penalties & Reddit export for r/magic_survival.", fill=(180, 184, 194), font=f_og_body)
+
+    # Footer note
+    f_foot = get_font(14, mono=True)
+    draw_og.text((text_x, 480), "● Main (Artifact Scaled)   + Material (Consumed)   ▲ Buffs   ▼ Penalties", fill=(142, 196, 134), font=f_foot)
 
     # Save banner
     og.convert("RGB").save(ASSETS_DIR / "og-banner.png", "PNG")
@@ -296,44 +188,62 @@ def generate_pwa_icons():
 
 
 def main():
+    if not DB_PATH.exists():
+        raise FileNotFoundError(f"Database file not found: {DB_PATH}")
+
     with open(DB_PATH, "r", encoding="utf-8") as f:
         db = json.load(f)
 
-    magics_map = {m["id"]: m["name"] for m in db.get("base_magics", [])}
+    combos = db.get("combinations", [])
+    if len(combos) != 59:
+        raise ValueError(f"Expected 59 combinations, found {len(combos)}")
 
-    ok, synthesized, missing = 0, 0, []
-    for combo in db["combinations"]:
+    print(f"Checking {len(combos)} combinations in {LVL_DIR}...")
+
+    # Strictly verify all 59 files exist before processing
+    missing_files = []
+    for combo in combos:
         cid = combo["id"]
-        src = LVL_DIR / combo["source_file"]
+        sf = combo.get("source_file")
+        if not sf:
+            missing_files.append((cid, "missing source_file in json"))
+            continue
+        src = LVL_DIR / sf
+        if not src.exists():
+            missing_files.append((cid, sf))
 
-        if src.exists():
-            with Image.open(src) as im:
-                im = im.convert("RGB")
-                thumb = crop_spell_art(im)
-                thumb.save(THUMBS_DIR / f"{cid}.webp", "WEBP", quality=86, method=6)
+    if missing_files:
+        raise FileNotFoundError(f"Fatal error: Missing {len(missing_files)}/59 screenshots in {LVL_DIR}: {missing_files}")
 
-                card = optimize_card(im)
-                card.save(CARDS_DIR / f"{cid}.webp", "WEBP", quality=84, method=6)
-            ok += 1
-        else:
-            # Generate high-fidelity synthesized card & thumb for spells without raw screenshot
-            card = generate_synthesized_card(combo, magics_map)
-            card.save(CARDS_DIR / f"{cid}.webp", "WEBP", quality=84, method=6)
+    print("All 59 real in-game screenshots verified in Lvl directory! Processing...")
 
-            thumb = crop_spell_art(card)
+    processed = 0
+    for combo in combos:
+        cid = combo["id"]
+        sf = combo["source_file"]
+        src = LVL_DIR / sf
+
+        with Image.open(src) as im:
+            im = im.convert("RGB")
+            thumb = crop_spell_art(im)
             thumb.save(THUMBS_DIR / f"{cid}.webp", "WEBP", quality=86, method=6)
-            synthesized += 1
 
-    print(f"Processed {ok} from in-game screenshots, {synthesized} synthesized = {ok + synthesized}/59 total combinations.")
+            card = optimize_card(im)
+            card.save(CARDS_DIR / f"{cid}.webp", "WEBP", quality=84, method=6)
+        processed += 1
 
-    # Confirm all 59 exist
+    print(f"Processed 59/59 real in-game screenshots into thumbs & cards.")
+
+    # Verification check
     total_thumbs = len(list(THUMBS_DIR.glob("*.webp")))
     total_cards = len(list(CARDS_DIR.glob("*.webp")))
-    print(f"Verification: {total_thumbs}/59 thumbnails in assets/thumbs/, {total_cards}/59 cards in assets/cards/.")
+    if total_thumbs != 59 or total_cards != 59:
+        raise RuntimeError(f"Asset mismatch: {total_thumbs} thumbs and {total_cards} cards found (expected 59 each).")
+
+    print(f"Verification passed: {total_thumbs}/59 thumbnails and {total_cards}/59 cards present.")
 
     generate_pwa_icons()
-
-    print("Step 1 asset pipeline complete: 100% of 59 assets ready!")
+    print("Done! All assets generated cleanly.")
 
 
 if __name__ == "__main__":
