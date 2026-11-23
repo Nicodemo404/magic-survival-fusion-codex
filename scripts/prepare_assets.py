@@ -36,12 +36,19 @@ def get_font(size: int, bold: bool = False, mono: bool = False, serif: bool = Fa
         font_names = ["segoeui.ttf", "arial.ttf"]
 
     for name in font_names:
-        p = os.path.join(r"C:\Windows\Fonts", name)
-        if os.path.exists(p):
-            try:
-                return ImageFont.truetype(p, size)
-            except Exception:
-                continue
+        try:
+            return ImageFont.truetype(name, size)
+        except Exception:
+            pass
+        # Fallback to system fonts directory if available
+        sys_fonts = os.path.join(os.environ.get("SystemRoot", os.environ.get("windir", "")), "Fonts")
+        if sys_fonts and os.path.exists(sys_fonts):
+            p = os.path.join(sys_fonts, name)
+            if os.path.exists(p):
+                try:
+                    return ImageFont.truetype(p, size)
+                except Exception:
+                    continue
     return ImageFont.load_default()
 
 

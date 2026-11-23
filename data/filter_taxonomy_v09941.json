@@ -9,49 +9,49 @@
       "id": "lightning",
       "label": "Lightning / Electric",
       "color": "#38bdf8",
-      "icon": "⚡",
+      "icon": "lightning",
       "description": "Electric Shock, Thunderstorm, Electric Zone and chain/shock fusions"
     },
     {
       "id": "fire",
       "label": "Fire / Magma",
       "color": "#fb923c",
-      "icon": "🔥",
+      "icon": "fire",
       "description": "Fireball, Incineration, Meteor, Lava Zone and explosive flame fusions"
     },
     {
       "id": "ice",
       "label": "Ice / Frost",
       "color": "#67e8f9",
-      "icon": "❄️",
+      "icon": "ice",
       "description": "Frost Nova, Blizzard, freeze and chill fusions"
     },
     {
       "id": "arcane",
       "label": "Arcane / Energy",
       "color": "#c084fc",
-      "icon": "✦",
+      "icon": "arcane",
       "description": "Magic Bolt, Spirit, Energy Bolt, Arcane Ray, Flash Shock"
     },
     {
       "id": "storm",
       "label": "Storm / Water",
       "color": "#60a5fa",
-      "icon": "🌀",
+      "icon": "storm",
       "description": "Cyclone, Tsunami and wave/vortex fusions"
     },
     {
       "id": "cosmic",
       "label": "Cosmic / Orbital",
       "color": "#facc15",
-      "icon": "🪐",
+      "icon": "cosmic",
       "description": "Satellite, gravity, solar and planetary orbit fusions"
     },
     {
       "id": "void",
       "label": "Dark / Utility",
       "color": "#f43f5e",
-      "icon": "◈",
+      "icon": "void",
       "description": "Cloaking, Armageddon, Shield, Black Hole and dark burst fusions"
     }
   ],

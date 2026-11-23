@@ -56,7 +56,7 @@
     </header>
 
     <!-- Smart Native PWA Install Banner (Hidden by default) -->
-    <div class="install-banner hidden" id="install-banner" style="display: none;">
+    <div class="install-banner hidden" id="install-banner">
       <div class="install-content">
         <svg class="install-icon icon-sm" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
           <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
@@ -80,7 +80,7 @@
     <!-- TAB 1: COMBINATOR -->
     <main class="tab-pane active" id="tab-combinator">
       <!-- Smart Combinator Card right at the top -->
-      <section class="panel" style="margin-top: 2px;">
+      <section class="panel panel-top">
         <div class="panel-header">
           <h2 class="panel-title">
             <span>Smart Combinator</span>
@@ -131,7 +131,7 @@
         </div>
 
         <!-- Dynamic Attribute (Trait) Chips -->
-        <div class="attributes-wrapper" id="attributes-container" style="display: none;">
+        <div class="attributes-wrapper hidden" id="attributes-container">
           <!-- Rendered dynamically -->
         </div>
 
@@ -157,7 +157,7 @@
               <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
             </svg>
             <span>Filters</span>
-            <span class="filter-count-badge" id="filter-count-badge" style="display: none;">0</span>
+            <span class="filter-count-badge hidden" id="filter-count-badge">0</span>
             <svg class="chevron-icon" id="filters-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
@@ -165,7 +165,7 @@
         </div>
 
         <!-- Collapsible Filters Drawer (CLOSED by default) -->
-        <div class="filters-drawer hidden" id="filters-drawer" style="display: none;">
+        <div class="filters-drawer hidden" id="filters-drawer">
           <!-- Section 1: Element -->
           <div class="drawer-section">
             <div class="drawer-section-title">Element</div>
@@ -191,7 +191,7 @@
           </div>
 
           <!-- Section 4: Build Filter -->
-          <div class="drawer-section" style="border-top: 1px solid var(--border); padding-top: 8px;">
+          <div class="drawer-section drawer-section-bordered">
             <label class="toggle-switch-wrapper" for="toggle-conflicts">
               <span class="toggle-switch-label">Hide Build Conflicts (with pinned slots)</span>
               <span class="toggle-switch">
@@ -204,14 +204,14 @@
       </section>
 
       <!-- Active Partner Filter Bar -->
-      <div class="partner-filter-bar" id="partner-filter-bar" style="display: none;">
+      <div class="partner-filter-bar hidden" id="partner-filter-bar">
         <!-- Rendered dynamically -->
       </div>
 
       <!-- Result Count Bar -->
       <div class="filter-status-row">
         <span id="filtered-count">59 Combinations</span>
-        <button type="button" class="btn-clear-active" id="btn-clear-active-filters" style="display: none;">Clear Filters</button>
+        <button type="button" class="btn-clear-active hidden" id="btn-clear-active-filters">Clear Filters</button>
       </div>
 
       <!-- Combinations List Container -->
@@ -233,13 +233,13 @@
             </svg>
             <span>3-Slot Build Planner</span>
           </h2>
-          <span style="font-family:var(--font-mono);font-size:0.75rem;color:var(--text-muted);">Lv.25 / 50 / 75</span>
+          <span class="planner-levels-tag">Lv.25 / 50 / 75</span>
         </div>
 
         <p class="panel-subtitle">Plan your run's 3 combination magic choices, verify conflicts, and track artifact scaling.</p>
 
         <!-- Conflict Warning Banner -->
-        <div id="conflict-warning-container" style="display: none;"></div>
+        <div class="hidden" id="conflict-warning-container"></div>
 
         <!-- 3 Slots Grid -->
         <div class="planner-slots-grid" id="planner-slots-grid">
@@ -267,7 +267,7 @@
 
       <!-- Recommended Class & Subject Panel -->
       <section class="panel">
-        <h3 class="panel-title" style="font-size:0.95rem;">
+        <h3 class="panel-title panel-title-sm">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="10.5" stroke-width="1.2" opacity="0.6"></circle>
             <path d="M 12 2.5 L 16.12 20.56 L 4.57 6.08 L 21.26 14.11 L 2.74 14.11 L 19.43 6.08 L 7.88 20.56 Z"></path>
@@ -282,7 +282,7 @@
 
       <!-- Artifact Priority Summary -->
       <section class="panel">
-        <h3 class="panel-title" style="font-size:0.95rem;">
+        <h3 class="panel-title panel-title-sm">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="9"></circle>
             <path d="M12 7v5l3 3"></path>
@@ -298,7 +298,7 @@
       <!-- In-Run Leveling Checklist (Grouped by Base Magic) -->
       <section class="panel">
         <div class="panel-header">
-          <h3 class="panel-title" style="font-size:0.95rem;">
+          <h3 class="panel-title panel-title-sm">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <polyline points="20 6 9 17 4 12"></polyline>
             </svg>
@@ -323,7 +323,7 @@
           </svg>
           <span>Offline Status &amp; Cache</span>
         </h2>
-        <div class="status-grid" style="margin-top:10px;">
+        <div class="status-grid status-grid-spaced">
           <div class="status-card">
             <div class="status-label">
               <span>Network</span>
@@ -339,7 +339,7 @@
             <div class="status-val" id="cached-count-val">Checking...</div>
           </div>
         </div>
-        <button type="button" class="btn-action primary" id="btn-refresh-cache" style="width:100%;">
+        <button type="button" class="btn-action primary btn-full-width" id="btn-refresh-cache">
           <svg class="icon-sm" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
             <path d="M3 3v5h5"/>
@@ -350,7 +350,7 @@
 
       <!-- How to Install Guide / Installed Badge -->
       <section class="panel" id="install-guide-panel">
-        <h3 class="panel-title" style="font-size:0.95rem;">
+        <h3 class="panel-title panel-title-sm">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
             <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line>
           </svg>
@@ -391,14 +391,14 @@
 
       <!-- Classes & Subjects Directory -->
       <section class="panel">
-        <h3 class="panel-title" style="font-size:0.95rem;">
+        <h3 class="panel-title panel-title-sm">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="10.5" stroke-width="1.2" opacity="0.6"></circle>
             <path d="M 12 2.5 L 16.12 20.56 L 4.57 6.08 L 21.26 14.11 L 2.74 14.11 L 19.43 6.08 L 7.88 20.56 Z"></path>
           </svg>
           <span>Classes &amp; Subjects Directory</span>
         </h3>
-        <div class="classes-filter-bar" id="classes-element-filters" style="margin-top:8px;">
+        <div class="classes-filter-bar" id="classes-element-filters">
           <!-- Rendered dynamically -->
         </div>
         <div class="classes-list-grid" id="classes-list-grid">
@@ -408,15 +408,15 @@
 
       <!-- About & Disclaimer -->
       <section class="panel">
-        <h3 class="panel-title" style="font-size:0.95rem;">About &amp; Community</h3>
-        <p style="font-size:0.8rem;color:var(--text);margin-bottom:8px;line-height:1.5;">
-          Built for the player community on <a href="https://reddit.com/r/magic_survival" target="_blank" rel="noopener noreferrer" style="color:var(--gold);text-decoration:none;">r/magic_survival</a>.
+        <h3 class="panel-title panel-title-sm">About &amp; Community</h3>
+        <p class="about-lead-text">
+          Built for the player community on <a href="https://reddit.com/r/magic_survival" target="_blank" rel="noopener noreferrer" class="gold-link">r/magic_survival</a>.
           All 59 combination mechanics, attribute thresholds, and stats are verified against game version <strong>v0.9941</strong>.
         </p>
-        <p style="font-size:0.75rem;color:var(--text-muted);line-height:1.45;margin-bottom:12px;">
+        <p class="about-disclaimer-text">
           <strong>Legal Disclaimer:</strong> Unofficial fan-made tool. Magic Survival and all in-game assets belong to <strong>LEME</strong>.
         </p>
-        <div style="border-top:1px solid var(--border);padding-top:10px;">
+        <div class="about-export-row">
           <button type="button" class="export-json-link" id="btn-download-json">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line>
@@ -428,7 +428,7 @@
     </main>
 
     <!-- FLOATING SLIM 3-SLOT DOCK (Only visible when state.pinned.length > 0) -->
-    <div class="floating-dock" id="floating-dock" style="display: none;">
+    <div class="floating-dock hidden" id="floating-dock">
       <div class="dock-slots" id="dock-slots">
         <!-- Rendered dynamically -->
       </div>
@@ -454,7 +454,7 @@
           </svg>
         </span>
         <span class="nav-label">Build Planner</span>
-        <span class="nav-count-badge" id="nav-planner-badge" style="display: none;">0/3</span>
+        <span class="nav-count-badge hidden" id="nav-planner-badge">0/3</span>
       </button>
 
       <button type="button" class="nav-tab" id="nav-codex" data-tab="codex">

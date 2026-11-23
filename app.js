@@ -17,7 +17,7 @@
   };
 
   const CACHE_PREFIX = 'ms-codex-';
-  const CURRENT_CACHE_NAME = 'ms-codex-v09941-v5';
+  const CURRENT_CACHE_NAME = 'ms-codex-v09941-v7';
 
   // --- Minimalist Chalk-Ink SVG Icons with Explicit Dimensions (ZERO Emojis) ---
   const ICONS = {
@@ -58,7 +58,7 @@
     if (typeof rawText !== 'string' || !rawText) return '';
     // Matches multipliers/numbers (+50%, 12X, 0.15s, 24 times, 1-9X, 3~7 times, 7×)
     // and core game terms (Damage Multiplier, Cooldown, Duration, Size, Attack Count, etc.)
-    const pattern = /(\b\d+(?:\.\d+)?(?:~\d+(?:\.\d+)?)?(?:%|s|X|x|×)?(?:\s*times)?\b|\b[+-]?\d+(?:\.\d+)?%?\b|\b(?:Damage Multiplier|Attack Count|Rotation Speed|Critical Rate|Critical Strike|Knocked Back|Damage|Cooldown|Duration|Size|Freeze|Freezes|Stun|Stuns|Staggered|Revival|Pierce|Projectiles|Satellite|Spread)\b)/gi;
+    const pattern = /(\b\d+(?:\.\d+)?(?:[-~]\d+(?:\.\d+)?)?(?:%|s|X|x|×)?(?:\s*times)?\b|\b[+-]?\d+(?:\.\d+)?%?\b|\b(?:Damage Multiplier|Attack Count|Rotation Speed|Critical Rate|Critical Strike|Knocked Back|Damage|Cooldown|Duration|Size|Freeze|Freezes|Stun|Stuns|Staggered|Revival|Pierce|Projectiles|Satellite|Spread)\b)/gi;
 
     let lastIndex = 0;
     let out = '';
@@ -374,19 +374,17 @@
     // 1. Update Planner Nav Pill Badge (0/3 to 3/3)
     if (navBadge) {
       navBadge.textContent = `${pinnedCount}/3`;
-      navBadge.style.display = pinnedCount > 0 ? 'inline-block' : 'none';
+      navBadge.classList.toggle('hidden', pinnedCount === 0);
     }
 
     // 2. Floating Dock: ONLY rendered when state.pinned.length > 0
     if (!dockEl || !slotsContainer) return;
 
+    dockEl.classList.toggle('hidden', pinnedCount === 0);
     if (pinnedCount === 0) {
-      dockEl.style.display = 'none';
       slotsContainer.innerHTML = '';
       return;
     }
-
-    dockEl.style.display = 'flex';
     if (badge) badge.textContent = `${pinnedCount}/3`;
 
     const levels = [25, 50, 75];
@@ -460,13 +458,11 @@
     const m1 = state.magicMap.get(state.filters.slot1);
     const m2 = state.magicMap.get(state.filters.slot2);
 
+    container.classList.toggle('hidden', !m1 && !m2);
     if (!m1 && !m2) {
-      container.style.display = 'none';
       container.innerHTML = '';
       return;
     }
-
-    container.style.display = 'block';
     let html = '';
 
     if (m1) html += renderMagicAttrRows(m1, 1, state.filters.slot1Attr);
@@ -495,14 +491,14 @@
 
     if (magic.id === 'magic_bolt') {
       // Magic Bolt: ONE 'Any' chip at top, followed by Lv.4 and Lv.7 rows
-      out += `<div class="attr-chips-list" style="margin-bottom:6px;">`;
+      out += `<div class="attr-chips-list attr-chips-spaced">`;
       out += `<button type="button" class="attr-chip ${selectedAttr === '' ? 'active' : ''}" data-slot="${slotNum}" data-attr="">Any Trait</button>`;
       out += `</div>`;
 
       const lv4Tier = magic.attribute_tiers.find(t => t.level === 4);
       if (lv4Tier) {
-        out += `<div class="attr-tier-label" style="font-size:0.65rem;color:var(--text-heading);">Lv.4 Trait:</div>`;
-        out += `<div class="attr-chips-list" style="margin-bottom:6px;">`;
+        out += `<div class="attr-tier-label attr-tier-sublabel">Lv.4 Trait:</div>`;
+        out += `<div class="attr-chips-list attr-chips-spaced">`;
         for (const attr of lv4Tier.attributes) {
           const isActive = selectedAttr === attr;
           out += `<button type="button" class="attr-chip ${isActive ? 'active' : ''}" data-slot="${slotNum}" data-attr="${escapeHtml(attr)}">${escapeHtml(attr)}</button>`;
@@ -512,7 +508,7 @@
 
       const lv7Tier = magic.attribute_tiers.find(t => t.level === 7);
       if (lv7Tier) {
-        out += `<div class="attr-tier-label" style="font-size:0.65rem;color:var(--text-heading);">Lv.7 Trait:</div>`;
+        out += `<div class="attr-tier-label attr-tier-sublabel">Lv.7 Trait:</div>`;
         out += `<div class="attr-chips-list">`;
         for (const attr of lv7Tier.attributes) {
           const isActive = selectedAttr === attr;
@@ -531,7 +527,7 @@
       }
       out += `</div>`;
     } else {
-      out += `<div style="font-size:0.72rem;color:var(--text-muted);">Passive Magic (Max Lv.${magic.max_level})</div>`;
+      out += `<div class="attr-passive-note">Passive Magic (Max Lv.${magic.max_level})</div>`;
     }
 
     out += `</div>`;
@@ -620,12 +616,8 @@
     if (state.filters.hideConflicts) activeFilterCount += 1;
 
     if (badgeEl) {
-      if (activeFilterCount > 0) {
-        badgeEl.textContent = activeFilterCount;
-        badgeEl.style.display = 'inline-block';
-      } else {
-        badgeEl.style.display = 'none';
-      }
+      badgeEl.textContent = activeFilterCount;
+      badgeEl.classList.toggle('hidden', activeFilterCount === 0);
     }
     if (toggleBtn) {
       toggleBtn.classList.toggle('has-active', activeFilterCount > 0);
@@ -756,14 +748,14 @@
     );
 
     if (clearBtn) {
-      clearBtn.style.display = hasActiveFilters ? 'inline-block' : 'none';
+      clearBtn.classList.toggle('hidden', !hasActiveFilters);
     }
 
     // Partner mode bar
     if (partnerBar) {
+      partnerBar.classList.toggle('hidden', !state.filters.partnerFor);
       if (state.filters.partnerFor) {
         const partnerCombo = state.comboMap.get(state.filters.partnerFor);
-        partnerBar.style.display = 'flex';
         partnerBar.innerHTML = `
           <span>Showing compatible partners for <strong>${partnerCombo ? escapeHtml(partnerCombo.name) : ''}</strong> (0 shared magics)</span>
           <button type="button" class="btn-close-sm" id="btn-clear-partner" title="Clear partner filter">${ICONS.close}</button>
@@ -772,8 +764,6 @@
           state.filters.partnerFor = '';
           renderCombinations();
         });
-      } else {
-        partnerBar.style.display = 'none';
       }
     }
 
@@ -781,15 +771,57 @@
     if (countEl) countEl.textContent = `${filtered.length} Combinations`;
 
     if (filtered.length === 0) {
+      if (state.filters.slot1 && state.filters.slot2) {
+        const m1 = state.magicMap.get(state.filters.slot1);
+        const m2 = state.magicMap.get(state.filters.slot2);
+        const name1 = m1 ? m1.name : state.filters.slot1;
+        const name2 = m2 ? m2.name : state.filters.slot2;
+
+        listEl.innerHTML = `
+          <div class="empty-results">
+            <div class="empty-state-icon">${ICONS.warning}</div>
+            <div class="empty-state-title"><strong>${escapeHtml(name1)}</strong> and <strong>${escapeHtml(name2)}</strong> don't combine in v0.9941</div>
+            <div class="empty-state-desc">Neither magic serves as the primary or secondary component for the other in this patch.</div>
+            <div class="empty-fallback-actions">
+              <button type="button" class="btn-action" id="btn-show-m1">Show ${escapeHtml(name1)} Fusions</button>
+              <button type="button" class="btn-action" id="btn-show-m2">Show ${escapeHtml(name2)} Fusions</button>
+              <button type="button" class="btn-action primary btn-centered" id="btn-empty-reset">Reset All Filters</button>
+            </div>
+          </div>
+        `;
+        document.getElementById('btn-show-m1')?.addEventListener('click', () => {
+          state.filters.slot2 = '';
+          state.filters.slot2Attr = '';
+          const s2 = document.getElementById('select-magic-2');
+          if (s2) s2.value = '';
+          renderAttributeChips();
+          renderCombinations();
+        });
+        document.getElementById('btn-show-m2')?.addEventListener('click', () => {
+          state.filters.slot1 = state.filters.slot2;
+          state.filters.slot1Attr = state.filters.slot2Attr;
+          state.filters.slot2 = '';
+          state.filters.slot2Attr = '';
+          const s1 = document.getElementById('select-magic-1');
+          const s2 = document.getElementById('select-magic-2');
+          if (s1) s1.value = state.filters.slot1;
+          if (s2) s2.value = '';
+          renderAttributeChips();
+          renderCombinations();
+        });
+        document.getElementById('btn-empty-reset')?.addEventListener('click', () => resetAllFilters());
+        return;
+      }
+
       listEl.innerHTML = `
         <div class="empty-results">
           <p>No combinations match the current filters.</p>
-          <button type="button" class="btn-action primary" id="btn-empty-reset" style="margin:0 auto;display:inline-flex;">
+          <button type="button" class="btn-action primary btn-centered" id="btn-empty-reset">
             Reset All Filters
           </button>
         </div>
       `;
-      document.getElementById('btn-empty-reset')?.addEventListener('click', resetAllFilters);
+      document.getElementById('btn-empty-reset')?.addEventListener('click', () => resetAllFilters());
       return;
     }
 
@@ -854,7 +886,7 @@
   }
 
   // --- Reset All Filters ---
-  function resetAllFilters() {
+  function resetAllFilters(silent = false) {
     state.filters.slot1 = '';
     state.filters.slot1Attr = '';
     state.filters.slot2 = '';
@@ -884,7 +916,7 @@
     renderAttributeChips();
     renderCombinations();
 
-    showToast('All filters reset.', 'info');
+    if (!silent) showToast('All filters reset.', 'info');
   }
 
   // --- Rendering UI: Build Planner Tab ---
@@ -912,8 +944,8 @@
             <div class="planner-slot-info">
               <div class="planner-slot-name">${escapeHtml(c.name)}</div>
               <div class="planner-slot-sub">
-                <span style="color:var(--main-green)">● ${escapeHtml(mainM)} (${escapeHtml(c.main.attribute)})</span> +
-                <span style="color:var(--mat-crimson)">${escapeHtml(matM)} (${escapeHtml(c.material.attribute)})</span>
+                <span class="recipe-text-main">● ${escapeHtml(mainM)} (${escapeHtml(c.main.attribute)})</span> +
+                <span class="recipe-text-mat">${escapeHtml(matM)} (${escapeHtml(c.material.attribute)})</span>
               </div>
             </div>
             <button type="button" class="btn-remove-slot" data-unpin="${escapeHtml(c.id)}" title="Remove slot">${ICONS.close}</button>
@@ -949,8 +981,8 @@
     // 2. Conflict Warning Banner
     const conflicts = getConflictsInPinned();
     if (warningEl) {
+      warningEl.classList.toggle('hidden', conflicts.length === 0);
       if (conflicts.length > 0) {
-        warningEl.style.display = 'block';
         warningEl.innerHTML = `
           <div class="conflict-warning-banner">
             ${ICONS.warning}
@@ -961,7 +993,6 @@
           </div>
         `;
       } else {
-        warningEl.style.display = 'none';
         warningEl.innerHTML = '';
       }
     }
@@ -969,7 +1000,7 @@
     // 3. Deduplicated Artifact Priority List
     if (artPriorityList) {
       if (state.pinned.length === 0) {
-        artPriorityList.innerHTML = '<span style="font-size:0.75rem;color:var(--text-dim)">Pin fusions above to identify your Main Magic artifacts.</span>';
+        artPriorityList.innerHTML = '<span class="placeholder-dim-text">Pin fusions above to identify your Main Magic artifacts.</span>';
       } else {
         const uniqueMainMagics = new Set();
         for (const cid of state.pinned) {
@@ -989,7 +1020,7 @@
     if (recContainer) {
       const recs = getRecommendations();
       if (!recs || state.pinned.length === 0) {
-        recContainer.innerHTML = '<span style="font-size:0.75rem;color:var(--text-dim)">Pin at least one fusion to see optimal Class & Subject synergies.</span>';
+        recContainer.innerHTML = '<span class="placeholder-dim-text">Pin at least one fusion to see optimal Class & Subject synergies.</span>';
       } else {
         recContainer.innerHTML = `
           <div class="recommendation-box">
@@ -1000,7 +1031,7 @@
               </div>
               <div class="rec-reason">${escapeHtml(recs.topClassReason)}</div>
             </div>
-            <div class="rec-item" style="border-top:1px solid var(--border);padding-top:8px;">
+            <div class="rec-item rec-item-bordered">
               <div class="rec-title-line">
                 <span class="rec-name">${escapeHtml(recs.topSubject.name)}</span>
                 <span class="rec-badge">SUBJECT</span>
@@ -1016,7 +1047,7 @@
     // 5. In-Run Leveling Checklist (Grouped by Base Magic with Conflict Indicators)
     if (checklistContainer) {
       if (state.pinned.length === 0) {
-        checklistContainer.innerHTML = '<span style="font-size:0.75rem;color:var(--text-dim)">No magics to track. Pin fusions above to generate your in-run checklist.</span>';
+        checklistContainer.innerHTML = '<span class="placeholder-dim-text">No magics to track. Pin fusions above to generate your in-run checklist.</span>';
       } else {
         // Group requirements by magic_id
         const magicGroups = {};
@@ -1239,14 +1270,14 @@
 
       ${combo.buffs && combo.buffs.length > 0 ? `
         <div class="modal-buffs-box">
-          <div style="font-family:var(--font-mono);font-size:0.7rem;color:var(--buff-blue);margin-bottom:4px;">BUFF STATS:</div>
+          <div class="modal-section-tag buff">BUFF STATS:</div>
           ${combo.buffs.map(b => `<div class="modal-buff-item">▲ ${escapeHtml(b)}</div>`).join('')}
         </div>
       ` : ''}
 
       ${combo.penalties && combo.penalties.length > 0 ? `
         <div class="modal-penalties-box">
-          <div style="font-family:var(--font-mono);font-size:0.7rem;color:var(--mat-crimson);margin-bottom:4px;">PENALTY STATS:</div>
+          <div class="modal-section-tag penalty">PENALTY STATS:</div>
           ${combo.penalties.map(p => `<div class="modal-penalty-item">▼ ${escapeHtml(p)}</div>`).join('')}
         </div>
       ` : ''}
@@ -1398,10 +1429,12 @@
   function downloadDatabaseJson() {
     if (!state.db) return;
     const blob = new Blob([JSON.stringify(state.db, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
+    a.href = url;
     a.download = 'combinations_v09941.json';
     a.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
     showToast('combinations_v09941.json downloaded.', 'success');
   }
 
@@ -1419,7 +1452,9 @@
       { id: 'lightning', label: 'Lightning' },
       { id: 'fire', label: 'Fire' },
       { id: 'ice', label: 'Ice' },
-      { id: 'storm', label: 'Storm' }
+      { id: 'storm', label: 'Storm' },
+      { id: 'cosmic', label: 'Cosmic' },
+      { id: 'void', label: 'Dark' }
     ];
 
     filterRow.innerHTML = elements.map(el => `
@@ -1446,7 +1481,7 @@
       <div class="class-card">
         <div class="class-card-top">
           <span class="class-name">${escapeHtml(c.name)}</span>
-          <div style="display:flex;align-items:center;gap:6px;">
+          <div class="class-card-actions">
             <span class="rec-badge">${escapeHtml(c.archetype.toUpperCase())}</span>
             ${c.primary_magic_id ? `
               <button type="button" class="btn-view-fusions" data-magic="${escapeHtml(c.primary_magic_id)}">
@@ -1476,7 +1511,7 @@
     listGrid.querySelectorAll('.btn-view-fusions').forEach(btn => {
       btn.addEventListener('click', () => {
         const mid = btn.dataset.magic;
-        resetAllFilters();
+        resetAllFilters(true);
         state.filters.slot1 = mid;
         const s1 = document.getElementById('select-magic-1');
         if (s1) s1.value = mid;
@@ -1547,7 +1582,6 @@
       toggleBtn.addEventListener('click', () => {
         state.filtersDrawerOpen = !state.filtersDrawerOpen;
         drawer.classList.toggle('hidden', !state.filtersDrawerOpen);
-        drawer.style.display = state.filtersDrawerOpen ? 'flex' : 'none';
         toggleBtn.setAttribute('aria-expanded', String(state.filtersDrawerOpen));
         if (chevron) {
           chevron.classList.toggle('open', state.filtersDrawerOpen);
@@ -1615,7 +1649,6 @@
       state.deferredInstallPrompt = e;
       const banner = document.getElementById('install-banner');
       if (banner && shouldShowInstallBanner()) {
-        banner.style.display = 'flex';
         banner.classList.remove('hidden');
       }
     });
@@ -1625,7 +1658,7 @@
         localStorage.setItem(STORAGE_KEYS.INSTALLED, '1');
       } catch (err) {}
       const banner = document.getElementById('install-banner');
-      if (banner) banner.style.display = 'none';
+      if (banner) banner.classList.add('hidden');
       updateCodexInstallCard();
       showToast('Fusion Codex successfully installed!', 'success');
     });
@@ -1642,7 +1675,7 @@
         }
         state.deferredInstallPrompt = null;
         const banner = document.getElementById('install-banner');
-        if (banner) banner.style.display = 'none';
+        if (banner) banner.classList.add('hidden');
         updateCodexInstallCard();
       } else {
         showToast('To install, open browser menu and select "Add to Home screen"', 'info');
@@ -1651,7 +1684,7 @@
 
     document.getElementById('btn-dismiss-install')?.addEventListener('click', () => {
       const banner = document.getElementById('install-banner');
-      if (banner) banner.style.display = 'none';
+      if (banner) banner.classList.add('hidden');
       try {
         localStorage.setItem(STORAGE_KEYS.INSTALL_DISMISSED, '1');
       } catch (err) {}

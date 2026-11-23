@@ -203,6 +203,151 @@ header h1 {
   display: none !important;
 }
 
+/* --- Semantic Layout & Zero-Inline Utility Classes --- */
+.panel-top {
+  margin-top: 2px;
+}
+
+.panel-title-sm {
+  font-size: 0.95rem;
+}
+
+.drawer-section-bordered {
+  border-top: 1px solid var(--border);
+  padding-top: 8px;
+}
+
+.planner-levels-tag {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.status-grid-spaced {
+  margin-top: 10px;
+}
+
+.btn-full-width {
+  width: 100%;
+}
+
+.about-lead-text {
+  font-size: 0.8rem;
+  color: var(--text);
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+.about-disclaimer-text {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+  margin-bottom: 12px;
+}
+
+.about-export-row {
+  border-top: 1px solid var(--border);
+  padding-top: 10px;
+}
+
+.gold-link {
+  color: var(--gold);
+  text-decoration: none;
+}
+
+.gold-link:hover {
+  text-decoration: underline;
+}
+
+.attr-chips-spaced {
+  margin-bottom: 6px;
+}
+
+.attr-tier-sublabel {
+  font-size: 0.65rem;
+  color: var(--text-heading);
+}
+
+.attr-passive-note {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.btn-centered {
+  margin: 0 auto;
+  display: inline-flex;
+}
+
+.recipe-text-main {
+  color: var(--main-green);
+}
+
+.recipe-text-mat {
+  color: var(--mat-crimson);
+}
+
+.placeholder-dim-text {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+}
+
+.rec-item-bordered {
+  border-top: 1px solid var(--border);
+  padding-top: 8px;
+}
+
+.modal-section-tag {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  margin-bottom: 4px;
+}
+
+.modal-section-tag.buff {
+  color: var(--buff-blue);
+}
+
+.modal-section-tag.penalty {
+  color: var(--mat-crimson);
+}
+
+.class-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Fallback state when 2 magics don't combine */
+.empty-state-icon {
+  margin-bottom: 8px;
+  color: var(--gold);
+}
+
+.empty-state-title {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  color: var(--text-heading);
+  margin-bottom: 6px;
+}
+
+.empty-state-desc {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+  max-width: 360px;
+  line-height: 1.4;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.empty-fallback-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto;
+}
+
 .install-banner.hidden {
   display: none !important;
 }
@@ -1555,6 +1700,7 @@ header h1 {
   display: flex;
   gap: 6px;
   overflow-x: auto;
+  margin-top: 8px;
   padding-bottom: 6px;
   margin-bottom: 10px;
   scrollbar-width: none;
