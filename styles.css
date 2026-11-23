@@ -37,12 +37,9 @@
   --aoe-teal-bg: rgba(123, 174, 179, 0.10);
   --aoe-teal-border: rgba(123, 174, 179, 0.35);
 
-  --tier-s: #d8a05c;
-  --tier-s-bg: rgba(216, 160, 92, 0.12);
-  --tier-a: #d8c78e;
-  --tier-a-bg: rgba(216, 199, 142, 0.12);
-  --tier-b: #a595b8;
-  --tier-b-bg: rgba(165, 149, 184, 0.12);
+  --nuke-amber: #d8a05c;
+  --nuke-amber-bg: rgba(216, 160, 92, 0.12);
+  --nuke-amber-border: rgba(216, 160, 92, 0.35);
 
   --font-serif: 'Philosopher', 'Georgia', serif;
   --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -1121,19 +1118,6 @@ header h1 {
   flex-shrink: 0;
 }
 
-.tier-badge {
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  font-weight: 700;
-  padding: 2px 6px;
-  border-radius: 4px;
-  line-height: 1.2;
-}
-
-.tier-s { background: var(--tier-s-bg); color: var(--tier-s); border: 1px solid rgba(216, 160, 92, 0.4); }
-.tier-a { background: var(--tier-a-bg); color: var(--tier-a); border: 1px solid var(--gold-border); }
-.tier-b { background: var(--tier-b-bg); color: var(--tier-b); border: 1px solid rgba(165, 149, 184, 0.4); }
-
 .cat-tag {
   font-family: var(--font-mono);
   font-size: 0.65rem;
@@ -1145,7 +1129,7 @@ header h1 {
 }
 
 .cat-tag.aoe { border-color: var(--aoe-teal-border); color: var(--aoe-teal); background: var(--aoe-teal-bg); }
-.cat-tag.nuke { border-color: rgba(216, 160, 92, 0.35); color: var(--tier-s); background: var(--tier-s-bg); }
+.cat-tag.nuke { border-color: var(--nuke-amber-border); color: var(--nuke-amber); background: var(--nuke-amber-bg); }
 
 /* 2-Line Crisp Recipe */
 .card-recipe {
@@ -2184,12 +2168,12 @@ header h1 {
 }
 
 .toast.warning {
-  border-color: var(--tier-s);
+  border-color: var(--nuke-amber);
   color: var(--text-bright);
 }
 
 .toast.warning svg {
-  color: var(--tier-s);
+  color: var(--nuke-amber);
 }
 
 .toast.error {

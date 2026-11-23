@@ -17,7 +17,7 @@
   };
 
   const CACHE_PREFIX = 'ms-codex-';
-  const CURRENT_CACHE_NAME = 'ms-codex-v09941-v7';
+  const CURRENT_CACHE_NAME = 'ms-codex-v09941-v8';
 
   // --- Minimalist Chalk-Ink SVG Icons with Explicit Dimensions (ZERO Emojis) ---
   const ICONS = {
@@ -714,7 +714,6 @@
         const deepCorpus = [
           combo.name,
           combo.category,
-          combo.tier,
           mainName,
           combo.main.attribute,
           matName,
@@ -834,7 +833,6 @@
       const mainName = mainMagic ? mainMagic.name : combo.main.magic_id;
       const matName = matMagic ? matMagic.name : combo.material.magic_id;
 
-      const tierClass = `tier-${combo.tier.toLowerCase()}`;
       const catClass = combo.category.toLowerCase();
       const catLabel = combo.category === 'aoe' ? 'AoE' : 'Nuke';
 
@@ -847,7 +845,6 @@
             <div class="card-header-line">
               <span class="card-title">${escapeHtml(combo.name)}</span>
               <div class="card-badges">
-                <span class="tier-badge ${tierClass}">Tier ${escapeHtml(combo.tier)}</span>
                 <span class="cat-tag ${catClass}">${catLabel}</span>
               </div>
             </div>
@@ -1159,7 +1156,7 @@
       const c = state.comboMap.get(id);
       const mainM = state.magicMap.get(c.main.magic_id)?.name || c.main.magic_id;
       const matM = state.magicMap.get(c.material.magic_id)?.name || c.material.magic_id;
-      return `| Lv.${levels[i]} | **${c.name}** | Tier ${c.tier} | ${mainM} — ${c.main.attribute} (Lv.${c.main.level}) | ${matM} — ${c.material.attribute} (Lv.${c.material.level}) |`;
+      return `| Lv.${levels[i]} | **${c.name}** | ${mainM} — ${c.main.attribute} (Lv.${c.main.level}) | ${matM} — ${c.material.attribute} (Lv.${c.material.level}) |`;
     }).join('\n');
 
     let md = `### Magic Survival (v0.9941) Build\n\n`;
@@ -1172,8 +1169,8 @@
       }
     }
     md += `**Artifact Priority (Main Magics):** ${artifactList} *(Only Main Magics scale with artifacts)*\n\n`;
-    md += `| Slot | Combination | Tier | Main Magic (Artifact Scaled) | Material Magic (Consumed) |\n`;
-    md += `| :--- | :--- | :---: | :--- | :--- |\n`;
+    md += `| Slot | Combination | Main Magic (Artifact Scaled) | Material Magic (Consumed) |\n`;
+    md += `| :--- | :--- | :--- | :--- |\n`;
     md += `${rows}\n\n`;
     md += `*Created with Magic Survival Fusion Codex — r/magic_survival*`;
 
@@ -1241,7 +1238,6 @@
             <div class="modal-title">${escapeHtml(combo.name)}</div>
           </div>
           <div class="modal-badges-row">
-            <span class="tier-badge tier-${combo.tier.toLowerCase()}">Tier ${escapeHtml(combo.tier)}</span>
             <span class="cat-tag ${combo.category.toLowerCase()}">${combo.category === 'aoe' ? 'AoE' : 'Nuke'}</span>
           </div>
           ${tagsPillsHtml ? `<div class="modal-tags-row">${tagsPillsHtml}</div>` : ''}
