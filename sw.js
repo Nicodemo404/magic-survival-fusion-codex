@@ -1,6 +1,6 @@
 // Magic Survival — Fusion Codex (v0.9941) Service Worker
 const CACHE_PREFIX = 'ms-codex-';
-const CACHE_NAME = 'ms-codex-v09941-v8';
+const CACHE_NAME = 'ms-codex-v09941-v9';
 
 const APP_SHELL = [
   './',
@@ -136,6 +136,12 @@ const COMBO_ASSETS = [
   './assets/cards/photon_explosion.webp',
   './assets/thumbs/teleport.webp',
   './assets/cards/teleport.webp',
+  './assets/thumbs/gate_of_creation.webp',
+  './assets/cards/gate_of_creation.webp',
+  './assets/thumbs/perpetual_engine.webp',
+  './assets/cards/perpetual_engine.webp',
+  './assets/thumbs/overmind.webp',
+  './assets/cards/overmind.webp',
 ];
 
 const PRECACHE_URLS = [...APP_SHELL, ...COMBO_ASSETS];

@@ -2,7 +2,7 @@
   "meta": {
     "app_name": "Magic Survival — Fusion Codex",
     "game_version": "v0.9941",
-    "total_combinations": 59,
+    "total_combinations": 62,
     "terminology": {
       "combination": {
         "in_game": "Magic Combination",
@@ -28,7 +28,8 @@
     ],
     "categories": {
       "aoe": "AoE & Crowd Clear",
-      "nuke": "Nuke & Burst Cooldown"
+      "nuke": "Nuke & Burst Cooldown",
+      "support": "Support & Magic Circle"
     },
     "planned_modules": [
       "artifacts_v2",
@@ -387,6 +388,36 @@
       "attribute_tiers": [
         {
           "level": 3,
+          "attributes": [
+            "Max Level"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "magic_circle",
+      "name": "Magic Circle",
+      "type": "utility",
+      "max_level": 5,
+      "attribute_tiers": [
+        {
+          "level": 5,
+          "attributes": [
+            "Material Synthesis",
+            "Unleash Mana",
+            "Great Magic Circle"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "intelligence",
+      "name": "Intelligence",
+      "type": "passive",
+      "max_level": 5,
+      "attribute_tiers": [
+        {
+          "level": 5,
           "attributes": [
             "Max Level"
           ]
@@ -2253,6 +2284,99 @@
       "thumb_path": "./assets/thumbs/teleport.webp",
       "card_path": "./assets/cards/teleport.webp",
       "raw_path": "./assets/cards/teleport.webp"
+    },
+    {
+      "id": "gate_of_creation",
+      "name": "Gate of Creation",
+      "category": "support",
+      "main": {
+        "magic_id": "intelligence",
+        "attribute": "Max Level",
+        "level": 5
+      },
+      "material": {
+        "magic_id": "magic_circle",
+        "attribute": "Material Synthesis",
+        "level": 5
+      },
+      "mechanics": [
+        "For each activated Combination Magic, ATK is Amplified by 20%.",
+        "Gain 2 more Magic Combination chance.",
+        "Increase Max Level by 5."
+      ],
+      "buffs": [
+        "Amplify ATK by 20% per Combination Magic",
+        "+2 Magic Combination slots",
+        "Increase Max Level by 5"
+      ],
+      "penalties": [],
+      "source_file": "Screenshot_2026-11-23-20-47-09-437_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/gate_of_creation.webp",
+      "card_path": "./assets/cards/gate_of_creation.webp",
+      "raw_path": "./assets/cards/gate_of_creation.webp"
+    },
+    {
+      "id": "perpetual_engine",
+      "name": "Perpetual Engine",
+      "category": "support",
+      "main": {
+        "magic_id": "magic_circle",
+        "attribute": "Unleash Mana",
+        "level": 5
+      },
+      "material": {
+        "magic_id": "intelligence",
+        "attribute": "Max Level",
+        "level": 5
+      },
+      "material_consumed": false,
+      "mechanics": [
+        "Magic Circles are permanent.",
+        "The Magic Circle's Effect is increased by 1% for every 3% of its Duration.",
+        "The Magic Circle's Effect is increased by 1% for every 3% of its Cooldown Decrease."
+      ],
+      "buffs": [
+        "Permanent Magic Circle"
+      ],
+      "penalties": [],
+      "source_file": "Screenshot_2026-11-23-20-48-31-985_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/perpetual_engine.webp",
+      "card_path": "./assets/cards/perpetual_engine.webp",
+      "raw_path": "./assets/cards/perpetual_engine.webp"
+    },
+    {
+      "id": "overmind",
+      "name": "Overmind",
+      "category": "support",
+      "main": {
+        "magic_id": "intelligence",
+        "attribute": "Max Level",
+        "level": 5
+      },
+      "material": {
+        "magic_id": "magic_circle",
+        "attribute": "Great Magic Circle",
+        "level": 5
+      },
+      "mechanics": [
+        "Only Combined Spells can be cast.",
+        "For each level of acquired Active Magic, Amplify ATK by 1.5%, Increase All Magic Size by 0.5%, and Decrease All Magic Cooldown by 0.3%."
+      ],
+      "buffs": [
+        "Amplify ATK by 1.5% per Active Magic level",
+        "Increase All Magic Size by 0.5% per Active Magic level",
+        "Decrease All Magic Cooldown by 0.3% per Active Magic level"
+      ],
+      "penalties": [
+        "Only Combined Spells can be cast"
+      ],
+      "source_file": "Screenshot_2026-11-23-20-48-13-160_com.vkslrzm.Zombie.jpg",
+      "verified": true,
+      "thumb_path": "./assets/thumbs/overmind.webp",
+      "card_path": "./assets/cards/overmind.webp",
+      "raw_path": "./assets/cards/overmind.webp"
     }
   ]
 }

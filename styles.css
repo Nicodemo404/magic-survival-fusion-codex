@@ -88,6 +88,7 @@ button svg,
 .attr-chip svg,
 .check-box svg,
 .btn-close-sm svg,
+.planner-note svg,
 .chevron-icon,
 .search-icon {
   width: 16px !important;
@@ -1130,6 +1131,7 @@ header h1 {
 
 .cat-tag.aoe { border-color: var(--aoe-teal-border); color: var(--aoe-teal); background: var(--aoe-teal-bg); }
 .cat-tag.nuke { border-color: var(--nuke-amber-border); color: var(--nuke-amber); background: var(--nuke-amber-bg); }
+.cat-tag.support { border-color: var(--gold-border); color: var(--gold); background: var(--gold-bg); }
 
 /* 2-Line Crisp Recipe */
 .card-recipe {
@@ -1276,6 +1278,15 @@ header h1 {
   flex-shrink: 0;
 }
 
+/* Gate of Creation bonus slots (Slot 4 & 5) */
+.slot-level-badge.bonus {
+  border-style: dashed;
+  border-color: var(--gold-border);
+  background: var(--gold-bg);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
 .planner-slot-thumb {
   width: 48px;
   height: 48px;
@@ -1332,6 +1343,32 @@ header h1 {
   gap: 10px;
   color: var(--mat-crimson);
   font-size: 0.8rem;
+}
+
+/* Combo-Specific Planner Note (e.g. Overmind) */
+.planner-note {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-left: 2px solid var(--gold-border);
+  border-radius: 8px;
+  padding: 9px 12px;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.planner-note svg {
+  margin-top: 1px;
+  color: var(--gold);
+}
+
+.planner-note strong {
+  color: var(--text-heading);
+  font-weight: 600;
 }
 
 /* Action Buttons (Reddit Markdown / Share) */

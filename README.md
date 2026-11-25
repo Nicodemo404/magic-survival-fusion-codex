@@ -1,6 +1,6 @@
 # Magic Survival - Fusion Codex (v0.9941)
 
-An offline-first Progressive Web App (PWA) and interactive reference tool for Magic Survival v0.9941, built for the community on r/magic_survival.
+An offline-first Progressive Web App (PWA) and interactive reference tool for Magic Survival v0.9941, built for the community on r/magic_survival. Covers all 62 verified combinations, including the 3 Magic Circle support combinations.
 
 Hosted on GitHub Pages with zero external runtime dependencies, self-contained assets, and installable on Android and iOS.
 
@@ -9,10 +9,20 @@ Hosted on GitHub Pages with zero external runtime dependencies, self-contained a
 ## Features
 
 - Dual-Slot Smart Combinator: Instant lookup between base magics, Lv.4 / Lv.7 trait selectors, elemental filters, and 14 functional scaling categories.
-- 3-Slot Build Planner: Dedicated slots for Lv.25, Lv.50, and Lv.75 combination magics with automatic conflict detection, deduplicated Main Magic artifact priority, recommended Class and Subject synergies, and in-run leveling checklist.
+- Build Planner: Dedicated slots for Lv.25, Lv.50, and Lv.75 combination magics (plus 2 GoC Bonus slots while Gate of Creation is pinned) with automatic conflict detection, deduplicated Main Magic artifact priority, recommended Class and Subject synergies, and in-run leveling checklist.
 - Share and Export: Share builds via URL hash (#build=...) and copy formatted Markdown tables ready for r/magic_survival.
 - Offline PWA: Pre-cached app shell and assets via Service Worker with isolated storage scope.
 - In-Game Card Inspector: Mechanics, buff stats, penalty stats, artifact scaling guidance, and full-resolution screenshot viewer.
+
+---
+
+## Maintenance Scripts
+
+```text
+python scripts/prepare_assets.py --only <id>[,<id>]   # screenshots in ../Lvl -> assets/thumbs + assets/cards (.webp)
+python scripts/build_sw.py --cache ms-codex-v09941-vN  # resync sw.js precache list + bump cache key in sw.js & app.js
+python scripts/verify_app.py                           # data, asset, precache, cache-key and CSP integrity checks
+```
 
 ---
 
@@ -38,7 +48,8 @@ Code/
 |   `-- cards/
 `-- scripts/
     |-- prepare_assets.py
-    `-- build_sw.py
+    |-- build_sw.py
+    `-- verify_app.py
 ```
 
 ---

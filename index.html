@@ -144,12 +144,13 @@
           <input type="text" class="search-input" id="search-input" placeholder="Search fusion, magic, trait, or effect..." />
         </div>
 
-        <!-- Compact Control Row: [All | AoE | Nuke] + Filters Button -->
+        <!-- Compact Control Row: [All | AoE | Nuke | Support] + Filters Button -->
         <div class="combinator-control-row">
           <div class="category-segmented">
             <button type="button" class="cat-pill active" data-cat="all">All</button>
             <button type="button" class="cat-pill" data-cat="aoe">AoE</button>
             <button type="button" class="cat-pill" data-cat="nuke">Nuke</button>
+            <button type="button" class="cat-pill" data-cat="support">Support</button>
           </div>
 
           <button type="button" class="btn-filters-toggle" id="btn-filters-toggle" aria-expanded="false">
@@ -210,7 +211,7 @@
 
       <!-- Result Count Bar -->
       <div class="filter-status-row">
-        <span id="filtered-count">59 Combinations</span>
+        <span id="filtered-count">62 Combinations</span>
         <button type="button" class="btn-clear-active hidden" id="btn-clear-active-filters">Clear Filters</button>
       </div>
 
@@ -231,17 +232,20 @@
               <line x1="8" y1="2" x2="8" y2="6"></line>
               <line x1="3" y1="10" x2="21" y2="10"></line>
             </svg>
-            <span>3-Slot Build Planner</span>
+            <span id="planner-title-text">3-Slot Build Planner</span>
           </h2>
           <span class="planner-levels-tag">Lv.25 / 50 / 75</span>
         </div>
 
-        <p class="panel-subtitle">Plan your run's 3 combination magic choices, verify conflicts, and track artifact scaling.</p>
+        <p class="panel-subtitle">Plan your run's combination magic choices (3 slots, 5 with Gate of Creation), verify conflicts, and track artifact scaling.</p>
 
         <!-- Conflict Warning Banner -->
         <div class="hidden" id="conflict-warning-container"></div>
 
-        <!-- 3 Slots Grid -->
+        <!-- Combo-Specific Notes (e.g. Overmind restriction) -->
+        <div class="hidden" id="planner-notes-container"></div>
+
+        <!-- Slots Grid (3 base slots, +2 GoC Bonus with Gate of Creation) -->
         <div class="planner-slots-grid" id="planner-slots-grid">
           <!-- Rendered dynamically -->
         </div>
@@ -411,7 +415,7 @@
         <h3 class="panel-title panel-title-sm">About &amp; Community</h3>
         <p class="about-lead-text">
           Built for the player community on <a href="https://reddit.com/r/magic_survival" target="_blank" rel="noopener noreferrer" class="gold-link">r/magic_survival</a>.
-          All 59 combination mechanics, attribute thresholds, and stats are verified against game version <strong>v0.9941</strong>.
+          All <span id="about-combo-count">62</span> combination mechanics, attribute thresholds, and stats are verified against game version <strong>v0.9941</strong>.
         </p>
         <p class="about-disclaimer-text">
           <strong>Legal Disclaimer:</strong> Unofficial fan-made tool. Magic Survival and all in-game assets belong to <strong>LEME</strong>.
@@ -427,7 +431,7 @@
       </section>
     </main>
 
-    <!-- FLOATING SLIM 3-SLOT DOCK (Only visible when state.pinned.length > 0) -->
+    <!-- FLOATING SLIM SLOT DOCK (3 or 5 slots; only visible when state.pinned.length > 0) -->
     <div class="floating-dock hidden" id="floating-dock">
       <div class="dock-slots" id="dock-slots">
         <!-- Rendered dynamically -->

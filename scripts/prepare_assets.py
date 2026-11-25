@@ -1,12 +1,15 @@
 """
 Magic Survival v0.9941 — Real Asset Pipeline
 Crops spell artwork thumbnails into assets/thumbs/<id>.webp and optimizes full cards into assets/cards/<id>.webp
-directly from 59 real in-game screenshots in ../Lvl/.
-Generates PWA icons and the 1200x630 social share banner in the authentic pitch-black Magic Survival aesthetic.
+directly from the real in-game screenshots in ../Lvl/ (one per combination, via each combo's `source_file`).
+Optionally regenerates PWA icons and the 1200x630 social share banner (--icons).
 
 Usage:
-    python scripts/prepare_assets.py
+    python scripts/prepare_assets.py                       # process every combination
+    python scripts/prepare_assets.py --only overmind,gate_of_creation
+    python scripts/prepare_assets.py --icons               # also regenerate icons & OG banner
 """
+import argparse
 import json
 import math
 import os
@@ -195,19 +198,34 @@ def generate_pwa_icons():
 
 
 def main():
+    parser = argparse.ArgumentParser(description="Build thumbs/cards .webp assets from in-game screenshots.")
+    parser.add_argument("--only", default="", help="Comma-separated combination ids to process (default: all).")
+    parser.add_argument("--icons", action="store_true", help="Also regenerate PWA icons and the OG banner.")
+    args = parser.parse_args()
+
     if not DB_PATH.exists():
         raise FileNotFoundError(f"Database file not found: {DB_PATH}")
 
     with open(DB_PATH, "r", encoding="utf-8") as f:
         db = json.load(f)
 
-    combos = db.get("combinations", [])
-    if len(combos) != 59:
-        raise ValueError(f"Expected 59 combinations, found {len(combos)}")
+    all_combos = db.get("combinations", [])
+    expected_total = db.get("meta", {}).get("total_combinations", len(all_combos))
+    if len(all_combos) != expected_total:
+        raise ValueError(f"meta.total_combinations is {expected_total} but found {len(all_combos)} combinations")
 
-    print(f"Checking {len(combos)} combinations in {LVL_DIR}...")
+    combos = all_combos
+    if args.only:
+        wanted = {s.strip() for s in args.only.split(",") if s.strip()}
+        unknown = wanted - {c["id"] for c in all_combos}
+        if unknown:
+            raise ValueError(f"Unknown combination ids: {sorted(unknown)}")
+        combos = [c for c in all_combos if c["id"] in wanted]
 
-    # Strictly verify all 59 files exist before processing
+    total = len(combos)
+    print(f"Checking {total} combinations in {LVL_DIR}...")
+
+    # Strictly verify every source screenshot exists before processing
     missing_files = []
     for combo in combos:
         cid = combo["id"]
@@ -220,9 +238,9 @@ def main():
             missing_files.append((cid, sf))
 
     if missing_files:
-        raise FileNotFoundError(f"Fatal error: Missing {len(missing_files)}/59 screenshots in {LVL_DIR}: {missing_files}")
+        raise FileNotFoundError(f"Fatal error: Missing {len(missing_files)}/{total} screenshots in {LVL_DIR}: {missing_files}")
 
-    print("All 59 real in-game screenshots verified in Lvl directory! Processing...")
+    print(f"All {total} real in-game screenshots verified in Lvl directory! Processing...")
 
     processed = 0
     for combo in combos:
@@ -239,17 +257,20 @@ def main():
             card.save(CARDS_DIR / f"{cid}.webp", "WEBP", quality=84, method=6)
         processed += 1
 
-    print(f"Processed 59/59 real in-game screenshots into thumbs & cards.")
+    print(f"Processed {processed}/{total} real in-game screenshots into thumbs & cards.")
 
-    # Verification check
-    total_thumbs = len(list(THUMBS_DIR.glob("*.webp")))
-    total_cards = len(list(CARDS_DIR.glob("*.webp")))
-    if total_thumbs != 59 or total_cards != 59:
-        raise RuntimeError(f"Asset mismatch: {total_thumbs} thumbs and {total_cards} cards found (expected 59 each).")
+    # Verification check: every combination in the database must have both assets
+    missing_assets = [
+        c["id"] for c in all_combos
+        if not (THUMBS_DIR / f"{c['id']}.webp").exists() or not (CARDS_DIR / f"{c['id']}.webp").exists()
+    ]
+    if missing_assets:
+        raise RuntimeError(f"Asset mismatch: missing thumbs/cards for {missing_assets}")
 
-    print(f"Verification passed: {total_thumbs}/59 thumbnails and {total_cards}/59 cards present.")
+    print(f"Verification passed: thumbnails and cards present for all {len(all_combos)} combinations.")
 
-    generate_pwa_icons()
+    if args.icons:
+        generate_pwa_icons()
     print("Done! All assets generated cleanly.")
 
 

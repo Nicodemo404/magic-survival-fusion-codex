@@ -17,7 +17,16 @@
   };
 
   const CACHE_PREFIX = 'ms-codex-';
-  const CURRENT_CACHE_NAME = 'ms-codex-v09941-v8';
+  const CURRENT_CACHE_NAME = 'ms-codex-v09941-v9';
+  // Must match the APP_SHELL list length in sw.js (each combination adds 1 thumb + 1 card on top).
+  const APP_SHELL_ASSET_COUNT = 12;
+
+  // --- Build Planner Slot Rules ---
+  const BASE_SLOT_LEVELS = [25, 50, 75];
+  const GOC_ID = 'gate_of_creation'; // "Gain 2 more Magic Combination chance."
+  const GOC_BONUS_SLOTS = 2;
+  const OVERMIND_ID = 'overmind';
+  const CATEGORY_LABELS = { aoe: 'AoE', nuke: 'Nuke', support: 'Support' };
 
   // --- Minimalist Chalk-Ink SVG Icons with Explicit Dimensions (ZERO Emojis) ---
   const ICONS = {
@@ -121,7 +130,7 @@
     activeTab: 'combinator',
     filtersDrawerOpen: false,
 
-    pinned: [], // array of up to 3 combo IDs
+    pinned: [], // combo IDs: up to 3, or 5 while Gate of Creation is pinned
     checklist: {}, // { "magicId:attribute": true }
 
     filters: {
@@ -166,6 +175,44 @@
     }, 2800);
   }
 
+  // --- Slot, Category & Recipe Helpers ---
+  function getMaxSlots(pinned = state.pinned) {
+    return BASE_SLOT_LEVELS.length + (pinned.includes(GOC_ID) ? GOC_BONUS_SLOTS : 0);
+  }
+
+  function isBonusSlot(index) {
+    return index >= BASE_SLOT_LEVELS.length;
+  }
+
+  function getSlotLabel(index) {
+    return isBonusSlot(index) ? 'GoC Bonus' : `Lv.${BASE_SLOT_LEVELS[index]}`;
+  }
+
+  function getCategoryLabel(category) {
+    return CATEGORY_LABELS[category] || category;
+  }
+
+  // Perpetual Engine keeps its second magic (Intelligence) as a passive instead of consuming it.
+  function isMaterialKept(combo) {
+    return combo.material_consumed === false;
+  }
+
+  function getExpectedAssetCount() {
+    const comboCount = state.db ? state.db.combinations.length : 0;
+    return APP_SHELL_ASSET_COUNT + comboCount * 2;
+  }
+
+  // Dedupe, drop unknown ids, keep Gate of Creation inside a base slot, and cap to the slots it allows.
+  function normalizePinned(ids) {
+    const unique = [...new Set(ids)].filter(id => state.comboMap.has(id));
+    const gocIdx = unique.indexOf(GOC_ID);
+    if (gocIdx >= BASE_SLOT_LEVELS.length) {
+      unique.splice(gocIdx, 1);
+      unique.splice(BASE_SLOT_LEVELS.length - 1, 0, GOC_ID);
+    }
+    return unique.slice(0, getMaxSlots(unique));
+  }
+
   // --- Pinned State & Persistence ---
   function loadPersistedState() {
     try {
@@ -173,7 +220,7 @@
       if (stored) {
         const parsed = JSON.parse(stored);
         if (Array.isArray(parsed)) {
-          state.pinned = parsed.filter(id => state.comboMap.has(id)).slice(0, 3);
+          state.pinned = normalizePinned(parsed);
         }
       }
     } catch (e) {
@@ -189,11 +236,11 @@
       console.warn('Failed to parse checklist', e);
     }
 
-    // URL Hash override: #build=id1,id2,id3 takes precedence on load
+    // URL Hash override: #build=id1,id2,id3[,id4,id5] takes precedence on load
     const hash = window.location.hash;
     if (hash && hash.startsWith('#build=')) {
       const ids = hash.replace('#build=', '').split(',').map(s => s.trim());
-      const validIds = ids.filter(id => state.comboMap.has(id)).slice(0, 3);
+      const validIds = normalizePinned(ids);
       if (validIds.length > 0) {
         state.pinned = validIds;
         savePinnedState();
@@ -236,15 +283,30 @@
     const idx = state.pinned.indexOf(comboId);
     if (idx !== -1) {
       state.pinned.splice(idx, 1);
-      showToast('Removed combination from build planner.', 'info');
+      // Unpinning Gate of Creation closes the 2 bonus slots: trim back to the 3 base slots.
+      const dropped = state.pinned.length > getMaxSlots() ? state.pinned.splice(getMaxSlots()) : [];
+      if (dropped.length > 0) {
+        const names = dropped.map(id => state.comboMap.get(id)?.name || id).join(', ');
+        showToast(`GoC Bonus slots closed. Also removed: ${names}.`, 'warning');
+      } else {
+        showToast('Removed combination from build planner.', 'info');
+      }
     } else {
-      if (state.pinned.length >= 3) {
-        showToast('All 3 fusion slots are full (Lv.25, Lv.50, Lv.75). Remove one first.', 'warning');
+      const maxSlots = getMaxSlots();
+      if (state.pinned.length >= maxSlots) {
+        const msg = maxSlots > BASE_SLOT_LEVELS.length
+          ? `All ${maxSlots} combination slots are full (Lv.25, Lv.50, Lv.75 + 2 GoC Bonus). Remove one first.`
+          : 'All 3 fusion slots are full (Lv.25, Lv.50, Lv.75). Remove one first.';
+        showToast(msg, 'warning');
         return;
       }
       state.pinned.push(comboId);
       const combo = state.comboMap.get(comboId);
-      showToast(`Pinned ${combo ? combo.name : comboId} to Slot ${state.pinned.length}.`, 'success');
+      if (comboId === GOC_ID) {
+        showToast(`Pinned Gate of Creation to Slot ${state.pinned.length}. 2 GoC Bonus slots unlocked.`, 'success');
+      } else {
+        showToast(`Pinned ${combo ? combo.name : comboId} to Slot ${state.pinned.length}.`, 'success');
+      }
     }
     savePinnedState();
     renderCombinations();
@@ -370,10 +432,11 @@
     const navBadge = document.getElementById('nav-planner-badge');
 
     const pinnedCount = state.pinned.length;
+    const maxSlots = getMaxSlots();
 
-    // 1. Update Planner Nav Pill Badge (0/3 to 3/3)
+    // 1. Update Planner Nav Pill Badge (0/3 to 3/3, or x/5 with Gate of Creation)
     if (navBadge) {
-      navBadge.textContent = `${pinnedCount}/3`;
+      navBadge.textContent = `${pinnedCount}/${maxSlots}`;
       navBadge.classList.toggle('hidden', pinnedCount === 0);
     }
 
@@ -385,20 +448,23 @@
       slotsContainer.innerHTML = '';
       return;
     }
-    if (badge) badge.textContent = `${pinnedCount}/3`;
+    if (badge) badge.textContent = `${pinnedCount}/${maxSlots}`;
 
-    const levels = [25, 50, 75];
     const conflicts = getConflictsInPinned();
     const hasConflict = conflicts.length > 0;
 
-    slotsContainer.innerHTML = [0, 1, 2].map(i => {
+    // 5-slot mode is too narrow for names on 360px screens: show slot labels only (name stays in the title).
+    const compact = maxSlots > BASE_SLOT_LEVELS.length;
+    slotsContainer.innerHTML = Array.from({ length: maxSlots }, (_, i) => {
       const cid = state.pinned[i];
+      const shortLabel = isBonusSlot(i) ? `GoC ${i - BASE_SLOT_LEVELS.length + 1}` : getSlotLabel(i);
       if (cid) {
         const c = state.comboMap.get(cid);
         const name = c ? c.name : cid;
-        return `<div class="dock-slot filled ${hasConflict ? 'has-conflict' : ''}" data-slot="${i}" title="${escapeHtml(name)}">Lv.${levels[i]}: ${escapeHtml(name)}</div>`;
+        const text = compact ? shortLabel : `${shortLabel}: ${escapeHtml(name)}`;
+        return `<div class="dock-slot filled ${hasConflict ? 'has-conflict' : ''}" data-slot="${i}" title="${escapeHtml(name)}">${text}</div>`;
       } else {
-        return `<div class="dock-slot empty" data-slot="${i}">Slot ${i + 1}</div>`;
+        return `<div class="dock-slot empty" data-slot="${i}">${compact ? shortLabel : `Slot ${i + 1}`}</div>`;
       }
     }).join('');
 
@@ -834,7 +900,8 @@
       const matName = matMagic ? matMagic.name : combo.material.magic_id;
 
       const catClass = combo.category.toLowerCase();
-      const catLabel = combo.category === 'aoe' ? 'AoE' : 'Nuke';
+      const catLabel = getCategoryLabel(combo.category);
+      const kept = isMaterialKept(combo);
 
       return `
         <div class="combo-card ${isPinned ? 'is-pinned' : ''} ${isConflict ? 'has-conflict' : ''}" data-id="${escapeHtml(combo.id)}">
@@ -853,7 +920,7 @@
                 <span class="recipe-dot">●</span>
                 <span>${escapeHtml(mainName)} (${escapeHtml(combo.main.attribute)})</span>
               </div>
-              <div class="recipe-line material" title="Material Magic (Consumed)">
+              <div class="recipe-line ${kept ? 'main kept' : 'material'}" title="${kept ? 'Passive Magic (Kept, not consumed)' : 'Material Magic (Consumed)'}">
                 <span class="recipe-plus">+</span>
                 <span>${escapeHtml(matName)} (${escapeHtml(combo.material.attribute)})</span>
               </div>
@@ -925,24 +992,31 @@
     const checklistContainer = document.getElementById('checklist-container');
     if (!slotsGrid) return;
 
-    const levels = [25, 50, 75];
+    const maxSlots = getMaxSlots();
 
-    // 1. Render 3 Slots
-    slotsGrid.innerHTML = [0, 1, 2].map(i => {
+    // 0. Planner title reflects 3-slot or Gate of Creation 5-slot mode
+    const titleEl = document.getElementById('planner-title-text');
+    if (titleEl) titleEl.textContent = `${maxSlots}-Slot Build Planner`;
+
+    // 1. Render Slots (3 base slots, +2 GoC Bonus slots while Gate of Creation is pinned)
+    slotsGrid.innerHTML = Array.from({ length: maxSlots }, (_, i) => {
       const cid = state.pinned[i];
+      const slotLabel = getSlotLabel(i);
+      const badgeClass = isBonusSlot(i) ? 'slot-level-badge bonus' : 'slot-level-badge';
       if (cid) {
         const c = state.comboMap.get(cid);
         const mainM = state.magicMap.get(c.main.magic_id)?.name || c.main.magic_id;
         const matM = state.magicMap.get(c.material.magic_id)?.name || c.material.magic_id;
+        const matClass = isMaterialKept(c) ? 'recipe-text-main' : 'recipe-text-mat';
         return `
           <div class="planner-slot-card" data-slot-index="${i}">
-            <div class="slot-level-badge">Lv.${levels[i]}</div>
+            <div class="${badgeClass}">${slotLabel}</div>
             <img class="planner-slot-thumb" src="./assets/thumbs/${escapeHtml(c.id)}.webp" alt="${escapeHtml(c.name)}" />
             <div class="planner-slot-info">
               <div class="planner-slot-name">${escapeHtml(c.name)}</div>
               <div class="planner-slot-sub">
                 <span class="recipe-text-main">● ${escapeHtml(mainM)} (${escapeHtml(c.main.attribute)})</span> +
-                <span class="recipe-text-mat">${escapeHtml(matM)} (${escapeHtml(c.material.attribute)})</span>
+                <span class="${matClass}">${escapeHtml(matM)} (${escapeHtml(c.material.attribute)})</span>
               </div>
             </div>
             <button type="button" class="btn-remove-slot" data-unpin="${escapeHtml(c.id)}" title="Remove slot">${ICONS.close}</button>
@@ -951,10 +1025,10 @@
       } else {
         return `
           <div class="planner-slot-card empty" data-slot-index="${i}">
-            <div class="slot-level-badge">Lv.${levels[i]}</div>
+            <div class="${badgeClass}">${slotLabel}</div>
             <div class="planner-empty-text">
               <span class="planner-empty-plus">+</span>
-              <span>Slot ${i + 1} (Lv.${levels[i]}) — Tap to pick a fusion</span>
+              <span>Slot ${i + 1} (${slotLabel}) — Tap to pick a fusion</span>
             </div>
           </div>
         `;
@@ -992,6 +1066,16 @@
       } else {
         warningEl.innerHTML = '';
       }
+    }
+
+    // 2b. Overmind Note (compact, factual reminder of its restriction & scaling)
+    const notesEl = document.getElementById('planner-notes-container');
+    if (notesEl) {
+      const overmindPinned = state.pinned.includes(OVERMIND_ID);
+      notesEl.classList.toggle('hidden', !overmindPinned);
+      notesEl.innerHTML = overmindPinned
+        ? `<div class="planner-note">${ICONS.heptagram}<span><strong>Overmind active</strong> — only Combined Spells can be cast; extra Active Magic levels boost ATK, Size &amp; CDR.</span></div>`
+        : '';
     }
 
     // 3. Deduplicated Artifact Priority List
@@ -1064,12 +1148,12 @@
             key: `${mId}:${c.main.attribute}:${c.main.level}`
           });
 
-          // Material magic
+          // Material magic (or a kept passive, e.g. Perpetual Engine's Intelligence)
           const matId = c.material.magic_id;
           if (!magicGroups[matId]) magicGroups[matId] = [];
           magicGroups[matId].push({
             comboName: c.name,
-            role: 'Material',
+            role: isMaterialKept(c) ? 'Kept' : 'Material',
             attr: c.material.attribute,
             level: c.material.level,
             key: `${matId}:${c.material.attribute}:${c.material.level}`
@@ -1092,7 +1176,7 @@
               <div class="group-checklist-items">
                 ${reqs.map(req => {
                   const isChecked = Boolean(state.checklist[req.key]);
-                  const roleClass = req.role === 'Main' ? 'main' : 'material';
+                  const roleClass = req.role === 'Material' ? 'material' : 'main';
                   return `
                     <div class="checklist-item ${isChecked ? 'checked' : ''}" data-check-key="${escapeHtml(req.key)}">
                       <div class="check-box">${isChecked ? ICONS.check : ''}</div>
@@ -1142,7 +1226,6 @@
       return;
     }
 
-    const levels = [25, 50, 75];
     const recs = getRecommendations();
 
     const uniqueMainMagics = new Set();
@@ -1156,7 +1239,8 @@
       const c = state.comboMap.get(id);
       const mainM = state.magicMap.get(c.main.magic_id)?.name || c.main.magic_id;
       const matM = state.magicMap.get(c.material.magic_id)?.name || c.material.magic_id;
-      return `| Lv.${levels[i]} | **${c.name}** | ${mainM} — ${c.main.attribute} (Lv.${c.main.level}) | ${matM} — ${c.material.attribute} (Lv.${c.material.level}) |`;
+      const keptNote = isMaterialKept(c) ? ' *(Passive · Kept)*' : '';
+      return `| ${getSlotLabel(i)} | **${c.name}** | ${mainM} — ${c.main.attribute} (Lv.${c.main.level}) | ${matM} — ${c.material.attribute} (Lv.${c.material.level})${keptNote} |`;
     }).join('\n');
 
     let md = `### Magic Survival (v0.9941) Build\n\n`;
@@ -1210,6 +1294,7 @@
     const matName = matMagic ? matMagic.name : combo.material.magic_id;
 
     const isPinned = state.pinned.includes(combo.id);
+    const kept = isMaterialKept(combo);
 
     const taxTags = (state.taxonomy && state.taxonomy.combination_tags) ? (state.taxonomy.combination_tags[combo.id] || {}) : {};
     const comboElements = (taxTags.elements || []).map(eid => {
@@ -1238,7 +1323,7 @@
             <div class="modal-title">${escapeHtml(combo.name)}</div>
           </div>
           <div class="modal-badges-row">
-            <span class="cat-tag ${combo.category.toLowerCase()}">${combo.category === 'aoe' ? 'AoE' : 'Nuke'}</span>
+            <span class="cat-tag ${combo.category.toLowerCase()}">${escapeHtml(getCategoryLabel(combo.category))}</span>
           </div>
           ${tagsPillsHtml ? `<div class="modal-tags-row">${tagsPillsHtml}</div>` : ''}
         </div>
@@ -1253,8 +1338,8 @@
           <div class="modal-recipe-tag">MAIN · ARTIFACT SCALED</div>
           <div class="modal-recipe-val">${escapeHtml(mainName)} — ${escapeHtml(combo.main.attribute)} (Lv.${combo.main.level})</div>
         </div>
-        <div class="modal-recipe-block material">
-          <div class="modal-recipe-tag">MATERIAL · CONSUMED</div>
+        <div class="modal-recipe-block ${kept ? 'main kept' : 'material'}">
+          <div class="modal-recipe-tag">${kept ? 'SECOND MAGIC (PASSIVE · KEPT)' : 'MATERIAL · CONSUMED'}</div>
           <div class="modal-recipe-val">${escapeHtml(matName)} — ${escapeHtml(combo.material.attribute)} (Lv.${combo.material.level})</div>
         </div>
       </div>
@@ -1279,7 +1364,7 @@
       ` : ''}
 
       <div class="modal-scaling-note">
-        <strong>Artifacts:</strong> Only <em>${escapeHtml(mainName)}</em> artifacts boost this fusion — <em>${escapeHtml(matName)}</em> is consumed.
+        <strong>Artifacts:</strong> Only <em>${escapeHtml(mainName)}</em> artifacts boost this fusion — <em>${escapeHtml(matName)}</em> ${kept ? 'is kept as a passive (not consumed)' : 'is consumed'}.
       </div>
 
       <div class="modal-actions-grid">
@@ -1350,7 +1435,7 @@
 
       if (codexKeys.length === 0) {
         cacheStatusEl.textContent = 'Not Cached';
-        if (cacheCountEl) cacheCountEl.textContent = '0 / 130';
+        if (cacheCountEl) cacheCountEl.textContent = `0 / ${getExpectedAssetCount()}`;
         return;
       }
 
@@ -1710,6 +1795,9 @@
       for (const el of state.taxonomy.elements) {
         state.elementMap.set(el.id, el);
       }
+
+      const aboutCountEl = document.getElementById('about-combo-count');
+      if (aboutCountEl) aboutCountEl.textContent = String(state.db.combinations.length);
 
       loadPersistedState();
       setupEventListeners();

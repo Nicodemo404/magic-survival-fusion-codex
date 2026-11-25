@@ -2,7 +2,7 @@
   "meta": {
     "game": "Magic Survival",
     "version": "v0.9941",
-    "purpose": "Elemental & Functional filter taxonomy mapped across all 22 base magics and 59 verified combinations."
+    "purpose": "Elemental & Functional filter taxonomy mapped across all 24 base magics and 62 verified combinations."
   },
   "elements": [
     {
@@ -207,6 +207,12 @@
     ],
     "concentration": [
       "void"
+    ],
+    "magic_circle": [
+      "arcane"
+    ],
+    "intelligence": [
+      "arcane"
     ]
   },
   "combination_tags": {
@@ -818,6 +824,34 @@
         "nuke_burst",
         "duration_scaling",
         "survival_utility"
+      ]
+    },
+    "gate_of_creation": {
+      "elements": [
+        "arcane"
+      ],
+      "functional": [
+        "survival_utility"
+      ]
+    },
+    "perpetual_engine": {
+      "elements": [
+        "arcane"
+      ],
+      "functional": [
+        "survival_utility",
+        "duration_scaling",
+        "cdr_scaling"
+      ]
+    },
+    "overmind": {
+      "elements": [
+        "arcane"
+      ],
+      "functional": [
+        "survival_utility",
+        "size_scaling",
+        "cdr_scaling"
       ]
     }
   }
