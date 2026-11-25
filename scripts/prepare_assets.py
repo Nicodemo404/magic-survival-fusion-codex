@@ -72,7 +72,35 @@ def crop_spell_art(img: Image.Image) -> Image.Image:
     return cropped.resize((256, 256), Image.Resampling.LANCZOS)
 
 
+# Encyclopedia detail screenshots (1220x2712): game chrome sits above y=13.3% (coin counter, two close
+# buttons) and the favourite star starts at y=86%. Mechanics text never goes below y=80.5%.
+CARD_TOP = 0.145
+CARD_BOTTOM = 0.84
+# Prev/next arrows beside the combination title (white triangles near the left/right edges).
+ARROW_BAND = (0.54, 0.60)
+ARROW_EDGE = 0.18
+
+
+def remove_card_chrome(img: Image.Image) -> Image.Image:
+    """Crop the in-game chrome (coins, close buttons, star) and paint out the prev/next arrows."""
+    img = img.convert("RGB")
+    w, h = img.size
+    draw = ImageDraw.Draw(img)
+    y0, y1 = int(h * ARROW_BAND[0]), int(h * ARROW_BAND[1])
+    for x0, x1 in ((0, int(w * ARROW_EDGE)), (int(w * (1 - ARROW_EDGE)), w)):
+        mask = img.crop((x0, y0, x1, y1)).convert("L").point(lambda v: 255 if v > 150 else 0)
+        box = mask.getbbox()
+        if box:
+            pad = 8
+            draw.rectangle(
+                [x0 + box[0] - pad, y0 + box[1] - pad, x0 + box[2] + pad, y0 + box[3] + pad],
+                fill=(0, 0, 0),
+            )
+    return img.crop((0, int(h * CARD_TOP), w, int(h * CARD_BOTTOM)))
+
+
 def optimize_card(img: Image.Image) -> Image.Image:
+    img = remove_card_chrome(img)
     w, h = img.size
     target_w = 540
     if w > target_w:

@@ -2605,3 +2605,640 @@ header h1 {
   color: var(--text-heading);
   font-weight: 600;
 }
+
+/* ==========================================================================
+   v12 VISUAL REFRESH — Calm Grimoire, app-like surfaces
+   (later rules here intentionally override the base component styles above)
+   ========================================================================== */
+:root {
+  --surface: #0c0c0f;
+  --surface-2: #131317;
+  --surface-3: #1a1a1f;
+  --border: #232328;
+  --radius-lg: 16px;
+  --radius-md: 12px;
+  --radius-sm: 9px;
+  --edge-light: rgba(255, 255, 255, 0.06);
+  --shadow-card: inset 0 1px 0 rgba(255, 255, 255, 0.03), 0 10px 26px rgba(0, 0, 0, 0.55);
+}
+
+/* App-like behaviour: no text selection, image drag or long-press save/copy menu */
+html, body {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+input, textarea, .search-input {
+  -webkit-user-select: text;
+  user-select: text;
+  -webkit-touch-callout: default;
+}
+
+img {
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
+  pointer-events: none;
+}
+
+body {
+  background:
+    radial-gradient(900px 420px at 50% -160px, rgba(216, 199, 142, 0.09), transparent 70%),
+    radial-gradient(520px 420px at 110% 35%, rgba(123, 174, 179, 0.04), transparent 70%),
+    #000000;
+}
+
+/* Header: compact emblem + wordmark with a gold hairline */
+header {
+  padding: 16px 16px 12px;
+  background: radial-gradient(ellipse at 50% 0%, rgba(216, 199, 142, 0.08) 0%, transparent 72%);
+  border-bottom: none;
+}
+
+header::after {
+  content: "";
+  position: absolute;
+  left: 12%;
+  right: 12%;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(216, 199, 142, 0.38), transparent);
+}
+
+header h1 {
+  font-size: 1.3rem;
+  letter-spacing: 0.14em;
+}
+
+.header-logo {
+  filter: drop-shadow(0 0 6px rgba(216, 199, 142, 0.45));
+}
+
+.header-subtitle {
+  font-size: 0.62rem;
+  letter-spacing: 0.3em;
+  margin-top: 4px;
+}
+
+/* Panels */
+.panel {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.025), rgba(255, 255, 255, 0) 140px), var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  box-shadow: var(--shadow-card);
+}
+
+.panel-title {
+  font-size: 1.1rem;
+  letter-spacing: 0.02em;
+}
+
+.panel-subtitle {
+  line-height: 1.45;
+}
+
+/* Inputs & controls */
+.magic-select,
+.search-input {
+  border-radius: 10px;
+  background-color: var(--surface-2);
+  border-color: var(--border);
+}
+
+.search-input {
+  padding: 10px 12px 10px 36px;
+}
+
+.search-icon {
+  left: 12px;
+}
+
+.category-segmented {
+  border-radius: 10px;
+}
+
+.cat-pill {
+  border-radius: 7px;
+}
+
+.btn-filters-toggle {
+  border-radius: 10px;
+}
+
+.filter-chip {
+  border-radius: 999px;
+  padding: 5px 10px;
+}
+
+.filter-status-row {
+  margin: 6px 2px 10px;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.btn-action {
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-weight: 500;
+}
+
+.btn-action.primary {
+  background: linear-gradient(180deg, rgba(216, 199, 142, 0.18), rgba(216, 199, 142, 0.07));
+}
+
+.btn-action:active,
+.btn-pin:active,
+.btn-unpin:active,
+.nav-tab:active {
+  transform: scale(0.96);
+}
+
+/* Combination cards: category accent rail, compact layout, round pin button */
+.combos-list {
+  gap: 10px;
+}
+
+.combo-card {
+  padding: 12px 12px 12px 15px;
+  gap: 13px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0) 55%), var(--surface);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  transition: transform 0.12s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+.combo-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 14px;
+  bottom: 14px;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: var(--card-accent, var(--border-light));
+  opacity: 0.85;
+}
+
+.combo-card.cat-aoe { --card-accent: var(--aoe-teal); }
+.combo-card.cat-nuke { --card-accent: var(--nuke-amber); }
+.combo-card.cat-support { --card-accent: var(--gold); }
+
+.combo-card:active {
+  transform: scale(0.985);
+}
+
+.combo-card.has-conflict {
+  border-color: rgba(194, 114, 114, 0.45);
+}
+
+.card-thumb-wrapper {
+  width: 74px;
+  height: 74px;
+  border-radius: 11px;
+  border-color: var(--edge-light);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.65);
+  align-self: center;
+}
+
+.card-content {
+  justify-content: flex-start;
+  gap: 4px;
+}
+
+.card-header-line {
+  align-items: flex-start;
+  margin-bottom: 0;
+}
+
+.card-title {
+  font-size: 1.06rem;
+  line-height: 1.25;
+  padding-top: 3px;
+}
+
+.card-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.conflict-tag {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  color: var(--mat-crimson);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-recipe {
+  gap: 3px;
+  margin-top: 3px;
+}
+
+.recipe-line {
+  gap: 5px;
+  min-width: 0;
+}
+
+.recipe-magic {
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.recipe-attr {
+  color: var(--text-muted);
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.recipe-attr::before {
+  content: "\00B7";
+  margin-right: 5px;
+  color: var(--text-dim);
+}
+
+.btn-pin {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border-radius: 50%;
+  justify-content: center;
+  flex-shrink: 0;
+  margin: -5px -5px 0 0;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-light);
+  color: var(--text-muted);
+}
+
+.btn-pin svg {
+  width: 17px !important;
+  height: 17px !important;
+  min-width: 17px !important;
+  min-height: 17px !important;
+  max-width: 17px !important;
+  max-height: 17px !important;
+}
+
+.btn-pin.pinned {
+  color: var(--gold);
+  border-color: var(--gold-border);
+  background: var(--gold-bg);
+}
+
+/* Your Build strip (pinned fusions on top of the Combinator) */
+.pinned-strip {
+  margin: 0 0 14px;
+  padding: 12px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--gold-border);
+  background: linear-gradient(180deg, rgba(216, 199, 142, 0.09), rgba(216, 199, 142, 0.02) 70%), var(--surface);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.55), 0 0 24px rgba(216, 199, 142, 0.05);
+}
+
+.pinned-strip-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.pinned-strip-title {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text-heading);
+}
+
+.pinned-strip-title svg {
+  width: 15px;
+  height: 15px;
+  color: var(--gold);
+}
+
+.pinned-strip-count {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--gold);
+  border: 1px solid var(--gold-border);
+  border-radius: 999px;
+  padding: 1px 8px;
+}
+
+.pinned-open-planner {
+  margin-left: auto;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-light);
+  color: var(--text);
+  border-radius: 999px;
+  padding: 5px 12px;
+  font-family: var(--font-sans);
+  font-size: 0.74rem;
+  cursor: pointer;
+}
+
+.pinned-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pinned-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 6px 6px 8px;
+  border-radius: var(--radius-sm);
+  background: rgba(0, 0, 0, 0.38);
+  border: 1px solid var(--edge-light);
+  cursor: pointer;
+  min-width: 0;
+}
+
+.pinned-row.has-conflict {
+  border-color: rgba(194, 114, 114, 0.55);
+}
+
+.pinned-slot {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  font-weight: 700;
+  color: var(--gold);
+  min-width: 44px;
+  text-align: center;
+  padding: 3px 4px;
+  border-radius: 6px;
+  background: var(--gold-bg);
+  border: 1px solid var(--gold-border);
+  flex-shrink: 0;
+}
+
+.pinned-slot.bonus {
+  border-style: dashed;
+}
+
+.pinned-thumb {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 1px solid var(--edge-light);
+  flex-shrink: 0;
+}
+
+.pinned-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.pinned-name {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 0.94rem;
+  color: var(--text-heading);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pinned-recipe {
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.btn-unpin {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(194, 114, 114, 0.08);
+  border: 1px solid rgba(194, 114, 114, 0.38);
+  color: var(--mat-crimson);
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: transform 0.12s ease;
+}
+
+/* Planner surfaces */
+.planner-slot-card {
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0) 60%), var(--surface-2);
+}
+
+.planner-slot-thumb {
+  border-radius: 9px;
+  border-color: var(--edge-light);
+}
+
+.recommendation-box,
+.artifact-magic-group,
+.planner-dop-toggle,
+.class-card,
+.artifact-index-list,
+.magic-checklist-group {
+  border-radius: var(--radius-md);
+}
+
+/* Bottom navigation & dock: frosted glass */
+.bottom-nav {
+  background: rgba(8, 8, 10, 0.86);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  border-top: 1px solid var(--edge-light);
+}
+
+.nav-tab {
+  border-radius: 12px;
+}
+
+.nav-tab.active {
+  background: linear-gradient(180deg, rgba(216, 199, 142, 0.15), rgba(216, 199, 142, 0.04));
+  border-color: rgba(216, 199, 142, 0.32);
+}
+
+.nav-tab.active .nav-icon svg {
+  filter: drop-shadow(0 0 5px rgba(216, 199, 142, 0.55));
+}
+
+.floating-dock {
+  background: rgba(8, 8, 10, 0.86);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  border-top: 1px solid var(--edge-light);
+  box-shadow: none;
+}
+
+.dock-slot {
+  border-radius: 999px;
+}
+
+/* Inspector: bottom sheet with an artwork hero */
+.modal-backdrop {
+  align-items: flex-end;
+  padding: 0;
+  background: rgba(0, 0, 0, 0.72);
+}
+
+.modal-dialog {
+  max-width: 520px;
+  max-height: 92vh;
+  border-radius: 20px 20px 0 0;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: none;
+  padding-bottom: var(--safe-bottom);
+  animation: sheet-up 0.22s ease-out;
+}
+
+@keyframes sheet-up {
+  from { transform: translateY(28px); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+
+.modal-body {
+  padding: 0 16px 18px;
+}
+
+.modal-close-btn {
+  top: 12px;
+  right: 12px;
+  width: 34px;
+  height: 34px;
+  background: rgba(0, 0, 0, 0.55);
+  border-color: rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.modal-hero {
+  position: relative;
+  height: 220px;
+  margin: 0 -16px 14px;
+  overflow: hidden;
+  background: #000000;
+}
+
+.modal-hero-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
+  opacity: 0.92;
+}
+
+.modal-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(12, 12, 15, 0) 25%, rgba(12, 12, 15, 0.7) 68%, var(--surface) 100%);
+}
+
+.modal-hero-info {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 12px;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.modal-hero .modal-title {
+  font-size: 1.55rem;
+  line-height: 1.15;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.95);
+}
+
+.modal-pinned-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  color: var(--gold);
+  background: rgba(0, 0, 0, 0.55);
+  border: 1px solid var(--gold-border);
+  border-radius: 4px;
+  padding: 2px 6px;
+}
+
+.modal-pinned-tag svg {
+  width: 11px;
+  height: 11px;
+}
+
+.btn-view-card {
+  border-radius: 10px;
+  padding: 9px 12px;
+}
+
+.lightbox-image {
+  border-radius: 14px;
+  border-color: var(--edge-light);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.9);
+}
+
+@media (min-width: 600px) {
+  .modal-backdrop {
+    align-items: center;
+    padding: 16px;
+  }
+
+  .modal-dialog {
+    border-radius: 18px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+}
+
+@media (max-width: 380px) {
+  .card-thumb-wrapper {
+    width: 62px;
+    height: 62px;
+  }
+
+  .pinned-slot {
+    min-width: 38px;
+  }
+}
+
+/* Dock: keep 4-6 compact slot labels readable on 360px screens */
+.dock-slots {
+  gap: 4px;
+}
+
+.dock-slot {
+  padding: 5px 2px;
+  font-size: 0.64rem;
+  letter-spacing: -0.01em;
+  text-overflow: clip;
+}
+
+/* Planner header: keep the level tag on one line; wrap under the title on narrow screens */
+.panel-header {
+  flex-wrap: wrap;
+  gap: 6px 10px;
+}
+
+.planner-levels-tag {
+  white-space: nowrap;
+}

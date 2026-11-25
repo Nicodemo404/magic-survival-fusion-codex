@@ -18,7 +18,7 @@
   };
 
   const CACHE_PREFIX = 'ms-codex-';
-  const CURRENT_CACHE_NAME = 'ms-codex-v09941-v11';
+  const CURRENT_CACHE_NAME = 'ms-codex-v09941-v12';
   // Must match the APP_SHELL list length in sw.js (each combination adds 1 thumb + 1 card on top).
   const APP_SHELL_ASSET_COUNT = 13;
 
@@ -143,6 +143,7 @@
 
     pinned: [], // combo IDs: 3 base slots, +2 with Gate of Creation, +1 with Domain of Power (max 6)
     domainOfPower: false, // Domain of Power artifact owned in the planned run
+    pinnedStripInView: true, // the Combinator's "Your Build" strip is on screen (dock stays hidden)
     checklist: {}, // { "magicId:attribute": true }
     artifactIndex: { query: '', rarity: 'all' },
 
@@ -509,10 +510,12 @@
       navBadge.classList.toggle('hidden', pinnedCount === 0);
     }
 
-    // 2. Floating Dock: ONLY rendered when state.pinned.length > 0
+    // 2. Floating Dock: a compact reminder of the build while browsing the Combinator list,
+    //    shown only once the "Your Build" strip has scrolled out of view.
     if (!dockEl || !slotsContainer) return;
 
-    dockEl.classList.toggle('hidden', pinnedCount === 0);
+    const showDock = pinnedCount > 0 && state.activeTab === 'combinator' && !state.pinnedStripInView;
+    dockEl.classList.toggle('hidden', !showDock);
     if (pinnedCount === 0) {
       slotsContainer.innerHTML = '';
       return;
@@ -555,6 +558,7 @@
     if (targetNav) targetNav.classList.add('active');
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    updateDock();
 
     if (tabId === 'planner') {
       renderPlanner();
@@ -562,6 +566,21 @@
       checkCacheStatus();
       updateCodexInstallCard();
     }
+  }
+
+  // Shows the dock only after the "Your Build" strip scrolls away (no duplicate build display on screen).
+  function observePinnedStrip() {
+    const strip = document.getElementById('pinned-strip');
+    if (!strip || !('IntersectionObserver' in window)) return;
+    const observer = new IntersectionObserver((entries) => {
+      const entry = entries[entries.length - 1];
+      const inView = entry.isIntersecting;
+      if (inView !== state.pinnedStripInView) {
+        state.pinnedStripInView = inView;
+        updateDock();
+      }
+    });
+    observer.observe(strip);
   }
 
   // --- Combinator Controls & Attribute Chips ---
@@ -901,8 +920,13 @@
       }
     }
 
-    const filtered = getFilteredCombinations();
-    if (countEl) countEl.textContent = `${filtered.length} Combinations`;
+    renderPinnedStrip();
+
+    // Pinned fusions live in the "Your Build" strip above the list, so the list shows the rest.
+    const filtered = getFilteredCombinations().filter(c => !state.pinned.includes(c.id));
+    if (countEl) {
+      countEl.textContent = `${filtered.length} Combinations${state.pinned.length > 0 ? ` · ${state.pinned.length} pinned above` : ''}`;
+    }
 
     if (filtered.length === 0) {
       if (state.filters.slot1 && state.filters.slot2) {
@@ -962,43 +986,40 @@
     listEl.innerHTML = filtered.map(combo => {
       const isPinned = state.pinned.includes(combo.id);
       const isConflict = doesComboConflictWithPinned(combo);
-      const mainMagic = state.magicMap.get(combo.main.magic_id);
-      const matMagic = state.magicMap.get(combo.material.magic_id);
-
-      const mainName = mainMagic ? mainMagic.name : combo.main.magic_id;
-      const matName = matMagic ? matMagic.name : combo.material.magic_id;
+      const mainName = getMagicName(combo.main.magic_id);
+      const matName = getMagicName(combo.material.magic_id);
 
       const catClass = combo.category.toLowerCase();
       const catLabel = getCategoryLabel(combo.category);
       const kept = isMaterialKept(combo);
 
       return `
-        <div class="combo-card ${isPinned ? 'is-pinned' : ''} ${isConflict ? 'has-conflict' : ''}" data-id="${escapeHtml(combo.id)}">
+        <div class="combo-card cat-${escapeHtml(catClass)} ${isPinned ? 'is-pinned' : ''} ${isConflict ? 'has-conflict' : ''}" data-id="${escapeHtml(combo.id)}">
           <div class="card-thumb-wrapper">
-            <img class="card-thumb" src="./assets/thumbs/${escapeHtml(combo.id)}.webp" alt="${escapeHtml(combo.name)}" loading="lazy" />
+            <img class="card-thumb" src="./assets/thumbs/${escapeHtml(combo.id)}.webp" alt="" loading="lazy" draggable="false" />
           </div>
           <div class="card-content">
             <div class="card-header-line">
               <span class="card-title">${escapeHtml(combo.name)}</span>
-              <div class="card-badges">
-                <span class="cat-tag ${catClass}">${catLabel}</span>
-              </div>
+              <button type="button" class="btn-pin ${isPinned ? 'pinned' : ''}" data-pin-id="${escapeHtml(combo.id)}" aria-label="${isPinned ? 'Unpin' : 'Pin'} ${escapeHtml(combo.name)}" title="${isPinned ? 'Unpin from build' : 'Pin to build'}">
+                ${ICONS.pin}
+              </button>
+            </div>
+            <div class="card-meta">
+              <span class="cat-tag ${catClass}">${catLabel}</span>
+              ${isConflict ? '<span class="conflict-tag">Shares a magic with your build</span>' : ''}
             </div>
             <div class="card-recipe">
               <div class="recipe-line main" title="${isPassiveMain(combo) ? 'Main Magic (Passive · build-wide, no spell-specific artifacts)' : 'Main Magic (Scales with artifacts)'}">
                 <span class="recipe-dot">●</span>
-                <span>${escapeHtml(mainName)} (${escapeHtml(combo.main.attribute)})</span>
+                <span class="recipe-magic">${escapeHtml(mainName)}</span>
+                <span class="recipe-attr">${escapeHtml(combo.main.attribute)}</span>
               </div>
               <div class="recipe-line ${kept ? 'main kept' : 'material'}" title="${kept ? 'Passive Magic (Kept, not consumed)' : 'Material Magic (Consumed)'}">
                 <span class="recipe-plus">+</span>
-                <span>${escapeHtml(matName)} (${escapeHtml(combo.material.attribute)})</span>
+                <span class="recipe-magic">${escapeHtml(matName)}</span>
+                <span class="recipe-attr">${escapeHtml(combo.material.attribute)}</span>
               </div>
-            </div>
-            <div class="card-actions">
-              <button type="button" class="btn-pin ${isPinned ? 'pinned' : ''}" data-pin-id="${escapeHtml(combo.id)}">
-                ${ICONS.pin}
-                <span>${isPinned ? 'Pinned' : 'Pin'}</span>
-              </button>
             </div>
           </div>
         </div>
@@ -1016,6 +1037,56 @@
         openInspectorModal(card.dataset.id);
       });
     });
+  }
+
+  // --- "Your Build" strip: pinned fusions stay on top of the Combinator so they are easy to remove ---
+  function renderPinnedStrip() {
+    const strip = document.getElementById('pinned-strip');
+    if (!strip) return;
+    const pinned = state.pinned.map(id => state.comboMap.get(id)).filter(Boolean);
+    strip.classList.toggle('hidden', pinned.length === 0);
+    if (pinned.length === 0) {
+      strip.innerHTML = '';
+      return;
+    }
+    const conflictMagics = new Set(getConflictsInPinned().map(c => c.magicId));
+
+    strip.innerHTML = `
+      <div class="pinned-strip-head">
+        <span class="pinned-strip-title">${ICONS.pin}<span>Your Build</span></span>
+        <span class="pinned-strip-count">${pinned.length}/${getMaxSlots()}</span>
+        <button type="button" class="pinned-open-planner" id="btn-open-planner">Planner</button>
+      </div>
+      <div class="pinned-list">
+        ${pinned.map((c, i) => {
+          const conflict = conflictMagics.has(c.main.magic_id) || conflictMagics.has(c.material.magic_id);
+          return `
+            <div class="pinned-row ${conflict ? 'has-conflict' : ''}" data-id="${escapeHtml(c.id)}">
+              <span class="pinned-slot ${isBonusSlot(i) ? 'bonus' : ''}">${escapeHtml(getShortSlotLabel(i))}</span>
+              <img class="pinned-thumb" src="./assets/thumbs/${escapeHtml(c.id)}.webp" alt="" draggable="false" />
+              <div class="pinned-info">
+                <span class="pinned-name">${escapeHtml(c.name)}</span>
+                <span class="pinned-recipe"><span class="recipe-text-main">${escapeHtml(getMagicName(c.main.magic_id))}</span> + <span class="${isMaterialKept(c) ? 'recipe-text-main' : 'recipe-text-mat'}">${escapeHtml(getMagicName(c.material.magic_id))}</span></span>
+              </div>
+              <button type="button" class="btn-unpin" data-unpin-id="${escapeHtml(c.id)}" aria-label="Remove ${escapeHtml(c.name)}" title="Remove from build">${ICONS.close}</button>
+            </div>
+          `;
+        }).join('')}
+      </div>
+    `;
+
+    strip.querySelectorAll('.pinned-row').forEach(row => {
+      row.addEventListener('click', (e) => {
+        const unpin = e.target.closest('.btn-unpin');
+        if (unpin) {
+          e.stopPropagation();
+          togglePin(unpin.dataset.unpinId);
+          return;
+        }
+        openInspectorModal(row.dataset.id);
+      });
+    });
+    document.getElementById('btn-open-planner')?.addEventListener('click', () => switchTab('planner'));
   }
 
   // --- Reset All Filters ---
@@ -1135,7 +1206,7 @@
         return `
           <div class="planner-slot-card" data-slot-index="${i}">
             <div class="${badgeClass}">${slotLabel}</div>
-            <img class="planner-slot-thumb" src="./assets/thumbs/${escapeHtml(c.id)}.webp" alt="${escapeHtml(c.name)}" />
+            <img class="planner-slot-thumb" src="./assets/thumbs/${escapeHtml(c.id)}.webp" alt="" draggable="false" />
             <div class="planner-slot-info">
               <div class="planner-slot-name">${escapeHtml(c.name)}</div>
               <div class="planner-slot-sub">
@@ -1489,23 +1560,20 @@
     ].join('');
 
     content.innerHTML = `
-      <div class="modal-header-card">
-        <div class="modal-thumb-wrap">
-          <img class="modal-thumb-img" src="./assets/thumbs/${escapeHtml(combo.id)}.webp" alt="${escapeHtml(combo.name)}" />
-        </div>
-        <div class="modal-header-info">
-          <div class="modal-title-row">
-            <div class="modal-title">${escapeHtml(combo.name)}</div>
-          </div>
+      <div class="modal-hero cat-${escapeHtml(combo.category.toLowerCase())}">
+        <img class="modal-hero-img" src="./assets/thumbs/${escapeHtml(combo.id)}.webp" alt="" draggable="false" />
+        <div class="modal-hero-info">
           <div class="modal-badges-row">
             <span class="cat-tag ${combo.category.toLowerCase()}">${escapeHtml(getCategoryLabel(combo.category))}</span>
+            ${isPinned ? `<span class="modal-pinned-tag">${ICONS.pin}<span>${escapeHtml(getSlotLabel(state.pinned.indexOf(combo.id)))}</span></span>` : ''}
           </div>
+          <div class="modal-title">${escapeHtml(combo.name)}</div>
           ${tagsPillsHtml ? `<div class="modal-tags-row">${tagsPillsHtml}</div>` : ''}
         </div>
       </div>
 
       <button type="button" class="btn-view-card" id="btn-open-lightbox">
-        ${ICONS.zoom} <span>View Original In-Game Card</span>
+        ${ICONS.zoom} <span>View In-Game Card</span>
       </button>
 
       <div class="modal-recipe-box">
@@ -1991,6 +2059,11 @@
       if (e.target.id === 'lightbox-modal') closeLightbox();
     });
 
+    // App-like feel: no long-press copy / save-image menu outside form fields.
+    document.addEventListener('contextmenu', (e) => {
+      if (!e.target.closest('input, textarea')) e.preventDefault();
+    });
+
     window.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         closeLightbox();
@@ -2095,6 +2168,7 @@
       renderPlanner();
       renderClassesDirectory();
       renderArtifactIndex();
+      observePinnedStrip();
       checkCacheStatus();
       updateOnlineIndicator();
       updateCodexInstallCard();
