@@ -430,8 +430,6 @@
       "id": "telekinetic_sword",
       "name": "Telekinetic Sword",
       "category": "aoe",
-      "rank": 1,
-      "tier": "S",
       "main": {
         "magic_id": "spirit",
         "attribute": "Magic Blade",
@@ -461,8 +459,6 @@
       "id": "blaster",
       "name": "Blaster",
       "category": "aoe",
-      "rank": 2,
-      "tier": "S",
       "main": {
         "magic_id": "magic_bolt",
         "attribute": "Magic Arrow",
@@ -491,8 +487,6 @@
       "id": "current_overload",
       "name": "Current Overload",
       "category": "aoe",
-      "rank": 3,
-      "tier": "S",
       "main": {
         "magic_id": "electric_shock",
         "attribute": "Chain Lightning",
@@ -521,8 +515,6 @@
       "id": "prism_spray",
       "name": "Prism Spray",
       "category": "aoe",
-      "rank": 4,
-      "tier": "S",
       "main": {
         "magic_id": "arcane_ray",
         "attribute": "Reflect",
@@ -552,8 +544,6 @@
       "id": "terra_current",
       "name": "Terra Current",
       "category": "aoe",
-      "rank": 5,
-      "tier": "S",
       "main": {
         "magic_id": "arcane_ray",
         "attribute": "Electromagnetic Burst",
@@ -584,8 +574,6 @@
       "id": "avatar",
       "name": "Avatar",
       "category": "aoe",
-      "rank": 6,
-      "tier": "S",
       "main": {
         "magic_id": "magic_bolt",
         "attribute": "Doppelganger",
@@ -616,8 +604,6 @@
       "id": "brandish",
       "name": "Brandish",
       "category": "aoe",
-      "rank": 7,
-      "tier": "S",
       "main": {
         "magic_id": "flash_shock",
         "attribute": "Wipeout",
@@ -646,8 +632,6 @@
       "id": "pyrotechnics",
       "name": "Pyrotechnics",
       "category": "aoe",
-      "rank": 8,
-      "tier": "A",
       "main": {
         "magic_id": "magic_bolt",
         "attribute": "Fireworks",
@@ -677,8 +661,6 @@
       "id": "snowflake_blossom",
       "name": "Snowflake Blossom",
       "category": "aoe",
-      "rank": 9,
-      "tier": "A",
       "main": {
         "magic_id": "frost_nova",
         "attribute": "Ice Age",
@@ -707,8 +689,6 @@
       "id": "phoenix",
       "name": "Phoenix",
       "category": "aoe",
-      "rank": 10,
-      "tier": "A",
       "main": {
         "magic_id": "tsunami",
         "attribute": "Great Eruption",
@@ -741,8 +721,6 @@
       "id": "heart_of_lightning",
       "name": "Heart of Lightning",
       "category": "aoe",
-      "rank": 11,
-      "tier": "A",
       "main": {
         "magic_id": "electric_shock",
         "attribute": "Chain Lightning",
@@ -771,8 +749,6 @@
       "id": "exidium",
       "name": "Exidium",
       "category": "aoe",
-      "rank": 12,
-      "tier": "A",
       "main": {
         "magic_id": "flash_shock",
         "attribute": "Wipeout",
@@ -802,8 +778,6 @@
       "id": "plasma_ray",
       "name": "Plasma Ray",
       "category": "aoe",
-      "rank": 13,
-      "tier": "A",
       "main": {
         "magic_id": "arcane_ray",
         "attribute": "Disintegration Ray",
@@ -832,8 +806,6 @@
       "id": "lightning_breath",
       "name": "Lightning Breath",
       "category": "aoe",
-      "rank": 14,
-      "tier": "A",
       "main": {
         "magic_id": "electric_shock",
         "attribute": "Superconductivity",
@@ -864,8 +836,6 @@
       "id": "hyperion",
       "name": "Hyperion",
       "category": "aoe",
-      "rank": 15,
-      "tier": "A",
       "main": {
         "magic_id": "satellite",
         "attribute": "Nuclear Fusion",
@@ -895,8 +865,6 @@
       "id": "soul_blade",
       "name": "Soul Blade",
       "category": "aoe",
-      "rank": 16,
-      "tier": "A",
       "main": {
         "magic_id": "satellite",
         "attribute": "Will o' the Wisp",
@@ -925,8 +893,6 @@
       "id": "ghastly_rampage",
       "name": "Ghastly Rampage",
       "category": "aoe",
-      "rank": 17,
-      "tier": "A",
       "main": {
         "magic_id": "fireball",
         "attribute": "Constellation",
@@ -958,8 +924,6 @@
       "id": "crazed_spray",
       "name": "Crazed Spray",
       "category": "aoe",
-      "rank": 18,
-      "tier": "B",
       "main": {
         "magic_id": "energy_bolt",
         "attribute": "Charged Particle",
@@ -990,8 +954,6 @@
       "id": "frenzy",
       "name": "Frenzy",
       "category": "aoe",
-      "rank": 19,
-      "tier": "B",
       "main": {
         "magic_id": "flash_shock",
         "attribute": "Satan's Nails",
@@ -1021,8 +983,6 @@
       "id": "neutron_generation",
       "name": "Neutron Generation",
       "category": "aoe",
-      "rank": 20,
-      "tier": "B",
       "main": {
         "magic_id": "cyclone",
         "attribute": "Electric Orb",
@@ -1052,8 +1012,6 @@
       "id": "black_hole",
       "name": "Black Hole",
       "category": "aoe",
-      "rank": 21,
-      "tier": "B",
       "main": {
         "magic_id": "cyclone",
         "attribute": "Void",
@@ -1085,8 +1043,6 @@
       "id": "inferno",
       "name": "Inferno",
       "category": "aoe",
-      "rank": 22,
-      "tier": "B",
       "main": {
         "magic_id": "incineration",
         "attribute": "Flamestrike",
@@ -1114,8 +1070,6 @@
       "id": "age_of_the_sun",
       "name": "Age of the Sun",
       "category": "aoe",
-      "rank": 23,
-      "tier": "B",
       "main": {
         "magic_id": "lava_zone",
         "attribute": "Crater",
@@ -1145,8 +1099,6 @@
       "id": "furnace",
       "name": "Furnace",
       "category": "aoe",
-      "rank": 24,
-      "tier": "B",
       "main": {
         "magic_id": "lava_zone",
         "attribute": "Magma Eruption",
@@ -1177,8 +1129,6 @@
       "id": "breath_of_fire",
       "name": "Breath of Fire",
       "category": "aoe",
-      "rank": 25,
-      "tier": "B",
       "main": {
         "magic_id": "incineration",
         "attribute": "Cerberus Flame",
@@ -1208,8 +1158,6 @@
       "id": "vortex",
       "name": "Vortex",
       "category": "aoe",
-      "rank": 26,
-      "tier": "B",
       "main": {
         "magic_id": "cyclone",
         "attribute": "Void",
@@ -1240,8 +1188,6 @@
       "id": "ether_blaze",
       "name": "Ether Blaze",
       "category": "aoe",
-      "rank": 27,
-      "tier": "B",
       "main": {
         "magic_id": "blizzard",
         "attribute": "Conflagration",
@@ -1271,8 +1217,6 @@
       "id": "ruler_of_storms",
       "name": "Ruler of Storms",
       "category": "aoe",
-      "rank": 28,
-      "tier": "B",
       "main": {
         "magic_id": "cyclone",
         "attribute": "Extreme Weather",
@@ -1304,8 +1248,6 @@
       "id": "flame_storm",
       "name": "Flame Storm",
       "category": "aoe",
-      "rank": 29,
-      "tier": "B",
       "main": {
         "magic_id": "meteor",
         "attribute": "Volcanic Eruption",
@@ -1334,8 +1276,6 @@
       "id": "great_flood",
       "name": "Great Flood",
       "category": "aoe",
-      "rank": 30,
-      "tier": "C",
       "main": {
         "magic_id": "tsunami",
         "attribute": "Siren's Song",
@@ -1366,8 +1306,6 @@
       "id": "winter_storm",
       "name": "Winter Storm",
       "category": "aoe",
-      "rank": 31,
-      "tier": "C",
       "main": {
         "magic_id": "blizzard",
         "attribute": "Sub-Zero",
@@ -1398,8 +1336,6 @@
       "id": "super_cyclone",
       "name": "Super Cyclone",
       "category": "aoe",
-      "rank": 32,
-      "tier": "C",
       "main": {
         "magic_id": "cyclone",
         "attribute": "Extreme Weather",
@@ -1433,8 +1369,6 @@
       "id": "lightning_calibration",
       "name": "Lightning Calibration",
       "category": "aoe",
-      "rank": 33,
-      "tier": "C",
       "main": {
         "magic_id": "electric_zone",
         "attribute": "Electricity Blast",
@@ -1464,8 +1398,6 @@
       "id": "magnetic_field",
       "name": "Magnetic Field",
       "category": "aoe",
-      "rank": 34,
-      "tier": "C",
       "main": {
         "magic_id": "satellite",
         "attribute": "Anti-Gravity",
@@ -1494,8 +1426,6 @@
       "id": "meisner_effect",
       "name": "Meisner Effect",
       "category": "aoe",
-      "rank": 35,
-      "tier": "C",
       "main": {
         "magic_id": "electric_zone",
         "attribute": "EMP",
@@ -1525,8 +1455,6 @@
       "id": "gate",
       "name": "Gate",
       "category": "nuke",
-      "rank": 1,
-      "tier": "S",
       "main": {
         "magic_id": "flash_shock",
         "attribute": "Ragnarok",
@@ -1556,8 +1484,6 @@
       "id": "supernova",
       "name": "Supernova",
       "category": "nuke",
-      "rank": 2,
-      "tier": "S",
       "main": {
         "magic_id": "spirit",
         "attribute": "Familiar",
@@ -1589,8 +1515,6 @@
       "id": "genesis",
       "name": "Genesis",
       "category": "nuke",
-      "rank": 3,
-      "tier": "S",
       "main": {
         "magic_id": "blizzard",
         "attribute": "Shooting Star",
@@ -1619,8 +1543,6 @@
       "id": "black_death",
       "name": "Black Death",
       "category": "nuke",
-      "rank": 4,
-      "tier": "S",
       "main": {
         "magic_id": "fireball",
         "attribute": "Toxic Gas",
@@ -1653,8 +1575,6 @@
       "id": "glacium",
       "name": "Glacium",
       "category": "nuke",
-      "rank": 5,
-      "tier": "S",
       "main": {
         "magic_id": "tsunami",
         "attribute": "Pole",
@@ -1685,8 +1605,6 @@
       "id": "genocide",
       "name": "Genocide",
       "category": "nuke",
-      "rank": 6,
-      "tier": "S",
       "main": {
         "magic_id": "arcane_ray",
         "attribute": "Disintegration Ray",
@@ -1717,8 +1635,6 @@
       "id": "origin_explosion",
       "name": "Origin Explosion",
       "category": "nuke",
-      "rank": 7,
-      "tier": "A",
       "main": {
         "magic_id": "energy_bolt",
         "attribute": "Flare",
@@ -1750,8 +1666,6 @@
       "id": "hellfire",
       "name": "Hellfire",
       "category": "nuke",
-      "rank": 8,
-      "tier": "A",
       "main": {
         "magic_id": "incineration",
         "attribute": "Pyromaniac",
@@ -1783,8 +1697,6 @@
       "id": "discharge",
       "name": "Discharge",
       "category": "nuke",
-      "rank": 9,
-      "tier": "A",
       "main": {
         "magic_id": "electric_shock",
         "attribute": "High Output",
@@ -1814,8 +1726,6 @@
       "id": "astrape",
       "name": "Astrape",
       "category": "nuke",
-      "rank": 10,
-      "tier": "A",
       "main": {
         "magic_id": "thunderstorm",
         "attribute": "Judgment",
@@ -1846,8 +1756,6 @@
       "id": "empyrean_wrath",
       "name": "Empyrean Wrath",
       "category": "nuke",
-      "rank": 11,
-      "tier": "A",
       "main": {
         "magic_id": "thunderstorm",
         "attribute": "Lightning Explosion",
@@ -1876,8 +1784,6 @@
       "id": "lightning_bolts",
       "name": "Lightning Bolts",
       "category": "nuke",
-      "rank": 12,
-      "tier": "A",
       "main": {
         "magic_id": "thunderstorm",
         "attribute": "Thunderclap",
@@ -1906,8 +1812,6 @@
       "id": "war_climate",
       "name": "War Climate",
       "category": "nuke",
-      "rank": 13,
-      "tier": "A",
       "main": {
         "magic_id": "meteor",
         "attribute": "Meteor Shower",
@@ -1936,8 +1840,6 @@
       "id": "energy_bombardment",
       "name": "Energy Bombardment",
       "category": "nuke",
-      "rank": 14,
-      "tier": "B",
       "main": {
         "magic_id": "arcane_ray",
         "attribute": "Disintegration Ray",
@@ -1969,8 +1871,6 @@
       "id": "great_impact",
       "name": "Great Impact",
       "category": "nuke",
-      "rank": 15,
-      "tier": "B",
       "main": {
         "magic_id": "meteor",
         "attribute": "Asteroid",
@@ -2001,8 +1901,6 @@
       "id": "mana_spear",
       "name": "Mana Spear",
       "category": "nuke",
-      "rank": 16,
-      "tier": "B",
       "main": {
         "magic_id": "spirit",
         "attribute": "Magic Missile",
@@ -2034,8 +1932,6 @@
       "id": "demon_equation",
       "name": "Demon Equation",
       "category": "nuke",
-      "rank": 17,
-      "tier": "B",
       "main": {
         "magic_id": "fireball",
         "attribute": "Big Bang",
@@ -2067,8 +1963,6 @@
       "id": "great_rift",
       "name": "Great Rift",
       "category": "nuke",
-      "rank": 18,
-      "tier": "B",
       "main": {
         "magic_id": "frost_nova",
         "attribute": "Earthquake",
@@ -2100,8 +1994,6 @@
       "id": "orbital_strike",
       "name": "Orbital Strike",
       "category": "nuke",
-      "rank": 19,
-      "tier": "B",
       "main": {
         "magic_id": "thunderstorm",
         "attribute": "Lightning Explosion",
@@ -2132,8 +2024,6 @@
       "id": "destroyer",
       "name": "Destroyer",
       "category": "nuke",
-      "rank": 20,
-      "tier": "B",
       "main": {
         "magic_id": "electric_zone",
         "attribute": "Electricity Blast",
@@ -2165,8 +2055,6 @@
       "id": "frozen_heart",
       "name": "Frozen Heart",
       "category": "nuke",
-      "rank": 21,
-      "tier": "C",
       "main": {
         "magic_id": "electric_zone",
         "attribute": "Fire Aura",
@@ -2195,8 +2083,6 @@
       "id": "reaction",
       "name": "Reaction",
       "category": "nuke",
-      "rank": 22,
-      "tier": "C",
       "main": {
         "magic_id": "energy_bolt",
         "attribute": "Spark",
@@ -2227,8 +2113,6 @@
       "id": "photon_explosion",
       "name": "Photon Explosion",
       "category": "nuke",
-      "rank": 23,
-      "tier": "C",
       "main": {
         "magic_id": "shield",
         "attribute": "Destruction Field",
@@ -2258,8 +2142,6 @@
       "id": "teleport",
       "name": "Teleport",
       "category": "nuke",
-      "rank": 24,
-      "tier": "C",
       "main": {
         "magic_id": "cloaking",
         "attribute": "Space Warp",

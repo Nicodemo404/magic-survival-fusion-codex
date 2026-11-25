@@ -1,6 +1,6 @@
 // Magic Survival — Fusion Codex (v0.9941) Service Worker
 const CACHE_PREFIX = 'ms-codex-';
-const CACHE_NAME = 'ms-codex-v09941-v9';
+const CACHE_NAME = 'ms-codex-v09941-v10';
 
 const APP_SHELL = [
   './',
@@ -146,10 +146,17 @@ const COMBO_ASSETS = [
 
 const PRECACHE_URLS = [...APP_SHELL, ...COMBO_ASSETS];
 
+// Code & data (HTML, JS, CSS, JSON) are Network-First: online users always get the latest deploy,
+// offline users (or a network slower than NETWORK_TIMEOUT_MS) get the cached copy.
+// Images & icons stay Cache-First: instant loads and no repeat downloads.
+const NETWORK_FIRST_RE = /\.(?:html|js|css|json)$/i;
+const NETWORK_TIMEOUT_MS = 4000;
+
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(PRECACHE_URLS);
+      // 'no-cache' revalidates with the server, so a new version never precaches stale HTTP-cached files.
+      return cache.addAll(PRECACHE_URLS.map((url) => new Request(url, { cache: 'no-cache' })));
     }).then(() => self.skipWaiting())
   );
 });
@@ -167,6 +174,78 @@ self.addEventListener('activate', (event) => {
     }).then(() => self.clients.claim())
   );
 });
+
+function isNetworkFirst(request, url) {
+  if (url.origin !== self.location.origin) return false;
+  return request.mode === 'navigate' || url.pathname.endsWith('/') || NETWORK_FIRST_RE.test(url.pathname);
+}
+
+// Store without the query string so cache-busting params never pile up duplicate entries.
+function cacheKey(url) {
+  return url.origin + url.pathname;
+}
+
+function isCacheable(response) {
+  return Boolean(response && response.ok && (response.type === 'basic' || response.type === 'default'));
+}
+
+// A redirected response cannot be used for a navigation, so rebuild it as a plain response.
+function cleanResponse(response) {
+  if (!response.redirected) return response;
+  return response.blob().then((body) => new Response(body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers: response.headers
+  }));
+}
+
+function cachedCopy(request, url) {
+  return caches.match(cacheKey(url), { ignoreSearch: true }).then((cached) => {
+    if (cached) return cached;
+    return request.mode === 'navigate' ? caches.match('./index.html') : undefined;
+  });
+}
+
+function networkFirst(event, url) {
+  const request = event.request;
+  const network = fetch(url.href, { cache: 'no-cache', credentials: 'same-origin' })
+    .then(cleanResponse)
+    .then((response) => {
+      let stored = Promise.resolve();
+      if (isCacheable(response)) {
+        const copy = response.clone();
+        stored = caches.open(CACHE_NAME).then((cache) => cache.put(cacheKey(url), copy));
+      }
+      return { response, stored };
+    });
+
+  // Keep the worker alive until the fresh copy is stored, even if the cached copy was served first.
+  event.waitUntil(network.then(({ stored }) => stored).catch(() => {}));
+
+  return new Promise((resolve) => {
+    let done = false;
+    const finish = (response) => {
+      if (!done && response) {
+        done = true;
+        resolve(response);
+      }
+    };
+    const timer = setTimeout(() => cachedCopy(request, url).then(finish), NETWORK_TIMEOUT_MS);
+
+    network.then(({ response }) => {
+      clearTimeout(timer);
+      if (response.ok) {
+        finish(response);
+      } else {
+        // Server error (e.g. 404/5xx during a deploy): prefer the last good cached copy.
+        cachedCopy(request, url).then((cached) => finish(cached || response));
+      }
+    }).catch(() => {
+      clearTimeout(timer);
+      cachedCopy(request, url).then((cached) => finish(cached || Response.error()));
+    });
+  });
+}
 
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') {
@@ -190,7 +269,13 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Cache-first strategy for local assets
+  // Network-First for app code & data
+  if (isNetworkFirst(event.request, url)) {
+    event.respondWith(networkFirst(event, url));
+    return;
+  }
+
+  // Cache-First for images, icons and other static assets
   event.respondWith(
     caches.match(event.request, { ignoreSearch: true }).then((cached) => {
       if (cached) {
@@ -209,6 +294,7 @@ self.addEventListener('fetch', (event) => {
         if (event.request.mode === 'navigate') {
           return caches.match('./index.html');
         }
+        return Response.error();
       });
     })
   );

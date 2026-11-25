@@ -11,7 +11,7 @@ Hosted on GitHub Pages with zero external runtime dependencies, self-contained a
 - Dual-Slot Smart Combinator: Instant lookup between base magics, Lv.4 / Lv.7 trait selectors, elemental filters, and 14 functional scaling categories.
 - Build Planner: Dedicated slots for Lv.25, Lv.50, and Lv.75 combination magics (plus 2 GoC Bonus slots while Gate of Creation is pinned) with automatic conflict detection, deduplicated Main Magic artifact priority, recommended Class and Subject synergies, and in-run leveling checklist.
 - Share and Export: Share builds via URL hash (#build=...) and copy formatted Markdown tables ready for r/magic_survival.
-- Offline PWA: Pre-cached app shell and assets via Service Worker with isolated storage scope.
+- Offline PWA: Pre-cached app shell and assets via Service Worker with isolated storage scope. Code and data are network-first (always the latest version online, cached copy offline); images stay cache-first.
 - In-Game Card Inspector: Mechanics, buff stats, penalty stats, artifact scaling guidance, and full-resolution screenshot viewer.
 
 ---

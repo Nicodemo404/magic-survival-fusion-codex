@@ -58,9 +58,10 @@ def check_data():
     if dupes:
         err(f"duplicate combination ids: {sorted(dupes)}")
 
-    tierless_policy = [c["id"] for c in combos if "tier" in c or "rank" in c]
-    if tierless_policy:
-        warn(f"{len(tierless_policy)} combinations still carry subjective 'tier'/'rank' keys (not rendered by the app)")
+    # Objective-data policy (Discord moderator feedback): no subjective tier/rank ratings anywhere.
+    tiered = [c["id"] for c in combos if "tier" in c or "rank" in c]
+    if tiered:
+        err(f"{len(tiered)} combinations carry subjective 'tier'/'rank' keys: {tiered[:5]}")
 
     for c in combos:
         cid = c.get("id")

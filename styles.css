@@ -1488,6 +1488,24 @@ header h1 {
   gap: 6px;
 }
 
+/* Support fusions with a passive Main Magic (Gate of Creation, Overmind) */
+.artifact-buildwide-note {
+  flex-basis: 100%;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-left: 2px solid var(--gold-border);
+  border-radius: 6px;
+  padding: 7px 10px;
+  font-size: 0.76rem;
+  line-height: 1.45;
+  color: var(--text-muted);
+}
+
+.artifact-buildwide-note strong {
+  color: var(--text-heading);
+  font-weight: 600;
+}
+
 /* ==========================================================================
    GROUPED CONFLICT-AWARE LEVELING CHECKLIST
    ========================================================================== */

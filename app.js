@@ -17,7 +17,7 @@
   };
 
   const CACHE_PREFIX = 'ms-codex-';
-  const CURRENT_CACHE_NAME = 'ms-codex-v09941-v9';
+  const CURRENT_CACHE_NAME = 'ms-codex-v09941-v10';
   // Must match the APP_SHELL list length in sw.js (each combination adds 1 thumb + 1 card on top).
   const APP_SHELL_ASSET_COUNT = 12;
 
@@ -65,9 +65,10 @@
   // --- High-Value In-Game Mechanic Highlighting ---
   function highlightMechanicText(rawText) {
     if (typeof rawText !== 'string' || !rawText) return '';
-    // Matches multipliers/numbers (+50%, 12X, 0.15s, 24 times, 1-9X, 3~7 times, 7×)
+    // Matches multipliers/numbers (+50%, 1%, 12X, 0.15s, 24 times, 1-9X, 3~7 times, 7×)
     // and core game terms (Damage Multiplier, Cooldown, Duration, Size, Attack Count, etc.)
-    const pattern = /(\b\d+(?:\.\d+)?(?:[-~]\d+(?:\.\d+)?)?(?:%|s|X|x|×)?(?:\s*times)?\b|\b[+-]?\d+(?:\.\d+)?%?\b|\b(?:Damage Multiplier|Attack Count|Rotation Speed|Critical Rate|Critical Strike|Knocked Back|Damage|Cooldown|Duration|Size|Freeze|Freezes|Stun|Stuns|Staggered|Revival|Pierce|Projectiles|Satellite|Spread)\b)/gi;
+    // '%' and '×' are non-word chars, so they must not be followed by \b (that dropped the sign, e.g. "1%" -> "1").
+    const pattern = /(\b\d+(?:\.\d+)?(?:[-~]\d+(?:\.\d+)?)?(?:[%×]|(?:s|X|x)?(?:\s*times)?\b)|\b[+-]?\d+(?:\.\d+)?%?\b|\b(?:Damage Multiplier|Attack Count|Rotation Speed|Critical Rate|Critical Strike|Knocked Back|Damage|Cooldown|Duration|Size|Freeze|Freezes|Stun|Stuns|Staggered|Revival|Pierce|Projectiles|Satellite|Spread)\b)/gi;
 
     let lastIndex = 0;
     let out = '';
@@ -195,6 +196,11 @@
   // Perpetual Engine keeps its second magic (Intelligence) as a passive instead of consuming it.
   function isMaterialKept(combo) {
     return combo.material_consumed === false;
+  }
+
+  // Passive Main Magics (e.g. Intelligence) have no spell-specific artifacts: these fusions buff the whole build.
+  function isPassiveMain(combo) {
+    return state.magicMap.get(combo.main.magic_id)?.type === 'passive';
   }
 
   function getExpectedAssetCount() {
@@ -916,7 +922,7 @@
               </div>
             </div>
             <div class="card-recipe">
-              <div class="recipe-line main" title="Main Magic (Scales with artifacts)">
+              <div class="recipe-line main" title="${isPassiveMain(combo) ? 'Main Magic (Passive · build-wide, no spell-specific artifacts)' : 'Main Magic (Scales with artifacts)'}">
                 <span class="recipe-dot">●</span>
                 <span>${escapeHtml(mainName)} (${escapeHtml(combo.main.attribute)})</span>
               </div>
@@ -1084,16 +1090,23 @@
         artPriorityList.innerHTML = '<span class="placeholder-dim-text">Pin fusions above to identify your Main Magic artifacts.</span>';
       } else {
         const uniqueMainMagics = new Set();
+        const buildWideCombos = [];
         for (const cid of state.pinned) {
           const c = state.comboMap.get(cid);
-          if (c) uniqueMainMagics.add(c.main.magic_id);
+          if (!c) continue;
+          if (isPassiveMain(c)) buildWideCombos.push(c.name);
+          else uniqueMainMagics.add(c.main.magic_id);
         }
 
-        artPriorityList.innerHTML = Array.from(uniqueMainMagics).map(mid => {
+        const badgesHtml = Array.from(uniqueMainMagics).map(mid => {
           const m = state.magicMap.get(mid);
           const name = m ? m.name : mid;
           return `<div class="artifact-badge">${ICONS.heptagram}<span>${escapeHtml(name)} Artifacts</span></div>`;
         }).join('');
+        const buildWideHtml = buildWideCombos.length > 0
+          ? `<div class="artifact-buildwide-note"><strong>${buildWideCombos.map(escapeHtml).join(' &amp; ')}:</strong> build-wide support with a passive Main Magic — no spell-specific artifacts to scale with.</div>`
+          : '';
+        artPriorityList.innerHTML = badgesHtml + buildWideHtml;
       }
     }
 
@@ -1231,16 +1244,17 @@
     const uniqueMainMagics = new Set();
     for (const cid of state.pinned) {
       const c = state.comboMap.get(cid);
-      if (c) uniqueMainMagics.add(state.magicMap.get(c.main.magic_id)?.name || c.main.magic_id);
+      if (c && !isPassiveMain(c)) uniqueMainMagics.add(state.magicMap.get(c.main.magic_id)?.name || c.main.magic_id);
     }
-    const artifactList = Array.from(uniqueMainMagics).join(', ');
+    const artifactList = Array.from(uniqueMainMagics).join(', ') || 'None';
 
     const rows = state.pinned.map((id, i) => {
       const c = state.comboMap.get(id);
       const mainM = state.magicMap.get(c.main.magic_id)?.name || c.main.magic_id;
       const matM = state.magicMap.get(c.material.magic_id)?.name || c.material.magic_id;
+      const mainNote = isPassiveMain(c) ? ' *(Passive · Build-wide, no spell artifacts)*' : '';
       const keptNote = isMaterialKept(c) ? ' *(Passive · Kept)*' : '';
-      return `| ${getSlotLabel(i)} | **${c.name}** | ${mainM} — ${c.main.attribute} (Lv.${c.main.level}) | ${matM} — ${c.material.attribute} (Lv.${c.material.level})${keptNote} |`;
+      return `| ${getSlotLabel(i)} | **${c.name}** | ${mainM} — ${c.main.attribute} (Lv.${c.main.level})${mainNote} | ${matM} — ${c.material.attribute} (Lv.${c.material.level})${keptNote} |`;
     }).join('\n');
 
     let md = `### Magic Survival (v0.9941) Build\n\n`;
@@ -1295,6 +1309,11 @@
 
     const isPinned = state.pinned.includes(combo.id);
     const kept = isMaterialKept(combo);
+    const passiveMain = isPassiveMain(combo);
+    const matFate = kept ? 'is kept as a passive (not consumed)' : 'is consumed';
+    const artifactNoteHtml = passiveMain
+      ? `<strong>Artifacts:</strong> Build-wide support fusion — <em>${escapeHtml(mainName)}</em> is a passive with no spell-specific artifacts, so this fusion doesn't scale with single-magic artifacts. <em>${escapeHtml(matName)}</em> ${matFate}.`
+      : `<strong>Artifacts:</strong> Only <em>${escapeHtml(mainName)}</em> artifacts boost this fusion — <em>${escapeHtml(matName)}</em> ${matFate}.`;
 
     const taxTags = (state.taxonomy && state.taxonomy.combination_tags) ? (state.taxonomy.combination_tags[combo.id] || {}) : {};
     const comboElements = (taxTags.elements || []).map(eid => {
@@ -1335,7 +1354,7 @@
 
       <div class="modal-recipe-box">
         <div class="modal-recipe-block main">
-          <div class="modal-recipe-tag">MAIN · ARTIFACT SCALED</div>
+          <div class="modal-recipe-tag">${passiveMain ? 'MAIN · PASSIVE (BUILD-WIDE)' : 'MAIN · ARTIFACT SCALED'}</div>
           <div class="modal-recipe-val">${escapeHtml(mainName)} — ${escapeHtml(combo.main.attribute)} (Lv.${combo.main.level})</div>
         </div>
         <div class="modal-recipe-block ${kept ? 'main kept' : 'material'}">
@@ -1364,7 +1383,7 @@
       ` : ''}
 
       <div class="modal-scaling-note">
-        <strong>Artifacts:</strong> Only <em>${escapeHtml(mainName)}</em> artifacts boost this fusion — <em>${escapeHtml(matName)}</em> ${kept ? 'is kept as a passive (not consumed)' : 'is consumed'}.
+        ${artifactNoteHtml}
       </div>
 
       <div class="modal-actions-grid">
@@ -1442,6 +1461,14 @@
       const activeKey = codexKeys.includes(CURRENT_CACHE_NAME) ? CURRENT_CACHE_NAME : codexKeys[0];
       const cache = await caches.open(activeKey);
       const items = await cache.keys();
+      const expected = getExpectedAssetCount();
+
+      // On first visit the cache exists but stays empty until the Service Worker finishes precaching.
+      if (items.length < expected) {
+        cacheStatusEl.textContent = 'Caching for Offline...';
+        if (cacheCountEl) cacheCountEl.textContent = `${items.length} / ${expected}`;
+        return;
+      }
 
       cacheStatusEl.textContent = '100% Offline Ready';
       if (cacheCountEl) cacheCountEl.textContent = `${items.length} Assets Cached`;
@@ -1822,11 +1849,17 @@
 
   // Register Service Worker
   if ('serviceWorker' in navigator) {
+    // Fires when a newly installed worker (first visit, or a new cache version) takes control
+    // after precaching, so the Codex counter updates without a manual refresh.
+    navigator.serviceWorker.addEventListener('controllerchange', () => checkCacheStatus());
+
     window.addEventListener('load', () => {
       navigator.serviceWorker.register('./sw.js', { scope: './' })
         .then(reg => {
           console.log('Service Worker registered with scope:', reg.scope);
           checkCacheStatus();
+          // `ready` resolves once a Service Worker is active, i.e. after its install step finished precaching.
+          navigator.serviceWorker.ready.then(() => checkCacheStatus());
         })
         .catch(err => {
           console.warn('Service Worker registration skipped:', err);
