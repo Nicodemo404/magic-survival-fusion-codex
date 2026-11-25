@@ -2281,3 +2281,327 @@ header h1 {
     font-size: 0.72rem;
   }
 }
+
+/* ==========================================================================
+   v11: DOMAIN OF POWER TOGGLE, REAL ARTIFACT LISTS, ARTIFACT INDEX, NOTES
+   ========================================================================== */
+
+/* Rarity tokens follow the in-game Encyclopedia label colours */
+:root {
+  --rarity-normal: #b9b6ad;
+  --rarity-rare: #6fb3e0;
+  --rarity-epic: #b98be0;
+  --rarity-special: #e07a9a;
+  --rarity-legendary: #e0a85a;
+}
+
+.planner-dop-toggle {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin-bottom: 14px;
+}
+
+.planner-dop-toggle .toggle-switch-label {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.planner-dop-title {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  color: var(--text-heading);
+  font-size: 0.86rem;
+}
+
+.planner-dop-hint {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.planner-dop-toggle .toggle-switch {
+  flex-shrink: 0;
+}
+
+/* Artifact groups per Main Magic */
+.artifact-magic-group {
+  flex-basis: 100%;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  min-width: 0;
+}
+
+.artifact-magic-group.boosters {
+  border-left: 2px solid var(--gold-border);
+}
+
+.artifact-magic-head {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--main-green);
+}
+
+.artifact-magic-group.boosters .artifact-magic-head {
+  color: var(--text-heading);
+}
+
+.artifact-magic-head svg {
+  width: 16px;
+  height: 16px;
+}
+
+.artifact-count {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.artifact-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.artifact-chip {
+  font-size: 0.74rem;
+  padding: 3px 8px;
+  border-radius: 5px;
+  border: 1px solid var(--border-light);
+  background: var(--surface);
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.artifact-chip.mastery {
+  border-style: dashed;
+}
+
+.artifact-chip.rarity-normal { border-color: var(--rarity-normal); color: var(--rarity-normal); }
+.artifact-chip.rarity-rare { border-color: var(--rarity-rare); color: var(--rarity-rare); }
+.artifact-chip.rarity-epic { border-color: var(--rarity-epic); color: var(--rarity-epic); }
+.artifact-chip.rarity-special { border-color: var(--rarity-special); color: var(--rarity-special); }
+.artifact-chip.rarity-legendary { border-color: var(--rarity-legendary); color: var(--rarity-legendary); }
+
+.artifact-mastery-line {
+  font-size: 0.74rem;
+  line-height: 1.45;
+  color: var(--text-muted);
+}
+
+.artifact-mastery-line strong {
+  color: var(--text-heading);
+  font-weight: 600;
+}
+
+.artifact-empty-note {
+  font-size: 0.74rem;
+  color: var(--text-dim);
+}
+
+.artifact-effects summary {
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--gold);
+  list-style-position: inside;
+}
+
+.artifact-effect-list {
+  list-style: none;
+  margin: 6px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.artifact-effect-item {
+  border-top: 1px solid var(--border);
+  padding-top: 6px;
+  min-width: 0;
+}
+
+.artifact-effect-item:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.artifact-effect-head {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.artifact-effect-name {
+  font-weight: 600;
+  font-size: 0.8rem;
+  color: var(--text-bright);
+}
+
+.artifact-effect-name.rarity-normal { color: var(--rarity-normal); }
+.artifact-effect-name.rarity-rare { color: var(--rarity-rare); }
+.artifact-effect-name.rarity-epic { color: var(--rarity-epic); }
+.artifact-effect-name.rarity-special { color: var(--rarity-special); }
+.artifact-effect-name.rarity-legendary { color: var(--rarity-legendary); }
+.artifact-effect-name.synergy { color: var(--text-heading); }
+
+.artifact-effect-rarity {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.artifact-effect-text {
+  font-size: 0.76rem;
+  line-height: 1.4;
+  color: var(--text);
+  overflow-wrap: anywhere;
+}
+
+.artifact-effect-text.penalty {
+  color: var(--mat-crimson);
+}
+
+.artifact-effect-req {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* Codex: Artifact & Synergy Index */
+.artifact-index-count {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.artifact-index-list {
+  max-height: 520px;
+  overflow-y: auto;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+
+.artifact-index-subhead {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 12px 0 4px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border-light);
+}
+
+.artifact-index-list > .artifact-index-subhead:first-child {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+
+/* Class & Test Subject matches */
+.rec-magic-line {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 4px;
+}
+
+.rec-magic-line strong {
+  color: var(--main-green);
+  font-weight: 600;
+}
+
+.rec-subject-line {
+  margin-top: 6px;
+}
+
+.rec-footnote {
+  border-top: 1px solid var(--border);
+  padding-top: 8px;
+  margin-top: 10px;
+  line-height: 1.4;
+}
+
+.class-bonus-line.penalty {
+  color: var(--mat-crimson);
+}
+
+/* Inspector modal: factual notes (unlock map, Bishop/Shield) */
+.modal-notes-box {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 12px;
+  margin-bottom: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.modal-note-item {
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: var(--text);
+}
+
+.modal-note-item strong {
+  color: var(--gold);
+}
+
+.note-source {
+  color: var(--text-muted);
+  font-size: 0.72rem;
+}
+
+/* Codex: damage & slot rules */
+.formula-box {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  line-height: 1.5;
+  color: var(--text-heading);
+  background: var(--surface-2);
+  border: 1px solid var(--gold-border);
+  border-radius: 6px;
+  padding: 8px 10px;
+  margin: 8px 0 10px;
+  overflow-wrap: anywhere;
+}
+
+.formula-list {
+  margin: 0;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: var(--text);
+}
+
+.formula-list strong {
+  color: var(--text-heading);
+  font-weight: 600;
+}

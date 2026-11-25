@@ -115,16 +115,72 @@ def check_data():
         if bad:
             err(f"base_magic_elements.{mid}: unknown elements {sorted(bad)}")
 
-    # Classes & Subjects references (warnings only: directory data is curated separately)
+    # Classes & Test Subjects (verified v0.9941 data, see scripts/build_game_data.py)
+    artifacts_doc = load_json("artifacts_v09941.json")
+    art_ids = {a["id"] for a in (artifacts_doc or {}).get("artifacts", [])}
     if classes:
-        for cl in classes.get("classes", []):
-            pm = cl.get("primary_magic_id")
-            if pm and pm not in magics:
-                warn(f"class {cl.get('id')}: primary_magic_id '{pm}' is not a base magic")
-        for sb in classes.get("subjects", []):
-            for m in sb.get("synergy_magics", []) or []:
-                if m not in magics:
-                    warn(f"subject {sb.get('id')}: synergy magic '{m}' is not a base magic")
+        cls_list = classes.get("classes", [])
+        subj_list = classes.get("subjects", [])
+        meta = classes.get("meta", {})
+        if meta.get("total_classes") != len(cls_list):
+            err(f"classes meta.total_classes={meta.get('total_classes')} but {len(cls_list)} classes")
+        if meta.get("total_subjects") != len(subj_list):
+            err(f"classes meta.total_subjects={meta.get('total_subjects')} but {len(subj_list)} subjects")
+        cls_ids = {c.get("id") for c in cls_list}
+        subj_ids = {s.get("id") for s in subj_list}
+        for cl in cls_list:
+            if not cl.get("verified"):
+                err(f"class {cl.get('id')}: not marked verified")
+            for m in [cl.get("magic_id")] + list(cl.get("related_magic_ids", [])):
+                if m and m not in magics:
+                    err(f"class {cl.get('id')}: magic '{m}' is not a base magic")
+            if cl.get("subject_id") and cl["subject_id"] not in subj_ids:
+                err(f"class {cl.get('id')}: subject_id '{cl['subject_id']}' not found")
+            if "recommended_when" in cl:
+                err(f"class {cl.get('id')}: subjective 'recommended_when' text is not allowed")
+        for sb in subj_list:
+            if sb.get("class_id") and sb["class_id"] not in cls_ids:
+                err(f"subject {sb.get('id')}: class_id '{sb['class_id']}' not found")
+            if sb.get("magic_id") and sb["magic_id"] not in magics:
+                err(f"subject {sb.get('id')}: magic '{sb['magic_id']}' is not a base magic")
+            if sb.get("starting_artifact_id") and art_ids and sb["starting_artifact_id"] not in art_ids:
+                err(f"subject {sb.get('id')}: starting artifact '{sb['starting_artifact_id']}' not in artifacts")
+
+    # Artifacts & Synergies (in-game Encyclopedia capture)
+    if artifacts_doc:
+        a_meta = artifacts_doc.get("meta", {})
+        arts = artifacts_doc.get("artifacts", [])
+        syns = artifacts_doc.get("synergies", [])
+        if a_meta.get("total_artifacts") != len(arts):
+            err(f"artifacts meta.total_artifacts={a_meta.get('total_artifacts')} but {len(arts)} artifacts")
+        if a_meta.get("total_synergies") != len(syns):
+            err(f"artifacts meta.total_synergies={a_meta.get('total_synergies')} but {len(syns)} synergies")
+        if len(art_ids) != len(arts):
+            err("artifacts: duplicate artifact ids")
+        rarities = set(a_meta.get("rarity_order", []))
+        for a in arts:
+            if a.get("rarity") not in rarities:
+                err(f"artifact {a.get('id')}: rarity '{a.get('rarity')}' not in rarity_order")
+            if not a.get("effects"):
+                err(f"artifact {a.get('id')}: no effects")
+        for s in syns:
+            missing = [r for r in s.get("requires", []) if r not in art_ids]
+            if missing:
+                err(f"synergy {s.get('id')}: unknown required artifacts {missing}")
+            if s.get("mastery_magic_id") and s["mastery_magic_id"] not in magics:
+                err(f"synergy {s.get('id')}: mastery magic '{s['mastery_magic_id']}' is not a base magic")
+        for mid, ids_ in artifacts_doc.get("magic_artifacts", {}).items():
+            if mid not in magics:
+                err(f"magic_artifacts: '{mid}' is not a base magic")
+            bad = [i for i in ids_ if i not in art_ids]
+            if bad:
+                err(f"magic_artifacts.{mid}: unknown artifacts {bad}")
+        boosters = artifacts_doc.get("combination_boosters", {})
+        for i in boosters.get("artifacts", []):
+            if i not in art_ids:
+                err(f"combination_boosters: unknown artifact '{i}'")
+        if "domain_of_power" not in art_ids:
+            err("artifacts: 'domain_of_power' missing (planner DoP slot relies on it)")
 
     # Asset files on disk vs database
     for folder in ("thumbs", "cards"):

@@ -13,20 +13,25 @@
     CHECKLIST: 'ms_codex_v1_checklist',
     IOS_DISMISSED: 'ms_codex_v1_ios_dismissed',
     INSTALL_DISMISSED: 'ms_codex_v1_install_dismissed',
-    INSTALLED: 'ms_codex_v1_installed'
+    INSTALLED: 'ms_codex_v1_installed',
+    DOMAIN_OF_POWER: 'ms_codex_v1_domain_of_power'
   };
 
   const CACHE_PREFIX = 'ms-codex-';
-  const CURRENT_CACHE_NAME = 'ms-codex-v09941-v10';
+  const CURRENT_CACHE_NAME = 'ms-codex-v09941-v11';
   // Must match the APP_SHELL list length in sw.js (each combination adds 1 thumb + 1 card on top).
-  const APP_SHELL_ASSET_COUNT = 12;
+  const APP_SHELL_ASSET_COUNT = 13;
 
   // --- Build Planner Slot Rules ---
   const BASE_SLOT_LEVELS = [25, 50, 75];
   const GOC_ID = 'gate_of_creation'; // "Gain 2 more Magic Combination chance."
   const GOC_BONUS_SLOTS = 2;
+  const DOP_ARTIFACT_ID = 'domain_of_power'; // Special artifact: "Gain 1 more Magic Combination chance."
+  const DOP_BONUS_SLOTS = 1;
   const OVERMIND_ID = 'overmind';
+  const SHIELD_ID = 'shield';
   const CATEGORY_LABELS = { aoe: 'AoE', nuke: 'Nuke', support: 'Support' };
+  const RARITY_ORDER = ['Normal', 'Rare', 'Epic', 'Special', 'Legendary'];
 
   // --- Minimalist Chalk-Ink SVG Icons with Explicit Dimensions (ZERO Emojis) ---
   const ICONS = {
@@ -124,15 +129,22 @@
     db: null,
     taxonomy: null,
     classesData: null,
+    artifactsData: null,
     comboMap: new Map(),
     magicMap: new Map(),
     elementMap: new Map(),
+    artifactMap: new Map(),
+    synergyMap: new Map(),
+    classMap: new Map(),
+    subjectMap: new Map(),
 
     activeTab: 'combinator',
     filtersDrawerOpen: false,
 
-    pinned: [], // combo IDs: up to 3, or 5 while Gate of Creation is pinned
+    pinned: [], // combo IDs: 3 base slots, +2 with Gate of Creation, +1 with Domain of Power (max 6)
+    domainOfPower: false, // Domain of Power artifact owned in the planned run
     checklist: {}, // { "magicId:attribute": true }
+    artifactIndex: { query: '', rarity: 'all' },
 
     filters: {
       slot1: '',
@@ -177,8 +189,20 @@
   }
 
   // --- Slot, Category & Recipe Helpers ---
-  function getMaxSlots(pinned = state.pinned) {
-    return BASE_SLOT_LEVELS.length + (pinned.includes(GOC_ID) ? GOC_BONUS_SLOTS : 0);
+  // Bonus slots after Lv.25/50/75, in order: 2 from Gate of Creation, then 1 from Domain of Power.
+  function getBonusSlotKinds(pinned = state.pinned, dop = state.domainOfPower) {
+    const kinds = [];
+    if (pinned.includes(GOC_ID)) {
+      for (let i = 0; i < GOC_BONUS_SLOTS; i++) kinds.push('goc');
+    }
+    if (dop) {
+      for (let i = 0; i < DOP_BONUS_SLOTS; i++) kinds.push('dop');
+    }
+    return kinds;
+  }
+
+  function getMaxSlots(pinned = state.pinned, dop = state.domainOfPower) {
+    return BASE_SLOT_LEVELS.length + getBonusSlotKinds(pinned, dop).length;
   }
 
   function isBonusSlot(index) {
@@ -186,7 +210,40 @@
   }
 
   function getSlotLabel(index) {
-    return isBonusSlot(index) ? 'GoC Bonus' : `Lv.${BASE_SLOT_LEVELS[index]}`;
+    if (!isBonusSlot(index)) return `Lv.${BASE_SLOT_LEVELS[index]}`;
+    return getBonusSlotKinds()[index - BASE_SLOT_LEVELS.length] === 'dop' ? 'DoP Bonus' : 'GoC Bonus';
+  }
+
+  // Short labels for the narrow dock: GoC 1, GoC 2, DoP.
+  function getShortSlotLabel(index) {
+    if (!isBonusSlot(index)) return getSlotLabel(index);
+    const kinds = getBonusSlotKinds();
+    const pos = index - BASE_SLOT_LEVELS.length;
+    if (kinds[pos] === 'dop') return 'DoP';
+    return `GoC ${kinds.slice(0, pos + 1).filter(k => k === 'goc').length}`;
+  }
+
+  function getArtifactName(id) {
+    return state.artifactMap.get(id)?.name || id;
+  }
+
+  // Artifacts whose in-game text names this magic (its Mastery synergy set first).
+  function getMagicArtifacts(magicId) {
+    const ids = state.artifactsData?.magic_artifacts?.[magicId] || [];
+    return ids.map(id => state.artifactMap.get(id)).filter(Boolean);
+  }
+
+  function getMasterySynergy(magicId) {
+    if (!state.artifactsData) return null;
+    return state.artifactsData.synergies.find(s => s.mastery_magic_id === magicId) || null;
+  }
+
+  function getRarityClass(rarity) {
+    return `rarity-${String(rarity || '').toLowerCase()}`;
+  }
+
+  function getMagicName(magicId) {
+    return state.magicMap.get(magicId)?.name || magicId;
   }
 
   function getCategoryLabel(category) {
@@ -209,18 +266,24 @@
   }
 
   // Dedupe, drop unknown ids, keep Gate of Creation inside a base slot, and cap to the slots it allows.
-  function normalizePinned(ids) {
+  function normalizePinned(ids, dop = state.domainOfPower) {
     const unique = [...new Set(ids)].filter(id => state.comboMap.has(id));
     const gocIdx = unique.indexOf(GOC_ID);
     if (gocIdx >= BASE_SLOT_LEVELS.length) {
       unique.splice(gocIdx, 1);
       unique.splice(BASE_SLOT_LEVELS.length - 1, 0, GOC_ID);
     }
-    return unique.slice(0, getMaxSlots(unique));
+    return unique.slice(0, getMaxSlots(unique, dop));
   }
 
   // --- Pinned State & Persistence ---
   function loadPersistedState() {
+    try {
+      state.domainOfPower = localStorage.getItem(STORAGE_KEYS.DOMAIN_OF_POWER) === '1';
+    } catch (e) {
+      state.domainOfPower = false;
+    }
+
     try {
       const stored = localStorage.getItem(STORAGE_KEYS.PINNED);
       if (stored) {
@@ -242,12 +305,15 @@
       console.warn('Failed to parse checklist', e);
     }
 
-    // URL Hash override: #build=id1,id2,id3[,id4,id5] takes precedence on load
+    // URL Hash override: #build=id1,id2,id3[,...][&dop=1] takes precedence on load
     const hash = window.location.hash;
     if (hash && hash.startsWith('#build=')) {
-      const ids = hash.replace('#build=', '').split(',').map(s => s.trim());
-      const validIds = normalizePinned(ids);
+      const [idsPart, ...params] = hash.replace('#build=', '').split('&');
+      const dop = params.includes('dop=1');
+      const ids = idsPart.split(',').map(s => s.trim());
+      const validIds = normalizePinned(ids, dop);
       if (validIds.length > 0) {
+        state.domainOfPower = dop;
         state.pinned = validIds;
         savePinnedState();
       }
@@ -257,11 +323,30 @@
   function savePinnedState() {
     try {
       localStorage.setItem(STORAGE_KEYS.PINNED, JSON.stringify(state.pinned));
+      localStorage.setItem(STORAGE_KEYS.DOMAIN_OF_POWER, state.domainOfPower ? '1' : '0');
     } catch (e) {
       console.warn('LocalStorage save failed', e);
     }
     syncHash();
     updateDock();
+  }
+
+  // Domain of Power (Special artifact) opens 1 extra combination slot for the run.
+  function setDomainOfPower(enabled) {
+    state.domainOfPower = Boolean(enabled);
+    const maxSlots = getMaxSlots();
+    const dropped = state.pinned.length > maxSlots ? state.pinned.splice(maxSlots) : [];
+    if (dropped.length > 0) {
+      const names = dropped.map(id => state.comboMap.get(id)?.name || id).join(', ');
+      showToast(`Domain of Power slot closed. Also removed: ${names}.`, 'warning');
+    } else {
+      showToast(state.domainOfPower
+        ? 'Domain of Power: 1 extra combination slot unlocked.'
+        : 'Domain of Power slot removed.', 'info');
+    }
+    savePinnedState();
+    renderCombinations();
+    renderPlanner();
   }
 
   function saveChecklistState() {
@@ -274,7 +359,7 @@
 
   function syncHash() {
     if (state.pinned.length > 0) {
-      const hashVal = '#build=' + state.pinned.join(',');
+      const hashVal = '#build=' + state.pinned.join(',') + (state.domainOfPower ? '&dop=1' : '');
       if (window.location.hash !== hashVal) {
         history.replaceState(null, '', hashVal);
       }
@@ -289,7 +374,7 @@
     const idx = state.pinned.indexOf(comboId);
     if (idx !== -1) {
       state.pinned.splice(idx, 1);
-      // Unpinning Gate of Creation closes the 2 bonus slots: trim back to the 3 base slots.
+      // Unpinning Gate of Creation closes its 2 bonus slots: trim back to the remaining slot count.
       const dropped = state.pinned.length > getMaxSlots() ? state.pinned.splice(getMaxSlots()) : [];
       if (dropped.length > 0) {
         const names = dropped.map(id => state.comboMap.get(id)?.name || id).join(', ');
@@ -300,8 +385,11 @@
     } else {
       const maxSlots = getMaxSlots();
       if (state.pinned.length >= maxSlots) {
-        const msg = maxSlots > BASE_SLOT_LEVELS.length
-          ? `All ${maxSlots} combination slots are full (Lv.25, Lv.50, Lv.75 + 2 GoC Bonus). Remove one first.`
+        const extras = [];
+        if (state.pinned.includes(GOC_ID)) extras.push(`${GOC_BONUS_SLOTS} GoC Bonus`);
+        if (state.domainOfPower) extras.push(`${DOP_BONUS_SLOTS} DoP Bonus`);
+        const msg = extras.length > 0
+          ? `All ${maxSlots} combination slots are full (Lv.25, Lv.50, Lv.75 + ${extras.join(' + ')}). Remove one first.`
           : 'All 3 fusion slots are full (Lv.25, Lv.50, Lv.75). Remove one first.';
         showToast(msg, 'warning');
         return;
@@ -363,71 +451,46 @@
     return pinnedMagics.has(combo.main.magic_id) || pinnedMagics.has(combo.material.magic_id);
   }
 
-  // --- Recommended Class & Subject Algorithm ---
-  function getRecommendations() {
-    if (!state.classesData || state.pinned.length === 0) {
-      return null;
-    }
-
-    const pinnedCombos = state.pinned.map(id => state.comboMap.get(id)).filter(Boolean);
-    const mainMagicCounts = {};
-    for (const c of pinnedCombos) {
-      const mid = c.main.magic_id;
-      mainMagicCounts[mid] = (mainMagicCounts[mid] || 0) + 1;
-    }
-
+  // --- Class & Test Subject Matching (verified v0.9941 data, no subjective ranking) ---
+  // For each pinned Main Magic: its specialist class (+3% damage every 5 levels) or, failing that,
+  // a class that levels that magic up (Bishop: Shield, Arcanist: Intelligence, Archmage: Magic Circle).
+  function getClassSubjectMatches() {
+    if (!state.classesData || state.pinned.length === 0) return null;
     const classes = state.classesData.classes || [];
-    const subjects = state.classesData.subjects || [];
 
-    let topClass = null;
-    let topClassReason = '';
-
-    // Check if single focus (>=2 pinned fusions share same Main Magic, or 1 fusion pinned)
-    let focusedMainMagic = null;
-    for (const mid in mainMagicCounts) {
-      if (mainMagicCounts[mid] >= 2) {
-        focusedMainMagic = mid;
-        break;
-      }
-    }
-    if (!focusedMainMagic && pinnedCombos.length === 1) {
-      focusedMainMagic = pinnedCombos[0].main.magic_id;
+    const mainIds = [];
+    for (const cid of state.pinned) {
+      const c = state.comboMap.get(cid);
+      if (c && !mainIds.includes(c.main.magic_id)) mainIds.push(c.main.magic_id);
     }
 
-    if (focusedMainMagic) {
-      const spec = classes.find(c => c.primary_magic_id === focusedMainMagic);
-      if (spec) {
-        topClass = spec;
-        const magicName = state.magicMap.get(focusedMainMagic)?.name || focusedMainMagic;
-        topClassReason = `Specialist pick: Directly amplifies ${magicName}, the core Main Magic of your build.`;
-      }
-    }
+    const byMagic = mainIds.map(mid => {
+      const specialist = classes.find(cl => cl.magic_id === mid) || null;
+      const related = specialist ? null : (classes.find(cl => (cl.related_magic_ids || []).includes(mid)) || null);
+      const cls = specialist || related;
+      const subject = cls && cls.subject_id ? state.subjectMap.get(cls.subject_id) || null : null;
+      return { magicId: mid, magicName: getMagicName(mid), cls, isSpecialist: Boolean(specialist), subject };
+    });
 
-    if (!topClass) {
-      // Multi-Main build: Recommend Archmage as top universal pick
-      const archmage = classes.find(c => c.id === 'archmage');
-      if (archmage) {
-        topClass = archmage;
-        topClassReason = 'Universal pick: Combination Magic Damage +50% and starts with +3 levels, accelerating multi-Main fusion spikes.';
-      } else {
-        topClass = classes[0];
-        topClassReason = topClass.recommended_when;
-      }
-    }
+    return { byMagic, archmage: state.classMap.get('archmage') || null };
+  }
 
-    let topSubject = null;
-    if (focusedMainMagic) {
-      topSubject = subjects.find(s => s.synergy_magics && s.synergy_magics.includes(focusedMainMagic));
-    }
-    if (!topSubject) {
-      topSubject = subjects.find(s => s.id === 'subject_archmage') || subjects[0];
-    }
+  function getSubjectSummary(subject) {
+    if (!subject) return '';
+    const start = subject.starting_artifact_id ? `Starts with ${getArtifactName(subject.starting_artifact_id)}` : 'Default subject (no starting artifact)';
+    return `${start} · ${subject.bonus}`;
+  }
 
-    return {
-      topClass,
-      topClassReason,
-      topSubject
-    };
+  // Factual notes shown on a combination: unlock map (community FAQ) and Bishop's Shield rule (in-game class text).
+  function getComboNotes(combo) {
+    const notes = [];
+    if (combo.unlock && combo.unlock.map) {
+      notes.push(`<strong>Unlock:</strong> clear the ${escapeHtml(combo.unlock.map)} map <span class="note-source">(${escapeHtml(combo.unlock.source || 'community')})</span>.`);
+    }
+    if (combo.main.magic_id === SHIELD_ID || combo.material.magic_id === SHIELD_ID) {
+      notes.push('<strong>Bishop class:</strong> Shield remains active even when used in Combination Magic.');
+    }
+    return notes;
   }
 
   // --- Rendering UI: Bottom Navigation Badge & Slim Floating Dock ---
@@ -459,11 +522,11 @@
     const conflicts = getConflictsInPinned();
     const hasConflict = conflicts.length > 0;
 
-    // 5-slot mode is too narrow for names on 360px screens: show slot labels only (name stays in the title).
+    // 4+ slots are too narrow for names on 360px screens: show slot labels only (name stays in the title).
     const compact = maxSlots > BASE_SLOT_LEVELS.length;
     slotsContainer.innerHTML = Array.from({ length: maxSlots }, (_, i) => {
       const cid = state.pinned[i];
-      const shortLabel = isBonusSlot(i) ? `GoC ${i - BASE_SLOT_LEVELS.length + 1}` : getSlotLabel(i);
+      const shortLabel = getShortSlotLabel(i);
       if (cid) {
         const c = state.comboMap.get(cid);
         const name = c ? c.name : cid;
@@ -989,6 +1052,59 @@
     if (!silent) showToast('All filters reset.', 'info');
   }
 
+  // --- Artifact Rendering Helpers (verified Encyclopedia text) ---
+  function renderArtifactEffectsList(artifacts) {
+    return `<ul class="artifact-effect-list">${artifacts.map(a => `
+      <li class="artifact-effect-item">
+        <div class="artifact-effect-head">
+          <span class="artifact-effect-name ${getRarityClass(a.rarity)}">${escapeHtml(a.name)}</span>
+          <span class="artifact-effect-rarity">${escapeHtml(a.rarity)}</span>
+        </div>
+        ${(a.effects || []).map(e => `<div class="artifact-effect-text">${escapeHtml(e)}</div>`).join('')}
+        ${(a.penalties || []).map(p => `<div class="artifact-effect-text penalty">${escapeHtml(p)}</div>`).join('')}
+      </li>`).join('')}</ul>`;
+  }
+
+  function renderArtifactGroupHtml(magicId) {
+    const name = getMagicName(magicId);
+    const arts = getMagicArtifacts(magicId);
+    if (arts.length === 0) {
+      return `<div class="artifact-magic-group"><div class="artifact-magic-head">${ICONS.heptagram}<span>${escapeHtml(name)}</span></div><div class="artifact-empty-note">No artifact text mentions ${escapeHtml(name)}.</div></div>`;
+    }
+    const mastery = getMasterySynergy(magicId);
+    const masterySet = new Set(mastery ? mastery.requires : []);
+    const masteryHtml = mastery
+      ? `<div class="artifact-mastery-line"><strong>${escapeHtml(mastery.name)}</strong> synergy (${mastery.requires.map(id => escapeHtml(getArtifactName(id))).join(' + ')}): ${mastery.effects.map(escapeHtml).join('; ')}</div>`
+      : '';
+    const chips = arts.map(a => `<span class="artifact-chip ${getRarityClass(a.rarity)}${masterySet.has(a.id) ? ' mastery' : ''}">${escapeHtml(a.name)}</span>`).join('');
+    return `
+      <div class="artifact-magic-group">
+        <div class="artifact-magic-head">${ICONS.heptagram}<span>${escapeHtml(name)}</span><span class="artifact-count">${arts.length} artifacts</span></div>
+        <div class="artifact-chip-row">${chips}</div>
+        ${masteryHtml}
+        <details class="artifact-effects"><summary>Show effects</summary>${renderArtifactEffectsList(arts)}</details>
+      </div>
+    `;
+  }
+
+  // Artifacts & synergies whose text boosts every Combination Magic (Domain of Power, Dragontongue, Dominus).
+  function renderComboBoostersHtml() {
+    const boosters = state.artifactsData?.combination_boosters;
+    if (!boosters) return '';
+    const arts = boosters.artifacts.map(id => state.artifactMap.get(id)).filter(Boolean);
+    const syns = boosters.synergies.map(id => state.synergyMap.get(id)).filter(Boolean);
+    if (arts.length === 0 && syns.length === 0) return '';
+    const synHtml = syns.map(s => `<div class="artifact-mastery-line"><strong>${escapeHtml(s.name)}</strong> synergy (${s.requires.map(id => escapeHtml(getArtifactName(id))).join(' + ')}): ${s.effects.map(escapeHtml).join('; ')}</div>`).join('');
+    return `
+      <div class="artifact-magic-group boosters">
+        <div class="artifact-magic-head">${ICONS.heptagram}<span>Every Combination</span></div>
+        <div class="artifact-chip-row">${arts.map(a => `<span class="artifact-chip ${getRarityClass(a.rarity)}">${escapeHtml(a.name)}</span>`).join('')}</div>
+        ${synHtml}
+        <details class="artifact-effects"><summary>Show effects</summary>${renderArtifactEffectsList(arts)}</details>
+      </div>
+    `;
+  }
+
   // --- Rendering UI: Build Planner Tab ---
   function renderPlanner() {
     const slotsGrid = document.getElementById('planner-slots-grid');
@@ -1000,11 +1116,13 @@
 
     const maxSlots = getMaxSlots();
 
-    // 0. Planner title reflects 3-slot or Gate of Creation 5-slot mode
+    // 0. Planner title reflects the slot count (3 base, +2 Gate of Creation, +1 Domain of Power)
     const titleEl = document.getElementById('planner-title-text');
     if (titleEl) titleEl.textContent = `${maxSlots}-Slot Build Planner`;
+    const dopToggle = document.getElementById('toggle-domain-of-power');
+    if (dopToggle) dopToggle.checked = state.domainOfPower;
 
-    // 1. Render Slots (3 base slots, +2 GoC Bonus slots while Gate of Creation is pinned)
+    // 1. Render Slots (3 base slots, +2 GoC Bonus while Gate of Creation is pinned, +1 DoP Bonus)
     slotsGrid.innerHTML = Array.from({ length: maxSlots }, (_, i) => {
       const cid = state.pinned[i];
       const slotLabel = getSlotLabel(i);
@@ -1074,17 +1192,24 @@
       }
     }
 
-    // 2b. Overmind Note (compact, factual reminder of its restriction & scaling)
+    // 2b. Factual combo notes (Overmind restriction, Bishop keeps Shield)
     const notesEl = document.getElementById('planner-notes-container');
     if (notesEl) {
-      const overmindPinned = state.pinned.includes(OVERMIND_ID);
-      notesEl.classList.toggle('hidden', !overmindPinned);
-      notesEl.innerHTML = overmindPinned
-        ? `<div class="planner-note">${ICONS.heptagram}<span><strong>Overmind active</strong> — only Combined Spells can be cast; extra Active Magic levels boost ATK, Size &amp; CDR.</span></div>`
-        : '';
+      const notes = [];
+      if (state.pinned.includes(OVERMIND_ID)) {
+        notes.push('<strong>Overmind active</strong> — only Combined Spells can be cast; extra Active Magic levels boost ATK, Size &amp; CDR.');
+      }
+      const shieldCombos = state.pinned
+        .map(id => state.comboMap.get(id))
+        .filter(c => c && (c.main.magic_id === SHIELD_ID || c.material.magic_id === SHIELD_ID));
+      if (shieldCombos.length > 0) {
+        notes.push(`<strong>Bishop class</strong> — Shield remains active even when used in Combination Magic (${shieldCombos.map(c => escapeHtml(c.name)).join(', ')}).`);
+      }
+      notesEl.classList.toggle('hidden', notes.length === 0);
+      notesEl.innerHTML = notes.map(n => `<div class="planner-note">${ICONS.heptagram}<span>${n}</span></div>`).join('');
     }
 
-    // 3. Deduplicated Artifact Priority List
+    // 3. Artifact Priority: real artifact names per Main Magic + boosters for every combination
     if (artPriorityList) {
       if (state.pinned.length === 0) {
         artPriorityList.innerHTML = '<span class="placeholder-dim-text">Pin fusions above to identify your Main Magic artifacts.</span>';
@@ -1098,43 +1223,60 @@
           else uniqueMainMagics.add(c.main.magic_id);
         }
 
-        const badgesHtml = Array.from(uniqueMainMagics).map(mid => {
-          const m = state.magicMap.get(mid);
-          const name = m ? m.name : mid;
-          return `<div class="artifact-badge">${ICONS.heptagram}<span>${escapeHtml(name)} Artifacts</span></div>`;
-        }).join('');
+        const groupsHtml = Array.from(uniqueMainMagics).map(renderArtifactGroupHtml).join('');
         const buildWideHtml = buildWideCombos.length > 0
           ? `<div class="artifact-buildwide-note"><strong>${buildWideCombos.map(escapeHtml).join(' &amp; ')}:</strong> build-wide support with a passive Main Magic — no spell-specific artifacts to scale with.</div>`
           : '';
-        artPriorityList.innerHTML = badgesHtml + buildWideHtml;
+        artPriorityList.innerHTML = groupsHtml + buildWideHtml + renderComboBoostersHtml();
       }
     }
 
-    // 4. Recommended Class & Subject
+    // 4. Class & Test Subject tied to each pinned Main Magic (verified in-game bonuses)
     if (recContainer) {
-      const recs = getRecommendations();
-      if (!recs || state.pinned.length === 0) {
-        recContainer.innerHTML = '<span class="placeholder-dim-text">Pin at least one fusion to see optimal Class & Subject synergies.</span>';
+      const matches = getClassSubjectMatches();
+      if (!matches) {
+        recContainer.innerHTML = '<span class="placeholder-dim-text">Pin at least one fusion to see the class and test subject tied to each Main Magic.</span>';
       } else {
-        recContainer.innerHTML = `
-          <div class="recommendation-box">
-            <div class="rec-item">
+        const magicHtml = matches.byMagic.map((m, i) => {
+          const head = `<div class="rec-magic-line">Main Magic: <strong>${escapeHtml(m.magicName)}</strong></div>`;
+          if (!m.cls) {
+            return `<div class="rec-item ${i > 0 ? 'rec-item-bordered' : ''}">${head}<div class="rec-hint">No class or test subject is tied to ${escapeHtml(m.magicName)}.</div></div>`;
+          }
+          const clsBonuses = m.isSpecialist ? m.cls.base_bonuses : (m.cls.base_bonuses || []).concat(m.cls.mastery_bonuses || []).filter(b => b.includes(m.magicName));
+          return `
+            <div class="rec-item ${i > 0 ? 'rec-item-bordered' : ''}">
+              ${head}
               <div class="rec-title-line">
-                <span class="rec-name">${escapeHtml(recs.topClass.name)}</span>
-                <span class="rec-badge">${escapeHtml(recs.topClass.archetype.toUpperCase())} CLASS</span>
+                <span class="rec-name">${escapeHtml(m.cls.name)}</span>
+                <span class="rec-badge">${m.isSpecialist ? 'CLASS' : 'RELATED CLASS'}</span>
               </div>
-              <div class="rec-reason">${escapeHtml(recs.topClassReason)}</div>
+              <div class="rec-reason">${clsBonuses.map(escapeHtml).join(' · ')}</div>
+              ${m.subject ? `
+                <div class="rec-title-line rec-subject-line">
+                  <span class="rec-name">${escapeHtml(m.subject.name)}</span>
+                  <span class="rec-badge">TEST SUBJECT</span>
+                </div>
+                <div class="rec-reason">${escapeHtml(getSubjectSummary(m.subject))}</div>
+              ` : ''}
             </div>
-            <div class="rec-item rec-item-bordered">
-              <div class="rec-title-line">
-                <span class="rec-name">${escapeHtml(recs.topSubject.name)}</span>
-                <span class="rec-badge">SUBJECT</span>
-              </div>
-              <div class="rec-reason">${escapeHtml(recs.topSubject.recommended_when)}</div>
-              ${recs.topSubject.starting_artifact_hint ? `<div class="rec-hint">Hint: ${escapeHtml(recs.topSubject.starting_artifact_hint)}</div>` : ''}
+          `;
+        }).join('');
+
+        const archmageHtml = matches.archmage ? `
+          <div class="rec-item rec-item-bordered">
+            <div class="rec-title-line">
+              <span class="rec-name">${escapeHtml(matches.archmage.name)}</span>
+              <span class="rec-badge">COMBINATION CLASS</span>
             </div>
+            <div class="rec-reason">${matches.archmage.base_bonuses.concat(matches.archmage.mastery_bonuses).filter(b => b.includes('Combination')).map(escapeHtml).join(' · ')}</div>
           </div>
-        `;
+        ` : '';
+
+        const ultimateNote = state.classesData.meta?.ultimate_requirement
+          ? `<div class="rec-hint rec-footnote">${escapeHtml(state.classesData.meta.ultimate_requirement)}</div>`
+          : '';
+
+        recContainer.innerHTML = `<div class="recommendation-box">${magicHtml}${archmageHtml}${ultimateNote}</div>`;
       }
     }
 
@@ -1239,14 +1381,17 @@
       return;
     }
 
-    const recs = getRecommendations();
+    const matches = getClassSubjectMatches();
 
     const uniqueMainMagics = new Set();
     for (const cid of state.pinned) {
       const c = state.comboMap.get(cid);
-      if (c && !isPassiveMain(c)) uniqueMainMagics.add(state.magicMap.get(c.main.magic_id)?.name || c.main.magic_id);
+      if (c && !isPassiveMain(c)) uniqueMainMagics.add(c.main.magic_id);
     }
-    const artifactList = Array.from(uniqueMainMagics).join(', ') || 'None';
+    const artifactLines = Array.from(uniqueMainMagics).map(mid => {
+      const names = getMagicArtifacts(mid).map(a => a.name);
+      return `- **${getMagicName(mid)}:** ${names.length > 0 ? names.join(', ') : 'no magic-specific artifacts'}`;
+    });
 
     const rows = state.pinned.map((id, i) => {
       const c = state.comboMap.get(id);
@@ -1258,15 +1403,18 @@
     }).join('\n');
 
     let md = `### Magic Survival (v0.9941) Build\n\n`;
-    if (recs) {
-      if (recs.topClass) {
-        md += `**Recommended Class:** ${recs.topClass.name} (${recs.topClass.archetype}) — ${recs.topClassReason}\n`;
-      }
-      if (recs.topSubject) {
-        md += `**Recommended Subject:** ${recs.topSubject.name} — ${recs.topSubject.recommended_when}\n`;
+    if (state.domainOfPower) {
+      md += `**Domain of Power:** owned (+1 combination slot)\n`;
+    }
+    if (matches) {
+      const classLines = matches.byMagic
+        .filter(m => m.cls)
+        .map(m => `${m.magicName} → ${m.cls.name}${m.subject ? ` (Test Subject: ${m.subject.name})` : ''}`);
+      if (classLines.length > 0) {
+        md += `**Class / Test Subject per Main Magic:** ${classLines.join('; ')}\n`;
       }
     }
-    md += `**Artifact Priority (Main Magics):** ${artifactList} *(Only Main Magics scale with artifacts)*\n\n`;
+    md += `**Artifacts (Main Magics only scale combinations):**\n${artifactLines.length > 0 ? artifactLines.join('\n') : '- None'}\n\n`;
     md += `| Slot | Combination | Main Magic (Artifact Scaled) | Material Magic (Consumed) |\n`;
     md += `| :--- | :--- | :--- | :--- |\n`;
     md += `${rows}\n\n`;
@@ -1311,9 +1459,17 @@
     const kept = isMaterialKept(combo);
     const passiveMain = isPassiveMain(combo);
     const matFate = kept ? 'is kept as a passive (not consumed)' : 'is consumed';
+    const mainArtifacts = passiveMain ? [] : getMagicArtifacts(combo.main.magic_id);
+    const mainArtifactsText = mainArtifacts.length > 0
+      ? `: ${mainArtifacts.map(a => escapeHtml(a.name)).join(', ')}`
+      : '';
     const artifactNoteHtml = passiveMain
       ? `<strong>Artifacts:</strong> Build-wide support fusion — <em>${escapeHtml(mainName)}</em> is a passive with no spell-specific artifacts, so this fusion doesn't scale with single-magic artifacts. <em>${escapeHtml(matName)}</em> ${matFate}.`
-      : `<strong>Artifacts:</strong> Only <em>${escapeHtml(mainName)}</em> artifacts boost this fusion — <em>${escapeHtml(matName)}</em> ${matFate}.`;
+      : `<strong>Artifacts:</strong> Only <em>${escapeHtml(mainName)}</em> artifacts boost this fusion${mainArtifactsText}. <em>${escapeHtml(matName)}</em> ${matFate}.`;
+    const comboNotes = getComboNotes(combo);
+    const comboNotesHtml = comboNotes.length > 0
+      ? `<div class="modal-notes-box">${comboNotes.map(n => `<div class="modal-note-item">${n}</div>`).join('')}</div>`
+      : '';
 
     const taxTags = (state.taxonomy && state.taxonomy.combination_tags) ? (state.taxonomy.combination_tags[combo.id] || {}) : {};
     const comboElements = (taxTags.elements || []).map(eid => {
@@ -1385,6 +1541,8 @@
       <div class="modal-scaling-note">
         ${artifactNoteHtml}
       </div>
+
+      ${comboNotesHtml}
 
       <div class="modal-actions-grid">
         <button type="button" class="btn-action" id="btn-modal-partner">
@@ -1546,75 +1704,96 @@
     showToast('combinations_v09941.json downloaded.', 'success');
   }
 
-  // --- Codex Tab: Classes Directory ---
-  let selectedClassElement = 'all';
+  // --- Codex Tab: Classes & Test Subjects Directory (verified v0.9941) ---
+  let selectedClassFilter = 'all';
+
+  function renderSubjectLine(subject) {
+    if (!subject) return '';
+    return `
+      <div class="class-bonus-section">
+        <span class="class-bonus-label">Test Subject</span>
+        <div class="class-bonus-line">• ${escapeHtml(getSubjectSummary(subject))}</div>
+      </div>
+    `;
+  }
 
   function renderClassesDirectory() {
     const filterRow = document.getElementById('classes-element-filters');
     const listGrid = document.getElementById('classes-list-grid');
     if (!filterRow || !listGrid || !state.classesData) return;
 
-    const elements = [
-      { id: 'all', label: 'All' },
-      { id: 'arcane', label: 'Arcane' },
-      { id: 'lightning', label: 'Lightning' },
-      { id: 'fire', label: 'Fire' },
-      { id: 'ice', label: 'Ice' },
-      { id: 'storm', label: 'Storm' },
-      { id: 'cosmic', label: 'Cosmic' },
-      { id: 'void', label: 'Dark' }
+    const classes = state.classesData.classes || [];
+    const usedElements = new Set(classes.flatMap(c => c.elements || []));
+    const filters = [
+      { id: 'all', label: 'All', icon: ICONS.all },
+      { id: 'specialist', label: 'Specialist', icon: ICONS.all },
+      { id: 'universal', label: 'Universal', icon: ICONS.all },
+      ...((state.taxonomy && state.taxonomy.elements) || [])
+        .filter(el => usedElements.has(el.id))
+        .map(el => ({ id: el.id, label: el.label.split('/')[0].trim(), icon: ICONS[el.icon] || ICONS[el.id] || ICONS.all }))
     ];
 
-    filterRow.innerHTML = elements.map(el => `
-      <button type="button" class="filter-chip ${selectedClassElement === el.id ? 'active' : ''}" data-class-el="${el.id}">
-        ${ICONS[el.id] || ICONS.all}
-        <span>${el.label}</span>
+    filterRow.innerHTML = filters.map(f => `
+      <button type="button" class="filter-chip ${selectedClassFilter === f.id ? 'active' : ''}" data-class-el="${escapeHtml(f.id)}">
+        ${f.icon}
+        <span>${escapeHtml(f.label)}</span>
       </button>
     `).join('');
 
     filterRow.querySelectorAll('.filter-chip').forEach(btn => {
       btn.addEventListener('click', () => {
-        selectedClassElement = btn.dataset.classEl;
+        selectedClassFilter = btn.dataset.classEl;
         renderClassesDirectory();
       });
     });
 
-    const classes = state.classesData.classes || [];
     const filtered = classes.filter(c => {
-      if (selectedClassElement === 'all') return true;
-      return c.elements && c.elements.includes(selectedClassElement);
+      if (selectedClassFilter === 'all') return true;
+      if (selectedClassFilter === 'specialist' || selectedClassFilter === 'universal') return c.archetype === selectedClassFilter;
+      return (c.elements || []).includes(selectedClassFilter);
     });
 
-    listGrid.innerHTML = filtered.map(c => `
+    const classCards = filtered.map(c => `
       <div class="class-card">
         <div class="class-card-top">
           <span class="class-name">${escapeHtml(c.name)}</span>
           <div class="class-card-actions">
-            <span class="rec-badge">${escapeHtml(c.archetype.toUpperCase())}</span>
-            ${c.primary_magic_id ? `
-              <button type="button" class="btn-view-fusions" data-magic="${escapeHtml(c.primary_magic_id)}">
+            <span class="rec-badge">${c.magic_id ? escapeHtml(getMagicName(c.magic_id).toUpperCase()) : 'UNIVERSAL'}</span>
+            ${c.magic_id ? `
+              <button type="button" class="btn-view-fusions" data-magic="${escapeHtml(c.magic_id)}">
                 View Fusions
               </button>
             ` : ''}
           </div>
         </div>
-        <div class="class-desc">${escapeHtml(c.recommended_when)}</div>
         <div class="class-bonuses">
-          ${c.base_bonuses && c.base_bonuses.length > 0 ? `
-            <div class="class-bonus-section">
-              <span class="class-bonus-label">Base Bonuses</span>
-              ${c.base_bonuses.map(b => `<div class="class-bonus-line">• ${escapeHtml(b)}</div>`).join('')}
-            </div>
-          ` : ''}
-          ${c.mastery_bonuses && c.mastery_bonuses.length > 0 ? `
-            <div class="class-bonus-section">
-              <span class="class-bonus-label">Mastery Bonuses</span>
-              ${c.mastery_bonuses.map(b => `<div class="class-bonus-line">• ${escapeHtml(b)}</div>`).join('')}
-            </div>
-          ` : ''}
+          <div class="class-bonus-section">
+            <span class="class-bonus-label">Base Bonuses</span>
+            ${(c.base_bonuses || []).map(b => `<div class="class-bonus-line">• ${escapeHtml(b)}</div>`).join('')}
+            ${(c.penalties || []).map(p => `<div class="class-bonus-line penalty">▼ ${escapeHtml(p)}</div>`).join('')}
+          </div>
+          <div class="class-bonus-section">
+            <span class="class-bonus-label">Mastery Bonuses</span>
+            ${(c.mastery_bonuses || []).map(b => `<div class="class-bonus-line">• ${escapeHtml(b)}</div>`).join('')}
+          </div>
+          ${renderSubjectLine(c.subject_id ? state.subjectMap.get(c.subject_id) : null)}
         </div>
       </div>
     `).join('');
+
+    // Test subjects without a class of the same name (Jack o' Lantern)
+    const showStandalone = selectedClassFilter === 'all' || selectedClassFilter === 'universal';
+    const standaloneCards = showStandalone ? (state.classesData.subjects || []).filter(s => !s.class_id).map(s => `
+      <div class="class-card">
+        <div class="class-card-top">
+          <span class="class-name">${escapeHtml(s.name)}</span>
+          <div class="class-card-actions"><span class="rec-badge">TEST SUBJECT ONLY</span></div>
+        </div>
+        <div class="class-bonuses">${renderSubjectLine(s)}</div>
+      </div>
+    `).join('') : '';
+
+    listGrid.innerHTML = classCards + standaloneCards;
 
     listGrid.querySelectorAll('.btn-view-fusions').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -1628,6 +1807,67 @@
         renderCombinations();
       });
     });
+  }
+
+  // --- Codex Tab: Artifact & Synergy Index (verified Encyclopedia text) ---
+  function renderArtifactIndex() {
+    const filterRow = document.getElementById('artifact-rarity-filters');
+    const list = document.getElementById('artifact-index-list');
+    const countEl = document.getElementById('artifact-index-count');
+    if (!filterRow || !list || !state.artifactsData) return;
+
+    const { rarity } = state.artifactIndex;
+    const options = [{ id: 'all', label: 'All' }, ...RARITY_ORDER.map(r => ({ id: r, label: r })), { id: 'synergy', label: 'Synergies' }];
+    filterRow.innerHTML = options.map(o => `
+      <button type="button" class="filter-chip ${rarity === o.id ? 'active' : ''}" data-rarity="${escapeHtml(o.id)}">
+        <span>${escapeHtml(o.label)}</span>
+      </button>
+    `).join('');
+    filterRow.querySelectorAll('.filter-chip').forEach(btn => {
+      btn.addEventListener('click', () => {
+        state.artifactIndex.rarity = btn.dataset.rarity;
+        renderArtifactIndex();
+      });
+    });
+
+    const q = state.artifactIndex.query.trim().toLowerCase();
+    const matches = parts => !q || parts.join(' ').toLowerCase().includes(q);
+    let html = '';
+    let count = 0;
+
+    if (rarity !== 'synergy') {
+      const arts = state.artifactsData.artifacts.filter(a =>
+        (rarity === 'all' || a.rarity === rarity) &&
+        matches([a.name, a.rarity, ...(a.effects || []), ...(a.penalties || [])])
+      );
+      count += arts.length;
+      if (arts.length > 0) html += renderArtifactEffectsList(arts);
+    }
+
+    if (rarity === 'all' || rarity === 'synergy') {
+      const syns = state.artifactsData.synergies.filter(s =>
+        matches([s.name, ...(s.effects || []), ...s.requires.map(getArtifactName)])
+      );
+      count += syns.length;
+      if (syns.length > 0) {
+        html += `
+          <div class="artifact-index-subhead">Synergies</div>
+          <ul class="artifact-effect-list">${syns.map(s => `
+            <li class="artifact-effect-item">
+              <div class="artifact-effect-head">
+                <span class="artifact-effect-name synergy">${escapeHtml(s.name)}</span>
+                <span class="artifact-effect-rarity">Synergy</span>
+              </div>
+              ${(s.effects || []).map(e => `<div class="artifact-effect-text">${escapeHtml(e)}</div>`).join('')}
+              <div class="artifact-effect-req">Requires: ${s.requires.map(id => escapeHtml(getArtifactName(id))).join(', ')}</div>
+            </li>`).join('')}
+          </ul>
+        `;
+      }
+    }
+
+    list.innerHTML = html || '<span class="placeholder-dim-text">No matching artifacts or synergies.</span>';
+    if (countEl) countEl.textContent = `${count} result${count === 1 ? '' : 's'}`;
   }
 
   // --- Setup Event Listeners ---
@@ -1720,6 +1960,17 @@
       renderCombinations();
     });
 
+    // Domain of Power toggle (+1 combination slot)
+    document.getElementById('toggle-domain-of-power')?.addEventListener('change', (e) => {
+      setDomainOfPower(e.target.checked);
+    });
+
+    // Artifact & Synergy Index search
+    document.getElementById('artifact-search-input')?.addEventListener('input', (e) => {
+      state.artifactIndex.query = e.target.value;
+      renderArtifactIndex();
+    });
+
     // Build Planner Actions
     document.getElementById('btn-copy-reddit')?.addEventListener('click', exportRedditMarkdown);
     document.getElementById('btn-share-url')?.addEventListener('click', copyShareUrl);
@@ -1802,15 +2053,22 @@
   // --- Initial Data Loader & App Bootstrap ---
   async function init() {
     try {
-      const [dbRes, taxRes, classesRes] = await Promise.all([
+      const [dbRes, taxRes, classesRes, artifactsRes] = await Promise.all([
         fetch('./data/combinations_v09941.json'),
         fetch('./data/filter_taxonomy_v09941.json'),
-        fetch('./data/classes_subjects_v09941.json')
+        fetch('./data/classes_subjects_v09941.json'),
+        fetch('./data/artifacts_v09941.json')
       ]);
 
       state.db = await dbRes.json();
       state.taxonomy = await taxRes.json();
       state.classesData = await classesRes.json();
+      state.artifactsData = await artifactsRes.json();
+
+      for (const a of state.artifactsData.artifacts) state.artifactMap.set(a.id, a);
+      for (const s of state.artifactsData.synergies) state.synergyMap.set(s.id, s);
+      for (const c of state.classesData.classes) state.classMap.set(c.id, c);
+      for (const s of state.classesData.subjects) state.subjectMap.set(s.id, s);
 
       // Fast Lookup Maps
       for (const c of state.db.combinations) {
@@ -1836,6 +2094,7 @@
       updateDock();
       renderPlanner();
       renderClassesDirectory();
+      renderArtifactIndex();
       checkCacheStatus();
       updateOnlineIndicator();
       updateCodexInstallCard();

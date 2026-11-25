@@ -2,31 +2,23 @@
   "meta": {
     "game": "Magic Survival",
     "version": "v0.9941",
-    "status": "skeleton_with_verified_core",
-    "verified_count": 2,
-    "total_classes": 25,
-    "total_subjects": 9,
-    "note": "Items marked verified:true are 100% locked from v0.9941 in-game screenshots. Items marked verified:false are ready to be updated directly from in-game screenshots without changing any app code."
-  },
-  "recommendation_rules": {
-    "single_focus_threshold": "If 1 fusion is pinned OR >=2 pinned fusions share the same Main Magic, rank the matching specialist class #1.",
-    "multi_fusion_rule": "If 2–3 pinned fusions have distinct Main Magics, rank Archmage / Archaeologist / Scholar as top universal picks alongside the highest-ranked Main Magic specialist.",
-    "scaling_overlap_bonus": "Boost subject & class score when their functional tags match the pinned build's dominant scaling tags (e.g., cdr_scaling, size_scaling, duration_scaling, crit_scaling)."
+    "status": "verified",
+    "source": "In-game class-select and Test Subject screens, captured 2026-11-25",
+    "total_classes": 24,
+    "total_subjects": 25,
+    "note": "Specialist classes give +3% damage to their magic every 5 character levels. Unowned test subjects cost 800 gems; Wizard is the default subject.",
+    "ultimate_requirement": "Ultimates (unlocked after clearing City) need the combination active, the class and test subject tied to its primary magic, and character Lv.100 (community FAQ, Magic Survival Discord)."
   },
   "classes": [
     {
       "id": "archmage",
       "name": "Archmage",
       "archetype": "universal",
-      "elements": [
-        "arcane"
+      "magic_id": null,
+      "related_magic_ids": [
+        "magic_circle"
       ],
-      "functional": [
-        "crowd_clear",
-        "nuke_burst",
-        "cdr_scaling"
-      ],
-      "primary_magic_id": null,
+      "elements": [],
       "base_bonuses": [
         "Start Level +3",
         "Combination Magic Damage increases by 50%"
@@ -37,138 +29,354 @@
         "Increase Combination Magic Damage by 50%",
         "Decrease All Magic Cooldown by 3% (All Classes)"
       ],
-      "recommended_when": "Best all-around pick when running 2–3 different Main Magics; accelerates early Lv.25/50/75 spikes and scales every Combination Magic.",
+      "subject_id": "subject_archmage",
       "verified": true
     },
     {
-      "id": "archaeologist",
-      "name": "Archaeologist",
-      "archetype": "universal",
+      "id": "astronomer",
+      "name": "Astronomer",
+      "archetype": "specialist",
+      "magic_id": "satellite",
+      "related_magic_ids": [
+        "satellite"
+      ],
       "elements": [
-        "void"
+        "cosmic"
       ],
-      "functional": [
-        "survival_utility",
-        "crowd_clear",
-        "nuke_burst"
-      ],
-      "primary_magic_id": null,
       "base_bonuses": [
-        "Extra Treasure Chest discovery rate",
-        "Artifact progression and item selection scaling"
+        "Satellite Lv +1",
+        "Every time the character gains 5 levels, Satellite Damage 3% is added"
       ],
       "mastery_bonuses": [
-        "Additional Treasure Chest spawn chance",
-        "Artifact inventory synergy and EXP gain scaling"
+        "Satellite Lv +1",
+        "Increase Satellite Rotation Speed by 50%",
+        "Increase the number of Satellites by 35%",
+        "Increase Satellite Damage by 20% (All Classes)"
       ],
-      "recommended_when": "Top late-game meta class for long runs (45m+) where extra Legendary/Special Artifacts and Artifact Synergies outweigh single-spell bonuses.",
-      "verified": false
+      "subject_id": "subject_astronomer",
+      "verified": true
     },
     {
-      "id": "scholar",
-      "name": "Scholar",
-      "archetype": "universal",
+      "id": "cryomancer",
+      "name": "Cryomancer",
+      "archetype": "specialist",
+      "magic_id": "frost_nova",
+      "related_magic_ids": [
+        "frost_nova"
+      ],
       "elements": [
-        "arcane"
+        "ice"
       ],
-      "functional": [
-        "survival_utility"
-      ],
-      "primary_magic_id": null,
       "base_bonuses": [
-        "Bonus Magic Choices during level-up",
-        "Faster leveling and increased EXP gain"
+        "Frost Nova Lv +1",
+        "Every time the character gains 5 levels, Frost Nova Damage 3% is added"
       ],
       "mastery_bonuses": [
-        "Additional Mana and EXP acquisition rate",
-        "Greater magic selection consistency"
+        "Frost Nova Lv +1",
+        "Decrease Frost Nova Cooldown by 20%",
+        "Increase Frost Nova Size by 25%",
+        "Increase Frost Nova Damage by 20% (All Classes)"
       ],
-      "recommended_when": "Great for reliably hitting Lv.75/100 and assembling strict multi-fusion recipes with minimal RNG.",
-      "verified": false
+      "subject_id": "subject_cryomancer",
+      "verified": true
     },
     {
-      "id": "black_mage",
-      "name": "Black Mage",
-      "archetype": "universal",
+      "id": "shaman",
+      "name": "Shaman",
+      "archetype": "specialist",
+      "magic_id": "thunderstorm",
+      "related_magic_ids": [
+        "thunderstorm"
+      ],
       "elements": [
-        "void"
+        "lightning"
       ],
-      "functional": [
-        "crowd_clear",
-        "explosion_aoe"
-      ],
-      "primary_magic_id": null,
       "base_bonuses": [
-        "Corpse Explosion triggers on enemy defeat",
-        "Dark Magic execution and damage scaling"
+        "Thunderstorm Lv +1",
+        "Every time the character gains 5 levels, Thunderstorm Damage 3% is added"
       ],
       "mastery_bonuses": [
-        "Increases Corpse Explosion trigger rate and blast radius",
-        "Boosts Dark Magic damage and execution threshold"
+        "Thunderstorm Lv +1",
+        "Decrease Thunderstorm Cooldown by 20%",
+        "Increase the number of Thunderstorms by 35%",
+        "Increase Thunderstorm Damage by 20% (All Classes)"
       ],
-      "recommended_when": "Strong universal crowd-clear amplifier for dense late-game swarms.",
-      "verified": false
+      "subject_id": "subject_shaman",
+      "verified": true
+    },
+    {
+      "id": "warlock",
+      "name": "Warlock",
+      "archetype": "specialist",
+      "magic_id": "meteor",
+      "related_magic_ids": [
+        "meteor"
+      ],
+      "elements": [
+        "fire"
+      ],
+      "base_bonuses": [
+        "Meteor Lv +1",
+        "Every time the character gains 5 levels, Meteor Damage 3% is added"
+      ],
+      "mastery_bonuses": [
+        "Meteor Lv +1",
+        "Decrease Meteor Cooldown by 20%",
+        "Increase the number of Meteors by 1",
+        "Increase Meteor Damage by 20% (All Classes)"
+      ],
+      "subject_id": "subject_warlock",
+      "verified": true
     },
     {
       "id": "arcanist",
       "name": "Arcanist",
       "archetype": "universal",
-      "elements": [
-        "arcane",
-        "void"
+      "magic_id": null,
+      "related_magic_ids": [
+        "magic_bolt",
+        "intelligence"
       ],
-      "functional": [
-        "nuke_burst",
-        "crowd_clear"
-      ],
-      "primary_magic_id": null,
+      "elements": [],
       "base_bonuses": [
-        "Starts with random magic selection",
-        "Massive global Magic Damage amplification"
+        "Magic Bolt Lv +1",
+        "Every time the character gains 1 levels, All Magic Damage 1% is added"
+      ],
+      "penalties": [
+        "Reduce Magic Choices by 1 and disable Mana Recovery"
       ],
       "mastery_bonuses": [
-        "Additional Magic Damage scaling",
-        "High Amplification ATK bonus across all magics"
+        "Intelligence Lv +1",
+        "Increase Mana Acquisition by 10%",
+        "Amplify ATK by 10%",
+        "Increase ATK by 5% (All Classes)"
       ],
-      "recommended_when": "High-ceiling challenge class for experienced players aiming for record runs.",
-      "verified": false
+      "subject_id": "subject_arcanist",
+      "verified": true
     },
     {
-      "id": "dark_wizard",
-      "name": "Dark Wizard",
-      "archetype": "universal",
+      "id": "summoner",
+      "name": "Summoner",
+      "archetype": "specialist",
+      "magic_id": "spirit",
+      "related_magic_ids": [
+        "spirit"
+      ],
       "elements": [
-        "void"
+        "arcane"
       ],
-      "functional": [
-        "explosion_aoe",
-        "crowd_clear"
-      ],
-      "primary_magic_id": null,
       "base_bonuses": [
-        "Enemy death explosion and Max HP reduction synergy",
-        "Dark Magic damage amplification"
+        "Spirit Lv +1",
+        "Every time the character gains 5 levels, Spirit Damage 3% is added"
       ],
       "mastery_bonuses": [
-        "Increases Corpse Explosion radius and damage",
-        "Reduces enemy Max HP upon defeat"
+        "Spirit Lv +1",
+        "Decrease Spirit Cooldown by 20%",
+        "Increase the number of Spirits by 35%",
+        "Increase Spirit Damage by 20% (All Classes)"
       ],
-      "recommended_when": "Pairs well with fast-killing AoE builds to chain-detonate enemy waves.",
-      "verified": false
+      "subject_id": "subject_summoner",
+      "verified": true
+    },
+    {
+      "id": "bishop",
+      "name": "Bishop",
+      "archetype": "universal",
+      "magic_id": null,
+      "related_magic_ids": [
+        "magic_bolt",
+        "shield"
+      ],
+      "elements": [],
+      "base_bonuses": [
+        "Magic Bolt & Shield Lv +1",
+        "For each active Shield, ATK is Amplified by 10%",
+        "Shield remains active even when used in Combination Magic."
+      ],
+      "mastery_bonuses": [
+        "Guardian Angel Lv +1",
+        "Decrease Shield Cooldown by 20%",
+        "Increase the maximum number of Shields by 1",
+        "Decrease Damage Taken by 5% (All Classes)"
+      ],
+      "subject_id": "subject_bishop",
+      "verified": true
+    },
+    {
+      "id": "occultist",
+      "name": "Occultist",
+      "archetype": "specialist",
+      "magic_id": "arcane_ray",
+      "related_magic_ids": [
+        "arcane_ray"
+      ],
+      "elements": [
+        "arcane"
+      ],
+      "base_bonuses": [
+        "Arcane Ray Lv +1",
+        "Every time the character gains 5 levels, Arcane Ray Damage 3% is added"
+      ],
+      "mastery_bonuses": [
+        "Arcane Ray Lv +1",
+        "Decrease Arcane Ray Cooldown by 20%",
+        "Increase the number of Arcane Rays by 35%",
+        "Increase Arcane Ray Damage by 20% (All Classes)"
+      ],
+      "subject_id": "subject_occultist",
+      "verified": true
+    },
+    {
+      "id": "druid",
+      "name": "Druid",
+      "archetype": "specialist",
+      "magic_id": "cyclone",
+      "related_magic_ids": [
+        "cyclone"
+      ],
+      "elements": [
+        "storm"
+      ],
+      "base_bonuses": [
+        "Cyclone Lv +1",
+        "Every time the character gains 5 levels, Cyclone Damage 3% is added"
+      ],
+      "mastery_bonuses": [
+        "Cyclone Lv +1",
+        "Decrease Cyclone Cooldown by 20%",
+        "Increase the number of Cyclones by 1",
+        "Increase Cyclone Damage by 20% (All Classes)"
+      ],
+      "subject_id": "subject_druid",
+      "verified": true
+    },
+    {
+      "id": "pyromancer",
+      "name": "Pyromancer",
+      "archetype": "specialist",
+      "magic_id": "fireball",
+      "related_magic_ids": [
+        "fireball"
+      ],
+      "elements": [
+        "fire"
+      ],
+      "base_bonuses": [
+        "Fireball Lv +1",
+        "Every time the character gains 5 levels, Fireball Damage 3% is added"
+      ],
+      "mastery_bonuses": [
+        "Fireball Lv +1",
+        "Decrease Fireball Cooldown by 20%",
+        "Increase the number of Fireballs by 1",
+        "Increase Fireball Damage by 20% (All Classes)"
+      ],
+      "subject_id": "subject_pyromancer",
+      "verified": true
+    },
+    {
+      "id": "sorcerer",
+      "name": "Sorcerer",
+      "archetype": "specialist",
+      "magic_id": "electric_shock",
+      "related_magic_ids": [
+        "electric_shock"
+      ],
+      "elements": [
+        "lightning"
+      ],
+      "base_bonuses": [
+        "Electric Shock Lv +1",
+        "Every time the character gains 5 levels, Electric Shock Damage 3% is added"
+      ],
+      "mastery_bonuses": [
+        "Electric Shock Lv +1",
+        "Decrease Electric Shock Cooldown by 20%",
+        "Increase the number of Electric Shocks by 35%",
+        "Increase Electric Shock Damage by 20% (All Classes)"
+      ],
+      "subject_id": "subject_sorcerer",
+      "verified": true
+    },
+    {
+      "id": "alchemist",
+      "name": "Alchemist",
+      "archetype": "specialist",
+      "magic_id": "energy_bolt",
+      "related_magic_ids": [
+        "energy_bolt"
+      ],
+      "elements": [
+        "arcane"
+      ],
+      "base_bonuses": [
+        "Energy Bolt Lv +1",
+        "Every time the character gains 5 levels, Energy Bolt Damage 3% is added"
+      ],
+      "mastery_bonuses": [
+        "Energy Bolt Lv +1",
+        "Decrease Energy Bolt Cooldown by 20%",
+        "Increase the number of Energy Bolts by 35%",
+        "Increase Energy Bolt Damage by 20% (All Classes)"
+      ],
+      "subject_id": "subject_alchemist",
+      "verified": true
+    },
+    {
+      "id": "scholar",
+      "name": "Scholar",
+      "archetype": "universal",
+      "magic_id": null,
+      "related_magic_ids": [],
+      "elements": [],
+      "base_bonuses": [
+        "Start Level +3",
+        "Every time the character gains 1 level, All Magic Damage increases by 1%"
+      ],
+      "mastery_bonuses": [
+        "Doctor Lv +1",
+        "Retrieve 30% more Mana when retrieving Mana.",
+        "50% increased chance to have 4 Magic choices.",
+        "Increase Mana Acquisition by 5% (All Classes)"
+      ],
+      "subject_id": "subject_scholar",
+      "verified": true
+    },
+    {
+      "id": "witch",
+      "name": "Witch",
+      "archetype": "specialist",
+      "magic_id": "lava_zone",
+      "related_magic_ids": [
+        "lava_zone"
+      ],
+      "elements": [
+        "fire"
+      ],
+      "base_bonuses": [
+        "Lava Zone Lv +1",
+        "Every time the character gains 5 levels, Lava Zone Damage 3% is added"
+      ],
+      "mastery_bonuses": [
+        "Lava Zone Lv +1",
+        "Decrease Lava Zone Cooldown by 20%",
+        "Increase the number of Lava Zones by 1",
+        "Increase Lava Zone Damage by 20% (All Classes)"
+      ],
+      "subject_id": "subject_witch",
+      "verified": true
     },
     {
       "id": "electromancer",
       "name": "Electromancer",
       "archetype": "specialist",
+      "magic_id": "electric_zone",
+      "related_magic_ids": [
+        "electric_zone"
+      ],
       "elements": [
         "lightning"
       ],
-      "functional": [
-        "orbital_aura",
-        "crowd_clear",
-        "size_scaling"
-      ],
-      "primary_magic_id": "electric_zone",
       "base_bonuses": [
         "Electric Zone Lv +1",
         "Every time the character gains 5 levels, Electric Zone Damage 3% is added"
@@ -179,608 +387,422 @@
         "Increase Electric Zone Size by 25%",
         "Increase Electric Zone Damage by 20% (All Classes)"
       ],
-      "recommended_when": "Best pick when your Main Magic is Electric Zone (Lightning Calibration, Meisner Effect, Destroyer, Frozen Heart).",
+      "subject_id": "subject_electromancer",
       "verified": true
-    },
-    {
-      "id": "sorcerer",
-      "name": "Sorcerer",
-      "archetype": "specialist",
-      "elements": [
-        "lightning"
-      ],
-      "functional": [
-        "crowd_clear",
-        "rapid_fire",
-        "nuke_burst"
-      ],
-      "primary_magic_id": "electric_shock",
-      "base_bonuses": [
-        "Starts with Electric Shock Lv +1",
-        "Scales Electric Shock damage, count, and cooldown"
-      ],
-      "mastery_bonuses": [
-        "Increases Electric Shock strike count and damage",
-        "Decreases Electric Shock cooldown"
-      ],
-      "recommended_when": "Top specialist for Electric Shock Main fusions (Current Overload, Heart of Lightning, Lightning Breath, Discharge).",
-      "verified": false
-    },
-    {
-      "id": "shaman",
-      "name": "Shaman",
-      "archetype": "specialist",
-      "elements": [
-        "lightning"
-      ],
-      "functional": [
-        "nuke_burst",
-        "explosion_aoe",
-        "cc_freeze_stun"
-      ],
-      "primary_magic_id": "thunderstorm",
-      "base_bonuses": [
-        "Starts with Thunderstorm Lv +1",
-        "Scales Thunderstorm damage, strike count, and blast radius"
-      ],
-      "mastery_bonuses": [
-        "Increases Thunderstorm strike count and area",
-        "Decreases Thunderstorm cooldown"
-      ],
-      "recommended_when": "Best pick for Thunderstorm Main fusions (Astrape, Empyrean Wrath, Lightning Bolts, Orbital Strike).",
-      "verified": false
-    },
-    {
-      "id": "wizard",
-      "name": "Wizard",
-      "archetype": "specialist",
-      "elements": [
-        "arcane"
-      ],
-      "functional": [
-        "rapid_fire",
-        "crowd_clear"
-      ],
-      "primary_magic_id": "magic_bolt",
-      "base_bonuses": [
-        "Starts with Magic Bolt Lv +1",
-        "Scales Magic Bolt damage, count, and velocity"
-      ],
-      "mastery_bonuses": [
-        "Increases Magic Bolt projectile count and damage",
-        "Decreases Magic Bolt cooldown"
-      ],
-      "recommended_when": "Best pick for Magic Bolt Main fusions (Blaster, Avatar, Pyrotechnics).",
-      "verified": false
-    },
-    {
-      "id": "summoner",
-      "name": "Summoner",
-      "archetype": "specialist",
-      "elements": [
-        "arcane"
-      ],
-      "functional": [
-        "rapid_fire",
-        "cdr_scaling",
-        "nuke_burst"
-      ],
-      "primary_magic_id": "spirit",
-      "base_bonuses": [
-        "Starts with Spirit Lv +1",
-        "Scales Spirit blade count, damage, and projectile speed"
-      ],
-      "mastery_bonuses": [
-        "Increases Spirit blade count and damage",
-        "Decreases Spirit attack cooldown"
-      ],
-      "recommended_when": "S-tier specialist for Spirit Main fusions (Telekinetic Sword, Supernova, Mana Spear).",
-      "verified": false
-    },
-    {
-      "id": "pyromancer",
-      "name": "Pyromancer",
-      "archetype": "specialist",
-      "elements": [
-        "fire"
-      ],
-      "functional": [
-        "explosion_aoe",
-        "nuke_burst",
-        "size_scaling"
-      ],
-      "primary_magic_id": "fireball",
-      "base_bonuses": [
-        "Starts with Fireball Lv +1",
-        "Scales Fireball damage, count, and explosion size"
-      ],
-      "mastery_bonuses": [
-        "Increases Fireball projectile count and blast radius",
-        "Decreases Fireball cooldown"
-      ],
-      "recommended_when": "Best pick for Fireball Main fusions (Black Death, Ghastly Rampage, Demon Equation).",
-      "verified": false
-    },
-    {
-      "id": "occultist",
-      "name": "Occultist",
-      "archetype": "specialist",
-      "elements": [
-        "arcane"
-      ],
-      "functional": [
-        "beam_laser",
-        "duration_scaling",
-        "nuke_burst"
-      ],
-      "primary_magic_id": "arcane_ray",
-      "base_bonuses": [
-        "Starts with Arcane Ray Lv +1",
-        "Scales Arcane Ray beam count, duration, and damage"
-      ],
-      "mastery_bonuses": [
-        "Increases Arcane Ray beam count and duration",
-        "Decreases Arcane Ray cooldown"
-      ],
-      "recommended_when": "Best pick for Arcane Ray Main fusions (Prism Spray, Terra Current, Plasma Ray, Genocide, Energy Bombardment).",
-      "verified": false
-    },
-    {
-      "id": "magician",
-      "name": "Magician",
-      "archetype": "specialist",
-      "elements": [
-        "arcane"
-      ],
-      "functional": [
-        "rapid_fire",
-        "explosion_aoe",
-        "duration_scaling"
-      ],
-      "primary_magic_id": "energy_bolt",
-      "base_bonuses": [
-        "Starts with Energy Bolt Lv +1",
-        "Scales Energy Bolt projectile count, size, and damage"
-      ],
-      "mastery_bonuses": [
-        "Increases Energy Bolt count and damage",
-        "Decreases Energy Bolt cooldown"
-      ],
-      "recommended_when": "Best pick for Energy Bolt Main fusions (Origin Explosion, Crazed Spray, Reaction).",
-      "verified": false
-    },
-    {
-      "id": "battle_mage",
-      "name": "Battle Mage",
-      "archetype": "specialist",
-      "elements": [
-        "arcane"
-      ],
-      "functional": [
-        "pierce_slash",
-        "nuke_burst",
-        "cdr_scaling"
-      ],
-      "primary_magic_id": "flash_shock",
-      "base_bonuses": [
-        "Starts with Flash Shock Lv +1",
-        "Scales Flash Shock strike width, damage, and cooldown"
-      ],
-      "mastery_bonuses": [
-        "Increases Flash Shock strike width and damage",
-        "Decreases Flash Shock cooldown"
-      ],
-      "recommended_when": "Top pick for Flash Shock Main fusions (Gate, Brandish, Exidium, Frenzy).",
-      "verified": false
-    },
-    {
-      "id": "warlord",
-      "name": "Warlord",
-      "archetype": "specialist",
-      "elements": [
-        "fire"
-      ],
-      "functional": [
-        "crowd_clear",
-        "nuke_burst",
-        "explosion_aoe"
-      ],
-      "primary_magic_id": "incineration",
-      "base_bonuses": [
-        "Starts with Incineration Lv +1",
-        "Scales Incineration flame size, count, and duration"
-      ],
-      "mastery_bonuses": [
-        "Increases Incineration flame length and damage",
-        "Decreases Incineration cooldown"
-      ],
-      "recommended_when": "Best pick for Incineration Main fusions (Hellfire, Inferno, Breath of Fire).",
-      "verified": false
-    },
-    {
-      "id": "warlock",
-      "name": "Warlock",
-      "archetype": "specialist",
-      "elements": [
-        "fire"
-      ],
-      "functional": [
-        "nuke_burst",
-        "explosion_aoe",
-        "size_scaling"
-      ],
-      "primary_magic_id": "meteor",
-      "base_bonuses": [
-        "Starts with Meteor Lv +1",
-        "Scales Meteor damage, blast size, and drop count"
-      ],
-      "mastery_bonuses": [
-        "Increases Meteor blast radius and impact damage",
-        "Decreases Meteor cooldown"
-      ],
-      "recommended_when": "Best pick for Meteor Main fusions (War Climate, Flame Storm, Great Impact).",
-      "verified": false
-    },
-    {
-      "id": "astronomer",
-      "name": "Astronomer",
-      "archetype": "specialist",
-      "elements": [
-        "cosmic"
-      ],
-      "functional": [
-        "orbital_aura",
-        "size_scaling",
-        "crit_scaling"
-      ],
-      "primary_magic_id": "satellite",
-      "base_bonuses": [
-        "Starts with Satellite Lv +1",
-        "Scales Satellite orb count, size, and rotation speed"
-      ],
-      "mastery_bonuses": [
-        "Increases Satellite orb count and rotation speed",
-        "Decreases Satellite rotation cooldown"
-      ],
-      "recommended_when": "Best pick for Satellite Main fusions (Hyperion, Soul Blade, Magnetic Field).",
-      "verified": false
-    },
-    {
-      "id": "druid",
-      "name": "Druid",
-      "archetype": "specialist",
-      "elements": [
-        "storm"
-      ],
-      "functional": [
-        "crowd_clear",
-        "duration_scaling",
-        "count_scaling"
-      ],
-      "primary_magic_id": "cyclone",
-      "base_bonuses": [
-        "Starts with Cyclone Lv +1",
-        "Scales Cyclone count, size, duration, and damage"
-      ],
-      "mastery_bonuses": [
-        "Increases Cyclone creation count and duration",
-        "Decreases Cyclone cooldown"
-      ],
-      "recommended_when": "Best pick for Cyclone Main fusions (Neutron Generation, Black Hole, Vortex, Ruler of Storms, Super Cyclone).",
-      "verified": false
-    },
-    {
-      "id": "mage_blizzard",
-      "name": "Elementalist",
-      "archetype": "specialist",
-      "elements": [
-        "ice"
-      ],
-      "functional": [
-        "cc_freeze_stun",
-        "nuke_burst",
-        "explosion_aoe"
-      ],
-      "primary_magic_id": "blizzard",
-      "base_bonuses": [
-        "Starts with Blizzard Lv +1",
-        "Scales Blizzard damage, drop rate, and freeze chance"
-      ],
-      "mastery_bonuses": [
-        "Increases Blizzard drop count and freeze duration",
-        "Decreases Blizzard cooldown"
-      ],
-      "recommended_when": "Best pick for Blizzard Main fusions (Genesis, Ether Blaze, Winter Storm).",
-      "verified": false
-    },
-    {
-      "id": "cryomancer",
-      "name": "Cryomancer",
-      "archetype": "specialist",
-      "elements": [
-        "ice"
-      ],
-      "functional": [
-        "cc_freeze_stun",
-        "crowd_clear",
-        "size_scaling"
-      ],
-      "primary_magic_id": "frost_nova",
-      "base_bonuses": [
-        "Starts with Frost Nova Lv +1",
-        "Scales Frost Nova size, freeze duration, and damage"
-      ],
-      "mastery_bonuses": [
-        "Increases Frost Nova freeze radius and duration",
-        "Decreases Frost Nova cooldown"
-      ],
-      "recommended_when": "Best pick for Frost Nova Main fusions (Snowflake Blossom, Great Rift).",
-      "verified": false
-    },
-    {
-      "id": "sea_king",
-      "name": "Tsunami Specialist",
-      "archetype": "specialist",
-      "elements": [
-        "storm",
-        "ice"
-      ],
-      "functional": [
-        "crowd_clear",
-        "nuke_burst"
-      ],
-      "primary_magic_id": "tsunami",
-      "base_bonuses": [
-        "Starts with Tsunami Lv +1",
-        "Scales Tsunami wave count, damage, and cooldown"
-      ],
-      "mastery_bonuses": [
-        "Increases Tsunami wave count and damage",
-        "Decreases Tsunami cooldown"
-      ],
-      "recommended_when": "Best pick for Tsunami Main fusions (Phoenix, Glacium, Great Flood).",
-      "verified": false
-    },
-    {
-      "id": "alchemist",
-      "name": "Alchemist",
-      "archetype": "specialist",
-      "elements": [
-        "fire"
-      ],
-      "functional": [
-        "crowd_clear",
-        "duration_scaling",
-        "explosion_aoe"
-      ],
-      "primary_magic_id": "lava_zone",
-      "base_bonuses": [
-        "Starts with Lava Zone Lv +1",
-        "Scales Lava Zone pool size, duration, and damage"
-      ],
-      "mastery_bonuses": [
-        "Increases Lava Zone area and melt duration",
-        "Decreases Lava Zone cooldown"
-      ],
-      "recommended_when": "Best pick for Lava Zone Main fusions (Age of the Sun, Furnace).",
-      "verified": false
-    },
-    {
-      "id": "bishop",
-      "name": "Bishop",
-      "archetype": "specialist",
-      "elements": [
-        "void",
-        "arcane"
-      ],
-      "functional": [
-        "survival_utility",
-        "nuke_burst",
-        "size_scaling"
-      ],
-      "primary_magic_id": "shield",
-      "base_bonuses": [
-        "Starts with Shield Lv +1",
-        "Scales Shield charge count, cooldown, and photon explosion"
-      ],
-      "mastery_bonuses": [
-        "Decreases Shield recharge time",
-        "Increases Shield charge capacity and defensive explosion damage"
-      ],
-      "recommended_when": "Key meta specialist for Shield/Photon Explosion runs and high-survivability builds.",
-      "verified": false
     },
     {
       "id": "arbiter",
       "name": "Arbiter",
       "archetype": "specialist",
+      "magic_id": "tsunami",
+      "related_magic_ids": [
+        "tsunami"
+      ],
       "elements": [
-        "void"
+        "storm"
       ],
-      "functional": [
-        "survival_utility",
-        "duration_scaling",
-        "nuke_burst"
-      ],
-      "primary_magic_id": "cloaking",
       "base_bonuses": [
-        "Starts with Cloaking Lv +1",
-        "Scales Cloaking duration, invulnerability, and speed"
+        "Tsunami Lv +1",
+        "Every time the character gains 5 levels, Tsunami Damage 3% is added"
       ],
       "mastery_bonuses": [
-        "Decreases Cloaking cooldown",
-        "Increases Cloaking duration and movement speed bonus"
+        "Tsunami Lv +1",
+        "Decrease Tsunami Cooldown by 20%",
+        "Increase the number of Tsunamis by 35%",
+        "Increase Tsunami Damage by 20% (All Classes)"
       ],
-      "recommended_when": "Best pick for Teleport (Cloaking Main) builds and survival-focused late-game setups.",
-      "verified": false
+      "subject_id": "subject_arbiter",
+      "verified": true
+    },
+    {
+      "id": "archaeologist",
+      "name": "Archaeologist",
+      "archetype": "universal",
+      "magic_id": null,
+      "related_magic_ids": [
+        "magic_bolt"
+      ],
+      "elements": [],
+      "base_bonuses": [
+        "Magic Bolt Lv +1",
+        "A Treasure Chest is created for every 20 Character levels."
+      ],
+      "mastery_bonuses": [
+        "Explorer Lv +1",
+        "Increase Mana Acquisition by 10%",
+        "Treasure Chests are created 10% more frequently.",
+        "Increase Item Pickup Range by 20% (All Classes)"
+      ],
+      "subject_id": "subject_archaeologist",
+      "verified": true
+    },
+    {
+      "id": "magician",
+      "name": "Magician",
+      "archetype": "universal",
+      "magic_id": null,
+      "related_magic_ids": [
+        "magic_bolt"
+      ],
+      "elements": [],
+      "base_bonuses": [
+        "Magic Bolt Lv +1",
+        "20% increased chance for a Magic Bolt to turn into a random projectile."
+      ],
+      "mastery_bonuses": [
+        "Magic Bolt Lv +1",
+        "5% increased chance for a Magic Bolt to be transformed into a random projectile.",
+        "5% increased chance for a Magic Bolt to be transformed into a random projectile.",
+        "Increase Critical Strike Rate by 3% (All Classes)"
+      ],
+      "subject_id": "subject_magician",
+      "verified": true
+    },
+    {
+      "id": "mage",
+      "name": "Mage",
+      "archetype": "specialist",
+      "magic_id": "blizzard",
+      "related_magic_ids": [
+        "blizzard"
+      ],
+      "elements": [
+        "ice"
+      ],
+      "base_bonuses": [
+        "Blizzard Lv +1",
+        "Every time the character gains 5 levels, Blizzard Damage 3% is added"
+      ],
+      "mastery_bonuses": [
+        "Blizzard Lv +1",
+        "Decrease Blizzard Cooldown by 20%",
+        "Increase the number of Blizzards by 35%",
+        "Increase Blizzard Damage by 20% (All Classes)"
+      ],
+      "subject_id": "subject_mage",
+      "verified": true
+    },
+    {
+      "id": "battlemage",
+      "name": "Battlemage",
+      "archetype": "specialist",
+      "magic_id": "flash_shock",
+      "related_magic_ids": [
+        "flash_shock"
+      ],
+      "elements": [
+        "arcane"
+      ],
+      "base_bonuses": [
+        "Flash Shock Lv +1",
+        "Every time the character gains 5 levels, Flash Shock Damage 3% is added"
+      ],
+      "mastery_bonuses": [
+        "Flash Shock Lv +1",
+        "Decrease Flash Shock Cooldown by 20%",
+        "Increase Flash Shock Size by 25%",
+        "Increase Flash Shock Damage by 20% (All Classes)"
+      ],
+      "subject_id": "subject_battlemage",
+      "verified": true
+    },
+    {
+      "id": "warlord",
+      "name": "Warlord",
+      "archetype": "specialist",
+      "magic_id": "incineration",
+      "related_magic_ids": [
+        "incineration"
+      ],
+      "elements": [
+        "fire"
+      ],
+      "base_bonuses": [
+        "Incineration Lv +1",
+        "Every time the character gains 5 levels, Incineration Damage 3% is added"
+      ],
+      "mastery_bonuses": [
+        "Incineration Lv +1",
+        "Decrease Incineration Cooldown by 20%",
+        "Increase Incineration Size by 25%",
+        "Increase Incineration Damage by 20% (All Classes)"
+      ],
+      "subject_id": "subject_warlord",
+      "verified": true
+    },
+    {
+      "id": "black_mage",
+      "name": "Black Mage",
+      "archetype": "universal",
+      "magic_id": null,
+      "related_magic_ids": [
+        "magic_bolt",
+        "arcane_effuse"
+      ],
+      "elements": [],
+      "base_bonuses": [
+        "Magic Bolt Lv +1",
+        "10% chance to cause an Explosion when killing an enemy. (Explosion Damage is 15% of the enemy's Max HP)"
+      ],
+      "mastery_bonuses": [
+        "Arcane Effuse Lv +1",
+        "5% increased chance for enemies to explode when killed",
+        "5% increased chance for enemies to explode when killed",
+        "Increase All Magic Size by 3% (All Classes)"
+      ],
+      "subject_id": "subject_black_mage",
+      "verified": true
+    },
+    {
+      "id": "wizard",
+      "name": "Wizard",
+      "archetype": "specialist",
+      "magic_id": "magic_bolt",
+      "related_magic_ids": [
+        "magic_bolt"
+      ],
+      "elements": [
+        "arcane"
+      ],
+      "base_bonuses": [
+        "Magic Bolt Lv +1",
+        "Every time the character gains 5 levels, Magic Bolt Damage 3% is added"
+      ],
+      "mastery_bonuses": [
+        "Magic Bolt Lv +1",
+        "Decrease Magic Bolt Cooldown by 20%",
+        "Increase the number of Magic Bolts by 1",
+        "Increase Magic Bolt Damage by 20% (All Classes)"
+      ],
+      "subject_id": "subject_wizard",
+      "verified": true
     }
   ],
   "subjects": [
     {
-      "id": "subject_archmage",
-      "name": "Archmage",
-      "archetype": "universal",
-      "elements": [
-        "arcane"
-      ],
-      "functional": [
-        "cdr_scaling",
-        "crowd_clear",
-        "nuke_burst"
-      ],
-      "synergy_magics": [],
-      "starting_artifact_hint": "Black Cat (Cooldown Reduction)",
-      "recommended_when": "Universal top pick for almost any CDR-hungry build (Telekinetic Sword, Brandish, Gate, Black Death).",
-      "verified": false
-    },
-    {
-      "id": "subject_jack_o_lantern",
-      "name": "Jack O'Lantern",
-      "archetype": "universal",
-      "elements": [
-        "void"
-      ],
-      "functional": [
-        "survival_utility",
-        "crowd_clear"
-      ],
-      "synergy_magics": [],
-      "starting_artifact_hint": "Lantern (Mana Acquisition & Pickup Range)",
-      "recommended_when": "Great for fast early leveling and smooth economy.",
-      "verified": false
-    },
-    {
-      "id": "subject_demon",
-      "name": "Demon",
-      "archetype": "universal",
-      "elements": [
-        "fire",
-        "void"
-      ],
-      "functional": [
-        "nuke_burst",
-        "crit_scaling"
-      ],
-      "synergy_magics": [],
-      "starting_artifact_hint": "Ruby / Critical Strike (Raw Damage & Crit Scaling)",
-      "recommended_when": "Strong raw damage & crit scaling (especially Soul Blade or high-multiplier nukes).",
-      "verified": false
-    },
-    {
-      "id": "subject_spirit",
-      "name": "Spirit",
-      "archetype": "specialist",
-      "elements": [
-        "arcane"
-      ],
-      "functional": [
-        "rapid_fire",
-        "cdr_scaling"
-      ],
-      "synergy_magics": [
-        "spirit"
-      ],
-      "starting_artifact_hint": "Firefly (Spirit Number & Damage)",
-      "recommended_when": "Best subject when running Spirit Main fusions (Telekinetic Sword, Supernova, Mana Spear).",
-      "verified": false
-    },
-    {
       "id": "subject_wizard",
       "name": "Wizard",
-      "archetype": "specialist",
-      "elements": [
-        "arcane"
-      ],
-      "functional": [
-        "rapid_fire",
-        "crowd_clear"
-      ],
-      "synergy_magics": [
-        "magic_bolt"
-      ],
-      "starting_artifact_hint": "Magic Bullet (Magic Bolt Count & Damage)",
-      "recommended_when": "Best subject for Magic Bolt Main builds (Blaster, Avatar, Pyrotechnics).",
-      "verified": false
-    },
-    {
-      "id": "subject_pyromancer",
-      "name": "Pyromancer",
-      "archetype": "specialist",
-      "elements": [
-        "fire"
-      ],
-      "functional": [
-        "explosion_aoe",
-        "size_scaling"
-      ],
-      "synergy_magics": [
-        "fireball",
-        "meteor",
-        "incineration",
-        "lava_zone"
-      ],
-      "starting_artifact_hint": "Cauldron (Fire Magic Damage & Explosion Size)",
-      "recommended_when": "Ideal for Fire-element builds (Black Death, Hellfire, Inferno, Origin Explosion).",
-      "verified": false
-    },
-    {
-      "id": "subject_electromancer",
-      "name": "Electromancer",
-      "archetype": "specialist",
-      "elements": [
-        "lightning"
-      ],
-      "functional": [
-        "crowd_clear",
-        "orbital_aura"
-      ],
-      "synergy_magics": [
-        "electric_shock",
-        "electric_zone",
-        "thunderstorm"
-      ],
-      "starting_artifact_hint": "Battery (Electric Magic Damage & Count)",
-      "recommended_when": "Ideal for Lightning-element builds (Current Overload, Heart of Lightning, Astrape, Lightning Calibration).",
-      "verified": false
-    },
-    {
-      "id": "subject_cryomancer",
-      "name": "Cryomancer",
-      "archetype": "specialist",
-      "elements": [
-        "ice"
-      ],
-      "functional": [
-        "cc_freeze_stun",
-        "crowd_clear"
-      ],
-      "synergy_magics": [
-        "frost_nova",
-        "blizzard",
-        "tsunami"
-      ],
-      "starting_artifact_hint": "Snowman (Ice Magic Damage & Freeze Duration)",
-      "recommended_when": "Ideal for Ice/Freeze builds (Snowflake Blossom, Glacium, Genesis, Great Rift).",
-      "verified": false
+      "class_id": "wizard",
+      "magic_id": "magic_bolt",
+      "starting_artifact_id": null,
+      "bonus": "Increase Magic Bolt Damage by 5% (All Classes)",
+      "verified": true
     },
     {
       "id": "subject_astronomer",
       "name": "Astronomer",
-      "archetype": "specialist",
-      "elements": [
-        "cosmic"
-      ],
-      "functional": [
-        "orbital_aura",
-        "size_scaling"
-      ],
-      "synergy_magics": [
-        "satellite",
-        "arcane_ray"
-      ],
-      "starting_artifact_hint": "Core Energy (Satellite Count & Rotation Speed)",
-      "recommended_when": "Ideal for Satellite & Orbital builds (Hyperion, Soul Blade, Plasma Ray).",
-      "verified": false
+      "class_id": "astronomer",
+      "magic_id": "satellite",
+      "starting_artifact_id": "core_energy",
+      "bonus": "Increase Satellite Damage by 5% (All Classes)",
+      "verified": true
+    },
+    {
+      "id": "subject_cryomancer",
+      "name": "Cryomancer",
+      "class_id": "cryomancer",
+      "magic_id": "frost_nova",
+      "starting_artifact_id": "moon_crystal",
+      "bonus": "Increase Frost Nova Damage by 5% (All Classes)",
+      "verified": true
+    },
+    {
+      "id": "subject_shaman",
+      "name": "Shaman",
+      "class_id": "shaman",
+      "magic_id": "thunderstorm",
+      "starting_artifact_id": "mjolnir",
+      "bonus": "Increase Thunderstorm Damage by 5% (All Classes)",
+      "verified": true
+    },
+    {
+      "id": "subject_warlock",
+      "name": "Warlock",
+      "class_id": "warlock",
+      "magic_id": "meteor",
+      "starting_artifact_id": "dimensional_gate",
+      "bonus": "Increase Meteor Damage by 5% (All Classes)",
+      "verified": true
+    },
+    {
+      "id": "subject_arcanist",
+      "name": "Arcanist",
+      "class_id": "arcanist",
+      "magic_id": null,
+      "starting_artifact_id": "mana_ore",
+      "bonus": "Increase ATK by 2% (All Classes)",
+      "verified": true
+    },
+    {
+      "id": "subject_summoner",
+      "name": "Summoner",
+      "class_id": "summoner",
+      "magic_id": "spirit",
+      "starting_artifact_id": "magic_wand",
+      "bonus": "Increase Spirit Damage by 5% (All Classes)",
+      "verified": true
+    },
+    {
+      "id": "subject_bishop",
+      "name": "Bishop",
+      "class_id": "bishop",
+      "magic_id": null,
+      "starting_artifact_id": "aegis",
+      "bonus": "Decrease Damage Taken by 2% (All Classes)",
+      "verified": true
+    },
+    {
+      "id": "subject_occultist",
+      "name": "Occultist",
+      "class_id": "occultist",
+      "magic_id": "arcane_ray",
+      "starting_artifact_id": "otherworldly_tentacle",
+      "bonus": "Increase Arcane Ray Damage by 5% (All Classes)",
+      "verified": true
+    },
+    {
+      "id": "subject_druid",
+      "name": "Druid",
+      "class_id": "druid",
+      "magic_id": "cyclone",
+      "starting_artifact_id": "palm_leaf_fan",
+      "bonus": "Increase Cyclone Damage by 5% (All Classes)",
+      "verified": true
+    },
+    {
+      "id": "subject_pyromancer",
+      "name": "Pyromancer",
+      "class_id": "pyromancer",
+      "magic_id": "fireball",
+      "starting_artifact_id": "phoenixs_bow",
+      "bonus": "Increase Fireball Damage by 5% (All Classes)",
+      "verified": true
+    },
+    {
+      "id": "subject_sorcerer",
+      "name": "Sorcerer",
+      "class_id": "sorcerer",
+      "magic_id": "electric_shock",
+      "starting_artifact_id": "electric_cable",
+      "bonus": "Increase Electric Shock Damage by 5% (All Classes)",
+      "verified": true
+    },
+    {
+      "id": "subject_alchemist",
+      "name": "Alchemist",
+      "class_id": "alchemist",
+      "magic_id": "energy_bolt",
+      "starting_artifact_id": "machine_arm",
+      "bonus": "Increase Energy Bolt Damage by 5% (All Classes)",
+      "verified": true
+    },
+    {
+      "id": "subject_scholar",
+      "name": "Scholar",
+      "class_id": "scholar",
+      "magic_id": null,
+      "starting_artifact_id": "starlight",
+      "bonus": "Increase Mana Acquisition by 2% (All Classes)",
+      "verified": true
+    },
+    {
+      "id": "subject_witch",
+      "name": "Witch",
+      "class_id": "witch",
+      "magic_id": "lava_zone",
+      "starting_artifact_id": "sulfur",
+      "bonus": "Increase Lava Zone Damage by 5% (All Classes)",
+      "verified": true
+    },
+    {
+      "id": "subject_electromancer",
+      "name": "Electromancer",
+      "class_id": "electromancer",
+      "magic_id": "electric_zone",
+      "starting_artifact_id": "robot",
+      "bonus": "Increase Electric Zone Damage by 5% (All Classes)",
+      "verified": true
+    },
+    {
+      "id": "subject_arbiter",
+      "name": "Arbiter",
+      "class_id": "arbiter",
+      "magic_id": "tsunami",
+      "starting_artifact_id": "wave_calming_flute",
+      "bonus": "Increase Tsunami Damage by 5% (All Classes)",
+      "verified": true
+    },
+    {
+      "id": "subject_archmage",
+      "name": "Archmage",
+      "class_id": "archmage",
+      "magic_id": null,
+      "starting_artifact_id": "black_cat",
+      "bonus": "Decrease All Magic Cooldown by 1% (All Classes)",
+      "verified": true
+    },
+    {
+      "id": "subject_archaeologist",
+      "name": "Archaeologist",
+      "class_id": "archaeologist",
+      "magic_id": null,
+      "starting_artifact_id": "pyramid",
+      "bonus": "Increase Item Pickup Range by 5% (All Classes)",
+      "verified": true
+    },
+    {
+      "id": "subject_magician",
+      "name": "Magician",
+      "class_id": "magician",
+      "magic_id": null,
+      "starting_artifact_id": "ether_arrow",
+      "bonus": "Increase Critical Strike Rate by 1% (All Classes)",
+      "verified": true
+    },
+    {
+      "id": "subject_mage",
+      "name": "Mage",
+      "class_id": "mage",
+      "magic_id": "blizzard",
+      "starting_artifact_id": "snowflake_crown",
+      "bonus": "Increase Blizzard Damage by 5% (All Classes)",
+      "verified": true
+    },
+    {
+      "id": "subject_battlemage",
+      "name": "Battlemage",
+      "class_id": "battlemage",
+      "magic_id": "flash_shock",
+      "starting_artifact_id": "gae_bolg",
+      "bonus": "Increase Flash Shock Damage by 5% (All Classes)",
+      "verified": true
+    },
+    {
+      "id": "subject_warlord",
+      "name": "Warlord",
+      "class_id": "warlord",
+      "magic_id": "incineration",
+      "starting_artifact_id": "dragons_breath",
+      "bonus": "Increase Incineration Damage by 5% (All Classes)",
+      "verified": true
+    },
+    {
+      "id": "subject_black_mage",
+      "name": "Black Mage",
+      "class_id": "black_mage",
+      "magic_id": null,
+      "starting_artifact_id": "exorcism",
+      "bonus": "Increase All Magic Size by 2% (All Classes)",
+      "verified": true
+    },
+    {
+      "id": "subject_jack_o_lantern",
+      "name": "Jack o' Lantern",
+      "class_id": null,
+      "magic_id": null,
+      "starting_artifact_id": "lantern",
+      "bonus": "Increase Evasion by 1% (All Classes)",
+      "verified": true
     }
   ]
 }

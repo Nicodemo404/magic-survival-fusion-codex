@@ -1,0 +1,2525 @@
+{
+  "meta": {
+    "game": "Magic Survival",
+    "version": "v0.9941",
+    "source": "In-game Encyclopedia (Artifact & Synergy tabs), captured 2026-11-25",
+    "total_artifacts": 182,
+    "total_synergies": 63,
+    "rarity_order": [
+      "Normal",
+      "Rare",
+      "Epic",
+      "Special",
+      "Legendary"
+    ],
+    "rarity_counts": {
+      "Normal": 22,
+      "Rare": 35,
+      "Epic": 61,
+      "Special": 35,
+      "Legendary": 29
+    },
+    "magic_artifacts_rule": "Artifacts whose in-game text names the magic; the magic's Mastery synergy set is listed first."
+  },
+  "artifacts": [
+    {
+      "id": "blood_pack",
+      "name": "Blood Pack",
+      "rarity": "Normal",
+      "effects": [
+        "Increase Max HP by 30%",
+        "Increase HP Regen per sec. by 0.3%"
+      ]
+    },
+    {
+      "id": "shadow_cape",
+      "name": "Shadow Cape",
+      "rarity": "Normal",
+      "effects": [
+        "Increase Evasion by 10%"
+      ]
+    },
+    {
+      "id": "gunpowder",
+      "name": "Gunpowder",
+      "rarity": "Normal",
+      "effects": [
+        "Increase All Magic Size by 10%"
+      ]
+    },
+    {
+      "id": "spell_bag",
+      "name": "Spell Bag",
+      "rarity": "Normal",
+      "effects": [
+        "Increase Item Pickup Range by 50%"
+      ]
+    },
+    {
+      "id": "sample",
+      "name": "Sample",
+      "rarity": "Normal",
+      "effects": [
+        "Decrease the Max HP of all enemies by 3%"
+      ]
+    },
+    {
+      "id": "ruby",
+      "name": "Ruby",
+      "rarity": "Normal",
+      "effects": [
+        "Increase ATK by 12%"
+      ]
+    },
+    {
+      "id": "target",
+      "name": "Target",
+      "rarity": "Normal",
+      "effects": [
+        "Increase Critical Strike Rate by 6%"
+      ]
+    },
+    {
+      "id": "hp_potion",
+      "name": "HP Potion",
+      "rarity": "Normal",
+      "effects": [
+        "Recover 50% HP over 3 seconds if HP is 25% or lower. (Cooldown: 50s)"
+      ]
+    },
+    {
+      "id": "broom",
+      "name": "Broom",
+      "rarity": "Normal",
+      "effects": [
+        "Increase Movement Speed by 10%"
+      ]
+    },
+    {
+      "id": "mandrake",
+      "name": "Mandrake",
+      "rarity": "Normal",
+      "effects": [
+        "Increase Life Orb HP Recovery by 50%"
+      ]
+    },
+    {
+      "id": "magic_scroll",
+      "name": "Magic Scroll",
+      "rarity": "Normal",
+      "effects": [
+        "Increase ATK by 10%",
+        "Decrease All Magic Cooldown by 3%"
+      ]
+    },
+    {
+      "id": "rainbow",
+      "name": "Rainbow",
+      "rarity": "Normal",
+      "effects": [
+        "Increase Critical Strike Multiplier by 30%"
+      ]
+    },
+    {
+      "id": "torch",
+      "name": "Torch",
+      "rarity": "Normal",
+      "effects": [
+        "Decrease Fireball Cooldown by 15%",
+        "Decrease Incineration Cooldown by 15%"
+      ]
+    },
+    {
+      "id": "lightning_rod",
+      "name": "Lightning Rod",
+      "rarity": "Normal",
+      "effects": [
+        "Decrease Thunderstorm Cooldown by 15%",
+        "Decrease Electric Shock Cooldown by 15%"
+      ]
+    },
+    {
+      "id": "snowman",
+      "name": "Snowman",
+      "rarity": "Normal",
+      "effects": [
+        "Decrease Blizzard Cooldown by 15%",
+        "Decrease Frost Nova Cooldown by 15%"
+      ]
+    },
+    {
+      "id": "firefly",
+      "name": "Firefly",
+      "rarity": "Normal",
+      "effects": [
+        "Increase the number of Spirits by 2"
+      ]
+    },
+    {
+      "id": "glass_orb",
+      "name": "Glass Orb",
+      "rarity": "Normal",
+      "effects": [
+        "Increase the number of Satellites by 2"
+      ]
+    },
+    {
+      "id": "crystal_prism",
+      "name": "Crystal Prism",
+      "rarity": "Normal",
+      "effects": [
+        "Increase the number of Arcane Rays by 2"
+      ]
+    },
+    {
+      "id": "crow",
+      "name": "Crow",
+      "rarity": "Normal",
+      "effects": [
+        "Increase Critical Strike Rate by 3%",
+        "Increase Critical Strike Multiplier by 25%"
+      ]
+    },
+    {
+      "id": "sapphire",
+      "name": "Sapphire",
+      "rarity": "Normal",
+      "effects": [
+        "Increase Mana Acquisition by 12%"
+      ]
+    },
+    {
+      "id": "harp",
+      "name": "Harp",
+      "rarity": "Normal",
+      "effects": [
+        "Increase All Magic Duration by 12%"
+      ]
+    },
+    {
+      "id": "magic_grimoire",
+      "name": "Magic Grimoire",
+      "rarity": "Normal",
+      "effects": [
+        "Decrease All Magic Cooldown by 5%"
+      ]
+    },
+    {
+      "id": "virus",
+      "name": "Virus",
+      "rarity": "Rare",
+      "effects": [
+        "Decrease the Max HP of Elite Monsters by 10%"
+      ]
+    },
+    {
+      "id": "meat",
+      "name": "Meat",
+      "rarity": "Rare",
+      "effects": [
+        "Generate Life Orbs near the character (Cooldown: 30s)"
+      ]
+    },
+    {
+      "id": "cogwheel",
+      "name": "Cogwheel",
+      "rarity": "Rare",
+      "effects": [
+        "Decrease All Artifact Cooldown by 20%"
+      ]
+    },
+    {
+      "id": "hourglass",
+      "name": "Hourglass",
+      "rarity": "Rare",
+      "effects": [
+        "Decrease All Magic Cooldown by 6%"
+      ]
+    },
+    {
+      "id": "force_field",
+      "name": "Force Field",
+      "rarity": "Rare",
+      "effects": [
+        "When damaged, block the damage and become Invincible for 3s (Cooldown: 60s)"
+      ]
+    },
+    {
+      "id": "totem",
+      "name": "Totem",
+      "rarity": "Rare",
+      "effects": [
+        "Increase Cyclone Damage by 30%",
+        "Decrease Cyclone Cooldown by 10%"
+      ]
+    },
+    {
+      "id": "four_leaf_clover",
+      "name": "Four-Leaf Clover",
+      "rarity": "Rare",
+      "effects": [
+        "A Critical Strike occurs every 5 times an enemy is damaged."
+      ]
+    },
+    {
+      "id": "rose",
+      "name": "Rose",
+      "rarity": "Rare",
+      "effects": [
+        "Deal 10% additional Damage to enemies whose HP is 75% or above."
+      ]
+    },
+    {
+      "id": "mortarboard",
+      "name": "Mortarboard",
+      "rarity": "Rare",
+      "effects": [
+        "33% increased chance to have 4 Magic choices."
+      ]
+    },
+    {
+      "id": "mutagen",
+      "name": "Mutagen",
+      "rarity": "Rare",
+      "effects": [
+        "Reduce Max HP of Large Monsters by 15%."
+      ]
+    },
+    {
+      "id": "crucifix",
+      "name": "Crucifix",
+      "rarity": "Rare",
+      "effects": [
+        "Decrease Damage Taken by 12%",
+        "Increase HP Regen per sec. by 0.3%"
+      ]
+    },
+    {
+      "id": "lantern",
+      "name": "Lantern",
+      "rarity": "Rare",
+      "effects": [
+        "Increase Mana Orb Acquisition by 10%",
+        "Increase Item Pickup Range by 20%"
+      ]
+    },
+    {
+      "id": "dragonscale",
+      "name": "Dragonscale",
+      "rarity": "Rare",
+      "effects": [
+        "Decrease Damage Taken by 30%"
+      ]
+    },
+    {
+      "id": "mana_shield",
+      "name": "Mana Shield",
+      "rarity": "Rare",
+      "effects": [
+        "Decrease Damage Taken by 50% of the current Mana percentage."
+      ]
+    },
+    {
+      "id": "organic_shield",
+      "name": "Organic Shield",
+      "rarity": "Rare",
+      "effects": [
+        "Obtaining a Life Orb increases HP equal to the bonus Recovery. Bonus HP cannot exceed Max HP."
+      ]
+    },
+    {
+      "id": "aurora",
+      "name": "Aurora",
+      "rarity": "Rare",
+      "effects": [
+        "Increase Mana Acquisition by 15%"
+      ]
+    },
+    {
+      "id": "golem_core",
+      "name": "Golem Core",
+      "rarity": "Rare",
+      "effects": [
+        "The screen does not turn red even when the character is Near Death.",
+        "Increase Max HP by 50%"
+      ]
+    },
+    {
+      "id": "magic_bullet",
+      "name": "Magic Bullet",
+      "rarity": "Rare",
+      "effects": [
+        "Increase Magic Bolt Damage by 30%",
+        "Increase the number of Magic Bolts by 1"
+      ]
+    },
+    {
+      "id": "celestial_calendar",
+      "name": "Celestial Calendar",
+      "rarity": "Rare",
+      "effects": [
+        "Every 3 casts of Meteor increases the power of the next Meteor by 1.5X."
+      ]
+    },
+    {
+      "id": "battery",
+      "name": "Battery",
+      "rarity": "Rare",
+      "effects": [
+        "Increase Electric Zone Damage by 30%",
+        "Decrease Electric Zone Damage Interval by 15%"
+      ]
+    },
+    {
+      "id": "magitech_module",
+      "name": "Magitech Module",
+      "rarity": "Rare",
+      "effects": [
+        "22% chance for an Energy Bolt to split into 2."
+      ]
+    },
+    {
+      "id": "ancient_tree_staff",
+      "name": "Ancient Tree Staff",
+      "rarity": "Rare",
+      "effects": [
+        "Decrease Magic Circle Cooldown by 25%"
+      ]
+    },
+    {
+      "id": "harmony",
+      "name": "Harmony",
+      "rarity": "Rare",
+      "effects": [
+        "Decrease All Magic Cooldown by 3%",
+        "Increase All Magic Duration by 12%"
+      ]
+    },
+    {
+      "id": "mana_flame",
+      "name": "Mana Flame",
+      "rarity": "Rare",
+      "effects": [
+        "Increase All Magic Damage by 15%"
+      ]
+    },
+    {
+      "id": "spell_cape",
+      "name": "Spell Cape",
+      "rarity": "Rare",
+      "effects": [
+        "Increase ATK by 18%"
+      ]
+    },
+    {
+      "id": "breeze",
+      "name": "Breeze",
+      "rarity": "Rare",
+      "effects": [
+        "Increase Evasion by 8%",
+        "Increase Movement Speed by 8%"
+      ]
+    },
+    {
+      "id": "bomb",
+      "name": "Bomb",
+      "rarity": "Rare",
+      "effects": [
+        "Increase ATK by 8%",
+        "Increase All Magic Size by 8%"
+      ]
+    },
+    {
+      "id": "radar",
+      "name": "Radar",
+      "rarity": "Rare",
+      "effects": [
+        "Increase Critical Strike Rate by 9%"
+      ]
+    },
+    {
+      "id": "holy_grail",
+      "name": "Holy Grail",
+      "rarity": "Rare",
+      "effects": [
+        "Increase HP Regen per sec. by 0.5%"
+      ]
+    },
+    {
+      "id": "masked_ball",
+      "name": "Masked Ball",
+      "rarity": "Rare",
+      "effects": [
+        "Increase Critical Strike Rate by 5%",
+        "Increase Evasion by 5%"
+      ]
+    },
+    {
+      "id": "stained_glass",
+      "name": "Stained Glass",
+      "rarity": "Rare",
+      "effects": [
+        "Increase the duration of Rune effects by 25%."
+      ]
+    },
+    {
+      "id": "mimic",
+      "name": "Mimic",
+      "rarity": "Rare",
+      "effects": [
+        "Cause an Explosion when obtaining a Treasure Chest, and create 10 random items nearby."
+      ]
+    },
+    {
+      "id": "shuriken",
+      "name": "Shuriken",
+      "rarity": "Rare",
+      "effects": [
+        "Increase Magic Bolt Critical Rate by 15%",
+        "Increase Spirit Critical Rate by 15%"
+      ]
+    },
+    {
+      "id": "salamander",
+      "name": "Salamander",
+      "rarity": "Rare",
+      "effects": [
+        "Increase the number of Incinerations by 5",
+        "Increase the number of Lava Zones by 1"
+      ]
+    },
+    {
+      "id": "owl",
+      "name": "Owl",
+      "rarity": "Rare",
+      "effects": [
+        "Increase Current Level by 3",
+        "Increase Mana Acquisition by 10%"
+      ]
+    },
+    {
+      "id": "diamond",
+      "name": "Diamond",
+      "rarity": "Epic",
+      "effects": [
+        "Increase ATK by 10%",
+        "Increase Max HP by 20%",
+        "Decrease All Magic Cooldown by 3%"
+      ]
+    },
+    {
+      "id": "guillotine",
+      "name": "Guillotine",
+      "rarity": "Epic",
+      "effects": [
+        "Deal 15% additional Damage to enemies whose HP is 75% or above."
+      ]
+    },
+    {
+      "id": "electromagnet",
+      "name": "Electromagnet",
+      "rarity": "Epic",
+      "effects": [
+        "Increase Electric Zone Damage by 50%",
+        "Increase Satellite Damage by 50%"
+      ]
+    },
+    {
+      "id": "oculus",
+      "name": "Oculus",
+      "rarity": "Epic",
+      "effects": [
+        "Increase Critical Rate by 1% per 30% item pickup radius",
+        "Increase Item Pickup Range by 30%"
+      ]
+    },
+    {
+      "id": "carnival",
+      "name": "Carnival",
+      "rarity": "Epic",
+      "effects": [
+        "Increase Critical Rate by 1% per 3% Evasion",
+        "Increase Evasion by 5%"
+      ]
+    },
+    {
+      "id": "mana_ore",
+      "name": "Mana Ore",
+      "rarity": "Epic",
+      "effects": [
+        "Increase ATK by 25%"
+      ]
+    },
+    {
+      "id": "tarot_card",
+      "name": "Tarot Card",
+      "rarity": "Epic",
+      "effects": [
+        "Learn 3 random Magic."
+      ]
+    },
+    {
+      "id": "gravity_orb",
+      "name": "Gravity Orb",
+      "rarity": "Epic",
+      "effects": [
+        "Form a Wave that briefly slows enemy movement speed (Cooldown: 20s)"
+      ]
+    },
+    {
+      "id": "worldtree_leaf",
+      "name": "Worldtree Leaf",
+      "rarity": "Epic",
+      "effects": [
+        "Generate World Tree Fruit near the character (Cooldown: 100s)"
+      ]
+    },
+    {
+      "id": "moon_crystal",
+      "name": "Moon Crystal",
+      "rarity": "Epic",
+      "effects": [
+        "Permanently decrease the Movement Speed of an enemy who was first frozen by 10%.",
+        "Increase Frost Nova Damage by 50%"
+      ]
+    },
+    {
+      "id": "pocket_watch",
+      "name": "Pocket Watch",
+      "rarity": "Epic",
+      "effects": [
+        "Increase All Magic Duration by 24%"
+      ]
+    },
+    {
+      "id": "pandoras_box",
+      "name": "Pandora's Box",
+      "rarity": "Epic",
+      "effects": [
+        "Cast one of the following Magic randomly: Cyclone, Meteor, Tsunami. (Cooldown: 5s)"
+      ]
+    },
+    {
+      "id": "clockwork",
+      "name": "Clockwork",
+      "rarity": "Epic",
+      "effects": [
+        "Stop all enemies near the characters for 2 seconds. (Cooldown: 18s)"
+      ]
+    },
+    {
+      "id": "spiderweb",
+      "name": "Spiderweb",
+      "rarity": "Epic",
+      "effects": [
+        "Decrease the Movement Speed of all enemies by 10%."
+      ]
+    },
+    {
+      "id": "second_heart",
+      "name": "Second Heart",
+      "rarity": "Epic",
+      "effects": [
+        "Revive 1 more time.",
+        "Increase Max HP by 50%"
+      ]
+    },
+    {
+      "id": "magic_wand",
+      "name": "Magic Wand",
+      "rarity": "Epic",
+      "effects": [
+        "Increase Damage by 10% for each Spirit.",
+        "Increase the number of Spirits by 2"
+      ]
+    },
+    {
+      "id": "keyring",
+      "name": "Keyring",
+      "rarity": "Epic",
+      "effects": [
+        "Get one chance to switch out an Artifact through a Normal Treasure Chest. (Available: 3 times)"
+      ]
+    },
+    {
+      "id": "ether_arrow",
+      "name": "Ether Arrow",
+      "rarity": "Epic",
+      "effects": [
+        "Decrease Magic Bolt Cooldown by 20%",
+        "Decrease Spirit Cooldown by 20%"
+      ]
+    },
+    {
+      "id": "black_cat",
+      "name": "Black Cat",
+      "rarity": "Epic",
+      "effects": [
+        "Decrease All Magic Cooldown by 9%"
+      ]
+    },
+    {
+      "id": "watchers_eye",
+      "name": "Watcher's Eye",
+      "rarity": "Epic",
+      "effects": [
+        "Cause a giant Explosion when obtaining a Life Orb.",
+        "Increase Critical Strike Multiplier by 50%"
+      ]
+    },
+    {
+      "id": "storybook",
+      "name": "Storybook",
+      "rarity": "Epic",
+      "effects": [
+        "Decrease the character's Size by 25%."
+      ]
+    },
+    {
+      "id": "aegis",
+      "name": "Aegis",
+      "rarity": "Epic",
+      "effects": [
+        "Amplify ATK by 3% for every 10% of Damage Taken.",
+        "Decrease Damage Taken by 10%"
+      ]
+    },
+    {
+      "id": "wraith",
+      "name": "Wraith",
+      "rarity": "Epic",
+      "effects": [
+        "Pass through all enemies and obstacles."
+      ]
+    },
+    {
+      "id": "core_energy",
+      "name": "Core Energy",
+      "rarity": "Epic",
+      "effects": [
+        "Satellites explode whenever they deal damage to enemies.",
+        "Increase the number of Satellites by 2"
+      ]
+    },
+    {
+      "id": "otherworldly_tentacle",
+      "name": "Otherworldly Tentacle",
+      "rarity": "Epic",
+      "effects": [
+        "Increase Damage by 8% per Arcane Ray",
+        "Decrease Arcane Ray Cooldown by 10%"
+      ]
+    },
+    {
+      "id": "siege_hammer",
+      "name": "Siege Hammer",
+      "rarity": "Epic",
+      "effects": [
+        "Deal 20% Additional Damage if an attack is not a Critical Strike.",
+        "Increase Critical Strike Multiplier by 20%"
+      ]
+    },
+    {
+      "id": "cauldron",
+      "name": "Cauldron",
+      "rarity": "Epic",
+      "effects": [
+        "Increase the Damage of the following Magic by 35%: Fireball, Meteor, Incineration, Lava Zone"
+      ]
+    },
+    {
+      "id": "lightning",
+      "name": "Lightning",
+      "rarity": "Epic",
+      "effects": [
+        "Increase the Damage of the following Magic by 35%: Thunderstorm, Electric Shock, Electric Zone, Flash Shock"
+      ]
+    },
+    {
+      "id": "weather_controller",
+      "name": "Weather Controller",
+      "rarity": "Epic",
+      "effects": [
+        "Increase the Damage of the following Magic by 35%: Cyclone, Blizzard, Tsunami, Frost Nova"
+      ]
+    },
+    {
+      "id": "mana_scepter",
+      "name": "Mana Scepter",
+      "rarity": "Epic",
+      "effects": [
+        "Increase the Damage of the following Magic by 35%: Energy Bolt, Arcane Ray, Spirit, Satellite"
+      ]
+    },
+    {
+      "id": "phoenixs_bow",
+      "name": "Phoenix's Bow",
+      "rarity": "Epic",
+      "effects": [
+        "Deal 50% Additional Damage to an enemy directly hit by a Fireball.",
+        "Increase Fireball Penetration by 1"
+      ]
+    },
+    {
+      "id": "mjolnir",
+      "name": "Mjolnir",
+      "rarity": "Epic",
+      "effects": [
+        "Increase the number of Thunderstorms by 50%"
+      ]
+    },
+    {
+      "id": "dimensional_gate",
+      "name": "Dimensional Gate",
+      "rarity": "Epic",
+      "effects": [
+        "20% chance to cast Meteor 1 more time when cast.",
+        "Decrease Meteor Cooldown by 25%"
+      ]
+    },
+    {
+      "id": "palm_leaf_fan",
+      "name": "Palm Leaf Fan",
+      "rarity": "Epic",
+      "effects": [
+        "Every 5 casts of Cyclone increases the next Cyclone's Damage and Size by 2X.",
+        "Increase Cyclone Damage by 50%"
+      ]
+    },
+    {
+      "id": "electric_cable",
+      "name": "Electric Cable",
+      "rarity": "Epic",
+      "effects": [
+        "Increase Electric Shock Damage by 50%",
+        "Increase the number of Electric Shocks by 2"
+      ]
+    },
+    {
+      "id": "machine_arm",
+      "name": "Machine Arm",
+      "rarity": "Epic",
+      "effects": [
+        "Increase Energy Bolt Damage by 35%",
+        "Increase the number of Energy Bolts by 35%"
+      ]
+    },
+    {
+      "id": "dragons_breath",
+      "name": "Dragon's Breath",
+      "rarity": "Epic",
+      "effects": [
+        "Each time an enemy is damaged by Incineration the enemy receives 1% additional damage.",
+        "Increase Incineration Damage by 50%"
+      ]
+    },
+    {
+      "id": "snowflake_crown",
+      "name": "Snowflake Crown",
+      "rarity": "Epic",
+      "effects": [
+        "Each Blizzard increases Damage by 1%.",
+        "Increase the number of Blizzards by 30%"
+      ]
+    },
+    {
+      "id": "wave_calming_flute",
+      "name": "Wave-calming Flute",
+      "rarity": "Epic",
+      "effects": [
+        "Each cast of Tsunami increases Damage by 12%, and decreases Cooldown by 12%. This effect resets after stacking 4 times."
+      ]
+    },
+    {
+      "id": "circular_sawblade",
+      "name": "Circular Sawblade",
+      "rarity": "Epic",
+      "effects": [
+        "Each hit with Satellite increases additional satellite damage to the enemy by 0.5% (Max Stack: 50%)"
+      ]
+    },
+    {
+      "id": "sulfur",
+      "name": "Sulfur",
+      "rarity": "Epic",
+      "effects": [
+        "Lava Zone increases in Size by 2% every second.",
+        "Increase Lava Zone Damage by 80%"
+      ]
+    },
+    {
+      "id": "gae_bolg",
+      "name": "Gae Bolg",
+      "rarity": "Epic",
+      "effects": [
+        "Increase Flash Shock Damage by 100%"
+      ]
+    },
+    {
+      "id": "candlestick",
+      "name": "Candlestick",
+      "rarity": "Epic",
+      "effects": [
+        "Increase the number of Fireballs by 1",
+        "Increase the number of Meteors by 1"
+      ]
+    },
+    {
+      "id": "clairvoyance",
+      "name": "Clairvoyance",
+      "rarity": "Epic",
+      "effects": [
+        "Increase the vision range of the character by 10%.",
+        "Increase Item Pickup Range by 100%"
+      ]
+    },
+    {
+      "id": "brand",
+      "name": "Brand",
+      "rarity": "Epic",
+      "effects": [
+        "Deal 15% Additional Damage to enemies that have survived for more than 5s."
+      ]
+    },
+    {
+      "id": "mana_circuit",
+      "name": "Mana Circuit",
+      "rarity": "Epic",
+      "effects": [
+        "Amplify ATK by 1% whenever obtaining a Mana Orb. Stack resets every 5 seconds."
+      ]
+    },
+    {
+      "id": "mirror",
+      "name": "Mirror",
+      "rarity": "Epic",
+      "effects": [
+        "Increase the number of the following Magic by 1: Energy Bolt, Arcane Ray, Spirit, Satellite"
+      ]
+    },
+    {
+      "id": "pyramid",
+      "name": "Pyramid",
+      "rarity": "Epic",
+      "effects": [
+        "Amplify ATK by 3% per activated Synergy."
+      ]
+    },
+    {
+      "id": "war_flag",
+      "name": "War Flag",
+      "rarity": "Epic",
+      "effects": [
+        "Amplify ATK by 2% for every second the character stays in place. (Max Stack: 20%)"
+      ]
+    },
+    {
+      "id": "exorcism",
+      "name": "Exorcism",
+      "rarity": "Epic",
+      "effects": [
+        "Decrease the Max HP of all enemies by 3%.",
+        "Increase Mana Acquisition from killing enemies by 20%"
+      ]
+    },
+    {
+      "id": "imp",
+      "name": "Imp",
+      "rarity": "Epic",
+      "effects": [
+        "Reduce Boss Wave Monsters' Max HP by 10%"
+      ],
+      "penalties": [
+        "Increase Normal Wave Monsters' Max HP by 10%"
+      ]
+    },
+    {
+      "id": "wizards_hat",
+      "name": "Wizard's Hat",
+      "rarity": "Epic",
+      "effects": [
+        "Increase ATK by 1% per 2% cooldown reduction rate of all spells"
+      ]
+    },
+    {
+      "id": "robot",
+      "name": "Robot",
+      "rarity": "Epic",
+      "effects": [
+        "Electric Zone deals 0.5% Additional Damage per character level"
+      ]
+    },
+    {
+      "id": "mercury",
+      "name": "Mercury",
+      "rarity": "Epic",
+      "effects": [
+        "Increase Mana Orb Acquisition by 20%."
+      ]
+    },
+    {
+      "id": "magic_fountain",
+      "name": "Magic Fountain",
+      "rarity": "Epic",
+      "effects": [
+        "Amplify ATK by 1% per 200 Mana Orbs held (Max Stack: 20%)"
+      ]
+    },
+    {
+      "id": "chimera",
+      "name": "Chimera",
+      "rarity": "Epic",
+      "effects": [
+        "Decrease Flash Shock Cooldown by 15%",
+        "Decrease Lava Zone Cooldown by 15%",
+        "Decrease Tsunami Cooldown by 15%"
+      ]
+    },
+    {
+      "id": "the_freeshooter",
+      "name": "The Freeshooter",
+      "rarity": "Epic",
+      "effects": [
+        "Increase Magic Bolt Damage by 100%"
+      ]
+    },
+    {
+      "id": "coin",
+      "name": "Coin",
+      "rarity": "Epic",
+      "effects": [
+        "Obtain Mana Orb Currency"
+      ]
+    },
+    {
+      "id": "unicorn",
+      "name": "Unicorn",
+      "rarity": "Epic",
+      "effects": [
+        "Offer Special Passive Options"
+      ]
+    },
+    {
+      "id": "skadi",
+      "name": "Skadi",
+      "rarity": "Epic",
+      "effects": [
+        "Increase Blizzard Damage by 50%",
+        "Increase Frost Nova Damage by 50%"
+      ]
+    },
+    {
+      "id": "starlight",
+      "name": "Starlight",
+      "rarity": "Epic",
+      "effects": [
+        "Amplify ATK by 7%",
+        "Increase ATK by 7%",
+        "Increase All Magic Damage by 7%"
+      ],
+      "transcription_note": "7% values read from a small in-game font"
+    },
+    {
+      "id": "asi",
+      "name": "ASI",
+      "rarity": "Special",
+      "effects": [
+        "Increase ATK by 30%  (name rendered \"ASI\"",
+        "community calls an artifact \"AI Magic\")"
+      ]
+    },
+    {
+      "id": "undead",
+      "name": "Undead",
+      "rarity": "Special",
+      "effects": [
+        "Revive 2 more time."
+      ],
+      "penalties": [
+        "Reduce Max HP by 25%"
+      ]
+    },
+    {
+      "id": "assassination",
+      "name": "Assassination",
+      "rarity": "Special",
+      "effects": [
+        "If an enemy has never received damage yet, a Critical Strike occurs.",
+        "Increase Critical Strike Multiplier by 40%"
+      ]
+    },
+    {
+      "id": "philosophers_stone",
+      "name": "Philosopher's Stone",
+      "rarity": "Special",
+      "effects": [
+        "Generate a large number of Mana Orbs"
+      ]
+    },
+    {
+      "id": "amplifier",
+      "name": "Amplifier",
+      "rarity": "Special",
+      "effects": [
+        "All magic size increase rate x1.28"
+      ]
+    },
+    {
+      "id": "ether",
+      "name": "Ether",
+      "rarity": "Special",
+      "effects": [
+        "Obtain 1% Mana per second."
+      ]
+    },
+    {
+      "id": "deaths_bell",
+      "name": "Death's Bell",
+      "rarity": "Special",
+      "effects": [
+        "When 444 Mana Orbs are obtained, all nearby enemies disappear"
+      ]
+    },
+    {
+      "id": "magic_seal",
+      "name": "Magic Seal",
+      "rarity": "Special",
+      "effects": [
+        "Limit the Damage Taken in one hit to 30% of the character's Max HP."
+      ]
+    },
+    {
+      "id": "space_time_circuit",
+      "name": "Space-Time Circuit",
+      "rarity": "Special",
+      "effects": [
+        "Time flows 24% faster. After obtaining, increase Gold Acquisition by 24%."
+      ]
+    },
+    {
+      "id": "hydra",
+      "name": "Hydra",
+      "rarity": "Special",
+      "effects": [
+        "Each time damage is dealt to an enemy, it reduces the enemy's current HP by 1% (Triggers up to 25 times per enemy)"
+      ]
+    },
+    {
+      "id": "merlins_cape",
+      "name": "Merlin's Cape",
+      "rarity": "Special",
+      "effects": [
+        "Amplify ATK by 25% of the current Mana percentage."
+      ]
+    },
+    {
+      "id": "necronomicon",
+      "name": "Necronomicon",
+      "rarity": "Special",
+      "effects": [
+        "The character's Current HP can no longer be more than 50% of Max HP.",
+        "Amplify ATK by 50%"
+      ]
+    },
+    {
+      "id": "singularity",
+      "name": "Singularity",
+      "rarity": "Special",
+      "effects": [
+        "All Mana Orbs (Small) are changed to (Medium)."
+      ]
+    },
+    {
+      "id": "geometry",
+      "name": "Geometry",
+      "rarity": "Special",
+      "effects": [
+        "Always retrieve 100% Mana when retrieving Mana. Give up 1 Mana Retrieval chance."
+      ]
+    },
+    {
+      "id": "toy_castle",
+      "name": "Toy Castle",
+      "rarity": "Special",
+      "effects": [
+        "Decrease the Max HP of Elite Monsters by 15%.",
+        "Reduce Elite Monsters' Size by 15%"
+      ]
+    },
+    {
+      "id": "hunter",
+      "name": "Hunter",
+      "rarity": "Special",
+      "effects": [
+        "Amplify ATK by 1% for every 100 enemies killed. Stack resets when Amplification is at 25%."
+      ]
+    },
+    {
+      "id": "treasure_map",
+      "name": "Treasure Map",
+      "rarity": "Special",
+      "effects": [
+        "2 Treasure Chests are created at a random location.",
+        "Increase Item Pickup Range by 30%"
+      ]
+    },
+    {
+      "id": "cyborg",
+      "name": "Cyborg",
+      "rarity": "Special",
+      "effects": [
+        "Cannot recover HP with Life Orbs.",
+        "Increase ATK by 50%"
+      ]
+    },
+    {
+      "id": "domain_of_power",
+      "name": "Domain of Power",
+      "rarity": "Special",
+      "effects": [
+        "Gain 1 more Magic Combination chance. Increase Max Level by 1."
+      ]
+    },
+    {
+      "id": "fairy",
+      "name": "Fairy",
+      "rarity": "Special",
+      "effects": [
+        "Enchant effect becomes 2X."
+      ]
+    },
+    {
+      "id": "ai_magic",
+      "name": "AI Magic",
+      "rarity": "Special",
+      "effects": [
+        "Learn 4 random Magic.",
+        "Decrease All Magic Cooldown by 5%"
+      ]
+    },
+    {
+      "id": "dragontongue",
+      "name": "Dragontongue",
+      "rarity": "Special",
+      "effects": [
+        "Increase Combination Magic Damage by 40%"
+      ]
+    },
+    {
+      "id": "halo",
+      "name": "Halo",
+      "rarity": "Special",
+      "effects": [
+        "Increase All Magic Damage by 30%"
+      ]
+    },
+    {
+      "id": "basilisk",
+      "name": "Basilisk",
+      "rarity": "Special",
+      "effects": [
+        "Decrease the Max HP of all enemies by 10%."
+      ]
+    },
+    {
+      "id": "roster",
+      "name": "Roster",
+      "rarity": "Special",
+      "effects": [
+        "After killing 100 enemies, any damage dealt to the next 50 instakills them."
+      ]
+    },
+    {
+      "id": "werewolf",
+      "name": "Werewolf",
+      "rarity": "Special",
+      "effects": [
+        "Killing 2500 enemies activates the Berserk Rune effect.",
+        "Increase Critical Strike Rate by 3%"
+      ]
+    },
+    {
+      "id": "abyss",
+      "name": "Abyss",
+      "rarity": "Special",
+      "effects": [
+        "ATK is converted from half of Mana Acquisition Rate"
+      ]
+    },
+    {
+      "id": "golden_roulette",
+      "name": "Golden Roulette",
+      "rarity": "Special",
+      "effects": [
+        "Obtain 1 random Legendary Artifact."
+      ]
+    },
+    {
+      "id": "jet_engine",
+      "name": "Jet Engine",
+      "rarity": "Special",
+      "effects": [
+        "When moving, ATK is Amplified by 20%.",
+        "Increase Movement Speed by 5%"
+      ]
+    },
+    {
+      "id": "longinus_spear",
+      "name": "Longinus' Spear",
+      "rarity": "Special",
+      "effects": [
+        "Strike with powerful lightning (Cooldown: 9s)"
+      ]
+    },
+    {
+      "id": "matrix",
+      "name": "Matrix",
+      "rarity": "Special",
+      "effects": [
+        "All Magic Damage increases by 20% of the total of All Magic Size, Duration Increase Rate and Cooldown Reduction Rate"
+      ]
+    },
+    {
+      "id": "bouquet",
+      "name": "Bouquet",
+      "rarity": "Special",
+      "effects": [
+        "All products sold by Merchants are 20% Discounted"
+      ]
+    },
+    {
+      "id": "plasma",
+      "name": "Plasma",
+      "rarity": "Special",
+      "effects": [
+        "Amplify ATK by 40%"
+      ],
+      "penalties": [
+        "Decrease All Magic Size by 20%"
+      ]
+    },
+    {
+      "id": "occult",
+      "name": "Occult",
+      "rarity": "Special",
+      "effects": [
+        "Increase Max HP by the amount of All Enemies' Max HP Reduction Rate",
+        "Decrease the Max HP of all enemies by 5%."
+      ]
+    },
+    {
+      "id": "goblin",
+      "name": "Goblin",
+      "rarity": "Special",
+      "effects": [
+        "Obtain a large amount of Mana Orb Currency."
+      ]
+    },
+    {
+      "id": "desperado",
+      "name": "Desperado",
+      "rarity": "Legendary",
+      "effects": [
+        "All damage dealt to enemies increases by 50% for 8s. (Cooldown: 8s)"
+      ]
+    },
+    {
+      "id": "creation",
+      "name": "Creation",
+      "rarity": "Legendary",
+      "effects": [
+        "Every 5th cast of a spell reduces its Cooldown by half.",
+        "Increase All Magic Damage by 50%"
+      ]
+    },
+    {
+      "id": "uranium",
+      "name": "Uranium",
+      "rarity": "Legendary",
+      "effects": [
+        "Increase ATK by 100%",
+        "Increase All Magic Size by 25%"
+      ],
+      "penalties": [
+        "Decrease HP Regen per sec. by 0.25%"
+      ]
+    },
+    {
+      "id": "magic_sword",
+      "name": "Magic Sword",
+      "rarity": "Legendary",
+      "effects": [
+        "Instakill an enemy whose HP is lower than 20%."
+      ]
+    },
+    {
+      "id": "opulence",
+      "name": "Opulence",
+      "rarity": "Legendary",
+      "effects": [
+        "Generate 3 Treasure Chests and 1 Relic Box near the character"
+      ]
+    },
+    {
+      "id": "accelerator",
+      "name": "Accelerator",
+      "rarity": "Legendary",
+      "effects": [
+        "Decrease All Magic Cooldown by 1% for every 3% of Movement Speed Increase."
+      ]
+    },
+    {
+      "id": "transcendence",
+      "name": "Transcendence",
+      "rarity": "Legendary",
+      "effects": [
+        "For each Active Spell that reaches Max Level, All Magic Damage increases by 15%"
+      ]
+    },
+    {
+      "id": "genome_map",
+      "name": "Genome Map",
+      "rarity": "Legendary",
+      "effects": [
+        "Decrease the Max HP of all enemies by 20%."
+      ]
+    },
+    {
+      "id": "reapers_scythe",
+      "name": "Reaper's Scythe",
+      "rarity": "Legendary",
+      "effects": [
+        "8% chance to instakill an enemy when dealing damage to it for the first time.",
+        "Decrease the Max HP of all enemies by 13%"
+      ],
+      "transcription_note": "13% read from a small in-game font (could be 15%)"
+    },
+    {
+      "id": "iron_maiden",
+      "name": "Iron Maiden",
+      "rarity": "Legendary",
+      "effects": [
+        "15% chance to cause an Explosion when killing an enemy. (Explosion Damage is 15% of the enemy's Max HP)"
+      ]
+    },
+    {
+      "id": "ballista",
+      "name": "Ballista",
+      "rarity": "Legendary",
+      "effects": [
+        "Deal 50% additional Damage to enemies whose HP is 75% or above.",
+        "Increase Critical Strike Multiplier by 50%"
+      ]
+    },
+    {
+      "id": "executioners_ax",
+      "name": "Executioner's Ax",
+      "rarity": "Legendary",
+      "effects": [
+        "Increase Critical Strike Multiplier by 100%"
+      ]
+    },
+    {
+      "id": "akashic_record",
+      "name": "Akashic Record",
+      "rarity": "Legendary",
+      "effects": [
+        "ATK is Amplified by 1% per current level 2",
+        "Current Level and Max Level increase by 5"
+      ],
+      "transcription_note": "In-game text reads 'per current level 2' (likely a formatting glyph)"
+    },
+    {
+      "id": "dna",
+      "name": "DNA",
+      "rarity": "Legendary",
+      "effects": [
+        "Per acquired Obelisk, ATK is Amplified by 8% and Max HP increases by 8% (Efficiency decreases by 15% per application)"
+      ]
+    },
+    {
+      "id": "cube",
+      "name": "Cube",
+      "rarity": "Legendary",
+      "effects": [
+        "The Level and Max Level of all Normal Passive Magic increase by 1.",
+        "Increase Mana Acquisition by 25%"
+      ]
+    },
+    {
+      "id": "sacrosanct",
+      "name": "Sacrosanct",
+      "rarity": "Legendary",
+      "effects": [
+        "When HP is above 75%, ATK is Amplified by 75%",
+        "Decrease Damage Taken by 25%"
+      ]
+    },
+    {
+      "id": "dragons_magic",
+      "name": "Dragon's Magic",
+      "rarity": "Legendary",
+      "effects": [
+        "Amplify ATK by 40%",
+        "Increase ATK by 40%"
+      ]
+    },
+    {
+      "id": "joker",
+      "name": "Joker",
+      "rarity": "Legendary",
+      "effects": [
+        "50% chance to stack 1 additional multiplier when landing a Critical Strike."
+      ]
+    },
+    {
+      "id": "titans_power",
+      "name": "Titan's Power",
+      "rarity": "Legendary",
+      "effects": [
+        "ATK Increase 1.5X"
+      ]
+    },
+    {
+      "id": "gaia",
+      "name": "Gaia",
+      "rarity": "Legendary",
+      "effects": [
+        "Increase ATK by 3% for every 20 Max HP.",
+        "Increase Max HP by 50%"
+      ]
+    },
+    {
+      "id": "holy_chest",
+      "name": "Holy Chest",
+      "rarity": "Legendary",
+      "effects": [
+        "Decrease the Max HP of all enemies by 10%.",
+        "Activate a random Rune effect. (Cooldown: 45s)"
+      ]
+    },
+    {
+      "id": "crown",
+      "name": "Crown",
+      "rarity": "Legendary",
+      "effects": [
+        "Amplify ATK by 1% for each Epic Artifact owned",
+        "Amplify ATK by 5% for each Special Artifact owned"
+      ]
+    },
+    {
+      "id": "ouroboros",
+      "name": "Ouroboros",
+      "rarity": "Legendary",
+      "effects": [
+        "Decrease All Magic Cooldown by 15%"
+      ]
+    },
+    {
+      "id": "eclipse",
+      "name": "Eclipse",
+      "rarity": "Legendary",
+      "effects": [
+        "Deal a maximum of 50% of the HP the target lost as additional Damage."
+      ]
+    },
+    {
+      "id": "excalibur",
+      "name": "Excalibur",
+      "rarity": "Legendary",
+      "effects": [
+        "Generate an Aura centered on the character, dealing 25% Additional Damage to enemies within its range."
+      ]
+    },
+    {
+      "id": "nexus",
+      "name": "Nexus",
+      "rarity": "Legendary",
+      "effects": [
+        "Select one Attack Spell and increase its Damage by 240%"
+      ]
+    },
+    {
+      "id": "dragons_heart",
+      "name": "Dragon's Heart",
+      "rarity": "Legendary",
+      "effects": [
+        "ATK Amplify 1.3X"
+      ]
+    },
+    {
+      "id": "countess",
+      "name": "Countess",
+      "rarity": "Legendary",
+      "effects": [
+        "Trigger an Explosion upon defeating Elite Monsters (Explosion Damage is 30% of the enemy's Max HP)",
+        "Amplify ATK by 30%"
+      ]
+    },
+    {
+      "id": "widowmaker",
+      "name": "Widowmaker",
+      "rarity": "Legendary",
+      "effects": [
+        "Increase Critical Multiplier by Critical Rate",
+        "Increase Critical Strike Rate by 10%"
+      ]
+    }
+  ],
+  "synergies": [
+    {
+      "id": "ego_sword",
+      "name": "Ego Sword",
+      "effects": [
+        "The Execute threshold of Magic Sword increases to 25%."
+      ],
+      "requires": [
+        "magic_sword",
+        "imp",
+        "watchers_eye",
+        "mana_ore"
+      ]
+    },
+    {
+      "id": "nightmare",
+      "name": "Nightmare",
+      "effects": [
+        "The size of Explosions from defeated enemies increases, and occasionally the power is greatly Enhanced."
+      ],
+      "requires": [
+        "iron_maiden",
+        "countess",
+        "carnival",
+        "guillotine"
+      ]
+    },
+    {
+      "id": "red_dragon",
+      "name": "Red Dragon",
+      "effects": [
+        "Amplify ATK by 40%",
+        "Increase ATK by 40%",
+        "Increase All Magic Damage by 40%"
+      ],
+      "requires": [
+        "dragons_magic",
+        "dragons_heart",
+        "dragontongue",
+        "dragonscale"
+      ]
+    },
+    {
+      "id": "venom",
+      "name": "Venom",
+      "effects": [
+        "Max HP Reduction Rate of all enemies x1.15"
+      ],
+      "requires": [
+        "genome_map",
+        "basilisk",
+        "virus",
+        "sample"
+      ]
+    },
+    {
+      "id": "avalon",
+      "name": "Avalon",
+      "effects": [
+        "The effect of Excalibur increases by 1.5X, and Aura Range increases.",
+        "Increase HP Regen per sec. by 0.1%"
+      ],
+      "requires": [
+        "excalibur",
+        "merlins_cape",
+        "worldtree_leaf",
+        "holy_grail"
+      ]
+    },
+    {
+      "id": "oracle",
+      "name": "Oracle",
+      "effects": [
+        "Effects of Normal Passive Magic increase by 25%"
+      ],
+      "requires": [
+        "akashic_record",
+        "cube",
+        "pyramid",
+        "owl"
+      ]
+    },
+    {
+      "id": "archangel",
+      "name": "Archangel",
+      "effects": [
+        "Revive 1 more time.",
+        "Increase Max HP by 100%"
+      ],
+      "requires": [
+        "sacrosanct",
+        "halo",
+        "stained_glass",
+        "crucifix"
+      ]
+    },
+    {
+      "id": "the_fifth_element",
+      "name": "The Fifth Element",
+      "effects": [
+        "Deal 50% Bonus Damage every 5th cast of each spell",
+        "Increase All Magic Damage by 50%"
+      ],
+      "requires": [
+        "creation",
+        "ether",
+        "ancient_tree_staff",
+        "magic_scroll"
+      ]
+    },
+    {
+      "id": "necromancer",
+      "name": "Necromancer",
+      "effects": [
+        "Enemies killed by the effect of Reaper's Scythe Explode (Explosion Damage is 15% of the enemy's Max HP)"
+      ],
+      "requires": [
+        "reapers_scythe",
+        "undead",
+        "wraith",
+        "lantern"
+      ]
+    },
+    {
+      "id": "deadeye",
+      "name": "Deadeye",
+      "effects": [
+        "Each time an enemy is defeated, the remaining Cooldown of Desperado is reduced by 0.2%."
+      ],
+      "requires": [
+        "desperado",
+        "brand",
+        "crow",
+        "target"
+      ]
+    },
+    {
+      "id": "trickster",
+      "name": "Trickster",
+      "effects": [
+        "Criticals from Four-Leaf Clover activate the effect of Joker",
+        "Increase Critical Strike Rate by 1%"
+      ],
+      "requires": [
+        "joker",
+        "tarot_card",
+        "four_leaf_clover",
+        "rainbow"
+      ]
+    },
+    {
+      "id": "sniper",
+      "name": "Sniper",
+      "effects": [
+        "Deal 25% additional Damage to enemies whose HP is 75% or above."
+      ],
+      "requires": [
+        "ballista",
+        "guillotine",
+        "rose",
+        "radar"
+      ]
+    },
+    {
+      "id": "nuclear",
+      "name": "Nuclear",
+      "effects": [
+        "Increase ATK by 1% per 3% spell size increase rate",
+        "Increase All Magic Size by 20%"
+      ],
+      "requires": [
+        "uranium",
+        "amplifier",
+        "bomb",
+        "gunpowder"
+      ]
+    },
+    {
+      "id": "zero_to_hundred",
+      "name": "Zero-to-Hundred",
+      "effects": [
+        "The Amplify effect of Jet Engine increases by x3"
+      ],
+      "requires": [
+        "accelerator",
+        "jet_engine",
+        "breeze",
+        "broom"
+      ]
+    },
+    {
+      "id": "arbiter",
+      "name": "Arbiter",
+      "effects": [
+        "Total Magic Damage Multiplier x1.25"
+      ],
+      "requires": [
+        "transcendence",
+        "fairy",
+        "starlight",
+        "mana_flame"
+      ]
+    },
+    {
+      "id": "chronos",
+      "name": "Chronos",
+      "effects": [
+        "Amplify ATK by 1% per 3% cooldown reduction rate of all spells",
+        "Decrease All Magic Cooldown by 5%"
+      ],
+      "requires": [
+        "ouroboros",
+        "wizards_hat",
+        "black_cat",
+        "hourglass"
+      ]
+    },
+    {
+      "id": "monarch",
+      "name": "Monarch",
+      "effects": [
+        "Increase ATK by 1% per owned Common Artifact",
+        "Increase ATK by 3% per owned Rare Artifact"
+      ],
+      "requires": [
+        "crown",
+        "diamond",
+        "sapphire",
+        "ruby"
+      ]
+    },
+    {
+      "id": "architect",
+      "name": "Architect",
+      "effects": [
+        "Amplify ATK by 100%"
+      ],
+      "requires": [
+        "gaia",
+        "titans_power",
+        "geometry",
+        "magic_seal",
+        "golem_core"
+      ]
+    },
+    {
+      "id": "magnum_opus",
+      "name": "Magnum Opus",
+      "effects": [
+        "All Synergy Requirements are 1 Met."
+      ],
+      "requires": [
+        "philosophers_stone",
+        "ether",
+        "abyss",
+        "singularity",
+        "pyramid"
+      ]
+    },
+    {
+      "id": "godhand",
+      "name": "Godhand",
+      "effects": [
+        "Lightning from Longinus' Spear converges and becomes Enhanced"
+      ],
+      "requires": [
+        "longinus_spear",
+        "starlight",
+        "holy_grail",
+        "crucifix"
+      ]
+    },
+    {
+      "id": "paladin",
+      "name": "Paladin",
+      "effects": [
+        "Amplify ATK by 100% while in Invincible State",
+        "Decrease Damage Taken by 5%"
+      ],
+      "requires": [
+        "magic_seal",
+        "aegis",
+        "mana_shield",
+        "force_field"
+      ]
+    },
+    {
+      "id": "agi",
+      "name": "AGI",
+      "effects": [
+        "ATK is Increased & Amplified by the effect of Matrix."
+      ],
+      "requires": [
+        "matrix",
+        "singularity",
+        "asi",
+        "oculus"
+      ]
+    },
+    {
+      "id": "treasure_hunter",
+      "name": "Treasure Hunter",
+      "effects": [
+        "2 Treasure Chests are created at a random location."
+      ],
+      "requires": [
+        "treasure_map",
+        "keyring",
+        "mimic",
+        "spell_bag"
+      ]
+    },
+    {
+      "id": "blood_moon",
+      "name": "Blood Moon",
+      "effects": [
+        "The effect of Rune of Frenzy is applied even while inactive. While active, deal 25% Additional Damage."
+      ],
+      "requires": [
+        "eclipse",
+        "werewolf",
+        "hunter",
+        "watchers_eye"
+      ]
+    },
+    {
+      "id": "heartbreaker",
+      "name": "Heartbreaker",
+      "effects": [
+        "Critical Multiplier x1.25"
+      ],
+      "requires": [
+        "widowmaker",
+        "assassination",
+        "carnival",
+        "masked_ball",
+        "shadow_cape"
+      ]
+    },
+    {
+      "id": "wonderland",
+      "name": "Wonderland",
+      "effects": [
+        "Reduce Size of all enemies and the character by 9%",
+        "Decrease the Max HP of all enemies by 9%."
+      ],
+      "requires": [
+        "toy_castle",
+        "fairy",
+        "unicorn",
+        "storybook"
+      ]
+    },
+    {
+      "id": "cosmic_horror",
+      "name": "Cosmic Horror",
+      "effects": [
+        "Remove Debuff of Necronomicon",
+        "Remove Debuff of Abyss"
+      ],
+      "requires": [
+        "necronomicon",
+        "abyss",
+        "clairvoyance"
+      ]
+    },
+    {
+      "id": "android",
+      "name": "Android",
+      "effects": [
+        "Remove Debuff of Plasma",
+        "Remove Debuff of Cyborg"
+      ],
+      "requires": [
+        "plasma",
+        "cyborg",
+        "cogwheel"
+      ]
+    },
+    {
+      "id": "gravity",
+      "name": "Gravity",
+      "effects": [
+        "The wave of Gravity Orb greatly expands",
+        "Decrease the Movement Speed of all enemies by 5%."
+      ],
+      "requires": [
+        "amplifier",
+        "gravity_orb",
+        "spiderweb"
+      ]
+    },
+    {
+      "id": "genius",
+      "name": "Genius",
+      "effects": [
+        "Increase cap for Bonus Levels applied after Max Level by 10",
+        "Increase Mana Acquisition by 25%"
+      ],
+      "requires": [
+        "geometry",
+        "owl",
+        "mortarboard",
+        "magic_grimoire"
+      ]
+    },
+    {
+      "id": "conflux",
+      "name": "Conflux",
+      "effects": [
+        "The effect of Nexus increases by 1.5X."
+      ],
+      "requires": [
+        "nexus",
+        "ai_magic",
+        "asi",
+        "mana_circuit"
+      ]
+    },
+    {
+      "id": "butcher",
+      "name": "Butcher",
+      "effects": [
+        "Deal 15% Additional Damage to Boss Wave Monsters."
+      ],
+      "requires": [
+        "executioners_ax",
+        "hunter",
+        "meat",
+        "crow"
+      ]
+    },
+    {
+      "id": "gilgamesh",
+      "name": "Gilgamesh",
+      "effects": [
+        "When 2500 enemies are defeated, the Rune of Greed effect is activated."
+      ],
+      "requires": [
+        "opulence",
+        "holy_chest",
+        "crown",
+        "golden_roulette",
+        "coin"
+      ]
+    },
+    {
+      "id": "homunculus",
+      "name": "Homunculus",
+      "effects": [
+        "Revive with a 30% chance upon death."
+      ],
+      "requires": [
+        "dna",
+        "philosophers_stone",
+        "second_heart",
+        "organic_shield"
+      ]
+    },
+    {
+      "id": "broker",
+      "name": "Broker",
+      "effects": [
+        "Merchants' 25% Discount Items become Free."
+      ],
+      "requires": [
+        "bouquet",
+        "philosophers_stone",
+        "black_cat",
+        "rose"
+      ]
+    },
+    {
+      "id": "requiem",
+      "name": "Requiem",
+      "effects": [
+        "Enemies Executed by the effect of Roster fill the stacks of Death's Bell."
+      ],
+      "requires": [
+        "deaths_bell",
+        "roster",
+        "wraith",
+        "exorcism"
+      ]
+    },
+    {
+      "id": "fanatic",
+      "name": "Fanatic",
+      "effects": [
+        "The effect of Brand increases by 2X, and its activation time becomes 2X faster."
+      ],
+      "requires": [
+        "occult",
+        "necronomicon",
+        "brand"
+      ]
+    },
+    {
+      "id": "medusa",
+      "name": "Medusa",
+      "effects": [
+        "Deal Additional Damage equal to the number of stacks of Hydra applied to the target."
+      ],
+      "requires": [
+        "hydra",
+        "occult",
+        "aegis",
+        "mutagen"
+      ]
+    },
+    {
+      "id": "dominus",
+      "name": "Dominus",
+      "effects": [
+        "Increase Combination Magic Damage by 25% per activated Combination Magic."
+      ],
+      "requires": [
+        "domain_of_power",
+        "dragontongue",
+        "mana_ore",
+        "spell_cape"
+      ]
+    },
+    {
+      "id": "elixir",
+      "name": "Elixir",
+      "effects": [
+        "HP Potion heals instantly and reduces Cooldown by 20s",
+        "Increase Life Orb HP Recovery by 50%"
+      ],
+      "requires": [
+        "worldtree_leaf",
+        "mandrake",
+        "hp_potion"
+      ]
+    },
+    {
+      "id": "healing_factor",
+      "name": "Healing Factor",
+      "effects": [
+        "Bonus HP from Organic Shield increases with HP Regen per Second",
+        "Increase HP Regen per sec. by 0.5%"
+      ],
+      "requires": [
+        "second_heart",
+        "organic_shield",
+        "blood_pack"
+      ]
+    },
+    {
+      "id": "steampunk",
+      "name": "Steampunk",
+      "effects": [
+        "Decrease All Artifact Cooldown by 12%",
+        "Increase All Magic Duration by 12%"
+      ],
+      "requires": [
+        "clockwork",
+        "pocket_watch",
+        "cogwheel"
+      ]
+    },
+    {
+      "id": "nymph",
+      "name": "Nymph",
+      "effects": [
+        "Increase All Magic Damage by 100%"
+      ],
+      "requires": [
+        "cauldron",
+        "lightning",
+        "weather_controller",
+        "mana_scepter"
+      ]
+    },
+    {
+      "id": "chaos",
+      "name": "Chaos",
+      "effects": [
+        "Magic triggered by Pandora's Box deals x2 damage"
+      ],
+      "requires": [
+        "pandoras_box",
+        "imp",
+        "harmony",
+        "harp"
+      ]
+    },
+    {
+      "id": "genie",
+      "name": "Genie",
+      "effects": [
+        "Occasionally drop Large Mana Orb when defeating normal enemies",
+        "Increase Mana Acquisition by 10%"
+      ],
+      "requires": [
+        "magic_fountain",
+        "mercury",
+        "aurora",
+        "sapphire"
+      ]
+    },
+    {
+      "id": "war_machine",
+      "name": "War Machine",
+      "effects": [
+        "Stacks of War Flag instantly max out",
+        "Increase ATK by 20%"
+      ],
+      "requires": [
+        "war_flag",
+        "siege_hammer",
+        "golem_core",
+        "cogwheel"
+      ]
+    },
+    {
+      "id": "mastery_magic_bolt",
+      "name": "Mastery : Magic Bolt",
+      "effects": [
+        "Increase Magic Bolt Damage by 50%"
+      ],
+      "requires": [
+        "the_freeshooter",
+        "ether_arrow",
+        "magic_bullet",
+        "shuriken"
+      ],
+      "mastery_magic_id": "magic_bolt"
+    },
+    {
+      "id": "mastery_fireball",
+      "name": "Mastery : Fireball",
+      "effects": [
+        "Increase Fireball Damage by 50%"
+      ],
+      "requires": [
+        "phoenixs_bow",
+        "candlestick",
+        "torch"
+      ],
+      "mastery_magic_id": "fireball"
+    },
+    {
+      "id": "mastery_spirit",
+      "name": "Mastery : Spirit",
+      "effects": [
+        "Increase Spirit Damage by 50%"
+      ],
+      "requires": [
+        "magic_wand",
+        "ether_arrow",
+        "shuriken",
+        "firefly"
+      ],
+      "mastery_magic_id": "spirit"
+    },
+    {
+      "id": "mastery_satellite",
+      "name": "Mastery : Satellite",
+      "effects": [
+        "Increase Satellite Damage by 50%"
+      ],
+      "requires": [
+        "circular_sawblade",
+        "core_energy",
+        "electromagnet",
+        "glass_orb"
+      ],
+      "mastery_magic_id": "satellite"
+    },
+    {
+      "id": "mastery_frost_nova",
+      "name": "Mastery : Frost Nova",
+      "effects": [
+        "Increase Frost Nova Damage by 50%"
+      ],
+      "requires": [
+        "moon_crystal",
+        "skadi",
+        "snowman"
+      ],
+      "mastery_magic_id": "frost_nova"
+    },
+    {
+      "id": "mastery_thunderstorm",
+      "name": "Mastery : Thunderstorm",
+      "effects": [
+        "Increase Thunderstorm Damage by 50%"
+      ],
+      "requires": [
+        "mjolnir",
+        "lightning",
+        "lightning_rod"
+      ],
+      "mastery_magic_id": "thunderstorm"
+    },
+    {
+      "id": "mastery_electric_zone",
+      "name": "Mastery : Electric Zone",
+      "effects": [
+        "Increase Electric Zone Damage by 50%"
+      ],
+      "requires": [
+        "robot",
+        "electromagnet",
+        "battery"
+      ],
+      "mastery_magic_id": "electric_zone"
+    },
+    {
+      "id": "mastery_tsunami",
+      "name": "Mastery : Tsunami",
+      "effects": [
+        "Increase Tsunami Damage by 50%"
+      ],
+      "requires": [
+        "wave_calming_flute",
+        "chimera",
+        "weather_controller"
+      ],
+      "mastery_magic_id": "tsunami"
+    },
+    {
+      "id": "mastery_meteor",
+      "name": "Mastery : Meteor",
+      "effects": [
+        "Increase Meteor Damage by 50%"
+      ],
+      "requires": [
+        "dimensional_gate",
+        "candlestick",
+        "celestial_calendar"
+      ],
+      "mastery_magic_id": "meteor"
+    },
+    {
+      "id": "mastery_cyclone",
+      "name": "Mastery : Cyclone",
+      "effects": [
+        "Increase Cyclone Damage by 50%"
+      ],
+      "requires": [
+        "palm_leaf_fan",
+        "weather_controller",
+        "totem"
+      ],
+      "mastery_magic_id": "cyclone"
+    },
+    {
+      "id": "mastery_electric_shock",
+      "name": "Mastery : Electric Shock",
+      "effects": [
+        "Increase Electric Shock Damage by 50%"
+      ],
+      "requires": [
+        "electric_cable",
+        "lightning",
+        "lightning_rod"
+      ],
+      "mastery_magic_id": "electric_shock"
+    },
+    {
+      "id": "mastery_incineration",
+      "name": "Mastery : Incineration",
+      "effects": [
+        "Increase Incineration Damage by 50%"
+      ],
+      "requires": [
+        "dragons_breath",
+        "salamander",
+        "torch"
+      ],
+      "mastery_magic_id": "incineration"
+    },
+    {
+      "id": "mastery_energy_bolt",
+      "name": "Mastery : Energy Bolt",
+      "effects": [
+        "Increase Energy Bolt Damage by 50%"
+      ],
+      "requires": [
+        "machine_arm",
+        "mirror",
+        "magitech_module"
+      ],
+      "mastery_magic_id": "energy_bolt"
+    },
+    {
+      "id": "mastery_blizzard",
+      "name": "Mastery : Blizzard",
+      "effects": [
+        "Increase Blizzard Damage by 50%"
+      ],
+      "requires": [
+        "snowflake_crown",
+        "skadi",
+        "snowman"
+      ],
+      "mastery_magic_id": "blizzard"
+    },
+    {
+      "id": "mastery_arcane_ray",
+      "name": "Mastery : Arcane Ray",
+      "effects": [
+        "Increase Arcane Ray Damage by 50%"
+      ],
+      "requires": [
+        "otherworldly_tentacle",
+        "mirror",
+        "crystal_prism"
+      ],
+      "mastery_magic_id": "arcane_ray"
+    },
+    {
+      "id": "mastery_lava_zone",
+      "name": "Mastery : Lava Zone",
+      "effects": [
+        "Increase Lava Zone Damage by 50%"
+      ],
+      "requires": [
+        "sulfur",
+        "chimera",
+        "salamander"
+      ],
+      "mastery_magic_id": "lava_zone"
+    },
+    {
+      "id": "mastery_flash_shock",
+      "name": "Mastery : Flash Shock",
+      "effects": [
+        "Increase Flash Shock Damage by 50%"
+      ],
+      "requires": [
+        "gae_bolg",
+        "chimera",
+        "lightning"
+      ],
+      "mastery_magic_id": "flash_shock"
+    }
+  ],
+  "magic_artifacts": {
+    "magic_bolt": [
+      "the_freeshooter",
+      "ether_arrow",
+      "magic_bullet",
+      "shuriken"
+    ],
+    "spirit": [
+      "magic_wand",
+      "ether_arrow",
+      "shuriken",
+      "firefly",
+      "mana_scepter",
+      "mirror"
+    ],
+    "fireball": [
+      "phoenixs_bow",
+      "candlestick",
+      "torch",
+      "cauldron"
+    ],
+    "energy_bolt": [
+      "machine_arm",
+      "mirror",
+      "magitech_module",
+      "mana_scepter"
+    ],
+    "electric_shock": [
+      "electric_cable",
+      "lightning",
+      "lightning_rod"
+    ],
+    "electric_zone": [
+      "robot",
+      "electromagnet",
+      "battery",
+      "lightning"
+    ],
+    "thunderstorm": [
+      "mjolnir",
+      "lightning",
+      "lightning_rod"
+    ],
+    "meteor": [
+      "dimensional_gate",
+      "candlestick",
+      "celestial_calendar",
+      "cauldron"
+    ],
+    "satellite": [
+      "circular_sawblade",
+      "core_energy",
+      "electromagnet",
+      "glass_orb",
+      "mana_scepter",
+      "mirror"
+    ],
+    "arcane_ray": [
+      "otherworldly_tentacle",
+      "mirror",
+      "crystal_prism",
+      "mana_scepter"
+    ],
+    "flash_shock": [
+      "gae_bolg",
+      "chimera",
+      "lightning"
+    ],
+    "incineration": [
+      "dragons_breath",
+      "salamander",
+      "torch",
+      "cauldron"
+    ],
+    "blizzard": [
+      "snowflake_crown",
+      "skadi",
+      "snowman",
+      "weather_controller"
+    ],
+    "frost_nova": [
+      "moon_crystal",
+      "skadi",
+      "snowman",
+      "weather_controller"
+    ],
+    "tsunami": [
+      "wave_calming_flute",
+      "chimera",
+      "weather_controller"
+    ],
+    "cyclone": [
+      "palm_leaf_fan",
+      "weather_controller",
+      "totem"
+    ],
+    "lava_zone": [
+      "sulfur",
+      "chimera",
+      "salamander",
+      "cauldron"
+    ],
+    "magic_circle": [
+      "ancient_tree_staff"
+    ]
+  },
+  "combination_boosters": {
+    "artifacts": [
+      "domain_of_power",
+      "dragontongue"
+    ],
+    "synergies": [
+      "dominus"
+    ]
+  }
+}

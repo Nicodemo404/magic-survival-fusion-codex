@@ -237,7 +237,19 @@
           <span class="planner-levels-tag">Lv.25 / 50 / 75</span>
         </div>
 
-        <p class="panel-subtitle">Plan your run's combination magic choices (3 slots, 5 with Gate of Creation), verify conflicts, and track artifact scaling.</p>
+        <p class="panel-subtitle">Plan your run's combination magic choices (3 slots, +2 with Gate of Creation, +1 with Domain of Power), verify conflicts, and track artifact scaling.</p>
+
+        <!-- Domain of Power: Special artifact, "Gain 1 more Magic Combination chance. Increase Max Level by 1." -->
+        <label class="toggle-switch-wrapper planner-dop-toggle" for="toggle-domain-of-power">
+          <span class="toggle-switch-label">
+            <span class="planner-dop-title">Domain of Power</span>
+            <span class="planner-dop-hint">Special artifact · +1 combination slot · Max Level +1</span>
+          </span>
+          <span class="toggle-switch">
+            <input type="checkbox" id="toggle-domain-of-power" />
+            <span class="toggle-slider"></span>
+          </span>
+        </label>
 
         <!-- Conflict Warning Banner -->
         <div class="hidden" id="conflict-warning-container"></div>
@@ -245,7 +257,7 @@
         <!-- Combo-Specific Notes (e.g. Overmind restriction) -->
         <div class="hidden" id="planner-notes-container"></div>
 
-        <!-- Slots Grid (3 base slots, +2 GoC Bonus with Gate of Creation) -->
+        <!-- Slots Grid (3 base slots, +2 GoC Bonus with Gate of Creation, +1 DoP Bonus with Domain of Power) -->
         <div class="planner-slots-grid" id="planner-slots-grid">
           <!-- Rendered dynamically -->
         </div>
@@ -276,9 +288,9 @@
             <circle cx="12" cy="12" r="10.5" stroke-width="1.2" opacity="0.6"></circle>
             <path d="M 12 2.5 L 16.12 20.56 L 4.57 6.08 L 21.26 14.11 L 2.74 14.11 L 19.43 6.08 L 7.88 20.56 Z"></path>
           </svg>
-          <span>Recommended Class &amp; Subject</span>
+          <span>Class &amp; Test Subject per Main Magic</span>
         </h3>
-        <p class="panel-subtitle">Calculated based on your pinned Main Magics and scaling overlaps.</p>
+        <p class="panel-subtitle">The class and test subject tied to each pinned Main Magic, with their verified v0.9941 bonuses.</p>
         <div id="recommendation-container">
           <!-- Rendered dynamically -->
         </div>
@@ -293,7 +305,7 @@
           </svg>
           <span>Artifact Priority (Main Magics)</span>
         </h3>
-        <p class="panel-subtitle">Only artifacts scaling your <strong>Main Magics</strong> amplify combinations. Material magics are consumed and do not scale.</p>
+        <p class="panel-subtitle">Only artifacts scaling your <strong>Main Magics</strong> amplify combinations. Material magics are consumed and do not scale. Names and effects are the in-game Encyclopedia text; the Mastery synergy set is marked.</p>
         <div class="artifact-priority-list" id="artifact-priority-list">
           <!-- Rendered dynamically -->
         </div>
@@ -400,8 +412,9 @@
             <circle cx="12" cy="12" r="10.5" stroke-width="1.2" opacity="0.6"></circle>
             <path d="M 12 2.5 L 16.12 20.56 L 4.57 6.08 L 21.26 14.11 L 2.74 14.11 L 19.43 6.08 L 7.88 20.56 Z"></path>
           </svg>
-          <span>Classes &amp; Subjects Directory</span>
+          <span>Classes &amp; Test Subjects</span>
         </h3>
+        <p class="panel-subtitle">All 24 classes and 25 test subjects, verified from the v0.9941 class-select and Test Subject screens.</p>
         <div class="classes-filter-bar" id="classes-element-filters">
           <!-- Rendered dynamically -->
         </div>
@@ -410,12 +423,60 @@
         </div>
       </section>
 
+      <!-- Artifact & Synergy Index -->
+      <section class="panel">
+        <h3 class="panel-title panel-title-sm">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M8 21h8"></path><path d="M12 17v4"></path><path d="M7 4h10v5a5 5 0 0 1-10 0V4z"></path><path d="M17 6h2a2 2 0 0 1 0 4h-2"></path><path d="M7 6H5a2 2 0 0 0 0 4h2"></path>
+          </svg>
+          <span>Artifact &amp; Synergy Index</span>
+        </h3>
+        <p class="panel-subtitle">All 182 artifacts and 63 synergies with their in-game v0.9941 Encyclopedia text.</p>
+        <div class="search-input-wrapper">
+          <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" class="search-input" id="artifact-search-input" placeholder="Search artifact, synergy, magic, or effect..." />
+        </div>
+        <div class="classes-filter-bar" id="artifact-rarity-filters">
+          <!-- Rendered dynamically -->
+        </div>
+        <div class="artifact-index-count" id="artifact-index-count"></div>
+        <div class="artifact-index-list" id="artifact-index-list">
+          <!-- Rendered dynamically -->
+        </div>
+      </section>
+
+      <!-- How Damage & Slots Stack (community-documented rules) -->
+      <section class="panel">
+        <h3 class="panel-title panel-title-sm">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="5" x2="5" y2="19"></line><circle cx="6.5" cy="6.5" r="2.5"></circle><circle cx="17.5" cy="17.5" r="2.5"></circle>
+          </svg>
+          <span>How Damage &amp; Slots Stack</span>
+        </h3>
+        <p class="panel-subtitle">Community-documented rules from the Magic Survival Discord (#guide, #numbers, #faq). Not in-game text.</p>
+        <div class="formula-box">Damage = Base × ATK × Amplify × All Magic Damage × Crit Multiplier × Class × Talent × Fusion × Ultimate × Deus Ex Machina × each Additional Damage source</div>
+        <ul class="formula-list">
+          <li><strong>Separate tags multiply;</strong> sources inside the same tag add up.</li>
+          <li><strong>ATK</strong> starts at 100. <strong>Amplify</strong> and <strong>All Magic Damage</strong> are shown without their base 100%.</li>
+          <li><strong>All Magic Damage</strong> also holds combination damage, spell-specific damage and non-multiplier talent bonuses.</li>
+          <li><strong>Critical:</strong> base rate 3%, base multiplier 100%; sources add up inside each.</li>
+          <li><strong>Additional Damage:</strong> every source is its own multiplier (25% + 25% → ×1.5625).</li>
+          <li><strong>Fusion multiplier</strong> (the ×3 / ×5 / ×10 on combination cards) is separate from everything else.</li>
+          <li><strong>Specialist class:</strong> +3% to its magic every 5 levels (about ×1.6); bonus (yellow) levels do not count.</li>
+          <li><strong>Deus Ex Machina:</strong> +1% per Active Magic level (75 levels → ×1.75); passives do not count. Unlocked by the Academy map; recipe per community data-mining: Overmind + all passives. Not yet verified in this Codex.</li>
+          <li><strong>Combination slots:</strong> Lv.25 / 50 / 75 (max 3), +1 Domain of Power, +2 Gate of Creation (Gate itself uses one). Extra slots open at Lv.75; activating a combination uses a level-up.</li>
+        </ul>
+      </section>
+
       <!-- About & Disclaimer -->
       <section class="panel">
         <h3 class="panel-title panel-title-sm">About &amp; Community</h3>
         <p class="about-lead-text">
           Built for the player community on <a href="https://reddit.com/r/magic_survival" target="_blank" rel="noopener noreferrer" class="gold-link">r/magic_survival</a>.
-          All <span id="about-combo-count">62</span> combination mechanics, attribute thresholds, and stats are verified against game version <strong>v0.9941</strong>.
+          All <span id="about-combo-count">62</span> combination mechanics, attribute thresholds, and stats, plus 182 artifacts, 63 synergies, 24 classes and 25 test subjects, are verified against game version <strong>v0.9941</strong>.
         </p>
         <p class="about-disclaimer-text">
           <strong>Legal Disclaimer:</strong> Unofficial fan-made tool. Magic Survival and all in-game assets belong to <strong>LEME</strong>.

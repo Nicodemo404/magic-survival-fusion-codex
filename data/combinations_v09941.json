@@ -32,9 +32,7 @@
       "support": "Support & Magic Circle"
     },
     "planned_modules": [
-      "artifacts_v2",
-      "magic_circle_and_dem",
-      "class_subject_synergy"
+      "magic_circle_and_dem"
     ]
   },
   "base_magics": [
@@ -2196,7 +2194,11 @@
       "verified": true,
       "thumb_path": "./assets/thumbs/gate_of_creation.webp",
       "card_path": "./assets/cards/gate_of_creation.webp",
-      "raw_path": "./assets/cards/gate_of_creation.webp"
+      "raw_path": "./assets/cards/gate_of_creation.webp",
+      "unlock": {
+        "map": "Sewage System",
+        "source": "community FAQ, Magic Survival Discord"
+      }
     },
     {
       "id": "perpetual_engine",
@@ -2226,7 +2228,11 @@
       "verified": true,
       "thumb_path": "./assets/thumbs/perpetual_engine.webp",
       "card_path": "./assets/cards/perpetual_engine.webp",
-      "raw_path": "./assets/cards/perpetual_engine.webp"
+      "raw_path": "./assets/cards/perpetual_engine.webp",
+      "unlock": {
+        "map": "Sewage System",
+        "source": "community FAQ, Magic Survival Discord"
+      }
     },
     {
       "id": "overmind",
@@ -2258,7 +2264,11 @@
       "verified": true,
       "thumb_path": "./assets/thumbs/overmind.webp",
       "card_path": "./assets/cards/overmind.webp",
-      "raw_path": "./assets/cards/overmind.webp"
+      "raw_path": "./assets/cards/overmind.webp",
+      "unlock": {
+        "map": "Sewage System",
+        "source": "community FAQ, Magic Survival Discord"
+      }
     }
   ]
 }
