@@ -1,0 +1,1844 @@
+{
+  "meta": {
+    "game": "Magic Survival",
+    "version": "v0.9941",
+    "source": "In-game Encyclopedia (Magic tab: base stats, traits, passives), captured 2026-11-28",
+    "total_magics": 55,
+    "counts": {
+      "active": 21,
+      "passive": 10,
+      "special": 24
+    },
+    "damage_rule": "Combination base damage = Encyclopedia base damage of the Main Magic x the combination's 'Increase <Magic> Damage by NX' multiplier (community method; ultimates multiply on top). Trait 'X' multipliers (Lv.4 / Lv.7) are a separate multiplier tag and are listed separately."
+  },
+  "magics": [
+    {
+      "id": "magic_bolt",
+      "name": "Magic Bolt",
+      "kind": "active",
+      "description": "Enhance the default projectile.",
+      "stats": {
+        "Damage": "5",
+        "Explosion Range": "x1",
+        "Number": "1",
+        "Cooldown": "0.75 s"
+      },
+      "traits": [
+        {
+          "name": "Magic Arrow",
+          "level": 4,
+          "text": "Magic Bolts penetrate all enemies.",
+          "buffs": [
+            "Increase Magic Bolt Damage by 1.5X",
+            "Increase Magic Bolt Projectile Size by 180%",
+            "Increase Magic Bolt Projectile Speed by 180%"
+          ],
+          "penalties": []
+        },
+        {
+          "name": "Fireworks",
+          "level": 4,
+          "text": "Magic Bolts split into threes and explode.",
+          "buffs": [
+            "Increase Magic Bolt Damage by 50%"
+          ],
+          "penalties": [
+            "Increase Magic Bolt Cooldown by 2 sec."
+          ]
+        },
+        {
+          "name": "Fission",
+          "level": 4,
+          "text": "Magic Bolts are fired towards 2 additional targets.",
+          "buffs": [
+            "Increase Magic Bolt Damage by 50%"
+          ],
+          "penalties": []
+        },
+        {
+          "name": "Chain Casting",
+          "level": 7,
+          "text": "",
+          "buffs": [
+            "Increase the number of Magic Bolts by 1",
+            "Decrease Magic Bolt Cooldown by 20%"
+          ],
+          "penalties": []
+        },
+        {
+          "name": "Fire at Will",
+          "level": 7,
+          "text": "Magic Bolts are fired in random directions.",
+          "buffs": [
+            "Increase the number of Magic Bolts by 5X",
+            "Increase Magic Bolt Damage by 50%"
+          ],
+          "penalties": [
+            "Increase Magic Bolt Cooldown by 3 sec."
+          ]
+        },
+        {
+          "name": "Doppelganger",
+          "level": 7,
+          "text": "Instead of firing Magic Bolts, summon 3 Mirages that fire Magic Bolts.",
+          "buffs": [],
+          "penalties": [
+            "Increase Magic Bolt Cooldown by 50%"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fireball",
+      "name": "Fireball",
+      "kind": "active",
+      "description": "Launch an explosive projectile.",
+      "stats": {
+        "Damage": "7",
+        "Explosion Range": "x1",
+        "Number": "1",
+        "Cooldown": "1.5 s"
+      },
+      "traits": [
+        {
+          "name": "Big Bang",
+          "level": 7,
+          "text": "Increase the Damage and Size of the first Fireball by 1.5X.",
+          "buffs": [
+            "Increase Fireball Damage by 80%"
+          ],
+          "penalties": []
+        },
+        {
+          "name": "Toxic Gas",
+          "level": 7,
+          "text": "The fireball's Explosion expands and damages enemies 3 times.",
+          "buffs": [],
+          "penalties": [
+            "Decrease Fireball Damage by 30%"
+          ]
+        },
+        {
+          "name": "Constellation",
+          "level": 7,
+          "text": "Fireballs are fired at random locations and persist for a short duration, trailing the character. The Fireball's Movement Speed decreases gradually.",
+          "buffs": [
+            "Increase Fireball Penetration by 1"
+          ],
+          "penalties": []
+        }
+      ]
+    },
+    {
+      "id": "thunderstorm",
+      "name": "Thunderstorm",
+      "kind": "active",
+      "description": "A thunderstorm falls upon nearby enemies.",
+      "stats": {
+        "Damage": "15",
+        "Explosion Range": "x1",
+        "Number": "1",
+        "Cooldown": "2 s"
+      },
+      "traits": [
+        {
+          "name": "Thunderclap",
+          "level": 7,
+          "text": "1 to 3 Thunderstorms are created in a row.",
+          "buffs": [
+            "Decrease Thunderstorm Cooldown by 25%"
+          ],
+          "penalties": []
+        },
+        {
+          "name": "Lightning Explosion",
+          "level": 7,
+          "text": "The Thunderstorm Explosion expands. Thunderstorms are created at random locations in order.",
+          "buffs": [
+            "Increase Thunderstorm Damage by 80%"
+          ],
+          "penalties": []
+        },
+        {
+          "name": "Judgment",
+          "level": 7,
+          "text": "All Thunderstorms are combined into one. Deal half as much Damage to enemies near the Thunderstorm Explosion. Each Thunderstorm increases the Size of the new Thunderstorm by 20%.",
+          "buffs": [
+            "Increase Thunderstorm Damage by 5X"
+          ],
+          "penalties": [
+            "Increase Thunderstorm Cooldown by 2X"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meteor",
+      "name": "Meteor",
+      "kind": "active",
+      "description": "A meteor falls on a random location.",
+      "stats": {
+        "Damage": "15",
+        "Explosion Range": "x1",
+        "Number": "1",
+        "Cooldown": "4.5 s"
+      },
+      "traits": [
+        {
+          "name": "Volcanic Eruption",
+          "level": 7,
+          "text": "Meteor explodes immediately and leaves a Crater that deals 25% damage every 0.5s",
+          "buffs": [],
+          "penalties": []
+        },
+        {
+          "name": "Meteor Shower",
+          "level": 7,
+          "text": "",
+          "buffs": [
+            "Increase the number of Meteors by 3X",
+            "Decrease Meteor Interval by 30%"
+          ],
+          "penalties": [
+            "Decrease Meteor Damage by 25%",
+            "Decrease Meteor Size by 25%"
+          ]
+        },
+        {
+          "name": "Asteroid",
+          "level": 7,
+          "text": "All Meteors are combined into one. Each Meteor increases the Size of the new Meteor by 50%.",
+          "buffs": [
+            "Increase Meteor Damage by 3X"
+          ],
+          "penalties": [
+            "Increase Meteor Cooldown by 2X"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cyclone",
+      "name": "Cyclone",
+      "kind": "active",
+      "description": "Cause a gust of wind that grows in size and deals damage.",
+      "stats": {
+        "Damage": "5",
+        "Damage Interval": "0.3 s",
+        "Size": "x1",
+        "Duration": "2 s",
+        "Number": "1",
+        "Cooldown": "3.5 s"
+      },
+      "traits": [
+        {
+          "name": "Extreme Weather",
+          "level": 7,
+          "text": "",
+          "buffs": [
+            "Increase the number of Cyclones by 2",
+            "Decrease Cyclone Cooldown by 10%"
+          ],
+          "penalties": []
+        },
+        {
+          "name": "Electric Orb",
+          "level": 7,
+          "text": "The Cyclone gradually shrinks and launches projectiles in random directions.",
+          "buffs": [
+            "Increase Cyclone Damage by 2X",
+            "Increase Cyclone Size by 30%"
+          ],
+          "penalties": []
+        },
+        {
+          "name": "Void",
+          "level": 7,
+          "text": "The Cyclones are created at random locations in order and do not move.",
+          "buffs": [
+            "Increase Cyclone Size Increase Speed by 9X"
+          ],
+          "penalties": [
+            "Decrease Cyclone Duration by 50%",
+            "Increase Cyclone Cooldown by 2X"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "electric_shock",
+      "name": "Electric Shock",
+      "kind": "active",
+      "description": "Release electricity in a random direction.",
+      "stats": {
+        "Damage": "5",
+        "Size": "x1",
+        "Number": "2",
+        "Cooldown": "2 s"
+      },
+      "traits": [
+        {
+          "name": "Chain Lightning",
+          "level": 7,
+          "text": "1 to 3 Electric Shocks are created in a row.",
+          "buffs": [
+            "Increase Electric Shock Damage by 50%"
+          ],
+          "penalties": []
+        },
+        {
+          "name": "High Output",
+          "level": 7,
+          "text": "Electric Shock Explodes when it disappears. Electric Shock Size Increase Rate is Converted into Damage.",
+          "buffs": [],
+          "penalties": []
+        },
+        {
+          "name": "Superconductivity",
+          "level": 7,
+          "text": "Electric Shocks are created towards nearby enemies in order.",
+          "buffs": [
+            "Increase Electric Shock Damage by 3X",
+            "Increase Electric Shock Size by 2X"
+          ],
+          "penalties": []
+        }
+      ]
+    },
+    {
+      "id": "energy_bolt",
+      "name": "Energy Bolt",
+      "kind": "active",
+      "description": "Fire a penetrating projectile nearby.",
+      "stats": {
+        "Damage": "8",
+        "Size": "x1",
+        "Duration": "0.018 s",
+        "Number": "5",
+        "Cooldown": "3.3 s"
+      },
+      "traits": [
+        {
+          "name": "Charged Particle",
+          "level": 7,
+          "text": "The Energy Bolt returns to the character when its duration is over.",
+          "buffs": [
+            "Increase the number of Energy Bolts by 35%",
+            "Increase Energy Bolt Projectile Speed by 35%"
+          ],
+          "penalties": []
+        },
+        {
+          "name": "Spark",
+          "level": 7,
+          "text": "Energy Bolts deal damage every 0.3 seconds.",
+          "buffs": [
+            "Increase Energy Bolt Duration by 2.5X",
+            "Increase Energy Bolt Size by 25%"
+          ],
+          "penalties": [
+            "Decrease Energy Bolt Damage by 25%"
+          ]
+        },
+        {
+          "name": "Flare",
+          "level": 7,
+          "text": "Energy Bolts disperse in all directions at once and explode for twice the damage when its duration is over.",
+          "buffs": [
+            "Increase Energy Bolt Damage by 30%"
+          ],
+          "penalties": []
+        }
+      ]
+    },
+    {
+      "id": "incineration",
+      "name": "Incineration",
+      "kind": "active",
+      "description": "Launch flames in front of the character.",
+      "stats": {
+        "Damage": "5",
+        "Size": "x1",
+        "Number": "15",
+        "Cooldown": "4 s"
+      },
+      "traits": [
+        {
+          "name": "Flamestrike",
+          "level": 7,
+          "text": "Each Incineration becomes more powerful than the last. (Max Multiplier: Damage X4, Size X1.5)",
+          "buffs": [
+            "Increase the number of Incinerations by 25%"
+          ],
+          "penalties": []
+        },
+        {
+          "name": "Pyromaniac",
+          "level": 7,
+          "text": "Create 2 Flames with the same Damage whenever casting Incineration.",
+          "buffs": [
+            "Decrease Incineration Cooldown by 20%"
+          ],
+          "penalties": []
+        },
+        {
+          "name": "Cerberus Flame",
+          "level": 7,
+          "text": "Incineration also fires sideways.",
+          "buffs": [
+            "Increase Incineration Damage by 30%",
+            "Increase Incineration Range by 20%"
+          ],
+          "penalties": [
+            "Decrease Incineration Horizontal Size by 33%",
+            "Decrease the number of Incinerations by 33%"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "blizzard",
+      "name": "Blizzard",
+      "kind": "active",
+      "description": "Raise a Blizzard that freezes enemies.",
+      "stats": {
+        "Damage": "7",
+        "Explosion Range": "x1",
+        "Number": "20",
+        "Cooldown": "6 s"
+      },
+      "traits": [
+        {
+          "name": "Sub-Zero",
+          "level": 7,
+          "text": "Decrease the Movement Speed of all enemies by 3% per second whenever Blizzard is active. Movement Speed Decrease is reset after Blizzard is finished.",
+          "buffs": [
+            "Increase the number of Blizzards by 30%"
+          ],
+          "penalties": []
+        },
+        {
+          "name": "Shooting Star",
+          "level": 7,
+          "text": "Blizzard falls at a slower speed.",
+          "buffs": [
+            "Increase Blizzard Damage by 2X",
+            "Increase Blizzard Size by 1.35X"
+          ],
+          "penalties": [
+            "Decrease the number of Blizzards by 50%",
+            "Increase Blizzard Creation Interval by 2X"
+          ]
+        },
+        {
+          "name": "Conflagration",
+          "level": 7,
+          "text": "Blizzards immediately explode 2 times in a row, and each Explosion reduces its Damage by 10%. Blizzard no longer freezes enemies.",
+          "buffs": [
+            "Decrease Blizzard Interval by 30%",
+            "Decrease Blizzard Creation Radius by 30%"
+          ],
+          "penalties": []
+        }
+      ]
+    },
+    {
+      "id": "tsunami",
+      "name": "Tsunami",
+      "kind": "active",
+      "description": "Create a giant wave that crosses through the field.",
+      "stats": {
+        "Damage": "7",
+        "Size": "1",
+        "Number": "8",
+        "Cooldown": "8.5 s"
+      },
+      "traits": [
+        {
+          "name": "Pole",
+          "level": 7,
+          "text": "Multiple Tsunamis are created from all directions at the same time and freeze enemies.",
+          "buffs": [],
+          "penalties": []
+        },
+        {
+          "name": "Siren's Song",
+          "level": 7,
+          "text": "Tsunamis are created near the direction the character is moving in.",
+          "buffs": [
+            "Decrease Tsunami Cooldown by 50%"
+          ],
+          "penalties": [
+            "Decrease the number of Tsunamis by 50%"
+          ]
+        },
+        {
+          "name": "Great Eruption",
+          "level": 7,
+          "text": "Tsunamis are created over a larger radius.",
+          "buffs": [
+            "Increase Tsunami Damage by 2X",
+            "Increase Tsunami Size by 10%"
+          ],
+          "penalties": [
+            "Increase Tsunami Cooldown by 30%"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "spirit",
+      "name": "Spirit",
+      "kind": "active",
+      "description": "Summon a Spirit that augments attacks.",
+      "stats": {
+        "Damage": "7",
+        "Number": "1",
+        "Cooldown": "0.9 s"
+      },
+      "traits": [
+        {
+          "name": "Magic Missile",
+          "level": 7,
+          "text": "Decrease Spirit Cooldown scaling to the number of Spirits. Spirits launch their projectiles over the same interval as its Cooldown.",
+          "buffs": [
+            "Decrease Spirit Cooldown by 20%"
+          ],
+          "penalties": []
+        },
+        {
+          "name": "Magic Blade",
+          "level": 7,
+          "text": "The Spirit's blade-shaped projectile is created immediately on its target.",
+          "buffs": [
+            "Increase Spirit Damage by 2.5X"
+          ],
+          "penalties": []
+        },
+        {
+          "name": "Familiar",
+          "level": 7,
+          "text": "All Spirits are combined into one. The Spirit launches projectiles in all directions.",
+          "buffs": [
+            "Increase Projectiles Fired by 15 for each Spirit",
+            "Decrease Spirit Launch Interval by 5X"
+          ],
+          "penalties": [
+            "Increase Spirit Cooldown by 5X"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "satellite",
+      "name": "Satellite",
+      "kind": "active",
+      "description": "Create a Satellite that rotates around the character.",
+      "stats": {
+        "Damage": "5",
+        "Rotation Speed": "x1",
+        "Size": "x1",
+        "Number": "1"
+      },
+      "traits": [
+        {
+          "name": "Anti-Gravity",
+          "level": 7,
+          "text": "The Satellites' Rotation Speed increases up to 3X and cycles back to its normal state.",
+          "buffs": [],
+          "penalties": []
+        },
+        {
+          "name": "Will o' the Wisp",
+          "level": 7,
+          "text": "Satellites rotate around the character in two radii.",
+          "buffs": [
+            "Increase the number of Satellites by 2X",
+            "Increase Satellite Rotation Speed by 33%"
+          ],
+          "penalties": [
+            "Decrease Satellite Size by 33%"
+          ]
+        },
+        {
+          "name": "Nuclear Fusion",
+          "level": 7,
+          "text": "All Satellites are combined into one. The Satellite deals damage every 0.3 seconds.",
+          "buffs": [
+            "Increase Damage Multiplier by 1 for each Satellite",
+            "Increase Size Multiplier by 1 for each Satellite"
+          ],
+          "penalties": [
+            "Decrease Satellite Rotation Speed by 50%"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "arcane_ray",
+      "name": "Arcane Ray",
+      "kind": "active",
+      "description": "Shoot a ray that penetrates all objects.",
+      "stats": {
+        "Damage": "9",
+        "Size": "x0.25",
+        "Duration": "0.8 s",
+        "Number": "1",
+        "Cooldown": "3.5 s"
+      },
+      "traits": [
+        {
+          "name": "Reflect",
+          "level": 7,
+          "text": "Arcane Rays are also created on the opposite side.",
+          "buffs": [
+            "Increase Arcane Ray Damage by 50%",
+            "Decrease Arcane Ray Interval by 50%"
+          ],
+          "penalties": []
+        },
+        {
+          "name": "Disintegration Ray",
+          "level": 7,
+          "text": "Arcane Rays rotate around the character at a fast speed.",
+          "buffs": [
+            "Increase Arcane Ray Damage by 2X"
+          ],
+          "penalties": [
+            "Increase Arcane Ray Cooldown by 50%"
+          ]
+        },
+        {
+          "name": "Electromagnetic Burst",
+          "level": 7,
+          "text": "Fire 1-Max Number Arcane Rays in random directions. Arcane Rays deal damage every 0.5 seconds.",
+          "buffs": [
+            "Increase Arcane Ray Duration by 4X"
+          ],
+          "penalties": []
+        }
+      ]
+    },
+    {
+      "id": "electric_zone",
+      "name": "Electric Zone",
+      "kind": "active",
+      "description": "Damage nearby enemies over a certain interval.",
+      "stats": {
+        "Damage": "1",
+        "Damage Interval": "0.25 s",
+        "Size": "1"
+      },
+      "traits": [
+        {
+          "name": "Electricity Blast",
+          "level": 7,
+          "text": "",
+          "buffs": [
+            "Increase Electric Zone Damage by 80%",
+            "Increase Electric Zone Size by 30%"
+          ],
+          "penalties": []
+        },
+        {
+          "name": "EMP",
+          "level": 7,
+          "text": "Enemies are stunned after every 4 times they receive damage from Electric Zone.",
+          "buffs": [
+            "Decrease Electric Zone Damage Interval by 10%"
+          ],
+          "penalties": []
+        },
+        {
+          "name": "Fire Aura",
+          "level": 7,
+          "text": "The Electric Zone no longer damages enemies multiple times, but expands and disappears over a certain cycle. The Cycle's length is inversely related to the Damage Interval.",
+          "buffs": [
+            "Increase Electric Zone Damage by 5X"
+          ],
+          "penalties": [
+            "Increase Electric Zone Damage Interval by 3X"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "frost_nova",
+      "name": "Frost Nova",
+      "kind": "active",
+      "description": "Freeze nearby enemies for a moment.",
+      "stats": {
+        "Damage": "12",
+        "Explosion Range": "x1",
+        "Cooldown": "5.5 s"
+      },
+      "traits": [
+        {
+          "name": "Absolute Zero",
+          "level": 7,
+          "text": "Freeze enemies near the Frost Nova's Explosion.",
+          "buffs": [
+            "Increase Freeze Duration by 25%"
+          ],
+          "penalties": []
+        },
+        {
+          "name": "Ice Age",
+          "level": 7,
+          "text": "Frost Nova explodes 3 times in a row, and each Explosion increases its Damage and Size by 1.5X.",
+          "buffs": [],
+          "penalties": [
+            "Decrease Frost Nova Size by 20%",
+            "Increase Frost Nova Cooldown by 2X"
+          ]
+        },
+        {
+          "name": "Earthquake",
+          "level": 7,
+          "text": "Frost Nova no longer freezes enemies but stuns them.",
+          "buffs": [
+            "Increase Frost Nova Damage by 2X",
+            "Increase Frost Nova Size by 25%"
+          ],
+          "penalties": []
+        }
+      ]
+    },
+    {
+      "id": "lava_zone",
+      "name": "Lava Zone",
+      "kind": "active",
+      "description": "Create a Lava Zone that continuously damages enemies for a certain duration.",
+      "stats": {
+        "Damage": "10",
+        "Damage Interval": "0.50 s",
+        "Size": "x1",
+        "Duration": "6 s",
+        "Number": "1",
+        "Cooldown": "5 s"
+      },
+      "traits": [
+        {
+          "name": "Melt",
+          "level": 7,
+          "text": "Enemies take 5% additional Damage whenever taking Damage from Lava Zone. (Max Multiplier: 30%)",
+          "buffs": [
+            "Decrease Lava Zone Cooldown by 15%"
+          ],
+          "penalties": []
+        },
+        {
+          "name": "Crater",
+          "level": 7,
+          "text": "",
+          "buffs": [
+            "Increase the number of Lava Zones by 2X"
+          ],
+          "penalties": [
+            "Decrease Lava Zone Size by 20%",
+            "Decrease Lava Zone Duration by 20%"
+          ]
+        },
+        {
+          "name": "Magma Eruption",
+          "level": 7,
+          "text": "All Lava Zones are combined into one. Each Lava Zone increases the Size of the new Lava Zone by 30%.",
+          "buffs": [
+            "Increase Lava Zone Damage by 2X"
+          ],
+          "penalties": [
+            "Increase Lava Zone Cooldown by 50%"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "shield",
+      "name": "Shield",
+      "kind": "active",
+      "description": "Create a Shield that blocks damage once.",
+      "stats": {
+        "Cooldown": "33 s"
+      },
+      "traits": [
+        {
+          "name": "Barrier",
+          "level": 5,
+          "text": "",
+          "buffs": [
+            "Increase the maximum number of Shields by 2"
+          ],
+          "penalties": []
+        },
+        {
+          "name": "Reconstruct",
+          "level": 5,
+          "text": "Charge 2 shields at once.",
+          "buffs": [
+            "Increase the maximum number of Shields by 1"
+          ],
+          "penalties": [
+            "Increase Shield Cooldown by 20%"
+          ]
+        },
+        {
+          "name": "Destruction Field",
+          "level": 5,
+          "text": "Cause an Explosion when the Shield is broken. The Explosion trails the character for a short duration and damages enemies 4 times.",
+          "buffs": [],
+          "penalties": []
+        }
+      ]
+    },
+    {
+      "id": "cloaking",
+      "name": "Cloaking",
+      "kind": "active",
+      "description": "Pass through all objects for a moment, and increase Movement Speed.",
+      "stats": {
+        "Duration": "2 s",
+        "Cooldown": "45 s"
+      },
+      "traits": [
+        {
+          "name": "Mirage",
+          "level": 5,
+          "text": "",
+          "buffs": [
+            "Increase Cloaking Duration by 80%"
+          ],
+          "penalties": []
+        },
+        {
+          "name": "Space Warp",
+          "level": 5,
+          "text": "Cause a powerful Explosion near the character when Cloaking duration is over.",
+          "buffs": [],
+          "penalties": []
+        },
+        {
+          "name": "Soul Harvest",
+          "level": 5,
+          "text": "Recover 0.1% HP for each enemy killed while in Cloaking, and increase Mana Acquisition by 33%.",
+          "buffs": [],
+          "penalties": []
+        }
+      ]
+    },
+    {
+      "id": "magic_circle",
+      "name": "Magic Circle",
+      "kind": "active",
+      "description": "Amplify ATK for a certain duration.",
+      "stats": {
+        "Amplification Effect": "25%",
+        "Duration": "5 s",
+        "Cooldown": "20 s"
+      },
+      "traits": [
+        {
+          "name": "Unleash Mana",
+          "level": 5,
+          "text": "Decrease All Magic Cooldown by 15% when Magic Circle is active.",
+          "buffs": [
+            "Decrease Magic Circle Cooldown by 15%"
+          ],
+          "penalties": []
+        },
+        {
+          "name": "Material Synthesis",
+          "level": 5,
+          "text": "Create 5 items around the character when Magic Circle is cast.",
+          "buffs": [
+            "Increase Mana Acquisition by 15%"
+          ],
+          "penalties": []
+        },
+        {
+          "name": "Great Magic Circle",
+          "level": 5,
+          "text": "Increase Magic Circle effect by 2X.",
+          "buffs": [
+            "Increase Magic Circle Duration by 33%"
+          ],
+          "penalties": [
+            "Increase Magic Circle Cooldown by 33%"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "armageddon",
+      "name": "Armageddon",
+      "kind": "active",
+      "description": "Remove all enemies.",
+      "stats": {
+        "Cooldown": "100 s"
+      },
+      "traits": [
+        {
+          "name": "Apocalypse",
+          "level": 5,
+          "text": "After the Armageddon Explosion, decrease the HP of all enemies by 40%. Over 20 seconds, the HP Decrease returns to 0%.",
+          "buffs": [],
+          "penalties": []
+        },
+        {
+          "name": "Rapture",
+          "level": 5,
+          "text": "Recover all HP after every 4th Armageddon.",
+          "buffs": [
+            "Increase HP Regen per sec. by 0.1%"
+          ],
+          "penalties": []
+        },
+        {
+          "name": "Doom Prophet",
+          "level": 5,
+          "text": "Each Mana Orb decreases the remaining Cooldown of Armageddon by 1%.",
+          "buffs": [
+            "Decrease Armageddon Cooldown by 10%"
+          ],
+          "penalties": []
+        }
+      ]
+    },
+    {
+      "id": "flash_shock",
+      "name": "Flash Shock",
+      "kind": "active",
+      "description": "Create a flash that moves in the direction that the character is currently moving towards and damages enemies.",
+      "stats": {
+        "Damage": "18",
+        "Size": "x1",
+        "Number": "1",
+        "Cooldown": "10 s"
+      },
+      "traits": [
+        {
+          "name": "Wipeout",
+          "level": 7,
+          "text": "The center of the Flash Shock deals 10X additional Damage.",
+          "buffs": [
+            "Increase Flash Shock Size by 30%"
+          ],
+          "penalties": []
+        },
+        {
+          "name": "Ragnarok",
+          "level": 7,
+          "text": "Flash Shock is created over a wider range.",
+          "buffs": [
+            "Increase the number of Flash Shocks by 5"
+          ],
+          "penalties": [
+            "Increase Flash Shock Cooldown by 2X"
+          ]
+        },
+        {
+          "name": "Satan's Nails",
+          "level": 7,
+          "text": "Flash Shocks are created in random positions and directions. Two Flash Shocks are created next to the Flash Shock, and every cast increases the number of times this Magic is cast by 1. Magic Cast Stack is reset after every 4th cast of Flash Shock.",
+          "buffs": [
+            "Increase Flash Shock Damage by 33%"
+          ],
+          "penalties": [
+            "Decrease Flash Shock Size by 50%"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "intelligence",
+      "name": "Intelligence",
+      "kind": "passive",
+      "max_level": 5,
+      "effects": [
+        "Increase ATK by 10%"
+      ]
+    },
+    {
+      "id": "fast_casting",
+      "name": "Fast Casting",
+      "kind": "passive",
+      "max_level": 3,
+      "effects": [
+        "Decrease All Magic Cooldown by 5%"
+      ]
+    },
+    {
+      "id": "vitality",
+      "name": "Vitality",
+      "kind": "passive",
+      "max_level": 5,
+      "effects": [
+        "Increase Max HP by 20%",
+        "Increase Life Orb HP Recovery by 10%"
+      ]
+    },
+    {
+      "id": "haste",
+      "name": "Haste",
+      "kind": "passive",
+      "max_level": 2,
+      "effects": [
+        "Increase Movement Speed by 10%"
+      ]
+    },
+    {
+      "id": "arcane_effuse",
+      "name": "Arcane Effuse",
+      "kind": "passive",
+      "max_level": 3,
+      "effects": [
+        "Increase All Magic Size by 5%"
+      ]
+    },
+    {
+      "id": "concentration",
+      "name": "Concentration",
+      "kind": "passive",
+      "max_level": 3,
+      "effects": [
+        "Increase All Magic Duration by 10%"
+      ]
+    },
+    {
+      "id": "snipe",
+      "name": "Snipe",
+      "kind": "passive",
+      "max_level": 3,
+      "effects": [
+        "Increase Critical Strike Rate by 5%"
+      ]
+    },
+    {
+      "id": "explorer",
+      "name": "Explorer",
+      "kind": "passive",
+      "max_level": 3,
+      "effects": [
+        "Increase Item Pickup Range by 33%"
+      ]
+    },
+    {
+      "id": "rupture",
+      "name": "Rupture",
+      "kind": "passive",
+      "max_level": 3,
+      "effects": [
+        "Increase Critical Strike Multiplier by 15%"
+      ]
+    },
+    {
+      "id": "advanced_magic",
+      "name": "Advanced Magic",
+      "kind": "passive",
+      "max_level": 3,
+      "effects": [
+        "Increase Combination Magic Damage by 15%"
+      ]
+    },
+    {
+      "id": "lord_of_fire",
+      "name": "Lord of Fire",
+      "kind": "special",
+      "max_level": null,
+      "effects": [
+        "Increase the Damage of the following Magic by 25%: Fireball, Meteor, Incineration, Lava Zone"
+      ]
+    },
+    {
+      "id": "stormy_clouds",
+      "name": "Stormy Clouds",
+      "kind": "special",
+      "max_level": null,
+      "effects": [
+        "Increase the Damage of the following Magic by 25%: Thunderstorm, Electric Shock, Electric Zone, Flash Shock"
+      ]
+    },
+    {
+      "id": "natures_wrath",
+      "name": "Nature's Wrath",
+      "kind": "special",
+      "max_level": null,
+      "effects": [
+        "Increase the Damage of the following Magic by 25%: Cyclone, Blizzard, Tsunami, Frost Nova"
+      ]
+    },
+    {
+      "id": "energy_engineering",
+      "name": "Energy Engineering",
+      "kind": "special",
+      "max_level": null,
+      "effects": [
+        "Increase the Damage of the following Magic by 25%: Energy Bolt, Arcane Ray, Spirit, Satellite"
+      ]
+    },
+    {
+      "id": "arcana",
+      "name": "Arcana",
+      "kind": "special",
+      "max_level": null,
+      "effects": [
+        "Increase ATK by 15%"
+      ]
+    },
+    {
+      "id": "guardian_angel",
+      "name": "Guardian Angel",
+      "kind": "special",
+      "max_level": null,
+      "effects": [
+        "Revive 1 more time",
+        "Increase Max HP by 30%"
+      ]
+    },
+    {
+      "id": "silent_casting",
+      "name": "Silent Casting",
+      "kind": "special",
+      "max_level": null,
+      "effects": [
+        "Decrease All Magic Cooldown by 7%"
+      ]
+    },
+    {
+      "id": "war_magic",
+      "name": "War Magic",
+      "kind": "special",
+      "max_level": null,
+      "effects": [
+        "Increase ATK by 8%",
+        "Increase All Magic Size by 8%"
+      ]
+    },
+    {
+      "id": "timekeeper",
+      "name": "Timekeeper",
+      "kind": "special",
+      "max_level": null,
+      "effects": [
+        "Increase the duration of Rune effects by 12%",
+        "Increase All Magic Duration by 12%"
+      ]
+    },
+    {
+      "id": "pioneer",
+      "name": "Pioneer",
+      "kind": "special",
+      "max_level": null,
+      "effects": [
+        "Increase Movement Speed by 3%",
+        "Increase Item Pickup Range by 50%"
+      ]
+    },
+    {
+      "id": "smite",
+      "name": "Smite",
+      "kind": "special",
+      "max_level": null,
+      "effects": [
+        "Increase Critical Strike Multiplier by 30%"
+      ]
+    },
+    {
+      "id": "seal",
+      "name": "Seal",
+      "kind": "special",
+      "max_level": null,
+      "effects": [
+        "Decrease the Movement Speed of all enemies by 8%."
+      ]
+    },
+    {
+      "id": "curse",
+      "name": "Curse",
+      "kind": "special",
+      "max_level": null,
+      "effects": [
+        "Decrease the Max HP of all enemies by 6%."
+      ]
+    },
+    {
+      "id": "chakra",
+      "name": "Chakra",
+      "kind": "special",
+      "max_level": null,
+      "effects": [
+        "Increase All Magic Damage by 20%"
+      ]
+    },
+    {
+      "id": "mana_factory",
+      "name": "Mana Factory",
+      "kind": "special",
+      "max_level": null,
+      "effects": [
+        "Mana Orbs are created 20% more frequently."
+      ]
+    },
+    {
+      "id": "doctor",
+      "name": "Doctor",
+      "kind": "special",
+      "max_level": null,
+      "effects": [
+        "Increase Max Level by 3."
+      ]
+    },
+    {
+      "id": "blood_magic",
+      "name": "Blood Magic",
+      "kind": "special",
+      "max_level": null,
+      "effects": [
+        "Amplify ATK by 10%"
+      ],
+      "penalties": [
+        "Decrease HP Regen per sec. by 0.25%"
+      ]
+    },
+    {
+      "id": "adrenaline",
+      "name": "Adrenaline",
+      "kind": "special",
+      "max_level": null,
+      "effects": [
+        "Increase ATK, Critical Strike Rate, Movement Speed by 5%"
+      ]
+    },
+    {
+      "id": "juggernaut",
+      "name": "Juggernaut",
+      "kind": "special",
+      "max_level": null,
+      "effects": [
+        "Increase ATK by 10%",
+        "Decrease Damage Taken by 15%"
+      ]
+    },
+    {
+      "id": "priest",
+      "name": "Priest",
+      "kind": "special",
+      "max_level": null,
+      "effects": [
+        "Decrease the Max HP of all enemies by 3%",
+        "Increase HP Regen per sec. by 0.3%"
+      ]
+    },
+    {
+      "id": "eldritch",
+      "name": "Eldritch",
+      "kind": "special",
+      "max_level": null,
+      "effects": [
+        "Decrease the Max HP of Elite Monsters by 10%."
+      ]
+    },
+    {
+      "id": "noblesse",
+      "name": "Noblesse",
+      "kind": "special",
+      "max_level": null,
+      "effects": [
+        "Create 1 Treasure Chest nearby."
+      ]
+    },
+    {
+      "id": "taoist",
+      "name": "Taoist",
+      "kind": "special",
+      "max_level": null,
+      "effects": [
+        "Increase all Additional Passive spell levels by 1"
+      ]
+    },
+    {
+      "id": "florist",
+      "name": "Florist",
+      "kind": "special",
+      "max_level": null,
+      "effects": [
+        "All products sold by Merchants are 7% Discounted"
+      ]
+    }
+  ],
+  "combination_numbers": {
+    "telekinetic_sword": {
+      "main_base_damage": 7.0,
+      "fusion_multiplier": 3.0,
+      "fusion_base_damage": 21.0,
+      "trait_multiplier": 2.5,
+      "with_trait_multiplier": 52.5,
+      "main_cooldown": "0.9 s"
+    },
+    "blaster": {
+      "main_base_damage": 5.0,
+      "fusion_multiplier": 5.0,
+      "fusion_base_damage": 25.0,
+      "trait_multiplier": 1.5,
+      "with_trait_multiplier": 37.5,
+      "main_cooldown": "0.75 s"
+    },
+    "current_overload": {
+      "main_base_damage": 5.0,
+      "fusion_multiplier": 8.0,
+      "fusion_base_damage": 40.0,
+      "trait_multiplier": null,
+      "main_cooldown": "2 s"
+    },
+    "prism_spray": {
+      "main_base_damage": 9.0,
+      "fusion_multiplier": 7.0,
+      "fusion_base_damage": 63.0,
+      "trait_multiplier": null,
+      "main_cooldown": "3.5 s"
+    },
+    "terra_current": {
+      "main_base_damage": 9.0,
+      "fusion_multiplier": 4.0,
+      "fusion_base_damage": 36.0,
+      "trait_multiplier": null,
+      "main_cooldown": "3.5 s"
+    },
+    "avatar": {
+      "main_base_damage": 5.0,
+      "fusion_multiplier": 9.99,
+      "fusion_base_damage": 49.95,
+      "trait_multiplier": null,
+      "main_cooldown": "0.75 s"
+    },
+    "brandish": {
+      "main_base_damage": 18.0,
+      "fusion_multiplier": null,
+      "fusion_base_damage": null,
+      "trait_multiplier": null,
+      "main_cooldown": "10 s"
+    },
+    "pyrotechnics": {
+      "main_base_damage": 5.0,
+      "fusion_multiplier": 5.0,
+      "fusion_base_damage": 25.0,
+      "trait_multiplier": null,
+      "main_cooldown": "0.75 s"
+    },
+    "snowflake_blossom": {
+      "main_base_damage": 12.0,
+      "fusion_multiplier": 24.0,
+      "fusion_base_damage": 288.0,
+      "trait_multiplier": null,
+      "main_cooldown": "5.5 s"
+    },
+    "phoenix": {
+      "main_base_damage": 7.0,
+      "fusion_multiplier": 24.0,
+      "fusion_base_damage": 168.0,
+      "trait_multiplier": 2.0,
+      "with_trait_multiplier": 336.0,
+      "main_cooldown": "8.5 s"
+    },
+    "heart_of_lightning": {
+      "main_base_damage": 5.0,
+      "fusion_multiplier": 8.0,
+      "fusion_base_damage": 40.0,
+      "trait_multiplier": null,
+      "main_cooldown": "2 s"
+    },
+    "exidium": {
+      "main_base_damage": 18.0,
+      "fusion_multiplier": 7.0,
+      "fusion_base_damage": 126.0,
+      "trait_multiplier": null,
+      "main_cooldown": "10 s"
+    },
+    "plasma_ray": {
+      "main_base_damage": 9.0,
+      "fusion_multiplier": null,
+      "fusion_base_damage": null,
+      "trait_multiplier": 2.0,
+      "main_cooldown": "3.5 s"
+    },
+    "lightning_breath": {
+      "main_base_damage": 5.0,
+      "fusion_multiplier": 7.0,
+      "fusion_base_damage": 35.0,
+      "trait_multiplier": 3.0,
+      "with_trait_multiplier": 105.0,
+      "main_cooldown": "2 s"
+    },
+    "hyperion": {
+      "main_base_damage": 5.0,
+      "fusion_multiplier": null,
+      "fusion_base_damage": null,
+      "trait_multiplier": null
+    },
+    "soul_blade": {
+      "main_base_damage": 5.0,
+      "fusion_multiplier": 5.0,
+      "fusion_base_damage": 25.0,
+      "trait_multiplier": null
+    },
+    "ghastly_rampage": {
+      "main_base_damage": 7.0,
+      "fusion_multiplier": 4.0,
+      "fusion_base_damage": 28.0,
+      "trait_multiplier": null,
+      "main_cooldown": "1.5 s"
+    },
+    "crazed_spray": {
+      "main_base_damage": 8.0,
+      "fusion_multiplier": 10.0,
+      "fusion_base_damage": 80.0,
+      "trait_multiplier": null,
+      "main_cooldown": "3.3 s"
+    },
+    "frenzy": {
+      "main_base_damage": 18.0,
+      "fusion_multiplier": 7.0,
+      "fusion_base_damage": 126.0,
+      "trait_multiplier": null,
+      "main_cooldown": "10 s"
+    },
+    "neutron_generation": {
+      "main_base_damage": 5.0,
+      "fusion_multiplier": 10.0,
+      "fusion_base_damage": 50.0,
+      "trait_multiplier": 2.0,
+      "with_trait_multiplier": 100.0,
+      "main_cooldown": "3.5 s"
+    },
+    "black_hole": {
+      "main_base_damage": 5.0,
+      "fusion_multiplier": 8.0,
+      "fusion_base_damage": 40.0,
+      "trait_multiplier": null,
+      "main_cooldown": "3.5 s"
+    },
+    "inferno": {
+      "main_base_damage": 5.0,
+      "fusion_multiplier": null,
+      "fusion_base_damage": null,
+      "trait_multiplier": null,
+      "main_cooldown": "4 s"
+    },
+    "age_of_the_sun": {
+      "main_base_damage": 10.0,
+      "fusion_multiplier": 15.0,
+      "fusion_base_damage": 150.0,
+      "trait_multiplier": null,
+      "main_cooldown": "5 s"
+    },
+    "furnace": {
+      "main_base_damage": 10.0,
+      "fusion_multiplier": 10.0,
+      "fusion_base_damage": 100.0,
+      "trait_multiplier": 2.0,
+      "with_trait_multiplier": 200.0,
+      "main_cooldown": "5 s"
+    },
+    "breath_of_fire": {
+      "main_base_damage": 5.0,
+      "fusion_multiplier": 6.0,
+      "fusion_base_damage": 30.0,
+      "trait_multiplier": null,
+      "main_cooldown": "4 s"
+    },
+    "vortex": {
+      "main_base_damage": 5.0,
+      "fusion_multiplier": 9.0,
+      "fusion_base_damage": 45.0,
+      "trait_multiplier": null,
+      "main_cooldown": "3.5 s"
+    },
+    "ether_blaze": {
+      "main_base_damage": 7.0,
+      "fusion_multiplier": 8.0,
+      "fusion_base_damage": 56.0,
+      "trait_multiplier": null,
+      "main_cooldown": "6 s"
+    },
+    "ruler_of_storms": {
+      "main_base_damage": 5.0,
+      "fusion_multiplier": 10.0,
+      "fusion_base_damage": 50.0,
+      "trait_multiplier": null,
+      "main_cooldown": "3.5 s"
+    },
+    "flame_storm": {
+      "main_base_damage": 15.0,
+      "fusion_multiplier": 10.0,
+      "fusion_base_damage": 150.0,
+      "trait_multiplier": null,
+      "main_cooldown": "4.5 s"
+    },
+    "great_flood": {
+      "main_base_damage": 7.0,
+      "fusion_multiplier": 8.0,
+      "fusion_base_damage": 56.0,
+      "trait_multiplier": null,
+      "main_cooldown": "8.5 s"
+    },
+    "winter_storm": {
+      "main_base_damage": 7.0,
+      "fusion_multiplier": 8.0,
+      "fusion_base_damage": 56.0,
+      "trait_multiplier": null,
+      "main_cooldown": "6 s"
+    },
+    "super_cyclone": {
+      "main_base_damage": 5.0,
+      "fusion_multiplier": null,
+      "fusion_base_damage": null,
+      "trait_multiplier": null,
+      "main_cooldown": "3.5 s"
+    },
+    "lightning_calibration": {
+      "main_base_damage": 1.0,
+      "fusion_multiplier": 10.0,
+      "fusion_base_damage": 10.0,
+      "trait_multiplier": null
+    },
+    "magnetic_field": {
+      "main_base_damage": 5.0,
+      "fusion_multiplier": 7.0,
+      "fusion_base_damage": 35.0,
+      "trait_multiplier": null
+    },
+    "meisner_effect": {
+      "main_base_damage": 1.0,
+      "fusion_multiplier": 6.0,
+      "fusion_base_damage": 6.0,
+      "trait_multiplier": null
+    },
+    "gate": {
+      "main_base_damage": 18.0,
+      "fusion_multiplier": 12.0,
+      "fusion_base_damage": 216.0,
+      "trait_multiplier": null,
+      "main_cooldown": "10 s"
+    },
+    "supernova": {
+      "main_base_damage": 7.0,
+      "fusion_multiplier": 24.0,
+      "fusion_base_damage": 168.0,
+      "trait_multiplier": null,
+      "main_cooldown": "0.9 s"
+    },
+    "genesis": {
+      "main_base_damage": 7.0,
+      "fusion_multiplier": 30.0,
+      "fusion_base_damage": 210.0,
+      "trait_multiplier": 2.0,
+      "with_trait_multiplier": 420.0,
+      "main_cooldown": "6 s"
+    },
+    "black_death": {
+      "main_base_damage": 7.0,
+      "fusion_multiplier": 20.0,
+      "fusion_base_damage": 140.0,
+      "trait_multiplier": null,
+      "main_cooldown": "1.5 s"
+    },
+    "glacium": {
+      "main_base_damage": 7.0,
+      "fusion_multiplier": 30.0,
+      "fusion_base_damage": 210.0,
+      "trait_multiplier": null,
+      "main_cooldown": "8.5 s"
+    },
+    "genocide": {
+      "main_base_damage": 9.0,
+      "fusion_multiplier": null,
+      "fusion_base_damage": null,
+      "trait_multiplier": 2.0,
+      "main_cooldown": "3.5 s"
+    },
+    "origin_explosion": {
+      "main_base_damage": 8.0,
+      "fusion_multiplier": 12.0,
+      "fusion_base_damage": 96.0,
+      "trait_multiplier": null,
+      "main_cooldown": "3.3 s"
+    },
+    "hellfire": {
+      "main_base_damage": 5.0,
+      "fusion_multiplier": 12.0,
+      "fusion_base_damage": 60.0,
+      "trait_multiplier": null,
+      "main_cooldown": "4 s"
+    },
+    "discharge": {
+      "main_base_damage": 5.0,
+      "fusion_multiplier": 12.0,
+      "fusion_base_damage": 60.0,
+      "trait_multiplier": null,
+      "main_cooldown": "2 s"
+    },
+    "astrape": {
+      "main_base_damage": 15.0,
+      "fusion_multiplier": 7.0,
+      "fusion_base_damage": 105.0,
+      "trait_multiplier": 5.0,
+      "with_trait_multiplier": 525.0,
+      "main_cooldown": "2 s"
+    },
+    "empyrean_wrath": {
+      "main_base_damage": 15.0,
+      "fusion_multiplier": 5.0,
+      "fusion_base_damage": 75.0,
+      "trait_multiplier": null,
+      "main_cooldown": "2 s"
+    },
+    "lightning_bolts": {
+      "main_base_damage": 15.0,
+      "fusion_multiplier": 12.0,
+      "fusion_base_damage": 180.0,
+      "trait_multiplier": null,
+      "main_cooldown": "2 s"
+    },
+    "war_climate": {
+      "main_base_damage": 15.0,
+      "fusion_multiplier": 6.0,
+      "fusion_base_damage": 90.0,
+      "trait_multiplier": null,
+      "main_cooldown": "4.5 s"
+    },
+    "energy_bombardment": {
+      "main_base_damage": 9.0,
+      "fusion_multiplier": null,
+      "fusion_base_damage": null,
+      "trait_multiplier": 2.0,
+      "main_cooldown": "3.5 s"
+    },
+    "great_impact": {
+      "main_base_damage": 15.0,
+      "fusion_multiplier": 12.0,
+      "fusion_base_damage": 180.0,
+      "trait_multiplier": 3.0,
+      "with_trait_multiplier": 540.0,
+      "main_cooldown": "4.5 s"
+    },
+    "mana_spear": {
+      "main_base_damage": 7.0,
+      "fusion_multiplier": 10.0,
+      "fusion_base_damage": 70.0,
+      "trait_multiplier": null,
+      "main_cooldown": "0.9 s"
+    },
+    "demon_equation": {
+      "main_base_damage": 7.0,
+      "fusion_multiplier": 6.66,
+      "fusion_base_damage": 46.62,
+      "trait_multiplier": null,
+      "main_cooldown": "1.5 s"
+    },
+    "great_rift": {
+      "main_base_damage": 12.0,
+      "fusion_multiplier": 10.0,
+      "fusion_base_damage": 120.0,
+      "trait_multiplier": 2.0,
+      "with_trait_multiplier": 240.0,
+      "main_cooldown": "5.5 s"
+    },
+    "orbital_strike": {
+      "main_base_damage": 15.0,
+      "fusion_multiplier": 9.0,
+      "fusion_base_damage": 135.0,
+      "trait_multiplier": null,
+      "main_cooldown": "2 s"
+    },
+    "destroyer": {
+      "main_base_damage": 1.0,
+      "fusion_multiplier": 99.0,
+      "fusion_base_damage": 99.0,
+      "trait_multiplier": null
+    },
+    "frozen_heart": {
+      "main_base_damage": 1.0,
+      "fusion_multiplier": 20.0,
+      "fusion_base_damage": 20.0,
+      "trait_multiplier": 5.0,
+      "with_trait_multiplier": 100.0
+    },
+    "reaction": {
+      "main_base_damage": 8.0,
+      "fusion_multiplier": 9.0,
+      "fusion_base_damage": 72.0,
+      "trait_multiplier": null,
+      "main_cooldown": "3.3 s"
+    },
+    "photon_explosion": {
+      "main_base_damage": null,
+      "fusion_multiplier": null,
+      "fusion_base_damage": null,
+      "trait_multiplier": null,
+      "main_cooldown": "33 s"
+    },
+    "teleport": {
+      "main_base_damage": null,
+      "fusion_multiplier": 3.0,
+      "fusion_base_damage": null,
+      "trait_multiplier": null,
+      "main_cooldown": "45 s"
+    },
+    "gate_of_creation": {
+      "main_base_damage": null,
+      "fusion_multiplier": null,
+      "fusion_base_damage": null,
+      "trait_multiplier": null
+    },
+    "perpetual_engine": {
+      "main_base_damage": null,
+      "fusion_multiplier": null,
+      "fusion_base_damage": null,
+      "trait_multiplier": null,
+      "main_cooldown": "20 s"
+    },
+    "overmind": {
+      "main_base_damage": null,
+      "fusion_multiplier": null,
+      "fusion_base_damage": null,
+      "trait_multiplier": null
+    }
+  },
+  "ultimate_checks": [
+    {
+      "ultimate": "Stormbringer",
+      "combination_id": "empyrean_wrath",
+      "ultimate_multiplier": 6,
+      "published_base_damage": 450,
+      "computed_base_damage": 450.0,
+      "match": true
+    },
+    {
+      "ultimate": "Ground Zero",
+      "combination_id": "war_climate",
+      "ultimate_multiplier": 9,
+      "published_base_damage": 810,
+      "computed_base_damage": 810.0,
+      "match": true
+    },
+    {
+      "ultimate": "Nemesis",
+      "combination_id": "demon_equation",
+      "ultimate_multiplier": 4,
+      "published_base_damage": 186,
+      "computed_base_damage": 186.48,
+      "match": true
+    },
+    {
+      "ultimate": "Berserk",
+      "combination_id": "frenzy",
+      "ultimate_multiplier": 3.5,
+      "published_base_damage": 441,
+      "computed_base_damage": 441.0,
+      "match": true
+    },
+    {
+      "ultimate": "Death Storm",
+      "combination_id": "lightning_bolts",
+      "ultimate_multiplier": 3,
+      "published_base_damage": 540,
+      "computed_base_damage": 540.0,
+      "match": true
+    },
+    {
+      "ultimate": "Mega Tsunami",
+      "combination_id": "great_flood",
+      "ultimate_multiplier": 9,
+      "published_base_damage": 504,
+      "computed_base_damage": 504.0,
+      "match": true
+    },
+    {
+      "ultimate": "Zero Nova",
+      "combination_id": "snowflake_blossom",
+      "ultimate_multiplier": 2,
+      "published_base_damage": 576,
+      "computed_base_damage": 576.0,
+      "match": true
+    },
+    {
+      "ultimate": "Blitz",
+      "combination_id": "origin_explosion",
+      "ultimate_multiplier": 2.25,
+      "published_base_damage": 216,
+      "computed_base_damage": 216.0,
+      "match": true
+    },
+    {
+      "ultimate": "Equilibrium",
+      "combination_id": "avatar",
+      "ultimate_multiplier": 3.3,
+      "published_base_damage": 165,
+      "computed_base_damage": 164.84,
+      "match": true
+    },
+    {
+      "ultimate": "Arc",
+      "combination_id": "current_overload",
+      "ultimate_multiplier": 12,
+      "published_base_damage": 480,
+      "computed_base_damage": 480.0,
+      "match": true
+    },
+    {
+      "ultimate": "Giant Impact",
+      "combination_id": "great_impact",
+      "ultimate_multiplier": 5,
+      "published_base_damage": 900,
+      "computed_base_damage": 900.0,
+      "match": true
+    },
+    {
+      "ultimate": "Lockdown",
+      "combination_id": "meisner_effect",
+      "ultimate_multiplier": 6,
+      "published_base_damage": 36,
+      "computed_base_damage": 36.0,
+      "match": true
+    },
+    {
+      "ultimate": "Ascension",
+      "combination_id": "gate",
+      "ultimate_multiplier": 3.5,
+      "published_base_damage": 756,
+      "computed_base_damage": 756.0,
+      "match": true
+    },
+    {
+      "ultimate": "Core",
+      "combination_id": "magnetic_field",
+      "ultimate_multiplier": 5,
+      "published_base_damage": 175,
+      "computed_base_damage": 175.0,
+      "match": true
+    },
+    {
+      "ultimate": "Cosmos",
+      "combination_id": "genesis",
+      "ultimate_multiplier": 3.25,
+      "published_base_damage": 683,
+      "computed_base_damage": 682.5,
+      "match": true
+    },
+    {
+      "ultimate": "Overlord",
+      "combination_id": "age_of_the_sun",
+      "ultimate_multiplier": 2.5,
+      "published_base_damage": 375,
+      "computed_base_damage": 375.0,
+      "match": true
+    },
+    {
+      "ultimate": "Terminator",
+      "combination_id": "destroyer",
+      "ultimate_multiplier": 5.5,
+      "published_base_damage": 545,
+      "computed_base_damage": 544.5,
+      "match": true
+    }
+  ]
+}

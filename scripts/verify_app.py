@@ -281,11 +281,83 @@ def check_js_syntax():
             err(f"{name}: syntax error\n{r.stderr.strip()}")
 
 
+ICON_KINDS = ("magic", "artifact", "synergy", "class", "subject")
+
+
+def check_magics_and_icons(ids):
+    """v13: magics_v09941.json (Encyclopedia stats, combination numbers, ultimate checks) + icon sprites."""
+    mg = load_json("magics_v09941.json")
+    if mg is None:
+        return
+    magics = mg.get("magics", [])
+    counts = mg.get("meta", {}).get("counts", {})
+    for kind in ("active", "passive", "special"):
+        n = sum(1 for m in magics if m.get("kind") == kind)
+        if n != counts.get(kind):
+            err(f"magics: {n} '{kind}' entries, meta.counts says {counts.get(kind)}")
+    mids = {m["id"] for m in magics}
+    if len(mids) != len(magics):
+        err("magics: duplicate ids")
+    for m in magics:
+        if m.get("kind") == "active" and not m.get("stats"):
+            err(f"magics: active '{m['id']}' has no stats")
+
+    nums = mg.get("combination_numbers", {})
+    if ids is not None:
+        missing = sorted(set(ids) - set(nums))
+        extra = sorted(set(nums) - set(ids))
+        if missing:
+            err(f"combination_numbers: missing {missing}")
+        if extra:
+            err(f"combination_numbers: unknown combinations {extra}")
+    for cid, n in nums.items():
+        base, mult, fused = n.get("main_base_damage"), n.get("fusion_multiplier"), n.get("fusion_base_damage")
+        if None not in (base, mult, fused) and abs(base * mult - fused) > 0.01:
+            err(f"combination_numbers[{cid}]: {base} x {mult} != {fused}")
+
+    checks = mg.get("ultimate_checks", [])
+    if not checks:
+        warn("magics: no ultimate_checks")
+    for c in checks:
+        if not c.get("match"):
+            err(f"ultimate_checks: {c.get('ultimate')} computed {c.get('computed_base_damage')} != published {c.get('published_base_damage')}")
+        if c.get("combination_id") not in nums:
+            err(f"ultimate_checks: unknown combination '{c.get('combination_id')}'")
+
+    db = load_json("combinations_v09941.json")
+    if db:
+        for c in db.get("combinations", []):
+            for part in ("main", "material"):
+                if c[part]["magic_id"] not in mids:
+                    err(f"{c['id']}: {part} magic '{c[part]['magic_id']}' missing from magics_v09941.json")
+
+    icon_dir = CODE_DIR / "assets" / "icons"
+    css_path = icon_dir / "icons.css"
+    if not css_path.exists():
+        err("assets/icons/icons.css missing")
+        return
+    css = css_path.read_text(encoding="utf-8")
+    for kind in ICON_KINDS:
+        if not (icon_dir / f"{kind}.webp").exists():
+            err(f"assets/icons/{kind}.webp missing")
+    need = {("magic", i) for i in mids}
+    arts = load_json("artifacts_v09941.json") or {}
+    need |= {("artifact", a["id"]) for a in arts.get("artifacts", [])}
+    need |= {("synergy", s["id"]) for s in arts.get("synergies", [])}
+    cs = load_json("classes_subjects_v09941.json") or {}
+    need |= {("class", c["id"]) for c in cs.get("classes", [])}
+    need |= {("subject", s["id"].replace("subject_", "", 1)) for s in cs.get("subjects", [])}
+    for kind, i in sorted(need):
+        if f".ico-{kind}-{i}{{" not in css:
+            err(f"icons.css: no icon for {kind} '{i}'")
+
+
 def main():
     print("Fusion Codex integrity check")
     ids = check_data()
     if ids is not None:
         print(f"  data: {len(ids)} combinations")
+    check_magics_and_icons(ids)
     check_service_worker(ids)
     check_csp_and_copy()
     check_js_syntax()

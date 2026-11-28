@@ -46,16 +46,16 @@
           "level": 4,
           "attributes": [
             "Magic Arrow",
-            "Split",
-            "Fireworks"
+            "Fireworks",
+            "Fission"
           ]
         },
         {
           "level": 7,
           "attributes": [
-            "Doppelganger",
+            "Chain Casting",
             "Fire at Will",
-            "Continuous Cast"
+            "Doppelganger"
           ]
         }
       ]
@@ -70,8 +70,8 @@
           "level": 7,
           "attributes": [
             "Magic Missile",
-            "Familiar",
-            "Magic Blade"
+            "Magic Blade",
+            "Familiar"
           ]
         }
       ]
@@ -85,8 +85,8 @@
         {
           "level": 7,
           "attributes": [
-            "Toxic Gas",
             "Big Bang",
+            "Toxic Gas",
             "Constellation"
           ]
         }
@@ -101,9 +101,9 @@
         {
           "level": 7,
           "attributes": [
-            "Flare",
             "Charged Particle",
-            "Spark"
+            "Spark",
+            "Flare"
           ]
         }
       ]
@@ -118,8 +118,8 @@
           "level": 7,
           "attributes": [
             "Chain Lightning",
-            "Superconductivity",
-            "High Output"
+            "High Output",
+            "Superconductivity"
           ]
         }
       ]
@@ -134,8 +134,8 @@
           "level": 7,
           "attributes": [
             "Electricity Blast",
-            "Fire Aura",
-            "EMP"
+            "EMP",
+            "Fire Aura"
           ]
         }
       ]
@@ -149,9 +149,9 @@
         {
           "level": 7,
           "attributes": [
-            "Judgment",
+            "Thunderclap",
             "Lightning Explosion",
-            "Thunderclap"
+            "Judgment"
           ]
         }
       ]
@@ -165,9 +165,9 @@
         {
           "level": 7,
           "attributes": [
-            "Asteroid",
+            "Volcanic Eruption",
             "Meteor Shower",
-            "Volcanic Eruption"
+            "Asteroid"
           ]
         }
       ]
@@ -181,9 +181,9 @@
         {
           "level": 7,
           "attributes": [
+            "Anti-Gravity",
             "Will o' the Wisp",
-            "Nuclear Fusion",
-            "Anti-Gravity"
+            "Nuclear Fusion"
           ]
         }
       ]
@@ -197,9 +197,9 @@
         {
           "level": 7,
           "attributes": [
-            "Electromagnetic Burst",
             "Reflect",
-            "Disintegration Ray"
+            "Disintegration Ray",
+            "Electromagnetic Burst"
           ]
         }
       ]
@@ -213,8 +213,8 @@
         {
           "level": 7,
           "attributes": [
-            "Ragnarok",
             "Wipeout",
+            "Ragnarok",
             "Satan's Nails"
           ]
         }
@@ -230,8 +230,8 @@
           "level": 7,
           "attributes": [
             "Flamestrike",
-            "Cerberus Flame",
-            "Pyromaniac"
+            "Pyromaniac",
+            "Cerberus Flame"
           ]
         }
       ]
@@ -293,9 +293,9 @@
         {
           "level": 7,
           "attributes": [
-            "Void",
             "Extreme Weather",
-            "Electric Orb"
+            "Electric Orb",
+            "Void"
           ]
         }
       ]
@@ -326,8 +326,8 @@
           "level": 5,
           "attributes": [
             "Barrier",
-            "Destruction Field",
-            "Reconstruct"
+            "Reconstruct",
+            "Destruction Field"
           ]
         }
       ]
@@ -342,8 +342,8 @@
           "level": 5,
           "attributes": [
             "Mirage",
-            "Soul Harvest",
-            "Space Warp"
+            "Space Warp",
+            "Soul Harvest"
           ]
         }
       ]
@@ -359,7 +359,7 @@
           "attributes": [
             "Apocalypse",
             "Rapture",
-            "Eschatology"
+            "Doom Prophet"
           ]
         }
       ]
@@ -401,8 +401,8 @@
         {
           "level": 5,
           "attributes": [
-            "Material Synthesis",
             "Unleash Mana",
+            "Material Synthesis",
             "Great Magic Circle"
           ]
         }

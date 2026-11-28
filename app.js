@@ -18,9 +18,9 @@
   };
 
   const CACHE_PREFIX = 'ms-codex-';
-  const CURRENT_CACHE_NAME = 'ms-codex-v09941-v12';
+  const CURRENT_CACHE_NAME = 'ms-codex-v09941-v13';
   // Must match the APP_SHELL list length in sw.js (each combination adds 1 thumb + 1 card on top).
-  const APP_SHELL_ASSET_COUNT = 13;
+  const APP_SHELL_ASSET_COUNT = 20;
 
   // --- Build Planner Slot Rules ---
   const BASE_SLOT_LEVELS = [25, 50, 75];
@@ -130,6 +130,7 @@
     taxonomy: null,
     classesData: null,
     artifactsData: null,
+    magicsData: null,
     comboMap: new Map(),
     magicMap: new Map(),
     elementMap: new Map(),
@@ -245,6 +246,21 @@
 
   function getMagicName(magicId) {
     return state.magicMap.get(magicId)?.name || magicId;
+  }
+
+  // Small in-game icon from the generated sprite sheets (assets/icons/icons.css): kind = magic|artifact|synergy|class|subject
+  function iconHtml(kind, id, extraClass = '') {
+    if (!id) return '';
+    return `<span class="ico ico-${kind} ico-${kind}-${escapeHtml(String(id))}${extraClass ? ' ' + extraClass : ''}" aria-hidden="true"></span>`;
+  }
+
+  function subjectIconId(subject) {
+    return subject ? subject.id.replace(/^subject_/, '') : '';
+  }
+
+  function formatNumber(n) {
+    if (n === null || n === undefined) return '—';
+    return Number.isInteger(n) ? String(n) : String(Math.round(n * 100) / 100);
   }
 
   function getCategoryLabel(category) {
@@ -923,12 +939,24 @@
     renderPinnedStrip();
 
     // Pinned fusions live in the "Your Build" strip above the list, so the list shows the rest.
-    const filtered = getFilteredCombinations().filter(c => !state.pinned.includes(c.id));
+    const allMatches = getFilteredCombinations();
+    const filtered = allMatches.filter(c => !state.pinned.includes(c.id));
     if (countEl) {
       countEl.textContent = `${filtered.length} Combinations${state.pinned.length > 0 ? ` · ${state.pinned.length} pinned above` : ''}`;
     }
 
     if (filtered.length === 0) {
+      // Every match is already pinned: point to the "Your Build" strip instead of a false "no match" message.
+      if (allMatches.length > 0) {
+        listEl.innerHTML = `
+          <div class="empty-results">
+            <p>${allMatches.length === 1 ? `<strong>${escapeHtml(allMatches[0].name)}</strong> matches these filters and is` : `All ${allMatches.length} matching combinations are`} pinned in <strong>Your Build</strong> above.</p>
+            <button type="button" class="btn-action primary btn-centered" id="btn-empty-reset">Reset All Filters</button>
+          </div>
+        `;
+        document.getElementById('btn-empty-reset')?.addEventListener('click', () => resetAllFilters());
+        return;
+      }
       if (state.filters.slot1 && state.filters.slot2) {
         const m1 = state.magicMap.get(state.filters.slot1);
         const m2 = state.magicMap.get(state.filters.slot2);
@@ -1011,12 +1039,13 @@
             </div>
             <div class="card-recipe">
               <div class="recipe-line main" title="${isPassiveMain(combo) ? 'Main Magic (Passive · build-wide, no spell-specific artifacts)' : 'Main Magic (Scales with artifacts)'}">
-                <span class="recipe-dot">●</span>
+                ${iconHtml('magic', combo.main.magic_id, 'ico-recipe')}
                 <span class="recipe-magic">${escapeHtml(mainName)}</span>
                 <span class="recipe-attr">${escapeHtml(combo.main.attribute)}</span>
               </div>
               <div class="recipe-line ${kept ? 'main kept' : 'material'}" title="${kept ? 'Passive Magic (Kept, not consumed)' : 'Material Magic (Consumed)'}">
                 <span class="recipe-plus">+</span>
+                ${iconHtml('magic', combo.material.magic_id, 'ico-recipe')}
                 <span class="recipe-magic">${escapeHtml(matName)}</span>
                 <span class="recipe-attr">${escapeHtml(combo.material.attribute)}</span>
               </div>
@@ -1066,7 +1095,7 @@
               <img class="pinned-thumb" src="./assets/thumbs/${escapeHtml(c.id)}.webp" alt="" draggable="false" />
               <div class="pinned-info">
                 <span class="pinned-name">${escapeHtml(c.name)}</span>
-                <span class="pinned-recipe"><span class="recipe-text-main">${escapeHtml(getMagicName(c.main.magic_id))}</span> + <span class="${isMaterialKept(c) ? 'recipe-text-main' : 'recipe-text-mat'}">${escapeHtml(getMagicName(c.material.magic_id))}</span></span>
+                <span class="pinned-recipe">${iconHtml('magic', c.main.magic_id, 'ico-sm')}<span class="recipe-text-main">${escapeHtml(getMagicName(c.main.magic_id))}</span> + ${iconHtml('magic', c.material.magic_id, 'ico-sm')}<span class="${isMaterialKept(c) ? 'recipe-text-main' : 'recipe-text-mat'}">${escapeHtml(getMagicName(c.material.magic_id))}</span></span>
               </div>
               <button type="button" class="btn-unpin" data-unpin-id="${escapeHtml(c.id)}" aria-label="Remove ${escapeHtml(c.name)}" title="Remove from build">${ICONS.close}</button>
             </div>
@@ -1128,6 +1157,7 @@
     return `<ul class="artifact-effect-list">${artifacts.map(a => `
       <li class="artifact-effect-item">
         <div class="artifact-effect-head">
+          ${iconHtml('artifact', a.id, 'ico-md')}
           <span class="artifact-effect-name ${getRarityClass(a.rarity)}">${escapeHtml(a.name)}</span>
           <span class="artifact-effect-rarity">${escapeHtml(a.rarity)}</span>
         </div>
@@ -1140,17 +1170,17 @@
     const name = getMagicName(magicId);
     const arts = getMagicArtifacts(magicId);
     if (arts.length === 0) {
-      return `<div class="artifact-magic-group"><div class="artifact-magic-head">${ICONS.heptagram}<span>${escapeHtml(name)}</span></div><div class="artifact-empty-note">No artifact text mentions ${escapeHtml(name)}.</div></div>`;
+      return `<div class="artifact-magic-group"><div class="artifact-magic-head">${iconHtml('magic', magicId, 'ico-md')}<span>${escapeHtml(name)}</span></div><div class="artifact-empty-note">No artifact text mentions ${escapeHtml(name)}.</div></div>`;
     }
     const mastery = getMasterySynergy(magicId);
     const masterySet = new Set(mastery ? mastery.requires : []);
     const masteryHtml = mastery
-      ? `<div class="artifact-mastery-line"><strong>${escapeHtml(mastery.name)}</strong> synergy (${mastery.requires.map(id => escapeHtml(getArtifactName(id))).join(' + ')}): ${mastery.effects.map(escapeHtml).join('; ')}</div>`
+      ? `<div class="artifact-mastery-line">${iconHtml('synergy', mastery.id, 'ico-sm')}<strong>${escapeHtml(mastery.name)}</strong> synergy (${mastery.requires.map(id => escapeHtml(getArtifactName(id))).join(' + ')}): ${mastery.effects.map(escapeHtml).join('; ')}</div>`
       : '';
-    const chips = arts.map(a => `<span class="artifact-chip ${getRarityClass(a.rarity)}${masterySet.has(a.id) ? ' mastery' : ''}">${escapeHtml(a.name)}</span>`).join('');
+    const chips = arts.map(a => `<span class="artifact-chip ${getRarityClass(a.rarity)}${masterySet.has(a.id) ? ' mastery' : ''}">${iconHtml('artifact', a.id, 'ico-chip')}${escapeHtml(a.name)}</span>`).join('');
     return `
       <div class="artifact-magic-group">
-        <div class="artifact-magic-head">${ICONS.heptagram}<span>${escapeHtml(name)}</span><span class="artifact-count">${arts.length} artifacts</span></div>
+        <div class="artifact-magic-head">${iconHtml('magic', magicId, 'ico-md')}<span>${escapeHtml(name)}</span><span class="artifact-count">${arts.length} artifacts</span></div>
         <div class="artifact-chip-row">${chips}</div>
         ${masteryHtml}
         <details class="artifact-effects"><summary>Show effects</summary>${renderArtifactEffectsList(arts)}</details>
@@ -1165,11 +1195,11 @@
     const arts = boosters.artifacts.map(id => state.artifactMap.get(id)).filter(Boolean);
     const syns = boosters.synergies.map(id => state.synergyMap.get(id)).filter(Boolean);
     if (arts.length === 0 && syns.length === 0) return '';
-    const synHtml = syns.map(s => `<div class="artifact-mastery-line"><strong>${escapeHtml(s.name)}</strong> synergy (${s.requires.map(id => escapeHtml(getArtifactName(id))).join(' + ')}): ${s.effects.map(escapeHtml).join('; ')}</div>`).join('');
+    const synHtml = syns.map(s => `<div class="artifact-mastery-line">${iconHtml('synergy', s.id, 'ico-sm')}<strong>${escapeHtml(s.name)}</strong> synergy (${s.requires.map(id => escapeHtml(getArtifactName(id))).join(' + ')}): ${s.effects.map(escapeHtml).join('; ')}</div>`).join('');
     return `
       <div class="artifact-magic-group boosters">
         <div class="artifact-magic-head">${ICONS.heptagram}<span>Every Combination</span></div>
-        <div class="artifact-chip-row">${arts.map(a => `<span class="artifact-chip ${getRarityClass(a.rarity)}">${escapeHtml(a.name)}</span>`).join('')}</div>
+        <div class="artifact-chip-row">${arts.map(a => `<span class="artifact-chip ${getRarityClass(a.rarity)}">${iconHtml('artifact', a.id, 'ico-chip')}${escapeHtml(a.name)}</span>`).join('')}</div>
         ${synHtml}
         <details class="artifact-effects"><summary>Show effects</summary>${renderArtifactEffectsList(arts)}</details>
       </div>
@@ -1210,8 +1240,8 @@
             <div class="planner-slot-info">
               <div class="planner-slot-name">${escapeHtml(c.name)}</div>
               <div class="planner-slot-sub">
-                <span class="recipe-text-main">● ${escapeHtml(mainM)} (${escapeHtml(c.main.attribute)})</span> +
-                <span class="${matClass}">${escapeHtml(matM)} (${escapeHtml(c.material.attribute)})</span>
+                ${iconHtml('magic', c.main.magic_id, 'ico-sm')}<span class="recipe-text-main">${escapeHtml(mainM)} (${escapeHtml(c.main.attribute)})</span> +
+                ${iconHtml('magic', c.material.magic_id, 'ico-sm')}<span class="${matClass}">${escapeHtml(matM)} (${escapeHtml(c.material.attribute)})</span>
               </div>
             </div>
             <button type="button" class="btn-remove-slot" data-unpin="${escapeHtml(c.id)}" title="Remove slot">${ICONS.close}</button>
@@ -1309,7 +1339,7 @@
         recContainer.innerHTML = '<span class="placeholder-dim-text">Pin at least one fusion to see the class and test subject tied to each Main Magic.</span>';
       } else {
         const magicHtml = matches.byMagic.map((m, i) => {
-          const head = `<div class="rec-magic-line">Main Magic: <strong>${escapeHtml(m.magicName)}</strong></div>`;
+          const head = `<div class="rec-magic-line">${iconHtml('magic', m.magicId, 'ico-sm')}Main Magic: <strong>${escapeHtml(m.magicName)}</strong></div>`;
           if (!m.cls) {
             return `<div class="rec-item ${i > 0 ? 'rec-item-bordered' : ''}">${head}<div class="rec-hint">No class or test subject is tied to ${escapeHtml(m.magicName)}.</div></div>`;
           }
@@ -1318,13 +1348,13 @@
             <div class="rec-item ${i > 0 ? 'rec-item-bordered' : ''}">
               ${head}
               <div class="rec-title-line">
-                <span class="rec-name">${escapeHtml(m.cls.name)}</span>
+                ${iconHtml('class', m.cls.id, 'ico-md')}<span class="rec-name">${escapeHtml(m.cls.name)}</span>
                 <span class="rec-badge">${m.isSpecialist ? 'CLASS' : 'RELATED CLASS'}</span>
               </div>
               <div class="rec-reason">${clsBonuses.map(escapeHtml).join(' · ')}</div>
               ${m.subject ? `
                 <div class="rec-title-line rec-subject-line">
-                  <span class="rec-name">${escapeHtml(m.subject.name)}</span>
+                  ${iconHtml('subject', subjectIconId(m.subject), 'ico-md')}<span class="rec-name">${escapeHtml(m.subject.name)}</span>
                   <span class="rec-badge">TEST SUBJECT</span>
                 </div>
                 <div class="rec-reason">${escapeHtml(getSubjectSummary(m.subject))}</div>
@@ -1336,7 +1366,7 @@
         const archmageHtml = matches.archmage ? `
           <div class="rec-item rec-item-bordered">
             <div class="rec-title-line">
-              <span class="rec-name">${escapeHtml(matches.archmage.name)}</span>
+              ${iconHtml('class', matches.archmage.id, 'ico-md')}<span class="rec-name">${escapeHtml(matches.archmage.name)}</span>
               <span class="rec-badge">COMBINATION CLASS</span>
             </div>
             <div class="rec-reason">${matches.archmage.base_bonuses.concat(matches.archmage.mastery_bonuses).filter(b => b.includes('Combination')).map(escapeHtml).join(' · ')}</div>
@@ -1396,7 +1426,7 @@
           groupsHtml += `
             <div class="magic-checklist-group ${isConflict ? 'has-conflict' : ''}">
               <div class="magic-group-header">
-                <span class="magic-group-name">${escapeHtml(magicName)}</span>
+                <span class="magic-group-name">${iconHtml('magic', mId, 'ico-sm')}${escapeHtml(magicName)}</span>
                 ${isConflict ? '<span class="conflict-badge">Conflict</span>' : ''}
               </div>
               <div class="group-checklist-items">
@@ -1579,13 +1609,15 @@
       <div class="modal-recipe-box">
         <div class="modal-recipe-block main">
           <div class="modal-recipe-tag">${passiveMain ? 'MAIN · PASSIVE (BUILD-WIDE)' : 'MAIN · ARTIFACT SCALED'}</div>
-          <div class="modal-recipe-val">${escapeHtml(mainName)} — ${escapeHtml(combo.main.attribute)} (Lv.${combo.main.level})</div>
+          <div class="modal-recipe-val">${iconHtml('magic', combo.main.magic_id, 'ico-lg')}<span>${escapeHtml(mainName)} — ${escapeHtml(combo.main.attribute)} (Lv.${combo.main.level})</span></div>
         </div>
         <div class="modal-recipe-block ${kept ? 'main kept' : 'material'}">
           <div class="modal-recipe-tag">${kept ? 'SECOND MAGIC (PASSIVE · KEPT)' : 'MATERIAL · CONSUMED'}</div>
-          <div class="modal-recipe-val">${escapeHtml(matName)} — ${escapeHtml(combo.material.attribute)} (Lv.${combo.material.level})</div>
+          <div class="modal-recipe-val">${iconHtml('magic', combo.material.magic_id, 'ico-lg')}<span>${escapeHtml(matName)} — ${escapeHtml(combo.material.attribute)} (Lv.${combo.material.level})</span></div>
         </div>
       </div>
+
+      ${renderComboNumbersHtml(combo)}
 
       <div class="modal-mechanics-box">
         <div class="modal-mechanics-title">In-Game Mechanics</div>
@@ -1621,6 +1653,7 @@
         </button>
       </div>
     `;
+    applyBarWidths(content);
 
     modal.classList.add('open');
 
@@ -1780,7 +1813,7 @@
     return `
       <div class="class-bonus-section">
         <span class="class-bonus-label">Test Subject</span>
-        <div class="class-bonus-line">• ${escapeHtml(getSubjectSummary(subject))}</div>
+        <div class="class-bonus-line">${iconHtml('subject', subjectIconId(subject), 'ico-sm')}${escapeHtml(getSubjectSummary(subject))}</div>
       </div>
     `;
   }
@@ -1824,7 +1857,7 @@
     const classCards = filtered.map(c => `
       <div class="class-card">
         <div class="class-card-top">
-          <span class="class-name">${escapeHtml(c.name)}</span>
+          <span class="class-name">${iconHtml('class', c.id, 'ico-lg')}${escapeHtml(c.name)}</span>
           <div class="class-card-actions">
             <span class="rec-badge">${c.magic_id ? escapeHtml(getMagicName(c.magic_id).toUpperCase()) : 'UNIVERSAL'}</span>
             ${c.magic_id ? `
@@ -1854,7 +1887,7 @@
     const standaloneCards = showStandalone ? (state.classesData.subjects || []).filter(s => !s.class_id).map(s => `
       <div class="class-card">
         <div class="class-card-top">
-          <span class="class-name">${escapeHtml(s.name)}</span>
+          <span class="class-name">${iconHtml('subject', subjectIconId(s), 'ico-lg')}${escapeHtml(s.name)}</span>
           <div class="class-card-actions"><span class="rec-badge">TEST SUBJECT ONLY</span></div>
         </div>
         <div class="class-bonuses">${renderSubjectLine(s)}</div>
@@ -1923,6 +1956,7 @@
           <ul class="artifact-effect-list">${syns.map(s => `
             <li class="artifact-effect-item">
               <div class="artifact-effect-head">
+                ${iconHtml('synergy', s.id, 'ico-md')}
                 <span class="artifact-effect-name synergy">${escapeHtml(s.name)}</span>
                 <span class="artifact-effect-rarity">Synergy</span>
               </div>
@@ -1936,6 +1970,175 @@
 
     list.innerHTML = html || '<span class="placeholder-dim-text">No matching artifacts or synergies.</span>';
     if (countEl) countEl.textContent = `${count} result${count === 1 ? '' : 's'}`;
+  }
+
+  // --- Combination numbers: in-game Encyclopedia base stats x the card's "Increase <Main> Damage by NX" ---
+  // Objective arithmetic only (community method, verified against the published ultimate values). Not a DPS ranking.
+  function applyBarWidths(root) {
+    root.querySelectorAll('[data-pct]').forEach(el => { el.style.width = `${el.dataset.pct}%`; });
+  }
+
+  function getComboNumbers(comboId) {
+    return state.magicsData?.combination_numbers?.[comboId] || null;
+  }
+
+  function renderComboNumbersHtml(combo) {
+    const nums = getComboNumbers(combo.id);
+    if (!nums) return '';
+    const mainId = combo.main.magic_id;
+    const mainName = getMagicName(mainId);
+    const row = (label, value, cls = '') => `<div class="num-row ${cls}"><span class="num-label">${label}</span><span class="num-value">${value}</span></div>`;
+    const rows = [];
+
+    if (nums.main_base_damage === null || nums.main_base_damage === undefined) {
+      rows.push(`<div class="num-note">${escapeHtml(mainName)} has no Damage stat in the Encyclopedia, so no base damage can be derived.</div>`);
+    } else {
+      rows.push(row(`${iconHtml('magic', mainId, 'ico-sm')}${escapeHtml(mainName)} base damage`, formatNumber(nums.main_base_damage)));
+      if (nums.main_cooldown) rows.push(row(`${escapeHtml(mainName)} cooldown`, escapeHtml(nums.main_cooldown)));
+      if (nums.fusion_multiplier) {
+        rows.push(row('Fusion multiplier (card text)', `×${formatNumber(nums.fusion_multiplier)}`));
+        rows.push(row('Fusion base damage', formatNumber(nums.fusion_base_damage), 'num-key'));
+      } else {
+        rows.push(`<div class="num-note">The card has no “Increase ${escapeHtml(mainName)} Damage by NX” line, so the fusion base damage is not derivable from in-game text.</div>`);
+      }
+      if (nums.trait_multiplier && nums.with_trait_multiplier) {
+        rows.push(row(`With ${escapeHtml(combo.main.attribute)} trait ×${formatNumber(nums.trait_multiplier)} (separate tag)`, formatNumber(nums.with_trait_multiplier)));
+      }
+    }
+
+    const ult = (state.magicsData.ultimate_checks || []).find(u => u.combination_id === combo.id);
+    if (ult) {
+      rows.push(row(`Ultimate ${escapeHtml(ult.ultimate)} ×${formatNumber(ult.ultimate_multiplier)}`, formatNumber(ult.computed_base_damage), 'num-key'));
+      rows.push(`<div class="num-note">${ult.match ? 'Matches' : 'Differs from'} the community-published base damage (${formatNumber(ult.published_base_damage)}).</div>`);
+    }
+
+    // Same Main Magic: fusion base damage side by side (before traits, artifacts, class and ultimates)
+    let compareHtml = '';
+    const siblings = state.db.combinations
+      .filter(c => c.main.magic_id === mainId && getComboNumbers(c.id)?.fusion_base_damage)
+      .map(c => ({ c, dmg: getComboNumbers(c.id).fusion_base_damage }))
+      .sort((a, b) => b.dmg - a.dmg || a.c.name.localeCompare(b.c.name));
+    const currentHasDmg = siblings.some(s => s.c.id === combo.id);
+    if (siblings.length > 1 || (siblings.length > 0 && !currentHasDmg)) {
+      const max = Math.max(...siblings.map(s => s.dmg));
+      compareHtml = `
+        <div class="num-compare">
+          <div class="num-compare-title">Same Main Magic · fusion base damage</div>
+          ${siblings.map(s => `
+            <div class="num-bar-row ${s.c.id === combo.id ? 'current' : ''}">
+              <span class="num-bar-name">${escapeHtml(s.c.name)}</span>
+              <span class="num-bar-track"><span class="num-bar-fill" data-pct="${Math.max(4, Math.round(s.dmg / max * 100))}"></span></span>
+              <span class="num-bar-val">${formatNumber(s.dmg)}</span>
+            </div>`).join('')}
+          ${currentHasDmg ? '' : `
+            <div class="num-bar-row current">
+              <span class="num-bar-name">${escapeHtml(combo.name)}</span>
+              <span class="num-bar-track"></span>
+              <span class="num-bar-val">—</span>
+            </div>`}
+          <div class="num-note">${currentHasDmg ? '' : `${escapeHtml(combo.name)} has no fusion damage multiplier on its card, so only the other ${escapeHtml(mainName)} combinations have a number. `}Base damage per hit only. Cooldown, hit count, area and traits differ, so this is not a DPS comparison.</div>
+        </div>`;
+    }
+
+    return `
+      <div class="modal-numbers-box">
+        <div class="modal-mechanics-title">Damage Numbers</div>
+        ${rows.join('')}
+        ${compareHtml}
+        <div class="num-source">Encyclopedia base stats × card text (community method). Traits, artifacts, class and talents multiply on top.</div>
+      </div>
+    `;
+  }
+
+  // --- Codex Tab: Magic Index (in-game Encyclopedia: base stats, traits, passives) ---
+  let selectedMagicKind = 'active';
+
+  function viewFusionsFor(magicId) {
+    resetAllFilters(true);
+    state.filters.slot1 = magicId;
+    const s1 = document.getElementById('select-magic-1');
+    if (s1) s1.value = magicId;
+    switchTab('combinator');
+    renderAttributeChips();
+    renderCombinations();
+  }
+
+  function renderMagicIndex() {
+    const filterRow = document.getElementById('magic-kind-filters');
+    const list = document.getElementById('magic-index-list');
+    if (!filterRow || !list || !state.magicsData) return;
+    const magics = state.magicsData.magics;
+    const kinds = [
+      { id: 'active', label: 'Active' },
+      { id: 'passive', label: 'Passive' },
+      { id: 'special', label: 'Special Passive' }
+    ];
+    filterRow.innerHTML = kinds.map(k => `
+      <button type="button" class="filter-chip ${selectedMagicKind === k.id ? 'active' : ''}" data-magic-kind="${k.id}">
+        <span>${k.label} (${magics.filter(m => m.kind === k.id).length})</span>
+      </button>
+    `).join('');
+    filterRow.querySelectorAll('.filter-chip').forEach(btn => {
+      btn.addEventListener('click', () => {
+        selectedMagicKind = btn.dataset.magicKind;
+        renderMagicIndex();
+      });
+    });
+
+    const inCombos = new Set(state.db.combinations.flatMap(c => [c.main.magic_id, c.material.magic_id]));
+    const items = magics.filter(m => m.kind === selectedMagicKind);
+
+    list.innerHTML = items.map(m => {
+      const fusionsBtn = inCombos.has(m.id)
+        ? `<button type="button" class="btn-view-fusions" data-magic="${escapeHtml(m.id)}">View Fusions</button>`
+        : '';
+      if (m.kind !== 'active') {
+        return `
+          <div class="magic-entry passive">
+            <div class="magic-entry-head">
+              ${iconHtml('magic', m.id, 'ico-lg')}
+              <div class="magic-entry-title">
+                <span class="magic-entry-name">${escapeHtml(m.name)}</span>
+                <span class="magic-entry-sub">${m.max_level ? `Max Lv.${m.max_level}` : 'Special'}</span>
+              </div>
+              ${fusionsBtn}
+            </div>
+            ${(m.effects || []).map(e => `<div class="magic-effect">${escapeHtml(e)}</div>`).join('')}
+            ${(m.penalties || []).map(p => `<div class="magic-effect penalty">▼ ${escapeHtml(p)}</div>`).join('')}
+          </div>`;
+      }
+      const stats = m.stats || {};
+      const quick = ['Damage', 'Cooldown'].filter(k => stats[k]).map(k => `${k === 'Cooldown' ? 'CD' : 'DMG'} ${escapeHtml(stats[k])}`).join(' · ');
+      return `
+        <details class="magic-entry">
+          <summary class="magic-entry-head">
+            ${iconHtml('magic', m.id, 'ico-lg')}
+            <div class="magic-entry-title">
+              <span class="magic-entry-name">${escapeHtml(m.name)}</span>
+              <span class="magic-entry-sub">${quick || escapeHtml(m.description || '')}</span>
+            </div>
+          </summary>
+          <div class="magic-entry-body">
+            ${m.description ? `<div class="magic-desc">${escapeHtml(m.description)}</div>` : ''}
+            <div class="magic-stat-grid">${Object.entries(stats).map(([k, v]) => `<div class="magic-stat"><span>${escapeHtml(k)}</span><strong>${escapeHtml(v)}</strong></div>`).join('')}</div>
+            ${(m.traits || []).map(t => `
+              <div class="magic-trait">
+                <div class="magic-trait-head"><span class="trait-lv">Lv.${t.level}</span><strong>${escapeHtml(t.name)}</strong></div>
+                ${t.text ? `<div class="magic-trait-text">${escapeHtml(t.text)}</div>` : ''}
+                ${(t.buffs || []).map(b => `<div class="modal-buff-item">▲ ${escapeHtml(b)}</div>`).join('')}
+                ${(t.penalties || []).map(p => `<div class="modal-penalty-item">▼ ${escapeHtml(p)}</div>`).join('')}
+              </div>`).join('')}
+            ${fusionsBtn}
+          </div>
+        </details>`;
+    }).join('');
+
+    list.querySelectorAll('.btn-view-fusions').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        viewFusionsFor(btn.dataset.magic);
+      });
+    });
   }
 
   // --- Setup Event Listeners ---
@@ -2126,17 +2329,19 @@
   // --- Initial Data Loader & App Bootstrap ---
   async function init() {
     try {
-      const [dbRes, taxRes, classesRes, artifactsRes] = await Promise.all([
+      const [dbRes, taxRes, classesRes, artifactsRes, magicsRes] = await Promise.all([
         fetch('./data/combinations_v09941.json'),
         fetch('./data/filter_taxonomy_v09941.json'),
         fetch('./data/classes_subjects_v09941.json'),
-        fetch('./data/artifacts_v09941.json')
+        fetch('./data/artifacts_v09941.json'),
+        fetch('./data/magics_v09941.json')
       ]);
 
       state.db = await dbRes.json();
       state.taxonomy = await taxRes.json();
       state.classesData = await classesRes.json();
       state.artifactsData = await artifactsRes.json();
+      state.magicsData = await magicsRes.json();
 
       for (const a of state.artifactsData.artifacts) state.artifactMap.set(a.id, a);
       for (const s of state.artifactsData.synergies) state.synergyMap.set(s.id, s);
@@ -2168,6 +2373,7 @@
       renderPlanner();
       renderClassesDirectory();
       renderArtifactIndex();
+      renderMagicIndex();
       observePinnedStrip();
       checkCacheStatus();
       updateOnlineIndicator();

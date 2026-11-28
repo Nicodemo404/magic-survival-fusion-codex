@@ -1112,12 +1112,6 @@ header h1 {
   text-overflow: ellipsis;
 }
 
-.card-badges {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  flex-shrink: 0;
-}
 
 .cat-tag {
   font-family: var(--font-mono);
@@ -1170,13 +1164,6 @@ header h1 {
   line-height: 1;
 }
 
-.card-actions {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  margin-top: 6px;
-  gap: 6px;
-}
 
 .btn-pin {
   background: var(--surface-2);
@@ -1903,38 +1890,9 @@ header h1 {
   padding: 18px 16px;
 }
 
-.modal-header-card {
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  margin-bottom: 12px;
-}
 
-.modal-thumb-wrap {
-  flex-shrink: 0;
-  width: 76px;
-  height: 76px;
-  border-radius: 8px;
-  border: 1px solid var(--border-gold);
-  overflow: hidden;
-  background: #000000;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
-}
 
-.modal-thumb-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
 
-.modal-header-info {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
 
 .modal-badges-row {
   display: flex;
@@ -3241,4 +3199,135 @@ header h1 {
 
 .planner-levels-tag {
   white-space: nowrap;
+}
+
+/* ==========================================================================
+   v13 — IN-GAME ICONS, DAMAGE NUMBERS & MAGIC INDEX
+   ========================================================================== */
+.ico { box-shadow: 0 0 0 1px rgba(216, 199, 142, 0.22); }
+.ico-sm { width: 18px; height: 18px; border-radius: 4px; margin-right: 5px; }
+.ico-chip { width: 18px; height: 18px; border-radius: 4px; margin-right: 6px; }
+.ico-recipe { width: 22px; height: 22px; border-radius: 5px; }
+.ico-md { width: 28px; height: 28px; border-radius: 6px; margin-right: 2px; }
+.ico-lg { width: 40px; height: 40px; border-radius: 8px; margin-right: 10px; }
+
+.recipe-plus { width: 12px; text-align: center; flex-shrink: 0; }
+.recipe-magic { overflow: hidden; text-overflow: ellipsis; }
+.pinned-recipe, .planner-slot-sub, .rec-magic-line, .class-bonus-line { overflow-wrap: anywhere; }
+.pinned-recipe .ico, .planner-slot-sub .ico { vertical-align: -4px; }
+.artifact-chip { display: inline-flex; align-items: center; padding: 3px 8px 3px 3px; }
+.artifact-mastery-line .ico, .rec-magic-line .ico, .class-bonus-line .ico { vertical-align: -4px; }
+.artifact-effect-head { align-items: center; }
+.artifact-magic-head .ico { margin-right: 4px; }
+.class-name { display: inline-flex; align-items: center; }
+.class-card-top { flex-wrap: wrap; }
+.rec-title-line .ico { margin-right: 4px; }
+.modal-recipe-val { display: flex; align-items: center; gap: 2px; }
+
+/* Damage Numbers box (modal) */
+.modal-numbers-box {
+  margin-bottom: 12px;
+  padding: 12px;
+  border: 1px solid var(--gold-border);
+  border-radius: 12px;
+  background: linear-gradient(180deg, var(--gold-bg), transparent 70%), var(--surface-2);
+}
+.num-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 5px 0;
+  border-bottom: 1px dashed var(--border);
+  font-size: 0.82rem;
+  color: var(--text);
+}
+.num-row:last-of-type { border-bottom: none; }
+.num-label { display: inline-flex; align-items: center; min-width: 0; }
+.num-label .ico { margin-right: 6px; }
+.num-value { font-family: var(--font-mono); color: var(--text-bright); white-space: nowrap; }
+.num-row.num-key .num-value { color: var(--gold); font-size: 0.95rem; font-weight: 700; }
+.num-note { font-size: 0.74rem; color: var(--text-muted); line-height: 1.45; padding: 4px 0; }
+.num-source { margin-top: 8px; font-size: 0.7rem; color: var(--text-dim); line-height: 1.4; }
+.num-compare { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); }
+.num-compare-title {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+.num-bar-row {
+  display: grid;
+  grid-template-columns: minmax(0, 7.5rem) 1fr auto;
+  align-items: center;
+  gap: 8px;
+  padding: 3px 0;
+  font-size: 0.76rem;
+  color: var(--text-muted);
+}
+.num-bar-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.num-bar-track { height: 6px; border-radius: 3px; background: var(--surface-3); overflow: hidden; }
+.num-bar-fill { display: block; height: 100%; width: 0; border-radius: 3px; background: var(--border-active); }
+.num-bar-val { font-family: var(--font-mono); min-width: 2.5rem; text-align: right; }
+.num-bar-row.current { color: var(--text-bright); }
+.num-bar-row.current .num-bar-fill { background: var(--gold); }
+.num-bar-row.current .num-bar-val { color: var(--gold); }
+
+/* Magic Index (Codex) */
+.magic-index-list { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+.magic-entry {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface-2);
+  padding: 10px;
+}
+.magic-entry[open] { border-color: var(--gold-border); }
+.magic-entry-head { display: flex; align-items: center; gap: 0; cursor: pointer; list-style: none; }
+.magic-entry-head::-webkit-details-marker { display: none; }
+.magic-entry-title { display: flex; flex-direction: column; min-width: 0; flex: 1; }
+.magic-entry-name { font-family: var(--font-serif); font-weight: 700; color: var(--text-heading); font-size: 0.95rem; }
+.magic-entry-sub { font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.magic-entry.passive .btn-view-fusions { margin-left: 8px; }
+.magic-effect { font-size: 0.8rem; color: var(--text); line-height: 1.45; margin-top: 6px; padding-left: 50px; }
+.magic-entry-body { margin-top: 10px; display: flex; flex-direction: column; gap: 8px; }
+.magic-desc { font-size: 0.8rem; color: var(--text-muted); }
+.magic-stat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 6px; }
+.magic-stat {
+  display: flex;
+  flex-direction: column;
+  padding: 6px 8px;
+  border-radius: 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+.magic-stat strong { font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-bright); }
+.magic-trait { padding: 8px; border-radius: 8px; background: var(--surface); border: 1px solid var(--border); }
+.magic-trait-head { display: flex; align-items: center; gap: 8px; color: var(--text-heading); font-size: 0.85rem; }
+.trait-lv {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  padding: 1px 6px;
+  border-radius: 4px;
+  border: 1px solid var(--gold-border);
+  color: var(--gold);
+}
+.magic-trait-text { font-size: 0.78rem; color: var(--text); margin-top: 4px; line-height: 1.45; }
+.magic-trait .modal-buff-item, .magic-trait .modal-penalty-item { font-size: 0.76rem; margin-top: 2px; }
+.magic-entry-body .btn-view-fusions { align-self: flex-start; }
+
+/* v13 review fixes */
+.magic-effect.penalty { color: var(--mat-crimson); }
+.magic-group-name { display: inline-flex; align-items: center; }
+.lightbox-image { pointer-events: auto; -webkit-user-drag: none; }
+.magic-index-list, .artifact-index-list {
+  max-height: min(70vh, 560px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-right: 4px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-active) transparent;
 }

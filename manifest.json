@@ -7,7 +7,7 @@
   "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#000000",
-  "description": "Offline-First Fusion Codex & 3-Slot Build Planner for Magic Survival v0.9941.",
+  "description": "Offline Fusion Codex & Build Planner for Magic Survival v0.9941: all 62 combinations with in-game icons, damage numbers, artifacts, classes and conflict checks.",
   "orientation": "portrait",
   "categories": ["games", "utilities"],
   "icons": [

@@ -11,6 +11,9 @@ Hosted on GitHub Pages with zero external runtime dependencies, self-contained a
 - Dual-Slot Smart Combinator: Instant lookup between base magics, Lv.4 / Lv.7 trait selectors, elemental filters, and 14 functional scaling categories.
 - Build Planner: Dedicated slots for Lv.25, Lv.50, and Lv.75 combination magics (plus 2 GoC Bonus slots while Gate of Creation is pinned and 1 DoP Bonus slot with the Domain of Power artifact, max 6) with automatic conflict detection, real artifact names per Main Magic (Mastery synergy sets marked), Combination Magic boosters, the class and test subject tied to each Main Magic, and an in-run leveling checklist.
 - Verified Game Data: 182 artifacts, 63 synergies, 24 classes and 25 test subjects transcribed from the v0.9941 in-game Encyclopedia, class-select and Test Subject screens, with a searchable Artifact & Synergy Index in the Codex tab.
+- In-Game Icons: 339 icons (55 magics, 182 artifacts, 63 synergies, 24 classes, 25 test subjects) cropped from the game, packed into 5 sprite sheets and shown next to every magic, artifact, synergy, class and test subject.
+- Damage Numbers: every combination shows its Main Magic's Encyclopedia base damage, the card's fusion multiplier, the resulting fusion base damage, the trait multiplier (separate tag) and, for ultimates, the ultimate value checked against the community-published numbers (17/17 match). Combinations sharing a Main Magic are compared side by side (base damage per hit only, not DPS).
+- Magic Index: all 21 active magics (base stats + Lv.4 / Lv.7 traits) and 34 passives / special passives from the in-game Encyclopedia.
 - Share and Export: Share builds via URL hash (#build=...) and copy formatted Markdown tables ready for r/magic_survival.
 - Offline PWA: Pre-cached app shell and assets via Service Worker with isolated storage scope. Code and data are network-first (always the latest version online, cached copy offline); images stay cache-first.
 - In-Game Card Inspector: Mechanics, buff stats, penalty stats, artifact scaling guidance, and full-resolution screenshot viewer.
@@ -22,7 +25,7 @@ Hosted on GitHub Pages with zero external runtime dependencies, self-contained a
 ```text
 python scripts/prepare_assets.py --only <id>[,<id>]   # screenshots in ../Lvl -> assets/thumbs + assets/cards (.webp)
 python scripts/build_sw.py --cache ms-codex-v09941-vN  # resync sw.js precache list + bump cache key in sw.js & app.js
-python scripts/build_game_data.py                      # ../research/ingame_data_v09941.json -> data/artifacts + data/classes_subjects
+python scripts/build_game_data.py                      # ../research/ingame_*.{json,md} + icons -> data/artifacts, classes_subjects, magics + assets/icons sprites
 python scripts/verify_app.py                           # data, asset, precache, cache-key and CSP integrity checks
 ```
 
@@ -41,12 +44,14 @@ Code/
 |   |-- combinations_v09941.json
 |   |-- filter_taxonomy_v09941.json
 |   |-- classes_subjects_v09941.json
-|   `-- artifacts_v09941.json
+|   |-- artifacts_v09941.json
+|   `-- magics_v09941.json
 |-- assets/
 |   |-- icon-192.png
 |   |-- icon-512.png
 |   |-- icon-maskable-512.png
 |   |-- og-banner.png
+|   |-- icons/   (icons.css + magic/artifact/synergy/class/subject .webp sprites)
 |   |-- thumbs/
 |   `-- cards/
 `-- scripts/
